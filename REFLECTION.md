@@ -1,5 +1,9 @@
 # Questions I had when developing the project
 
-1. Multiple testing frameworks?
+## Multiple testing frameworks?
 
-I like Jest but it looks like Truffle uses Mocha and Chai. Since I only want one testing framework I removed Jest.
+I like Jest for React, but it looks like Truffle uses Mocha and Chai? I wonder if I need both?
+
+## Does ethereum support subscriptions?
+
+It looks like the lightning network on BTC can support subscriptions with payment channels. But it seems like all transactions on Ethereum must be initiated from an external source. I have to think about how I can create a subscription service. 

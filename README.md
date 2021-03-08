@@ -1,11 +1,13 @@
 # Features
 
-- CI with Github Actions and CD on Github pages
-- 
+- CI with Github Actions
 
-# Design Doc
+- CD with Github Pages
 
-All creators & contributors are going to be stored on the blockchain. 
+## Design Doc
 
+This app is all about "contributors" making payments to "creators".
+
+A contributor can either "donate" and send a one-time payment OR they can "subscribe" and send recurring payments.
 
 
