@@ -4,17 +4,17 @@
 
 - No trusted third party
 
-- Pseudoanonymous (only addresses)
+- Pseudoanonymous (addresses only)
 
 ## Design Doc
 
 This app is all about "contributors" making payments to "creators".
 
-A contributor can either make a one-time payment OR recurring payments (possibly).
+A contributor can either make a one-time payment OR they can opt for recurring payments (possibly).
 
 Each creator gets their own "landing page" describing what they do and how much you can donate.
 
-The information for each landing page will be stored on the blockchain. The creator must pay a tx fee to do this.
+Each landing page will be stored on the blockchain. The creator must pay a tx fee for this.
 
 Clients will grab a list of all creators from the blockchain and cache them locally using localstorage.
 
