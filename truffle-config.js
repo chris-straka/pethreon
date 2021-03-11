@@ -18,6 +18,8 @@ module.exports = {
   // Mocha options
   // mocha: { timeout: 100000 },
 
+  contracts_directory: './src/contracts',
+  contracts_build_directory: './src/abi',
   compilers: {
     solc: {
       // version: "0.5.1",    // Fetch exact version from solc-bin (default: truffle's version)
