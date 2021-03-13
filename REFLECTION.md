@@ -16,6 +16,10 @@ I don't think I'll need a server. I think this will be a CSR with the client pul
 
 The former can only store strings, but I think that's all I need.
 
-## Does reading from the blockchain cost anything?
+## How much data can I read from the blockchain?
 
-Maybe clients can't read all the creators from the blockchain.
+I wonder if it'll play a role in how big the creator page has to be. I wonder if I'll end up making multiple calls.
+
+## Background Synchronization?
+
+I could allow contributors to make donations offline using service workers and background synchronization.

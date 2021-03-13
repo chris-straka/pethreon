@@ -22,4 +22,4 @@ Clients will use their metamask wallets to donate.
 
 ### Other ideas
 
-I could allow contributors to make donations offline using service workers and background synchronization.
+
