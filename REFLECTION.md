@@ -1,4 +1,4 @@
-# Questions I had when developing this project
+# Stuff I thought about when creating the project
 
 ## Multiple testing frameworks?
 
@@ -6,11 +6,11 @@ React uses Jest, but Truffle uses Mocha and Chai? Should I keep all three?
 
 ## Recurring payments?
 
-Not natively supported on Ethereum. There's a few solutions (hacks maybe).
+They're not natively supported on Ethereum. There's a few solutions (or hacks).
 
 ## CSR? SSG? SSR?
 
-I don't think I'll need a server.
+I don't think I'll need a server. I think this will be a CSR with the client pulling data from the blockchain.
 
 ## Caching (localstorage vs indexedDB)
 

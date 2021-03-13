@@ -1,15 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-const App = () => (
-  <div className="App">
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <p> Edit <code>src/App.tsx</code> and save to reload. </p>
-      <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer" > Learn React </a>
-    </header>
-  </div>
-);
+declare global {
+  interface Window {
+    ethereum?: any  // TS
+  }
+}
+
+const App = () => {
+
+  if (typeof <Window>window.ethereum !== 'undefined') {
+    console.log("metamask is installed")
+  }
+  else {
+    console.log("nop")
+  }
+
+  return (<main>Hello</main>);
+}
 
 export default App;

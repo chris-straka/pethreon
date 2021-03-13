@@ -19,3 +19,7 @@ Each landing page will be stored on the blockchain. The creator must pay a tx fe
 Clients will grab a list of all creators from the blockchain and cache them locally using localstorage.
 
 Clients will use their metamask wallets to donate.
+
+### Other ideas
+
+I could allow contributors to make donations offline using service workers and background synchronization.
