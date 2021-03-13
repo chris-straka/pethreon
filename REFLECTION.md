@@ -6,7 +6,7 @@ React uses Jest, but Truffle uses Mocha and Chai? Should I keep all three?
 
 ## Recurring payments?
 
-They're not natively supported on Ethereum. There's a few solutions (or hacks).
+They're not natively supported on Ethereum. There's a few solutions (using an Oracle or a hack).
 
 ## CSR? SSG? SSR?
 
