@@ -1,6 +1,6 @@
 # Features
 
-- No fees (apart from ETH tx costs)
+- No fees (besides ETH tx costs)
 
 - No trusted third party
 
@@ -10,15 +10,11 @@
 
 This app is all about "contributors" making payments to "creators".
 
-A contributor can either make a one-time payment OR they can opt for recurring payments.
+A contributor can either make a one-time payment OR recurring payments. They will use a metamask wallet to donate.
 
-Each creator gets their own "landing page" describing what they do and how much you can donate.
+Each creator have their own "landing page" that describes what they do and how much you can donate. This information will be stored on the blockchain (the creator must pay a tx fee to put it there).
 
-Each landing page will be stored on the blockchain. The creator must pay a tx fee for this.
-
-Clients will grab a list of all creators from the blockchain and cache them locally using localstorage.
-
-Clients will use their metamask wallets to donate.
+Clients then grab a list of all the creators from the blockchain and cache them locally via localstorage.
 
 ### Attributions
 
