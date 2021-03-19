@@ -4,14 +4,12 @@
 
 ### Multiple testing frameworks
 
-React uses Jest, but Truffle uses Mocha and Chai. I was planning on using all three, but I ran into issues migrating my contracts. Typechain is a useful tool that creates type definitions for smart contracts and truffle (including Mocha and Chai). The problem is it created type definitions for Mocha and Chai that conflicted with Jest.
+React uses Jest, but Truffle (like all other ethereum frameworks) uses Mocha and Chai. I was planning on using all three in the same package.json, but I ran into issues migrating my contracts because typechain would create conflicting type definitions between Chai and Jest. When restructuring my project to make it work, I ran into an even better setup that I decided to switch to instead.
 
 ```ts
 declare const: expect = Chai.ExpectStatic; // conflicts with...
-declare const expect: jest.Expect; // node.modules (from React)
+declare const expect: jest.Expect;         // node.modules (from React)
 ```
-
-I'm assuming you can't use Typechain, Truffle and CRA "Create React App" all together? I could [eject](https://create-react-app.dev/docs/available-scripts/#npm-run-eject) and remove Jest but that would suck. I could try separating my React project (Jest) from Truffle (Mocha, Chai) using different [workspaces via yarn?](https://yarnpkg.com/features/workspaces) I don't know much about this though (or if my assumption is correct) so I'm going to save this to its own "truffle" branch, and look into hardhat or ethers.js instead of Truffle.
 
 ## Questions
 
@@ -34,14 +32,3 @@ Calls are free, but is there a limit to the amount of data I can read?
 ### Background Synchronization?
 
 As a bonus, I could allow contributors to make donations offline using service workers and background synchronization.
-
-### Ropsten
-
-    ropsten: {
-      provider: () => new HDWalletProvider(mnemonic, `https://ropsten.infura.io/v3/YOUR-PROJECT-ID`),
-      network_id: 3,       // Ropsten's id
-      gas: 5500000,        // Ropsten has a lower block limit than mainnet
-      confirmations: 2,    // # of confs to wait between deployments. (default: 0)
-      timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
-      skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
-    },
