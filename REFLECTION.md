@@ -14,12 +14,23 @@ I don't think I'll need a server. I think this will be a CSR with the client pul
 
 ## Caching (localstorage vs indexedDB)
 
-The former can only store strings, but I think that's all I need.
+Localstorage can only store strings, but I think that's all I intend to store. that's all I need.
 
 ## How much data can I read from the blockchain?
 
-I wonder if it'll play a role in how big the creator page has to be. I wonder if I'll end up making multiple calls.
+Calls are free, but is there a limit to the amount of data I can read?
 
 ## Background Synchronization?
 
-I could allow contributors to make donations offline using service workers and background synchronization.
+As a bonus, I could allow contributors to make donations offline using service workers and background synchronization.
+
+## Ropsten
+
+    ropsten: {
+      provider: () => new HDWalletProvider(mnemonic, `https://ropsten.infura.io/v3/YOUR-PROJECT-ID`),
+      network_id: 3,       // Ropsten's id
+      gas: 5500000,        // Ropsten has a lower block limit than mainnet
+      confirmations: 2,    // # of confs to wait between deployments. (default: 0)
+      timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
+      skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
+    },

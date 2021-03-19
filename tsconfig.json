@@ -1,27 +1,21 @@
 {
-  "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
+  "compileroptions": {
+    "lib": [ "es2018", "dom", "dom.iterable" ],
+    "include": [ "src" ],
+    "module": "commonjs",
+    "moduleresolution": "node",
+    "target": "es2018", // "target": "es5",
     "strict": true,
+    "sourcemap": true,
+    "esModuleInterop": true,
+    "allowJs": true,
+    "jsx": "react-jsx",
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
-  },
-  "include": [
-    "src",
-    "test/setupTests.ts"
-  ]
+    "noEmit": true, // hmm?
+    "skipLibCheck": true, // hmm?
+    "noFallthroughCasesInSwitch": true, // hmm?
+    "allowSyntheticDefaultImports": true, // hmm?
+  }
 }

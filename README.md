@@ -22,6 +22,6 @@ Clients will use their metamask wallets to donate.
 
 ### Attributions
 
-I used [Sergei Tikhomirov's Smart Contract](https://github.com/s-tikhomirov/pethreon) to help me for when I got stuck on Solidity.
+I used [Sergei Tikhomirov's Smart Contract](https://github.com/s-tikhomirov/pethreon) to help me with solidity.
 
 [Patreon](https://www.patreon.com/) is the application my dapp is modeled off.
