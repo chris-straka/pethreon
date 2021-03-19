@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "include": [
-    "./migrations/*.ts",
-    "./src/artifacts-typescript/**/*.ts"
+    "./migrations-ts/*.ts",
+    "./src/contracts-typescript/**/*.ts"
   ]
 }
