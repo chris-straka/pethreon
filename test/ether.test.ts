@@ -1,1 +1,0 @@
-const Test = artifacts.require('./Test');
