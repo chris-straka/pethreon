@@ -1,9 +1,9 @@
 {
-  "name": "finneyfriends",
+  "name": "weibuddies",
   "version": "0.1.0",
   "license": "MIT",
   "private": true,
-  "homepage": "https://chris56974.github.io/FinneyFriends/",
+  "homepage": "https://chris56974.github.io/WeiBuddies/",
   "dependencies": {},
   "scripts": {},
   "devDependencies": {
