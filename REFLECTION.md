@@ -4,7 +4,7 @@
 
 ### Multiple testing frameworks
 
-React uses Jest, but Truffle (like all other ethereum frameworks) uses Mocha and Chai. I was planning on using all three in the same package.json, but I ran into issues migrating my contracts because typechain would create conflicting type definitions between Chai and Jest. As I looked into restructuring my project, I found an even better setup that I decided to switch to instead.
+React uses Jest, but Truffle uses Mocha and Chai. I was planning on using all three in the same project, but I ran into issues where typechain would create conflicting type definitions (between Chai and Jest). I didn't want to [eject my CRA](https://create-react-app.dev/docs/available-scripts#npm-run-eject) to remove Jest, and I thought maybe I could use [Yarn Workspaces](https://classic.yarnpkg.com/en/docs/workspaces) but I ended up settling on an even better typescipt-react setup using hardhat. It has stacktraces and console logging for solidity which will make it much easier for me to understand everything.
 
 ```ts
 declare const: expect = Chai.ExpectStatic; // conflicts with...
