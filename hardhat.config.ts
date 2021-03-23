@@ -1,8 +1,6 @@
 import { task } from "hardhat/config";
 import "@nomiclabs/hardhat-waffle";
-
-// I might need this if I run into strange errors again
-// import "@nomiclabs/hardhat-ethers"; 
+import "@nomiclabs/hardhat-ethers"; // I need this to fix "hardhat has no ethers" bug
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
