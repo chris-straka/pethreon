@@ -1,5 +1,9 @@
-const { expect } = require("chai");
+import { expect } from "chai";
 import { ethers } from 'hardhat';
+
+beforeEach(() => {
+  it("Should load my contracts", )
+})
 
 describe("Wei Contract", function () {
   it("Should return a new greeting once changed", async function () {

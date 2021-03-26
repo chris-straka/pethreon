@@ -8,9 +8,7 @@
 
 ## Design Doc
 
-This app is all about "contributors" making payments to "creators".
-
-A contributor can either make a one-time payment OR multiple recurring payments. They will have to use a metamask wallet to donate.
+This app is all about "contributors" making payments to "creators". Any contributor who donates through this app will will make a payment to be made to random creators in the  
 
 Each creator gets their own "landing page" that describes what they do and how much you can donate. All landing pages will be stored on the blockchain (each creator must pay a tx fee to put it there).
 
