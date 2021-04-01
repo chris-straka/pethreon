@@ -1,32 +1,21 @@
 //SPDX-License-Identifier: MIT
-pragma solidity >=0.7.0;
+pragma solidity 0.8.3;
 
 import "hardhat/console.sol";
 
-/*
-Creator: 
-  1. Can post their ethereum address
-  2. Receives payments from contributors
-
-Contributor:
-  1. Can make recurring payments to a creator
-  2. Can make payments to all creators
-*/ 
-
 contract WeiBuddies {
+    
+    mapping(address => uint) public
 
-  // EVENTS
-  event pledgeCreated();
-  event pledgeCancelled();
+    constructor() public {}
 
-  constructor() { }
+    struct Pledge {
+        address creator;
+    }
 
-  struct Pledge { }
+    function createPledge() public {}
 
-  function createPledge() {}
+    function createUniPledge() public {}
 
-  function createUniPledge() {}
-
-  function cancelPledge() {}
-
+    function cancelPledge() public {}
 }
