@@ -8,11 +8,7 @@
 
 ## Design Doc
 
-This app is all about "contributors" making payments to "creators".
-
-Each creator gets their own "landing page" that describes what they do and how much you can donate. All landing pages will be stored on the blockchain (each creator must pay a tx fee to put it there).
-
-Clients can then grab a list of all the creators from the blockchain and cache them locally via localstorage.
+This app is all about "contributors" making subscription payments to "creators". A creator will be able to pay an ETH tx fee to create a landing page that contributors can donate at.
 
 ### Attributions
 

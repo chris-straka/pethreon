@@ -1,20 +1,31 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.3;
+pragma solidity ^0.8.3;
+import "hardhat/console.sol";
 
-contract Wallet {
-    mapping(address => uint8) public balances;
+contract Token {
+    string public name = "My Hardhat Token";
+    string public symbol = "MHT";
+    uint256 public totalSupply = 1000000;
+    address public owner;
 
-    function deposit() public payable {
-        balances[msg.sender] = balances[msg.sender] + uint8(msg.value);
+    mapping(address => uint256) balances;
+
+    constructor() {
+        console.log("\n totalSupply of 100000 is assigned to", msg.sender);
+        balances[msg.sender] = totalSupply;
+        owner = msg.sender;
     }
 
-    function withdraw(uint8 a) public {
-        require(balances[msg.sender] - a >= 0, "withdrawing too much");
-        balances[msg.sender] = balances[msg.sender] - uint8(a);
-        payable(msg.sender).transfer(a);
+    function transfer(address to, uint256 amount) external {
+        console.log("Sending ", amount);
+        console.log("From ", msg.sender);
+        console.log("to ", to);
+        require(balances[msg.sender] >= amount, "Not enough tokens");
+        balances[msg.sender] -= amount;
+        balances[to] += amount;
     }
 
-    function balanceOf() public view returns (uint8) {
-        return balances[msg.sender];
+    function balanceOf(address account) external view returns (uint256) {
+        return balances[account];
     }
 }

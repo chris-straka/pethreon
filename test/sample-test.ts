@@ -1,14 +1,20 @@
 import { expect } from "chai";
 import { ethers } from 'hardhat';
 
-describe("Wallet", function () {
-  it("should create my contract", async function () {
-    const Wallet = await ethers.getContractFactory("Wallet");
-    const wallet = await Wallet.deploy()
-    console.log(wallet)
+describe("Token Contract", function () {
+  let Token
+  let token
+  let owner
+  let addresses
+  let firstGuy
 
-    // await greeter.deployed();
+  beforeEach("Deploy the contract", async function () {
+    Token = await ethers.getContractFactory("Perthreon");
+    [owner, firstGuy, ...addresses] = await ethers.getSigners();
+    token = await Token.deploy(0); // period 0
+  })
 
-    // expect(await greeter.method().to.equal(""))
+  describe("Make a deposit", function () { 
+    ethers.Wallet.
   })
 });

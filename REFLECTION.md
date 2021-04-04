@@ -4,11 +4,14 @@
 
 ### Security, profanity and offensive content
 
-Turns out my original idea was not very secure. I wanted creators to store their landing page details on the blockchain using my web-app. However, there's no server side validation for any of the inputs because there is no backend server (because the app is meant to be decentralized). This means a creator could store malicious scripts/links on their landing page and threaten users with persisted XSS attacks.
+Turns out my original idea might not be that secure. I originally wanted creators to store their landing page details on the blockchain using my web-app. However, it looks like server-side validation is going to be trickier without a server, ha! Solidity can validate some things, but I don't think it could handle nearly the breadth of input I originally intended to have on my application. It almost feels like I just given the key to the database in my client-side application. Some vulnerabilities I can think of are...
 
-I could probably take a hybrid approach and introduce a server to validate input, but I decided to compromise and remove landing pages altogether in favour of only storing addresses instead (which are much easier to validate in solidity).
+- People could impersonate creators and wrongfully claim donations
+- Creators could post offensive content or malicioius links/scripts on their landing page
 
-### Multiple testing frameworks
+I could probably take a hybrid approach and introduce a server to validate input, but I've decided to compromise and stick to data that is easy to validate in solidity (like the address).
+
+### Multiple testing frameworks?
 
 React uses Jest, but Truffle uses Mocha and Chai. I was planning on using all three in the same project, but I ran into issues where typechain would create conflicting type definitions (between Chai and Jest). I didn't want to [eject my CRA](https://create-react-app.dev/docs/available-scripts#npm-run-eject) to remove Jest, and I thought maybe I could use [Yarn Workspaces](https://classic.yarnpkg.com/en/docs/workspaces) but I ended up settling on an even better typescipt-react setup using hardhat. It has stacktraces and console logging for solidity which will make it much easier for me to understand everything.
 
@@ -21,7 +24,7 @@ declare const expect: jest.Expect;         // node.modules (from React)
 
 ### Unipledge?
 
-I was thinking it'd be cool to make type of pledge that would donate to all creators on the platform. There's a good chance that this will be abused and cause an influx of fake creators (and repeat creators) but I figured I'd play around with the idea anyways.
+I was thinking it'd be cool to make type of pledge that would donate to all creators on the platform. This would be abused because it will likely create an influx of fake creators (and repeat creators) but maybe I'll play around with it anyways.
 
 ### Recurring payments?
 

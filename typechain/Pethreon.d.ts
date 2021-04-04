@@ -22,22 +22,22 @@ import { TypedEventFilter, TypedEvent, TypedListener } from "./commons";
 
 interface PethreonInterface extends ethers.utils.Interface {
   functions: {
+    "balanceAsContributor()": FunctionFragment;
     "balanceAsCreator()": FunctionFragment;
-    "balanceAsSupporter()": FunctionFragment;
     "cancelPledge(address)": FunctionFragment;
     "createPledge(address,uint256,uint256)": FunctionFragment;
     "deposit()": FunctionFragment;
     "myPledgeTo(address)": FunctionFragment;
+    "withdrawAsContributor(uint256)": FunctionFragment;
     "withdrawAsCreator()": FunctionFragment;
-    "withdrawAsSupporter(uint256)": FunctionFragment;
   };
 
   encodeFunctionData(
-    functionFragment: "balanceAsCreator",
+    functionFragment: "balanceAsContributor",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "balanceAsSupporter",
+    functionFragment: "balanceAsCreator",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -51,20 +51,20 @@ interface PethreonInterface extends ethers.utils.Interface {
   encodeFunctionData(functionFragment: "deposit", values?: undefined): string;
   encodeFunctionData(functionFragment: "myPledgeTo", values: [string]): string;
   encodeFunctionData(
+    functionFragment: "withdrawAsContributor",
+    values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "withdrawAsCreator",
     values?: undefined
   ): string;
-  encodeFunctionData(
-    functionFragment: "withdrawAsSupporter",
-    values: [BigNumberish]
-  ): string;
 
   decodeFunctionResult(
-    functionFragment: "balanceAsCreator",
+    functionFragment: "balanceAsContributor",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "balanceAsSupporter",
+    functionFragment: "balanceAsCreator",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -78,27 +78,27 @@ interface PethreonInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "myPledgeTo", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "withdrawAsCreator",
+    functionFragment: "withdrawAsContributor",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "withdrawAsSupporter",
+    functionFragment: "withdrawAsCreator",
     data: BytesLike
   ): Result;
 
   events: {
+    "ContributorDeposited(uint256,address,uint256)": EventFragment;
+    "ContributorWithdrew(uint256,address,uint256)": EventFragment;
     "CreatorWithdrew(uint256,address,uint256)": EventFragment;
     "PledgeCancelled(uint256,address,address)": EventFragment;
     "PledgeCreated(uint256,address,address,uint256,uint256)": EventFragment;
-    "SupporterDeposited(uint256,address,uint256)": EventFragment;
-    "SupporterWithdrew(uint256,address,uint256)": EventFragment;
   };
 
+  getEvent(nameOrSignatureOrTopic: "ContributorDeposited"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "ContributorWithdrew"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "CreatorWithdrew"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "PledgeCancelled"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "PledgeCreated"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "SupporterDeposited"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "SupporterWithdrew"): EventFragment;
 }
 
 export class Pethreon extends Contract {
@@ -145,6 +145,10 @@ export class Pethreon extends Contract {
   interface: PethreonInterface;
 
   functions: {
+    balanceAsContributor(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    "balanceAsContributor()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     balanceAsCreator(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -152,10 +156,6 @@ export class Pethreon extends Contract {
     "balanceAsCreator()"(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
-
-    balanceAsSupporter(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    "balanceAsSupporter()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     cancelPledge(
       _creator: string,
@@ -209,6 +209,16 @@ export class Pethreon extends Contract {
       }
     >;
 
+    withdrawAsContributor(
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "withdrawAsContributor(uint256)"(
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     withdrawAsCreator(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -216,17 +226,11 @@ export class Pethreon extends Contract {
     "withdrawAsCreator()"(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
-
-    withdrawAsSupporter(
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    "withdrawAsSupporter(uint256)"(
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
   };
+
+  balanceAsContributor(overrides?: CallOverrides): Promise<BigNumber>;
+
+  "balanceAsContributor()"(overrides?: CallOverrides): Promise<BigNumber>;
 
   balanceAsCreator(
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -235,10 +239,6 @@ export class Pethreon extends Contract {
   "balanceAsCreator()"(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
-
-  balanceAsSupporter(overrides?: CallOverrides): Promise<BigNumber>;
-
-  "balanceAsSupporter()"(overrides?: CallOverrides): Promise<BigNumber>;
 
   cancelPledge(
     _creator: string,
@@ -292,6 +292,16 @@ export class Pethreon extends Contract {
     }
   >;
 
+  withdrawAsContributor(
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "withdrawAsContributor(uint256)"(
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   withdrawAsCreator(
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
@@ -300,24 +310,14 @@ export class Pethreon extends Contract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  withdrawAsSupporter(
-    amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  "withdrawAsSupporter(uint256)"(
-    amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
   callStatic: {
+    balanceAsContributor(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "balanceAsContributor()"(overrides?: CallOverrides): Promise<BigNumber>;
+
     balanceAsCreator(overrides?: CallOverrides): Promise<BigNumber>;
 
     "balanceAsCreator()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    balanceAsSupporter(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "balanceAsSupporter()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     cancelPledge(_creator: string, overrides?: CallOverrides): Promise<void>;
 
@@ -364,22 +364,40 @@ export class Pethreon extends Contract {
       }
     >;
 
+    withdrawAsContributor(
+      amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "withdrawAsContributor(uint256)"(
+      amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     withdrawAsCreator(overrides?: CallOverrides): Promise<void>;
 
     "withdrawAsCreator()"(overrides?: CallOverrides): Promise<void>;
-
-    withdrawAsSupporter(
-      amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    "withdrawAsSupporter(uint256)"(
-      amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
   };
 
   filters: {
+    ContributorDeposited(
+      period: null,
+      contributor: null,
+      amount: null
+    ): TypedEventFilter<
+      [BigNumber, string, BigNumber],
+      { period: BigNumber; contributor: string; amount: BigNumber }
+    >;
+
+    ContributorWithdrew(
+      period: null,
+      contributor: null,
+      amount: null
+    ): TypedEventFilter<
+      [BigNumber, string, BigNumber],
+      { period: BigNumber; contributor: string; amount: BigNumber }
+    >;
+
     CreatorWithdrew(
       period: null,
       creator: null,
@@ -392,16 +410,16 @@ export class Pethreon extends Contract {
     PledgeCancelled(
       period: null,
       creator: null,
-      supporter: null
+      contributor: null
     ): TypedEventFilter<
       [BigNumber, string, string],
-      { period: BigNumber; creator: string; supporter: string }
+      { period: BigNumber; creator: string; contributor: string }
     >;
 
     PledgeCreated(
       period: null,
       creator: null,
-      supporter: null,
+      contributor: null,
       weiPerPeriod: null,
       periods: null
     ): TypedEventFilter<
@@ -409,32 +427,18 @@ export class Pethreon extends Contract {
       {
         period: BigNumber;
         creator: string;
-        supporter: string;
+        contributor: string;
         weiPerPeriod: BigNumber;
         periods: BigNumber;
       }
     >;
-
-    SupporterDeposited(
-      period: null,
-      supporter: null,
-      amount: null
-    ): TypedEventFilter<
-      [BigNumber, string, BigNumber],
-      { period: BigNumber; supporter: string; amount: BigNumber }
-    >;
-
-    SupporterWithdrew(
-      period: null,
-      supporter: null,
-      amount: null
-    ): TypedEventFilter<
-      [BigNumber, string, BigNumber],
-      { period: BigNumber; supporter: string; amount: BigNumber }
-    >;
   };
 
   estimateGas: {
+    balanceAsContributor(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "balanceAsContributor()"(overrides?: CallOverrides): Promise<BigNumber>;
+
     balanceAsCreator(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -442,10 +446,6 @@ export class Pethreon extends Contract {
     "balanceAsCreator()"(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
-
-    balanceAsSupporter(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "balanceAsSupporter()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     cancelPledge(
       _creator: string,
@@ -486,6 +486,16 @@ export class Pethreon extends Contract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    withdrawAsContributor(
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "withdrawAsContributor(uint256)"(
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     withdrawAsCreator(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -493,33 +503,23 @@ export class Pethreon extends Contract {
     "withdrawAsCreator()"(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
-
-    withdrawAsSupporter(
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    "withdrawAsSupporter(uint256)"(
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
+    balanceAsContributor(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "balanceAsContributor()"(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     balanceAsCreator(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "balanceAsCreator()"(
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    balanceAsSupporter(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    "balanceAsSupporter()"(
-      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     cancelPledge(
@@ -564,21 +564,21 @@ export class Pethreon extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    withdrawAsContributor(
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "withdrawAsContributor(uint256)"(
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
     withdrawAsCreator(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "withdrawAsCreator()"(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    withdrawAsSupporter(
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    "withdrawAsSupporter(uint256)"(
-      amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };

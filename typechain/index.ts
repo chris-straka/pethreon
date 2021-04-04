@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { Pethreon } from "./Pethreon";
-export type { Wallet } from "./Wallet";
+export type { Token } from "./Token";
 
 export { Pethreon__factory } from "./factories/Pethreon__factory";
-export { Wallet__factory } from "./factories/Wallet__factory";
+export { Token__factory } from "./factories/Token__factory";

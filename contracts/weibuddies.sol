@@ -1,9 +1,9 @@
-//SPDX-License-Identifier: MIT
-// pragma solidity 0.8.3;
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.3;
 
-// import "hardhat/console.sol";
+import "hardhat/console.sol";
 
-// contract WeiBuddies {
+contract WeiBuddies {
     
     // mapping(address => uint) public
 
@@ -14,4 +14,4 @@
     // function createUniPledge() public {}
 
     // function cancelPledge() public {}
-// }
+}
