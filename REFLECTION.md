@@ -22,17 +22,25 @@ declare const expect: jest.Expect;         // node.modules (from React)
 
 ## Questions
 
+### Charity application?
+
+The contract from Sergei Tikhomirov et al, relies on contributors locking up their crypto upfront. From a user perspective, I'm not a fan of this for several reasons...
+
+  1. The contributor has better places to lock up their funds (DeFi).
+
+  2. If the contributor is already committed to donating that much upfront, then they would probably prefer to donate the full amount and pay one fee instead of several.
+
 ### Unipledge?
 
 I was thinking it'd be cool to make type of pledge that would donate to all creators on the platform. This would be abused because it will likely create an influx of fake creators (and repeat creators) but maybe I'll play around with it anyways.
 
 ### Recurring payments?
 
-[It seems they're not natively supported on Ethereum](https://ethereum.stackexchange.com/questions/49596). Smart contracts are automatic not "autonomous", all transactions have to be initiated from outside the blockchain. Smart contracts or CAs "Contract Accounts" can't create transactions, only an EOA "Externally Owned Account" or "human" can create a transaction (since all transactions are born from a private key, something CAs don't have). To make it work I think I have to use an Oracle or something hackey.
+[It seems they're not natively supported on Ethereum](https://ethereum.stackexchange.com/questions/49596). Smart contracts transactions are automatic not "autonomous", all transactions have to be initiated from outside the blockchain. Smart contracts or CAs "Contract Accounts" can't create transactions, only an EOA "Externally Owned Account" or "human" can create a transaction (all transactions are born from a private key, something CAs don't have). To make it work I think I have to use an Oracle or some other hack/compromise.
 
 ### CSR? SSG? SSR?
 
-I think I'll serve the frontend on github pages, with the backend being ethereum. Whether it'll be a hybrid app is yet to be seen.
+I think I'll serve the frontend on github pages, with the backend being ethereum. Whether it'll be a hybrid app I'm not so sure.
 
 ### Caching (localstorage vs indexedDB)
 

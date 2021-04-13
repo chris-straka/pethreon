@@ -8,7 +8,7 @@
 
 ## Design Doc
 
-This app is all about "contributors" making subscription payments to "creators". A creator will be able to pay an ETH tx fee to create a landing page that contributors can donate at.
+This app is all about "contributors" making subscription payments to "creators".
 
 ### Attributions
 

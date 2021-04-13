@@ -19,6 +19,12 @@ contract Pethreon {
         address contributor,
         uint256 amount
     );
+    event ContributorWithdrew(
+        uint256 period,
+        address contributor,
+        uint256 amount
+    );
+    event CreatorWithdrew(uint256 period, address creator, uint256 amount);
     event PledgeCreated(
         uint256 period,
         address creator,
@@ -27,12 +33,6 @@ contract Pethreon {
         uint256 periods
     );
     event PledgeCancelled(uint256 period, address creator, address contributor);
-    event ContributorWithdrew(
-        uint256 period,
-        address contributor,
-        uint256 amount
-    );
-    event CreatorWithdrew(uint256 period, address creator, uint256 amount);
 
     /***** CONSTANTS *****/
     // Time is processed in steps of 1 PERIOD
@@ -196,7 +196,9 @@ contract Pethreon {
         PledgeCancelled(currentPeriod(), _creator, msg.sender);
     }
 
-    function myPledgeTo(address _creator) public view
+    function myPledgeTo(address _creator)
+        public
+        view
         returns (uint256 weiPerPeriod, uint256 afterLastPeriod)
     {
         Pledge memory pledge = pledges[msg.sender][_creator];
