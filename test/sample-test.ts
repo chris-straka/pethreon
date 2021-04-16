@@ -14,7 +14,6 @@ describe("Token Contract", function () {
     token = await Token.deploy(0); // period 0
   })
 
-  describe("Make a deposit", function () { 
-    ethers.Wallet.
-  })
+  describe("Make a deposit", function () { })
+
 });

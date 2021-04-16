@@ -5,7 +5,7 @@ async function main() {
   const greeter = await Greeter.deploy("Hello Hardhat!");
 
   await greeter.deployed();
-  console.log("Greeter deployed to:", greeter.address);
+  console.log("Greeter deployed to: ", greeter.address);
 }
 
 main()

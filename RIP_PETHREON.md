@@ -1,5 +1,11 @@
 # Things I've ran into during development
 
+This document is a scratchpad that I used for developing the original idea of my app (Patreon on the blockchain). I changed my mind after I ran into several key issues.
+
+1. I didn't understand the limitation on recurring payments and once I did, I didn't like the alternative solutions.
+
+2. Implementing a landing page for each creator was tricky because I wasn't sure how to filter out offensive content, impersonators or malicious scripts.
+
 ## Issues
 
 ### Security, profanity and offensive content
@@ -29,6 +35,8 @@ The contract from Sergei Tikhomirov et al, relies on contributors locking up the
   1. The contributor has better places to lock up their funds (DeFi).
 
   2. If the contributor is already committed to donating that much upfront, then they would probably prefer to donate the full amount and pay one fee instead of several.
+
+So I decided to shift my focus towards building a charity application instead, I really like the idea.
 
 ### Unipledge?
 
