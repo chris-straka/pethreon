@@ -1,9 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.7.6;
+
 import "hardhat/console.sol";
 
-contract Token {
-    string public name = "My Hardhat Token";
+contract Playground {
+    string public name = "example";
     string public symbol = "MHT";
     uint256 public totalSupply = 1000000;
     address public owner;
@@ -11,7 +12,7 @@ contract Token {
     mapping(address => uint256) balances;
 
     constructor() {
-        console.log("\n totalSupply of 100000 is assigned to", msg.sender);
+        console.log("\n assigning totalSupply of 100000 to", msg.sender);
         balances[msg.sender] = totalSupply;
         owner = msg.sender;
     }
