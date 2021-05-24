@@ -1,13 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.7.6;
 
+import "hardhat/console.sol";
+
 /*
 An Ethereum version of recurring payments.
 Creator:
     1. publishes address (via website, etc)
     2. can withdraw a certain amount once every PERIOD
     
-Supporter:
+Contributor:
     1. Deposits ether
     2. Pledges to give N wei to Creator once a PERIOD
     3. Can unsubscribe any time (pledges for earlier periods not refunded)
@@ -15,16 +17,24 @@ Supporter:
 
 contract Pethreon {
     /***** EVENTS *****/
-    event SupporterDeposited(uint256 period, address supporter, uint256 amount);
+    event ContributorDeposited(
+        uint256 period,
+        address contributor,
+        uint256 amount
+    );
     event PledgeCreated(
         uint256 period,
         address creator,
-        address supporter,
+        address contributor,
         uint256 weiPerPeriod,
         uint256 periods
     );
-    event PledgeCancelled(uint256 period, address creator, address supporter);
-    event SupporterWithdrew(uint256 period, address supporter, uint256 amount);
+    event PledgeCancelled(uint256 period, address creator, address contributor);
+    event ContributorWithdrew(
+        uint256 period,
+        address contributor,
+        uint256 amount
+    );
     event CreatorWithdrew(uint256 period, address creator, uint256 amount);
 
     /***** CONSTANTS *****/
@@ -41,10 +51,10 @@ contract Pethreon {
         bool initialized;
     }
 
-    mapping(address => uint256) supporterBalances;
+    mapping(address => uint256) contributorBalances;
     mapping(address => uint256) creatorBalances;
 
-    // supporter => (creator => pledge)
+    // contributor => (creator => pledge)
     mapping(address => mapping(address => Pledge)) pledges;
 
     // creator => (periodNumber => payment)
@@ -53,11 +63,15 @@ contract Pethreon {
 
     /***** HELPER FUNCTIONS *****/
     constructor(uint256 _period) {
-        startOfEpoch = block.timestamp;
-        period = _period;
+        startOfEpoch = block.timestamp; // 1621619224...
+        period = _period; // 0
     }
 
     function currentPeriod() internal view returns (uint256 periodNumber) {
+        console.log("currentPeriod() is being called by ", msg.sender);
+        console.log("block.timestamp is ", block.timestamp);
+        console.log("startOfEpoch is ", startOfEpoch); // since contract creation
+        console.log("period is ", period);
         return (block.timestamp - startOfEpoch) / period;
     }
 
@@ -70,13 +84,17 @@ contract Pethreon {
     */
     /***** DEPOSIT & WITHDRAW *****/
 
-    // Get your (yet unpledged) balance as a supporter
-    function balanceAsSupporter() public view returns (uint256) {
-        return supporterBalances[msg.sender];
+    function getContributorBalance() public view returns (uint256) {
+        console.log(
+            "getContributorBalance() is being called by",
+            msg.sender,
+            "and their balance is",
+            contributorBalances[msg.sender]
+        );
+        return contributorBalances[msg.sender];
     }
 
-    function balanceAsCreator() public returns (uint256) {
-        // sum up all expected payments from all pledges from all previous periods
+    function getCreatorBalance() public returns (uint256) {
         uint256 amount = 0;
         for (
             period = afterLastWithdrawalPeriod[msg.sender];
@@ -85,45 +103,66 @@ contract Pethreon {
         ) {
             amount += expectedPayments[msg.sender][period];
         }
+        console.log(
+            "getCreatorBalance() is being called by ",
+            msg.sender,
+            "and their balance is ",
+            amount
+        );
         return amount;
     }
 
-    // deposit ether to be used in future pledges
     function deposit() public payable returns (uint256 newBalance) {
-        supporterBalances[msg.sender] += msg.value;
-        emit SupporterDeposited(currentPeriod(), msg.sender, msg.value);
-        return supporterBalances[msg.sender];
+        console.log(
+            "deposit() -> msg.sender contributorBalances[msg.sender] msg.value |",
+            msg.sender,
+            contributorBalances[msg.sender],
+            msg.value
+        );
+
+        contributorBalances[msg.sender] += msg.value;
+        // emit ContributorDeposited(currentPeriod(), msg.sender, msg.value);
+        return contributorBalances[msg.sender];
     }
 
-    // withdraw ether (generic function)
-    function withdraw(bool isSupporter, uint256 amount)
+    function withdraw(bool isContributor, uint256 amount)
         internal
         returns (uint256 newBalance)
     {
+        console.log("withdraw() was called by ", msg.sender);
+
         mapping(address => uint256) storage balances =
-            isSupporter ? supporterBalances : creatorBalances;
+            isContributor ? contributorBalances : creatorBalances;
         uint256 oldBalance = balances[msg.sender];
+
+        console.log("their old balance is ", oldBalance);
+
         if (balances[msg.sender] < amount) return oldBalance;
+
         balances[msg.sender] -= amount;
+
+        console.log("their new balance is ", balances[msg.sender]);
+
+        console.log("payable(msg.sender) is ", payable(msg.sender));
+
         if (!payable(msg.sender).send(amount)) {
             balances[msg.sender] += amount;
             return oldBalance;
         }
+
         return balances[msg.sender];
     }
 
-    // Supporter can choose how much to withdraw
-    function withdrawAsSupporter(uint256 amount) public {
+    function withdrawAsContributor(uint256 amount) public {
         withdraw(true, amount);
-        SupporterWithdrew(currentPeriod(), msg.sender, amount);
+        emit ContributorWithdrew(currentPeriod(), msg.sender, amount);
     }
 
-    // Creator can only withdraw the full amount available (keeping it simple!)
     function withdrawAsCreator() public {
-        uint256 amount = balanceAsCreator();
+        uint256 amount = getCreatorBalance();
         afterLastWithdrawalPeriod[msg.sender] = currentPeriod();
         withdraw(false, amount);
-        CreatorWithdrew(currentPeriod(), msg.sender, amount);
+        emit CreatorWithdrew(currentPeriod(), msg.sender, amount);
     }
 
     /***** PLEDGES *****/
@@ -133,7 +172,7 @@ contract Pethreon {
         view
         returns (bool enoughFunds)
     {
-        return (supporterBalances[msg.sender] >= _weiPerPeriod * _periods);
+        return (contributorBalances[msg.sender] >= _weiPerPeriod * _periods);
     }
 
     function createPledge(
@@ -153,7 +192,7 @@ contract Pethreon {
             expectedPayments[_creator][periodO] += _weiPerPeriod;
         }
 
-        // store the data structure so that supporter can cancel pledge
+        // store the data structure so that contributor can cancel pledge
         Pledge memory pledge =
             Pledge({
                 creator: _creator,
@@ -163,7 +202,7 @@ contract Pethreon {
             });
 
         pledges[msg.sender][_creator] = pledge;
-        supporterBalances[msg.sender] -= _weiPerPeriod * _periods;
+        contributorBalances[msg.sender] -= _weiPerPeriod * _periods;
         PledgeCreated(
             currentPeriod(),
             _creator,
@@ -176,7 +215,7 @@ contract Pethreon {
     function cancelPledge(address _creator) public {
         Pledge memory pledge = pledges[msg.sender][_creator];
         require(pledge.initialized);
-        supporterBalances[msg.sender] +=
+        contributorBalances[msg.sender] +=
             pledge.weiPerPeriod *
             (pledge.afterLastPeriod - currentPeriod());
         for (
@@ -199,4 +238,3 @@ contract Pethreon {
         return (pledge.weiPerPeriod, pledge.afterLastPeriod);
     }
 }
-

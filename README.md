@@ -1,6 +1,6 @@
 # Design Doc
 
-[This app](https://github.com/Chris56974/WeiBuddies) is an adaptation of [Pethreon](https://github.com/s-tikhomirov/pethreon). I intend to make some changes and give it a frontend using react.
+[This app](https://github.com/Chris56974/WeiBuddies) is an adaptation of [Pethreon](https://github.com/s-tikhomirov/pethreon). I intend to make some changes and give it a React frontend.
 
 ## Hardhat
 

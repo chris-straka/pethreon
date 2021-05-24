@@ -1,11 +1,11 @@
-const hre = require("hardhat");
+import { ethers } from "hardhat"
 
 async function main() {
-  const Greeter = await hre.ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy("Hello Hardhat!");
+  const PethreonFactory = await ethers.getContractFactory("Pethreon");
+  const pethreon = await PethreonFactory.deploy(0);
 
-  await greeter.deployed();
-  console.log("Greeter deployed to: ", greeter.address);
+  await pethreon.deployed();
+  console.log("Greeter deployed to: ", pethreon.address);
 }
 
 main()
@@ -13,4 +13,4 @@ main()
   .catch(error => {
     console.error(error);
     process.exit(1);
-  });
+ });
