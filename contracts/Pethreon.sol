@@ -68,10 +68,18 @@ contract Pethreon {
     }
 
     function currentPeriod() internal view returns (uint256 periodNumber) {
-        console.log("currentPeriod() is being called by ", msg.sender);
-        console.log("block.timestamp is ", block.timestamp);
-        console.log("startOfEpoch is ", startOfEpoch); // since contract creation
-        console.log("period is ", period);
+        console.log(
+            "currentPeriod() is being called by ",
+            msg.sender,
+            "the blockstamp is",
+            block.timestamp
+        );
+        console.log(
+            "the contract was created at",
+            startOfEpoch,
+            "the current period is ",
+            period
+        ); // since contract creation
         return (block.timestamp - startOfEpoch) / period;
     }
 
@@ -82,6 +90,7 @@ contract Pethreon {
             expectedPayments[msg.sender][period];
     }
     */
+
     /***** DEPOSIT & WITHDRAW *****/
 
     function getContributorBalance() public view returns (uint256) {
@@ -121,7 +130,7 @@ contract Pethreon {
         );
 
         contributorBalances[msg.sender] += msg.value;
-        // emit ContributorDeposited(currentPeriod(), msg.sender, msg.value);
+        emit ContributorDeposited(currentPeriod(), msg.sender, msg.value);
         return contributorBalances[msg.sender];
     }
 
@@ -129,26 +138,40 @@ contract Pethreon {
         internal
         returns (uint256 newBalance)
     {
-        console.log("withdraw() was called by ", msg.sender);
+        console.log(
+            "withdraw() by",
+            msg.sender,
+            isContributor
+                ? "and they're withdrawing from their contributor balance"
+                : "and they're withdrawing their creator balance"
+        );
 
+        // are they withdrawing as a contributor or as a creator?
         mapping(address => uint256) storage balances =
             isContributor ? contributorBalances : creatorBalances;
+
         uint256 oldBalance = balances[msg.sender];
 
-        console.log("their old balance is ", oldBalance);
+        if (balances[msg.sender] < amount) {
+            console.log("insufficient funds");
+            return oldBalance;
+        }
 
-        if (balances[msg.sender] < amount) return oldBalance;
-
+        // Make sure you always subtract first as a best practice against re-entrancy
         balances[msg.sender] -= amount;
 
-        console.log("their new balance is ", balances[msg.sender]);
-
-        console.log("payable(msg.sender) is ", payable(msg.sender));
-
+        // If I can't send the amount to them, then increment their balance in the smart contract
         if (!payable(msg.sender).send(amount)) {
             balances[msg.sender] += amount;
             return oldBalance;
         }
+
+        console.log(
+            "their old balance is",
+            oldBalance,
+            "their new balance is",
+            balances[msg.sender]
+        );
 
         return balances[msg.sender];
     }

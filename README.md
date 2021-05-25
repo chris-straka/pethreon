@@ -76,3 +76,17 @@ Calls are free, but is there a limit to the amount of data I can read?
 ### Background Synchronization?
 
 As a bonus, I could allow contributors to make donations offline using service workers and background synchronization.
+
+## Notes
+
+### SafeMath
+
+Apparently, it's only recommended for solidity < 0.8! Integer variable types can't overflow anymore.
+
+### payable()
+
+If I want my smart contract to send ether to another address, I have to mark that address as payable (payable(address). This is a construct that only exists in solidity and not the EVM bytecode.
+
+### Attaching ether to payable functions
+
+Each payable function is passed an "overrides" object, so you can do `await Contract.PayableMethod(arg1, arg2, {OVERRIDES})`. The overrides object takes a value key, which will be set to wei by default. You can pass in ether instead of wei using the ethers.js utils.

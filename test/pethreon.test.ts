@@ -11,7 +11,7 @@ describe("Pethreon", () => {
 
   beforeEach(async () => {
     PethreonFactory = await ethers.getContractFactory('Pethreon');
-    Pethreon = await PethreonFactory.deploy(0);
+    Pethreon = await PethreonFactory.deploy(1);
     [owner, addr1] = await ethers.getSigners()
   })
 
@@ -20,9 +20,16 @@ describe("Pethreon", () => {
       expect(await Pethreon.getContributorBalance()).to.equal(0)
     })
 
-    it("should be 1 wei after depositing 1 wei", async () => {
+    it("should be able to deposit and remove 1 wei", async () => {
       await Pethreon.deposit({ value: 1 }) // value: ethers.utils.parseEther("") to add ether
       expect(await Pethreon.getContributorBalance()).to.equal(1)
+
+      await Pethreon.withdrawAsContributor(1)
+      expect(await Pethreon.getContributorBalance()).to.equal(0)
     })
+
+    it("should be payable", async () => {
+    })
+
   })
 });
