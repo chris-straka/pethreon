@@ -3,18 +3,6 @@ pragma solidity 0.7.6;
 
 import "hardhat/console.sol";
 
-/*
-An Ethereum version of recurring payments.
-Creator:
-    1. publishes address (via website, etc)
-    2. can withdraw a certain amount once every PERIOD
-    
-Contributor:
-    1. Deposits ether
-    2. Pledges to give N wei to Creator once a PERIOD
-    3. Can unsubscribe any time (pledges for earlier periods not refunded)
-*/
-
 contract Pethreon {
     /***** EVENTS *****/
     event ContributorDeposited(
@@ -41,6 +29,7 @@ contract Pethreon {
     // Time is processed in steps of 1 PERIOD
     // Period 0 is the Start of epoch (contract creation)
     uint256 period;
+    address owner;
     uint256 startOfEpoch;
 
     /***** DATA STRUCTURES *****/
@@ -61,26 +50,31 @@ contract Pethreon {
     mapping(address => mapping(uint256 => uint256)) expectedPayments;
     mapping(address => uint256) afterLastWithdrawalPeriod;
 
-    /***** HELPER FUNCTIONS *****/
     constructor(uint256 _period) {
         startOfEpoch = block.timestamp; // 1621619224...
-        period = _period; // 0
+        owner = msg.sender;
+        period = _period;
     }
 
+    /***** HELPER FUNCTIONS *****/
     function currentPeriod() internal view returns (uint256 periodNumber) {
-        console.log(
-            "currentPeriod() is being called by ",
-            msg.sender,
-            "the blockstamp is",
-            block.timestamp
-        );
-        console.log(
-            "the contract was created at",
-            startOfEpoch,
-            "the current period is ",
-            period
-        ); // since contract creation
+        // console.log(
+        //     "currentPeriod() is being called by ",
+        //     msg.sender,
+        //     "the blockstamp is",
+        //     block.timestamp
+        // );
+        // console.log(
+        //     "the contract was created at",
+        //     startOfEpoch,
+        //     "the current period is ",
+        //     period
+        // );
         return (block.timestamp - startOfEpoch) / period;
+    }
+
+    function getContractBalance() public view returns (uint256 balance) {
+        return address(this).balance;
     }
 
     /*
@@ -94,12 +88,12 @@ contract Pethreon {
     /***** DEPOSIT & WITHDRAW *****/
 
     function getContributorBalance() public view returns (uint256) {
-        console.log(
-            "getContributorBalance() is being called by",
-            msg.sender,
-            "and their balance is",
-            contributorBalances[msg.sender]
-        );
+        // console.log(
+        //     "getContributorBalance() is being called by",
+        //     msg.sender,
+        //     "and their balance is",
+        //     contributorBalances[msg.sender]
+        // );
         return contributorBalances[msg.sender];
     }
 
@@ -112,22 +106,22 @@ contract Pethreon {
         ) {
             amount += expectedPayments[msg.sender][period];
         }
-        console.log(
-            "getCreatorBalance() is being called by ",
-            msg.sender,
-            "and their balance is ",
-            amount
-        );
+        // console.log(
+        //     "getCreatorBalance() is being called by ",
+        //     msg.sender,
+        //     "and their balance is ",
+        //     amount
+        // );
         return amount;
     }
 
     function deposit() public payable returns (uint256 newBalance) {
-        console.log(
-            "deposit() -> msg.sender contributorBalances[msg.sender] msg.value |",
-            msg.sender,
-            contributorBalances[msg.sender],
-            msg.value
-        );
+        // console.log(
+        //     "deposit() -> msg.sender contributorBalances[msg.sender] msg.value |",
+        //     msg.sender,
+        //     contributorBalances[msg.sender],
+        //     msg.value
+        // );
 
         contributorBalances[msg.sender] += msg.value;
         emit ContributorDeposited(currentPeriod(), msg.sender, msg.value);
@@ -138,13 +132,13 @@ contract Pethreon {
         internal
         returns (uint256 newBalance)
     {
-        console.log(
-            "withdraw() by",
-            msg.sender,
-            isContributor
-                ? "and they're withdrawing from their contributor balance"
-                : "and they're withdrawing their creator balance"
-        );
+        // console.log(
+        //     "withdraw() by",
+        //     msg.sender,
+        //     isContributor
+        //         ? "and they're withdrawing from their contributor balance"
+        //         : "and they're withdrawing their creator balance"
+        // );
 
         // are they withdrawing as a contributor or as a creator?
         mapping(address => uint256) storage balances =
@@ -157,21 +151,20 @@ contract Pethreon {
             return oldBalance;
         }
 
-        // Make sure you always subtract first as a best practice against re-entrancy
         balances[msg.sender] -= amount;
 
-        // If I can't send the amount to them, then increment their balance in the smart contract
+        // If I can't send the amount to them directly, revert the withdrawal
         if (!payable(msg.sender).send(amount)) {
             balances[msg.sender] += amount;
             return oldBalance;
         }
 
-        console.log(
-            "their old balance is",
-            oldBalance,
-            "their new balance is",
-            balances[msg.sender]
-        );
+        // console.log(
+        //     "their old balance is",
+        //     oldBalance,
+        //     "their new balance is",
+        //     balances[msg.sender]
+        // );
 
         return balances[msg.sender];
     }

@@ -1,4 +1,4 @@
-import { task } from "hardhat/config";
+import { HardhatUserConfig, task } from "hardhat/config";
 import "@nomiclabs/hardhat-waffle";
 import "hardhat-typechain"
 
@@ -15,6 +15,11 @@ task("accounts", "Prints the list of accounts", async (args, hre) => {
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
 
-export default {
+const config: HardhatUserConfig = {
   solidity: "0.7.6",
-};
+  paths: {
+    tests: "./test" 
+  }
+}
+
+export default config

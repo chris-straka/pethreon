@@ -15,21 +15,18 @@ describe("Pethreon", () => {
     [owner, addr1] = await ethers.getSigners()
   })
 
-  describe("The owner's balance", async () => {
+  describe("Owner tests", async () => {
+
     it("should start at 0", async () => {
       expect(await Pethreon.getContributorBalance()).to.equal(0)
     })
 
     it("should be able to deposit and remove 1 wei", async () => {
-      await Pethreon.deposit({ value: 1 }) // value: ethers.utils.parseEther("") to add ether
+      await Pethreon.deposit({ value: 1 }) 
       expect(await Pethreon.getContributorBalance()).to.equal(1)
 
       await Pethreon.withdrawAsContributor(1)
       expect(await Pethreon.getContributorBalance()).to.equal(0)
     })
-
-    it("should be payable", async () => {
-    })
-
   })
 });

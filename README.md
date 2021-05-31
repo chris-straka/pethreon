@@ -1,6 +1,6 @@
 # Design Doc
 
-[This app](https://github.com/Chris56974/WeiBuddies) is an adaptation of [Pethreon](https://github.com/s-tikhomirov/pethreon). I intend to make some changes and give it a React frontend.
+[This app](https://github.com/Chris56974/WeiBuddies) is an adaptation of [Pethreon](https://github.com/s-tikhomirov/pethreon/blob/master/pethreon.sol). I intend to make some changes and give it a React frontend.
 
 ## Hardhat
 
@@ -81,12 +81,8 @@ As a bonus, I could allow contributors to make donations offline using service w
 
 ### SafeMath
 
-Apparently, it's only recommended for solidity < 0.8! Integer variable types can't overflow anymore.
+SafeMath is no longer needed for solidity 0.8.0+ (integer variable types can't overflow anymore). Hardhat doesn't like solidity 0.8.0 though, so I'm using 0.7.6 which means I also need an older @openzepplin/contracts dependency.
 
-### payable()
+### Passing ether around
 
-If I want my smart contract to send ether to another address, I have to mark that address as payable (payable(address). This is a construct that only exists in solidity and not the EVM bytecode.
-
-### Attaching ether to payable functions
-
-Each payable function is passed an "overrides" object, so you can do `await Contract.PayableMethod(arg1, arg2, {OVERRIDES})`. The overrides object takes a value key, which will be set to wei by default. You can pass in ether instead of wei using the ethers.js utils.
+If I want to send & store ether inside the smart contract itself, I have to give it a `receive() external payable {}` function (as of 0.6.0). If I want to attach ether to a smart contract function then that function must be marked "payable", and if I want to send ether to an address, I have to make that payable too (payable(address)). When you call a payable function through ethers.js, that function will get passed an "overrides" object that you can use to send the amount of ether you want (await Contract.method(arg1, arg2, {OVERRIDES})). The contract's balance starts off at 0, you can see it with address(this).balance. 
