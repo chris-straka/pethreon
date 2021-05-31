@@ -151,13 +151,17 @@ contract Pethreon {
             return oldBalance;
         }
 
+        // it's essential to run this first as a best practice against re-entrancy
         balances[msg.sender] -= amount;
 
-        // If I can't send the amount to them directly, revert the withdrawal
-        if (!payable(msg.sender).send(amount)) {
-            balances[msg.sender] += amount;
-            return oldBalance;
-        }
+        // no longer recommended https://ethereum.stackexchange.com/questions/78124/
+        // if (!payable(msg.sender).send(amount)) {
+        // balances[msg.sender] += amount;
+        // return oldBalance;
+        // }
+
+        (bool success, ) = payable(msg.sender).call{value: amount}("");
+        require(success, "withdrawal failed");
 
         // console.log(
         //     "their old balance is",
@@ -196,12 +200,11 @@ contract Pethreon {
         uint256 _weiPerPeriod,
         uint256 _periods
     ) public {
-        // must have enough funds
-        require(canPledge(_weiPerPeriod, _periods));
-
-        // can't pledge twice for same creator (for simplicity)
-        // to change pledge parameters, cancel it and create a new one
-        require(!pledges[msg.sender][_creator].initialized);
+        require(canPledge(_weiPerPeriod, _periods), "insufficient funds");
+        require(
+            !pledges[msg.sender][_creator].initialized,
+            "can't pledge twice to the same creator"
+        );
 
         // update creator's mapping of future payments
         for (uint256 periodO = currentPeriod(); periodO < _periods; periodO++) {
@@ -219,7 +222,7 @@ contract Pethreon {
 
         pledges[msg.sender][_creator] = pledge;
         contributorBalances[msg.sender] -= _weiPerPeriod * _periods;
-        PledgeCreated(
+        emit PledgeCreated(
             currentPeriod(),
             _creator,
             msg.sender,
@@ -242,7 +245,7 @@ contract Pethreon {
             expectedPayments[_creator][periodT] -= pledge.weiPerPeriod;
         }
         delete pledges[msg.sender][_creator];
-        PledgeCancelled(currentPeriod(), _creator, msg.sender);
+        emit PledgeCancelled(currentPeriod(), _creator, msg.sender);
     }
 
     function myPledgeTo(address _creator)

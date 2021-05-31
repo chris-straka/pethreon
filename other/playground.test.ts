@@ -16,7 +16,7 @@ describe("Playground", () => {
     Playground = await PlaygroundFactory.deploy();
     await Playground.deployed()
 
-    // Send 50 ether to the contract from the owner account
+    // Send 50 ether from the owner to the contract
     await owner.sendTransaction({ to: Playground.address, value: ethers.utils.parseEther("50") })
   })
 
