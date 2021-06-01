@@ -63,7 +63,7 @@ It'd be cool to make a pledge that would donate to all creators on the platform.
 
 ### CSR? SSG? SSR?
 
-I'll serve the frontend on github pages, with the backend being ethereum. Whether it'll be a hybrid app I'm not so sure.
+If I bring in SSR (Next.js) then my users won't have to download metamask to look at creators. I can fetch them from the server and show them straight away to the client. This is a much better UX, but for now I decided against SSR to make it more decentralized (to differentiate it more from Patreon). This is a more censor resistant approach.
 
 ### Caching (localstorage vs indexedDB)
 
@@ -71,7 +71,7 @@ Localstorage can only store strings, but I think that's all I need.
 
 ### How much data can I read from the blockchain?
 
-Calls are free, but is there a limit to the amount of data I can read?
+Calls are free, but is there a limit to the amount of data I can read? Could people DDOS the fullnodes with free calls?
 
 ### Background Synchronization?
 
