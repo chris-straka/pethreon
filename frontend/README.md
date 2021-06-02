@@ -14,4 +14,13 @@ yarn build # build a production app
 
 ## Design Doc
 
-I'm thinking I use CSS grid to create a flashy landing page with a sign in button. Then in the 
+- Landing page with CSS grid.
+  - video on the right.
+  - short description on the left.
+  - animated Metamask logo with sign in button.
+
+- Once signed-in, they will have a contributor portal and a creator portal.
+  - There will be a button to switch between the two.
+  - There will be a cookie remembering which portal the user last left off at.
+  - Contributor portal will have ethereum address, balance, pledge stuff.
+  - Creator portal will have withdraw, balance, pledge stuff.

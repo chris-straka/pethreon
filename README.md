@@ -86,3 +86,9 @@ SafeMath is no longer needed for solidity 0.8.0+ (integer variable types can't o
 ### Passing ether around
 
 A smart contract can only have an ether balance if it has a payable function. The payable function can be `receive() external payable {}` (v0.6.0) which runs like a lifecycle hook whenever the contract receives a transaction with no input data (you can emit an event here). Or it can be a payable function that users call explicitely in the input data. Whenever you're calling a payable function from outside the contract via a library like ethersJS or web3, you'll automatically have an overrides object passed in for you where you can provide the details e.g contract.method(arg1, arg2, {overrides}). If you want the contract to send ether to someone else, then you have to make their address payable in the contract e.g payable(address). The contract's balance starts off at 0, and you can see it with address(this).balance.
+
+### Sources
+
+- [Cottonbro's Money Video - Aspect Ratio 256:135](https://www.pexels.com/video/hands-rich-green-money-3943962/)
+
+- [Metamask Logo](https://github.com/MetaMask/brand-resources)
