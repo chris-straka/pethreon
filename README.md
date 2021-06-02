@@ -1,6 +1,6 @@
 # Design Doc
 
-[This app](https://github.com/Chris56974/WeiBuddies) is an adaptation of [Pethreon](https://github.com/s-tikhomirov/pethreon/blob/master/pethreon.sol). I intend to make some changes and give it a React frontend.
+[This app](https://github.com/Chris56974/WeiBuddies) is an implementation of Sergei Tikhomirov's [Pethreon](https://github.com/s-tikhomirov/pethreon/blob/master/pethreon.sol) smart contract. I intend to make some changes and give it a React frontend.
 
 ## Hardhat
 
@@ -45,21 +45,19 @@ declare const: expect = Chai.ExpectStatic; // this kept conflicting with...
 declare const expect: jest.Expect;         // this 
 ```
 
-## Charity application?
+## Charity application idea?
 
-Pethreon relies on contributors locking up their crypto upfront. From a user perspective, I'm not a fan of this.
+Pethreon relies on contributions being locked up in the smart contract. I'm not a fan of this because I think that money can be put to work (DeFi). So I thought about another idea for my next project. I was thinking users could donate money into different charity pools. The money in the pool could then be locked up into a DeFi protocol like [Aave](https://aave.com/), the accrued interest could then be redirected to a charity address like [0x54a465610d119ad28deafd4bce555834c38beeb9](https://thewaterproject.org/donate-ethereum). Users could withdraw their donations from the pool, but ~25% will remain in the pool so that it can continue to grow.
 
-1. The contributor has better places to lock their funds (DeFi).
-
-2. If the contributor is already committed to locking that much upfront, they would probably prefer to donate the full amount and pay one fee instead of several.
-
-So I thought about another idea for my next project. I was thinking users could donate their money into different charity pools. The money would then be locked into a DeFi protocol like [Aave](https://aave.com/), the accrued interest could then be redirected to a charity address like [0x54a465610d119ad28deafd4bce555834c38beeb9](https://thewaterproject.org/donate-ethereum). Users could withdraw their donations from a pool if they want to contribute to something else, but 25% will remain in the pool so that it can continue to grow infinitely.
-
-## Features
+## Features & Ideas
 
 ### Unipledge?
 
 It'd be cool to make a pledge that would donate to all creators on the platform. It might create an influx of fake creators (and repeat creators) but maybe I'll play around with it anyways.
+
+### Privacy?
+
+Sergei's original implementation respects the privacy of contributors and creators. There might be advantages to sacrificing more of the creator's privacy to improve the website for contributors.
 
 ### CSR? SSG? SSR?
 
@@ -87,8 +85,12 @@ SafeMath is no longer needed for solidity 0.8.0+ (integer variable types can't o
 
 A smart contract can only have an ether balance if it has a payable function. The payable function can be `receive() external payable {}` (v0.6.0) which runs like a lifecycle hook whenever the contract receives a transaction with no input data (you can emit an event here). Or it can be a payable function that users call explicitely in the input data. Whenever you're calling a payable function from outside the contract via a library like ethersJS or web3, you'll automatically have an overrides object passed in for you where you can provide the details e.g contract.method(arg1, arg2, {overrides}). If you want the contract to send ether to someone else, then you have to make their address payable in the contract e.g payable(address). The contract's balance starts off at 0, and you can see it with address(this).balance.
 
-### Sources
+## Sources
+
+- [Sergei's Pethreon](https://github.com/s-tikhomirov/pethreon)
 
 - [Cottonbro's Money Video - Aspect Ratio 256:135](https://www.pexels.com/video/hands-rich-green-money-3943962/)
 
 - [Metamask Logo](https://github.com/MetaMask/brand-resources)
+
+- [ionicons](https://ionic.io/ionicons)

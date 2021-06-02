@@ -24,3 +24,10 @@ yarn build # build a production app
   - There will be a cookie remembering which portal the user last left off at.
   - Contributor portal will have ethereum address, balance, pledge stuff.
   - Creator portal will have withdraw, balance, pledge stuff.
+
+### Icons
+
+```tsx
+<ion-icon name="heart-circle-outline"></ion-icon>
+<ion-icon name="construct-outline"></ion-icon>
+```
