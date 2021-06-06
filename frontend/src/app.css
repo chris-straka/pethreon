@@ -19,9 +19,10 @@ span {
   grid-area: features;
 }
 
-.metamask-button {
+.metamask {
   grid-area: metamask;
-  width: 5vw;
+  display: flex;
+
 }
 
 .login {
@@ -30,6 +31,5 @@ span {
 
 .vid {
   grid-area: vid;
-  width: 40%;
-  aspect-ratio: 256/135;
+  aspect-ratio: 256 / 135;
 }

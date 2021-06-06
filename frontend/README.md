@@ -31,3 +31,16 @@ yarn build # build a production app
 <ion-icon name="heart-circle-outline"></ion-icon>
 <ion-icon name="construct-outline"></ion-icon>
 ```
+
+### Video
+
+```tsx
+import mp4 from "./assets/money.mp4"
+import webm from "./assets/money.webm"
+
+      <video className="vid" muted autoPlay loop>
+        <source src={mp4} type="video/mp4" />
+        <source src={webm} type="video/webm" />
+        Your browser does not support webm or mp4 video playback.
+      </video>
+```
