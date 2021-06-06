@@ -1,0 +1,35 @@
+span {
+  font-size: smaller;
+}
+
+.grid {
+  display: grid;
+  grid-template-areas: 
+    "pethreon vid"
+    "features vid"
+    "metamask vid"
+  ;
+}
+
+.pethreon {
+  grid-area: pethreon;
+}
+
+.features {
+  grid-area: features;
+}
+
+.metamask-button {
+  grid-area: metamask;
+  width: 5vw;
+}
+
+.login {
+  grid-area: login;
+}
+
+.vid {
+  grid-area: vid;
+  width: 40%;
+  aspect-ratio: 256/135;
+}
