@@ -1,35 +1,42 @@
-span {
-  font-size: smaller;
-}
-
-.grid {
-  display: grid;
-  grid-template-areas: 
-    "pethreon vid"
-    "features vid"
-    "metamask vid"
-  ;
+.container {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  height: 100vh;
 }
 
 .pethreon {
-  grid-area: pethreon;
+  font-size: clamp(3rem, 20vw, 6rem);
+  font-weight: 300;
+  margin: 2rem 0 2.5rem 1.5rem;
+}
+
+.Ξ {
+  font-size: smaller;
 }
 
 .features {
-  grid-area: features;
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 2.5rem;
+  margin-left: 2rem;
+  margin-bottom: 5rem;
+  list-style-type: none;
+}
+
+.features li {
+  margin-bottom: 1rem;
 }
 
 .metamask {
-  grid-area: metamask;
   display: flex;
-
 }
 
-.login {
-  grid-area: login;
+.metamask svg {
+  width: 30vw
 }
 
 .vid {
-  grid-area: vid;
+  display: none;
   aspect-ratio: 256 / 135;
 }
