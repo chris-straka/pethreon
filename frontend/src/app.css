@@ -1,39 +1,60 @@
+@font-face {
+  src: url(assets/Cutesy.ttf);
+  font-family: cute;
+}
+
 .container {
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   height: 100vh;
 }
 
+/* TITLE */
 .pethreon {
-  font-size: clamp(3rem, 20vw, 6rem);
+  font-size: clamp(3rem, 15vw, 6rem);
   font-weight: 300;
-  margin: 2rem 0 2.5rem 1.5rem;
+  margin: 1rem 0 2.3rem 1.4rem;
 }
 
 .Ξ {
   font-size: smaller;
 }
 
+/* FEATURES  */
 .features {
-  font-size: 1.6rem;
-  font-weight: 500;
-  line-height: 2.5rem;
-  margin-left: 2rem;
-  margin-bottom: 5rem;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.9rem;
   list-style-type: none;
+  margin: 0 1.5rem 3.5rem 1.5rem;
 }
 
 .features li {
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.github {
+  width: 2ch;
+  background-color: red;
+  vertical-align: ;
+}
+
+/* LOGIN */
+.metamessage {
+  font-family: cute;
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 0 2.5rem 2.5rem 2.5rem;
+  text-align: center;
 }
 
 .metamask {
   display: flex;
+  justify-content: space-evenly;
 }
 
 .metamask svg {
-  width: 30vw
+  width: 30vw;
 }
 
 .vid {
