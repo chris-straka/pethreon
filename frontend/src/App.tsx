@@ -1,11 +1,13 @@
 import React from 'react';
 import "./app.css"
+import "./animation.css"
 import mp4 from "./assets/money.mp4"
 import webm from "./assets/money.webm"
 import { Metamask } from "./components/metamask-logo/metamask";
 import { Github } from "./components/github-logo/github"
 
 const App: React.FC = () => {
+  const disabled = true;
   return (
     <>
       <main className="container">
@@ -27,7 +29,7 @@ const App: React.FC = () => {
       </main>
       <div className="circleA"></div>
       <div className="circleB"></div>
-      <div className="circleC"></div>
+      <button className="circleC" disabled={disabled}></button>
     </>
   )
 }

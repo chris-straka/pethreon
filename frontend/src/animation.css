@@ -1,0 +1,32 @@
+.circleA {
+  position: fixed;
+  top: -5vh;
+  left: -5vw;
+  width: 5rem;
+  height: 5rem;
+  background-color: var(--main-blue);
+  border-radius: 50%;
+  opacity: 45%;
+}
+
+.circleB {
+  position: fixed;
+  top: 95vh;
+  left: 30vw;
+  width: 4rem;
+  height: 4rem;
+  background-color: var(--main-blue);
+  border-radius: 50%;
+  opacity: 45%;
+}
+
+.circleC {
+  position: fixed;
+  top: 40vh;
+  left: 95vw;
+  width: 4rem;
+  height: 4rem;
+  background-color: var(--main-blue);
+  border-radius: 50%;
+  opacity: 45%;
+}

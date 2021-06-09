@@ -32,7 +32,4 @@ yarn build # build a production app
 <ion-icon name="construct-outline"></ion-icon>
 ```
 
-### Video
-
-```tsx
-```
+The red color is FF0000 with 22% opacity.
