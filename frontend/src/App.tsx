@@ -17,9 +17,9 @@ const App: React.FC = () => {
           <li>Only pay transaction fees, <a href="https://github.com/Chris56974/Pethreon/blob/main/contracts/Pethreon.sol">view the smart contract on Github</a> <Github /></li>
         </ul>
         <p className="metamessage">You need to <a href="https://metamask.io/download">download metamask</a> for this application to work!</p>
-        <div className="metamask">
+        <div className="metacontainer">
           <Metamask />
-          <button>Login with metamask</button>
+          <button className="login">Login with metamask</button>
         </div>
         <video className="vid" muted autoPlay loop>
           <source src={mp4} type="video/mp4" />

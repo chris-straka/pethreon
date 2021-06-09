@@ -1,32 +1,40 @@
 .circleA {
   position: fixed;
   top: -5vh;
-  left: -5vw;
-  width: 5rem;
-  height: 5rem;
+  left: -15vw;
+  width: 7rem;
+  height: 7rem;
   background-color: var(--main-blue);
   border-radius: 50%;
-  opacity: 45%;
+  opacity: 0.5;
 }
 
 .circleB {
   position: fixed;
-  top: 95vh;
+  top: 92vh;
   left: 30vw;
-  width: 4rem;
-  height: 4rem;
+  width: 7rem;
+  height: 7rem;
   background-color: var(--main-blue);
   border-radius: 50%;
-  opacity: 45%;
+  opacity: 0.5;
 }
 
 .circleC {
   position: fixed;
   top: 40vh;
-  left: 95vw;
-  width: 4rem;
-  height: 4rem;
+  left: 92vw;
+  width: 8rem;
+  height: 8rem;
   background-color: var(--main-blue);
   border-radius: 50%;
-  opacity: 45%;
+  opacity: 0.5;
+}
+
+@media only screen and (min-height: 736px) {
+  .circleB {
+    top: 80vh;
+    width: 19rem;
+    height: 19rem;
+  }
 }

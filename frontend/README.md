@@ -33,3 +33,16 @@ yarn build # build a production app
 ```
 
 The red color is FF0000 with 22% opacity.
+
+600x1024
+360x640
+800x1280
+384x640
+360x640
+412x732
+412x732
+600x960
+320x533
+480x854
+768x1024
+320x480
