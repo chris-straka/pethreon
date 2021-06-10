@@ -1,0 +1,66 @@
+@keyframes moveA {
+  50% {
+    transform: scale(125%) translate(10px);
+  }
+}
+
+@keyframes moveB {
+  50% {
+    transform: scale(95%) translate(2px, 20px);
+  }
+}
+
+@keyframes moveC { 
+  50% {
+    transform: scale(150%);
+  }
+}
+
+.circleA {
+  position: fixed;
+  top: -5vh;
+  left: -15vw;
+  width: 7rem;
+  height: 7rem;
+  background-color: var(--main-blue);
+  border-radius: 50%;
+  opacity: 0.4;
+
+  animation: 13s linear 0s infinite alternate none running moveA;
+}
+
+.circleB {
+  position: fixed;
+  top: 40vh;
+  left: 92vw;
+  width: 8rem;
+  height: 8rem;
+  background-color: var(--main-blue);
+  border-radius: 50%;
+  opacity: 0.4;
+
+  animation: 12s linear 1s infinite alternate none running moveB;
+}
+
+.circleC {
+  position: fixed;
+  top: 92vh;
+  left: 30vw;
+  width: 7rem;
+  height: 7rem;
+  background-color: var(--main-blue);
+  border-radius: 50%;
+  opacity: 0.4;
+  z-index: -1;
+
+  animation: 3s linear 0.5s infinite alternate none running moveC;
+}
+
+
+@media only screen and (min-height: 736px) {
+  .circleC {
+    top: 80vh;
+    width: 19rem;
+    height: 19rem;
+  }
+}

@@ -32,17 +32,12 @@ yarn build # build a production app
 <ion-icon name="construct-outline"></ion-icon>
 ```
 
-The red color is FF0000 with 22% opacity.
+### Notes
 
-600x1024
-360x640
-800x1280
-384x640
-360x640
-412x732
-412x732
-600x960
-320x533
-480x854
-768x1024
-320x480
+I want my circle animations to run infinitely, but do I really have to specify all eight properties in the `animation: ;` shorthand for that? >_<
+
+There are [accessibility concerns](https://developer.mozilla.org/en-US/docs/Web/CSS/animation#accessibility_concerns) that I've never thought about before when it comes to animation that I might have to look into.
+
+I might want my circle animations to move like [Zach Saucier's](https://codepen.io/ZachSaucier/pen/rsvgK), and limit the rotation to 45 degress but the scale() seems to be working for me so far.
+
+I remember seeing rel="noreferrer noopener" in the wild, and wondered if it was any different from rel="noreferrer"? This [post](https://stackoverflow.com/questions/57628890) shed some light on it. I'm not sure what window.opener is about (TODO) but I'm guessing I want it removed on firefox 33-35?
