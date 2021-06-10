@@ -50,6 +50,7 @@
 .metacontainer {
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
 }
 
 .metacontainer svg {
@@ -57,7 +58,12 @@
 }
 
 .login {
-  
+  background: none;
+  font-size: 1.2rem;
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+  border: 3px solid;
+  border-radius: 12px;
+  cursor: pointer;
 }
 
 .vid {
