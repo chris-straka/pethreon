@@ -15,6 +15,7 @@ body {
 }
 
 :root {
-  --main-blue: hsl(220, 51%, 52%);
+  --main-blue: hsl(220, 51%, 50%);
+  --main-blue-darker: hsl(220, 51%, 40%);
   --main-red: hsl(0, 100%, 50%);
 }
