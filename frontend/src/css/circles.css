@@ -6,13 +6,13 @@
 
 @keyframes moveB {
   50% {
-    transform: scale(95%) translate(2px, 20px);
+    transform: scale(95%) translate(2px, 30px);
   }
 }
 
 @keyframes moveC { 
   50% {
-    transform: scale(150%);
+    transform: scale(150%) translate(-40px, -40px);
   }
 }
 
@@ -46,14 +46,14 @@
   position: fixed;
   top: 92vh;
   left: 30vw;
-  width: 7rem;
-  height: 7rem;
+  width: 10rem;
+  height: 10rem;
   background-color: var(--main-blue);
   border-radius: 50%;
   opacity: 0.4;
   z-index: -1;
 
-  animation: 3s linear 0.5s infinite alternate none running moveC;
+  animation: 50s linear 0.5s infinite alternate none running moveC;
 }
 
 

@@ -1,10 +1,16 @@
 import React from 'react';
 import "./app.css"
-import "./circles.css"
+import "./css/circles.css"
 import mp4 from "./assets/money.mp4"
 import webm from "./assets/money.webm"
 import { Metamask } from "./components/metamask-logo/metamask";
 import { Github } from "./components/github-logo/github"
+import { typeWriterEffect } from './typewriter';
+
+// window.addEventListener("DOMContentLoaded", typeWriterEffect(50))
+window.addEventListener("DOMContentLoaded", (e: Event) => {
+  typeWriterEffect(50, 1500)
+})
 
 const App: React.FC = () => {
   const disabled = true;
@@ -16,10 +22,10 @@ const App: React.FC = () => {
           <li>Contribute monthly to your favourite creators in a trustless, privacy respecting manner</li>
           <li>Only pay transaction fees, <a href="https://github.com/Chris56974/Pethreon/blob/main/contracts/Pethreon.sol" target="_blank" rel="noreferrer">view the smart contract on Github</a> <Github /></li>
         </ul>
-        <p className="metamessage">You need to <a href="https://metamask.io/download" target="_blank" rel="noreferrer">download metamask</a> for this application to work!</p>
+        <p className="metamessage"/>
         <div className="metacontainer">
           <Metamask />
-          <button className="login">Login with metamask</button>
+          <button className="login" onClick={() => { alert("hello") }}>Login with metamask</button>
         </div>
         <video className="vid" muted autoPlay loop>
           <source src={mp4} type="video/mp4" />
@@ -35,4 +41,3 @@ const App: React.FC = () => {
 }
 
 export default App;
-
