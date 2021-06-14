@@ -1,6 +1,6 @@
 # Design Doc
 
-[This app](https://github.com/Chris56974/WeiBuddies) is a dapp frontend for [Sergei Tikhomirov's Pethreon Smart Contract](https://github.com/s-tikhomirov/pethreon/blob/master/pethreon.sol). The user signs in with their HD-wallet, pools funds into their account and then contributes to other creators using that balance in regular intervals. You can find a [UI mockup here](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/Pethreon_Wireframe.pdf). I'm going to develop the app via a mobile first approach and build the layout with flexbox. I might then switch to css grid at larger devices to include a [video](https://www.pexels.com/video/hands-rich-green-money-3943962/).
+[This app](https://github.com/Chris56974/WeiBuddies) is a dapp frontend for [Sergei Tikhomirov's Pethreon Smart Contract](https://github.com/s-tikhomirov/pethreon/blob/master/pethreon.sol). The user signs in with their HD-wallet, pools funds into their account and then contributes to other creators in regular intervals. You can find a [UI mockup here](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/Pethreon_Wireframe.pdf). I'm going to develop the app using a mobile first approach and build the layout with flexbox. I might then switch to css grid at larger devices to include a [video](https://www.pexels.com/video/hands-rich-green-money-3943962/).
 
 ## Hardhat
 
@@ -76,10 +76,6 @@ Some people recommend using the main tag on [every page](https://stackoverflow.c
 Calls are free, but is there a limit to the amount of data I can read? Could people DDOS the fullnodes with free calls?
 
 UPDATE: When I want to read data from the blockchain, I don't just talk to any fullnode I want to at random. I have to talk to a fullnode that I setup with Geth OR a node that I rent out @ [infura](https://infura.io/). So the limits are probably specified in Geth/Infura.
-
-### Do I really need react-router?
-
-I don't think routing is all that sophisticated in this application, I don't even have a navbar (just one button to switch portals). I figured I'd add it anyways just in case I decide to do stuff later.
 
 ### Background Synchronization?
 

@@ -22,7 +22,7 @@ const typeLink = async (message: HTMLParagraphElement, link: string, sleepDurati
   }
 }
 
-export const typingAnimation = (speedInMs: number, delay: number) => {
+export const metamaskAnimation = (speedInMs: number, delay: number) => {
   const metamessage = document.querySelector(".metamessage") as HTMLParagraphElement
   const metaface = document.querySelector("#metaface") as SVGElement
 

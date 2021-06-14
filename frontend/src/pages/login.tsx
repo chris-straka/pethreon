@@ -1,16 +1,24 @@
 import mp4 from "../assets/money.mp4"
 import webm from "../assets/money.webm"
-import { typingAnimation } from '../animation/metamaskAnimation';
+import { metamaskAnimation } from '../animation/metamaskAnimation';
 import { Metamask } from "../components/metamask-logo/metamask";
 import { Github } from "../components/github-logo/github"
 
 import "./login.css"
 
 window.addEventListener("load", (e: Event) => {
-  typingAnimation(50, 1500) // speed, delay
+  metamaskAnimation(50, 1500) // speed, delay
 })
 
 export const Login: React.FC = () => {
+  const { ethereum } = window
+
+  const login = async () => {
+    if (ethereum) {
+      const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
+      console.log(accounts)
+    }
+  }
 
   return (
     <main className="container">
@@ -22,7 +30,7 @@ export const Login: React.FC = () => {
       <p className="metamessage" />
       <div className="metacontainer">
         <Metamask />
-        <button className="login">Login with metamask</button>
+        <button className="login" onClick={login}>Login with metamask</button>
       </div>
       <video className="vid" muted autoPlay loop>
         <source src={mp4} type="video/mp4" />

@@ -1,10 +1,9 @@
 {
-  "name": "weibuddies",
+  "name": "pethreon",
   "version": "0.1.0",
   "license": "MIT",
   "private": true,
   "homepage": "https://chris56974.github.io/WeiBuddies/",
-  "dependencies": {},
   "scripts": {},
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.2",
