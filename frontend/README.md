@@ -32,6 +32,10 @@ yarn build # build a production app
 <ion-icon name="construct-outline"></ion-icon>
 ```
 
+### TODO
+
+I should maybe change the metamask message depending on whether the user already has metamask installed or not.
+
 ### Notes
 
 I want my circle animations to run infinitely, but do I really have to specify all eight properties in the `animation: ;` shorthand just for that? Isn't there a smaller shorthand? >_<
@@ -50,4 +54,6 @@ I think I could've done the typewriter effect with CSS only, but it might be tri
 
 It's not as easy as I thought to slowly print out a link char-by-char (either that or I'm dumb)? I can't use the same link and slowly print it out, I have to create 17 links I think lol.
 
-The talking animation is kind of scuffed, I wanted it to stop when the text was done printing on the screen. But I hardcoded it to stop after 4.5 seconds.
+It's tough to figure out where I want to put stuff. When I switch routes, the only thing I want to stay on the screen are the circles.
+
+A provider represents a connection to the Ethereum blockchain.
