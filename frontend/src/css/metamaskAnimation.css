@@ -1,9 +1,9 @@
 @keyframes moveMouth {
   50% {
-    transform: translateY(-2.5px);
+    transform: translateY(-2.3px);
   }
 }
 
-.makeHimTalk {
+.toggleTalking {
   animation: 0.2s linear 0s infinite alternate none running moveMouth;
 }

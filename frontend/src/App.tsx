@@ -5,17 +5,10 @@ import mp4 from "./assets/money.mp4"
 import webm from "./assets/money.webm"
 import { Metamask } from "./components/metamask-logo/metamask";
 import { Github } from "./components/github-logo/github"
-import { typingAnimation } from './animation/typingAnimation';
+import { typingAnimation } from './animation/metamaskAnimation';
 
-// window.addEventListener("DOMContentLoaded", typeWriterEffect(50))
 window.addEventListener("load", (e: Event) => {
-  const metamessage = document.querySelector(".metamessage") as HTMLParagraphElement
-  const metaface = document.querySelector("#metaface") as SVGElement
-  const delay = 1500
-
-  setTimeout(() => { metaface.classList.add("makeHimTalk") }, delay);
-  typingAnimation(metamessage, 50, delay)
-  setTimeout(() => { metaface.classList.remove("makeHimTalk") }, 4500);
+  typingAnimation(50, 1500) // speed, delay
 })
 
 const App: React.FC = () => {
