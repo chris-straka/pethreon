@@ -1,4 +1,4 @@
-import { sleep } from './utility/functions';
+import { sleep } from '../utility/functions';
 
 const first = `You need to `
 const link = `download metamask`
@@ -22,12 +22,10 @@ const addLink = async (message: HTMLParagraphElement, link: string, sleepDuratio
   }
 }
 
-export const typeWriterEffect = (speedInMs: number, delay: number) => {
+export const typingAnimation = (message: HTMLParagraphElement, speedInMs: number, delay: number) => {
   setTimeout(async () => {
-    const metamessage = document.querySelector(".metamessage") as HTMLParagraphElement;
-    await addMessage(metamessage, first, speedInMs)
-    await addLink(metamessage, link, speedInMs)
-    await addMessage(metamessage, last, speedInMs)
-    console.log(metamessage)
+    await addMessage(message, first, speedInMs)
+    await addLink(message, link, speedInMs)
+    await addMessage(message, last, speedInMs)
   }, delay);
 }

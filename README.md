@@ -1,6 +1,6 @@
 # Design Doc
 
-[This app](https://github.com/Chris56974/WeiBuddies) is an implementation of Sergei Tikhomirov's [Pethreon](https://github.com/s-tikhomirov/pethreon/blob/master/pethreon.sol) smart contract. I intend to make some changes and give it a React frontend.
+[This app](https://github.com/Chris56974/WeiBuddies) is a dapp frontend for [Sergei Tikhomirov's Pethreon Smart Contract](https://github.com/s-tikhomirov/pethreon/blob/master/pethreon.sol). The user signs in with their HD-wallet, pools funds into their account and then contributes to other creators using that balance in regular intervals. You can find a [UI mockup here](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/Pethreon_Wireframe.pdf). I'm going to develop the app via a mobile first approach and build the layout with flexbox. I might then switch to css grid at larger devices to include a [video](https://www.pexels.com/video/hands-rich-green-money-3943962/).
 
 ## Hardhat
 
@@ -22,7 +22,7 @@ hh run --network <network> scripts/sample_test.ts # deploy to a network specifie
 
 ### Recurring payments
 
-Implementing [recurring payments](https://ethereum.stackexchange.com/questions/49596) on Ethereum is not as easy as I thought it'd be. Running contracts at a later point in time is also [non-trivial](https://ethereum.stackexchange.com/questions/42). This is because in Ethereum, only EOA's "Externally Owned Accounts" (humans) can create transactions. A smart contract can't create a transaction at a later date, even if both parties want that to happen. Someone has to send a transaction into the smart contract at that later date. I can't run a transaction in the EVM forever either, I'd run out of gas.
+Implementing [recurring payments](https://ethereum.stackexchange.com/questions/49596) on Ethereum is not as easy as I thought it'd be. Running contracts at a later point in time is also [non-trivial](https://ethereum.stackexchange.com/questions/42). This is because in Ethereum, only EOA's "Externally Owned Accounts" (humans) can create transactions. A smart contract can't create a transaction at a later date, even if both parties want that to happen. Someone has to send a transaction into the smart contract at that later date. One cool way to do this is with [Ethereum Alarm Clock](https://www.ethereum-alarm-clock.com/) which is a decentralized service I might look at later. It's also worth noting that I can't run a transaction in the EVM forever either, I'd run out of gas. Which means I can't "wait for callback" in the EVM at a later date, if my understanding is correct.
 
 ### Security, profanity and offensive content
 
@@ -67,13 +67,23 @@ If I bring in SSR (Next.js) then my users won't have to download metamask to loo
 
 Localstorage can only store strings, but I think that's all I need.
 
+### HTML5 main tag and SPA's?
+
+Some people recommend using the main tag on [every page](https://stackoverflow.com/questions/44308760). Does this apply to SPAs too? If I'm only serving one HTML page, won't it see the main tag multiple times on the "same page". Will that effect SEO? Something I haven't thought about until now.
+
 ### How much data can I read from the blockchain?
 
 Calls are free, but is there a limit to the amount of data I can read? Could people DDOS the fullnodes with free calls?
 
+UPDATE: When I want to read data from the blockchain, I don't just talk to any fullnode I want to at random. I have to talk to a fullnode that I setup with Geth OR a node that I rent out @ [infura](https://infura.io/). So the limits are probably specified in Geth/Infura.
+
+### Do I really need react-router?
+
+I don't think routing is all that sophisticated in this application, I don't even have a navbar (just one button to switch portals). I figured I'd add it anyways just in case I decide to do stuff later.
+
 ### Background Synchronization?
 
-As a bonus, I could allow contributors to make donations offline using service workers and background synchronization.
+As a bonus, I could allow contributors to make donations offline using service workers and then synchronizing them in the background once they come back online.
 
 ## Notes
 
@@ -85,11 +95,7 @@ SafeMath is no longer needed for solidity 0.8.0+ (integer variable types can't o
 
 A smart contract can only have an ether balance if it has a payable function. The payable function can be `receive() external payable {}` (v0.6.0) which runs like a lifecycle hook whenever the contract receives a transaction with no input data (you can emit an event here). Or it can be a payable function that users call explicitely in the input data. Whenever you're calling a payable function from outside the contract via a library like ethersJS or web3, you'll automatically have an overrides object passed in for you where you can provide the details e.g contract.method(arg1, arg2, {overrides}). If you want the contract to send ether to someone else, then you have to make their address payable in the contract e.g payable(address). The contract's balance starts off at 0, and you can see it with address(this).balance.
 
-### HTML5 main tag and SPA's?
-
-Some people recommend using the main tag on [every page](https://stackoverflow.com/questions/44308760). I wondered if this rule of thumb applies to single page applications? I'm only serving one HTML page, but if I use the main tag multiple times with react router, will that effect SEO at all? Something I haven't thought about until now.
-
-## Sources
+## Attribution
 
 - [Sergei's Pethreon](https://github.com/s-tikhomirov/pethreon)
 
@@ -98,3 +104,7 @@ Some people recommend using the main tag on [every page](https://stackoverflow.c
 - [Metamask Logo](https://github.com/MetaMask/brand-resources)
 
 - [ionicons](https://ionic.io/ionicons)
+
+- [Github logo](https://github.com/logos)
+
+- [Artsy Cat's Cutesy Font](https://www.dafont.com/cutesy.font)
