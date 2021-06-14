@@ -5,7 +5,6 @@ import { Metamask } from "../components/metamask-logo/metamask";
 import { Github } from "../components/github-logo/github"
 
 import "./login.css"
-import "../css/metamaskAnimation.css"
 
 window.addEventListener("load", (e: Event) => {
   typingAnimation(50, 1500) // speed, delay
