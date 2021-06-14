@@ -1,7 +1,7 @@
 /* My keyframes would've made for a perfect SASS function... */
 @keyframes moveA {
   50% {
-    transform: scale(125%) translate(10px 0);
+    transform: scale(125%) translateX(10px);
   }
 }
 
