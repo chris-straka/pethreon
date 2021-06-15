@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { plsDownloadMetamask, speak } from '../animation/metamaskMessageAnimation';
+import { speak } from '../animation/speak';
+import { plsDownloadMetamask } from '../animation/plsDownloadMetamask'
 import { Metamask } from "../components/metamask-logo/metamask";
 import { Github } from "../components/github-logo/github"
 
@@ -10,23 +11,22 @@ import "./login.css"
 window.addEventListener("load", (e: Event) => {
   const { ethereum } = window
   if (ethereum) {
-    const welcomeMessage = "This app uses your metamask wallet to make payments to creators..."
-    speak(welcomeMessage, 1500, 50)
+    speak("This app uses your metamask wallet to make payments to creators...", 1500, 50)
   } else {
-    plsDownloadMetamask(50, 1500) // speed, delay
+    plsDownloadMetamask(0, 50)
   }
 })
 
 export const Login: React.FC = () => {
   const { ethereum } = window
   const [loggingIn, setloggingIn] = useState(false)
+  const [interruptMessage, setinterruptMessage] = useState(false)
 
   const login = async () => {
     if (ethereum) {
       try {
         setloggingIn(true)
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
-        console.log(accounts)
         setloggingIn(false)
       } catch (error) {
         speak("Oh frick, we got an error... " + (error as Error).message, 50, 500)

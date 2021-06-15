@@ -38,13 +38,9 @@ yarn build # build a production app
 
 ### TODO
 
-- Make the metamessage dynamic so I make him say other stuff
-  - It should be able to handle links too
-  - It
+- I should be able to interrupt the speak animation so he can say something else
 
-- Make sure authentication triggers the circle shift animation
-
-- Setup authenticated routes
+- Setup authenticated routes and make sure they trigger the circle shift animation
 
 ### Notes
 
@@ -66,6 +62,6 @@ It's not as easy as I thought to slowly print out a link char-by-char (either th
 
 A provider represents a connection to the Ethereum blockchain.
 
-When the user clicks the button to sign into metamask, a modal will pop up prompting them to login. If they close this window, the user is put in limbo with nothing happening on the screen which is awkward. It seems like a common issue (Aave and Uniswap are the same).
+When the user clicks the button to sign into metamask, a modal will pop up prompting them to login. If they close this window, the user is put into limbo with nothing happening on the screen which is awkward. It seems like a common issue (Aave and Uniswap are the same).
 
-[Escape execution](https://stackoverflow.com/questions/63438095/js-interrupt-async-execution)
+[Inspiration for interrupts](https://stackoverflow.com/questions/63438095/js-interrupt-async-execution)
