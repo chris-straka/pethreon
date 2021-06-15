@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { speak } from '../animation/speak';
 import { plsDownloadMetamask } from '../animation/plsDownloadMetamask'
 import { Metamask } from "../components/metamask-logo/metamask";
@@ -8,18 +8,26 @@ import mp4 from "../assets/money.mp4"
 import webm from "../assets/money.webm"
 import "./login.css"
 
-window.addEventListener("load", (e: Event) => {
-  const { ethereum } = window
-  if (ethereum) {
-    speak("This app uses your metamask wallet to make payments to creators...", 1500, 50)
-  } else {
-    plsDownloadMetamask(0, 50)
-  }
-})
+// window.addEventListener("load", (e: Event) => {
+//   const { ethereum } = window
+//   if (ethereum) {
+//     speak("This app uses your metamask wallet to make payments to creators...", 1500, 50)
+//   } else {
+//     plsDownloadMetamask(0, 50)
+//   }
+// })
 
 export const Login: React.FC = () => {
   const { ethereum } = window
   const [loggingIn, setloggingIn] = useState(false)
+
+  useEffect(() => {
+    if (ethereum) {
+      speak("This app uses your metamask wallet to make payments to creators...", 1500, 50)
+    } else {
+      plsDownloadMetamask(0, 50)
+    }
+  }, [ethereum])
 
   const login = async () => {
     if (ethereum) {
