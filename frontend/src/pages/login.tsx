@@ -11,7 +11,7 @@ window.addEventListener("load", (e: Event) => {
   const { ethereum } = window
   if (ethereum) {
     const welcomeMessage = "This app uses your metamask wallet to make payments to creators..."
-    speak(welcomeMessage, 50, 1500)
+    speak(welcomeMessage, 1500, 50)
   } else {
     plsDownloadMetamask(50, 1500) // speed, delay
   }

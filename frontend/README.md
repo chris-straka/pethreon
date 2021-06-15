@@ -67,3 +67,5 @@ It's not as easy as I thought to slowly print out a link char-by-char (either th
 A provider represents a connection to the Ethereum blockchain.
 
 When the user clicks the button to sign into metamask, a modal will pop up prompting them to login. If they close this window, the user is put in limbo with nothing happening on the screen which is awkward. It seems like a common issue (Aave and Uniswap are the same).
+
+[Escape execution](https://stackoverflow.com/questions/63438095/js-interrupt-async-execution)

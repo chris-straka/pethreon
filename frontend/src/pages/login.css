@@ -9,7 +9,7 @@
   }
 }
 
-.toggleTalking {
+.talking {
   animation: 0.2s linear 0s infinite alternate none running moveMouth;
 }
 
