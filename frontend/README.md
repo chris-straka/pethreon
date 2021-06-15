@@ -32,9 +32,19 @@ yarn build # build a production app
 <ion-icon name="construct-outline"></ion-icon>
 ```
 
+### Issues
+
+- The user can't click the link to download metamask while metamask is talking
+
 ### TODO
 
-I should maybe change the metamask message depending on whether the user already has metamask installed or not.
+- Make the metamessage dynamic so I make him say other stuff
+  - It should be able to handle links too
+  - It
+
+- Make sure authentication triggers the circle shift animation
+
+- Setup authenticated routes
 
 ### Notes
 
@@ -54,6 +64,6 @@ I think I could've done the typewriter effect with CSS only, but it might be tri
 
 It's not as easy as I thought to slowly print out a link char-by-char (either that or I'm dumb)? I can't use the same link and slowly print it out, I have to create 17 links I think lol.
 
-It's tough to figure out where I want to put stuff. When I switch routes, the only thing I want to stay on the screen are the circles.
-
 A provider represents a connection to the Ethereum blockchain.
+
+When the user clicks the button to sign into metamask, a modal will pop up prompting them to login. If they close this window, the user is put in limbo with nothing happening on the screen which is awkward. It seems like a common issue (Aave and Uniswap are the same).

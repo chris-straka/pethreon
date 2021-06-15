@@ -1,8 +1,6 @@
-import { sleep } from '../utility/functions';
-
-const first = `You need to `
-const link = `download metamask`
-const last = ` for this application to work!`
+function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
 
 const typeMessage = async (message: HTMLParagraphElement, messageToAdd: string, sleepDuration: number) => {
   for (const char of messageToAdd) {
@@ -22,15 +20,32 @@ const typeLink = async (message: HTMLParagraphElement, link: string, sleepDurati
   }
 }
 
-export const metamaskAnimation = (speedInMs: number, delay: number) => {
+export const plsDownloadMetamask = (speedInMs: number, delay: number) => {
   const metamessage = document.querySelector(".metamessage") as HTMLParagraphElement
   const metaface = document.querySelector("#metaface") as SVGElement
+
+  const first = `You need to `
+  const link = `download metamask`
+  const last = ` for this application to work!`
 
   setTimeout(async () => {
     metaface.classList.toggle("toggleTalking")
     await typeMessage(metamessage, first, speedInMs)
     await typeLink(metamessage, link, speedInMs)
     await typeMessage(metamessage, last, speedInMs)
+    metaface.classList.toggle("toggleTalking")
+  }, delay);
+}
+
+export const speak = (newMessage: string, delay: number = 0, talkingSpeed: number = 50,) => {
+
+  const metamessage = document.querySelector(".metamessage") as HTMLParagraphElement
+  const metaface = document.querySelector("#metaface") as SVGElement
+
+  setTimeout(async () => {
+    metaface.classList.toggle("toggleTalking")
+    metamessage.innerHTML = ""
+    await typeMessage(metamessage, newMessage, talkingSpeed)
     metaface.classList.toggle("toggleTalking")
   }, delay);
 }

@@ -1,14 +1,13 @@
 import { Login } from './pages/login';
 import "./css/circles.css"
 
-
 const App: React.FC = () => {
-  const disabled = true;
+  const disablePortalButton = true;
   return (
     <>
       <Login />
       <div className="circleA"></div>
-      <button className="circleB" disabled={disabled}></button>
+      <button className="circleB" disabled={disablePortalButton}></button>
       <div className="circleC"></div>
     </>
   )

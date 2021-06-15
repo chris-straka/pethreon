@@ -1,22 +1,36 @@
-import mp4 from "../assets/money.mp4"
-import webm from "../assets/money.webm"
-import { metamaskAnimation } from '../animation/metamaskAnimation';
+import { useState } from 'react'
+import { plsDownloadMetamask, speak } from '../animation/metamaskMessageAnimation';
 import { Metamask } from "../components/metamask-logo/metamask";
 import { Github } from "../components/github-logo/github"
 
+import mp4 from "../assets/money.mp4"
+import webm from "../assets/money.webm"
 import "./login.css"
 
 window.addEventListener("load", (e: Event) => {
-  metamaskAnimation(50, 1500) // speed, delay
+  const { ethereum } = window
+  if (ethereum) {
+    const welcomeMessage = "This app uses your metamask wallet to make payments to creators..."
+    speak(welcomeMessage, 50, 1500)
+  } else {
+    plsDownloadMetamask(50, 1500) // speed, delay
+  }
 })
 
 export const Login: React.FC = () => {
   const { ethereum } = window
+  const [loggingIn, setloggingIn] = useState(false)
 
   const login = async () => {
     if (ethereum) {
-      const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
-      console.log(accounts)
+      try {
+        setloggingIn(true)
+        const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
+        console.log(accounts)
+        setloggingIn(false)
+      } catch (error) {
+        speak("Oh frick, we got an error... " + (error as Error).message, 50, 500)
+      }
     }
   }
 
@@ -30,7 +44,7 @@ export const Login: React.FC = () => {
       <p className="metamessage" />
       <div className="metacontainer">
         <Metamask />
-        <button className="login" onClick={login}>Login with metamask</button>
+        <button className="login" onClick={login} disabled={loggingIn}>Login with metamask</button>
       </div>
       <video className="vid" muted autoPlay loop>
         <source src={mp4} type="video/mp4" />
