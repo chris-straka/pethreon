@@ -20,7 +20,6 @@ window.addEventListener("load", (e: Event) => {
 export const Login: React.FC = () => {
   const { ethereum } = window
   const [loggingIn, setloggingIn] = useState(false)
-  const [interruptMessage, setinterruptMessage] = useState(false)
 
   const login = async () => {
     if (ethereum) {
@@ -29,7 +28,8 @@ export const Login: React.FC = () => {
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
         setloggingIn(false)
       } catch (error) {
-        speak("Oh frick, we got an error... " + (error as Error).message, 50, 500)
+        setloggingIn(false)
+        speak("Oh frick, we got an error... " + (error as Error).message)
       }
     }
   }
