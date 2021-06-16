@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { speak } from '../animation/speak';
 import { plsDownloadMetamask } from '../animation/plsDownloadMetamask'
 import { Metamask } from "../components/metamask-logo/metamask";
 import { Github } from "../components/github-logo/github"
@@ -10,24 +9,44 @@ import "./login.css"
 
 export const Login: React.FC = () => {
   const { ethereum } = window
-  const [loggingIn, setloggingIn] = useState(false)
+  const [loggingIn, setLoggingIn] = useState(false)
 
   useEffect(() => {
     if (ethereum) {
-      speak("This app uses your metamask wallet to make payments to creators...", 1500, 50)
+      setTimeout(() => {
+        speak("This app uses your metamask wallet to make payments to creators...")
+      }, 1500)
     } else {
       plsDownloadMetamask(0, 50)
     }
   }, [ethereum])
 
+  const sleep = (sleepTime: number = 50) => new Promise(res => setTimeout(res, sleepTime))
+
+  const speak = async (message: string) => {
+    const metamessage = document.querySelector(".metamessage") as HTMLParagraphElement
+    const metamaskMouth = document.querySelector("#metamaskMouth") as SVGElement
+
+    metamaskMouth.classList.toggle("talking")
+    metamessage.innerHTML = ""
+
+    for (const char of message) {
+      metamessage.innerHTML += char
+      await sleep()
+    }
+    metamaskMouth.classList.toggle("talking")
+  }
+
   const login = async () => {
     if (ethereum) {
       try {
-        setloggingIn(true)
+        setLoggingIn(true)
+        speak("logging in...")
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
-        setloggingIn(false)
+        console.log(accounts)
+        setLoggingIn(false)
       } catch (error) {
-        setloggingIn(false)
+        setLoggingIn(false)
         speak("Oh frick, we got an error... " + (error as Error).message)
       }
     }

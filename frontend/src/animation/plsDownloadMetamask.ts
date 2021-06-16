@@ -1,20 +1,20 @@
-import { sleep } from './sleep'
+const sleep = (sleepTime: number = 50) => new Promise(res => setTimeout(res, sleepTime))
 
-const typeLink = async (message: HTMLParagraphElement, link: string, sleepDuration: number) => {
+const typeLink = async (message: HTMLParagraphElement, link: string) => {
   let phrase: string = "";
   for (const char of link) {
     if (message.firstElementChild) message.firstElementChild.remove()
     phrase += char
     const updatedLink = `<a href="https://metamask.io/download" target="_blank" rel="noreferrer">${phrase}</a>`
     message.innerHTML += updatedLink
-    await sleep(sleepDuration)
+    await sleep()
   }
 }
 
-const typeMessage = async (message: HTMLParagraphElement, messageToAdd: string, sleepDuration: number) => {
+const typeMessage = async (message: HTMLParagraphElement, messageToAdd: string) => {
   for (const char of messageToAdd) {
     message.innerHTML += char
-    await sleep(sleepDuration)
+    await sleep()
   }
 }
 
@@ -28,9 +28,9 @@ export const plsDownloadMetamask = (delay: number = 0, talkingSpeed: number = 50
 
   setTimeout(async () => {
     metamaskMouth.classList.toggle("talking")
-    await typeMessage(metamessage, first, talkingSpeed)
-    await typeLink(metamessage, link, talkingSpeed)
-    await typeMessage(metamessage, last, talkingSpeed)
+    await typeMessage(metamessage, first)
+    await typeLink(metamessage, link)
+    await typeMessage(metamessage, last)
     metamaskMouth.classList.toggle("talking")
   }, delay);
 }
