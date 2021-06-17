@@ -26,26 +26,22 @@ export const Login: React.FC = () => {
 
   useEffect(() => {
     let phrase = ""
-    let i = 0
     let interrupt: boolean;
 
-    for (const char of message) {
+    message.split('').forEach((char, index) => {
       setTimeout(() => {
         if (interrupt) return
         phrase += char
         setAnimatedMessage(phrase)
-      }, 50 * i)
-      i++
-    }
+      }, 50 * index);
+    })
+
 
     interrupt = false;
 
     return () => {
-      if (i > 0) {
-        phrase = ""
-        i = 0
-        interrupt = true
-      }
+      phrase = ""
+      interrupt = true
     }
   }, [message])
 
