@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "license": "MIT",
   "private": true,
-  "homepage": "https://chris56974.github.io/WeiBuddies/",
+  "homepage": "https://chris56974.github.io/Pethreon/",
   "scripts": {},
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.2",
