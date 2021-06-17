@@ -44,24 +44,20 @@ yarn build # build a production app
 
 ### Notes
 
-I want my circle animations to run infinitely, but do I really have to specify all eight properties in the `animation: ;` shorthand just for that? Isn't there a smaller shorthand? >_<
+I want my circle animations to run infinitely, but do I really have to specify all eight properties in the css `animation: ;` shorthand for infinite playback? [>_<](https://youtu.be/AbnWq7F9o20?t=11)
 
-There are [accessibility concerns](https://developer.mozilla.org/en-US/docs/Web/CSS/animation#accessibility_concerns) that I've never thought about before when it comes to animation that I might have to look into later.
+There are [accessibility concerns](https://developer.mozilla.org/en-US/docs/Web/CSS/animation#accessibility_concerns) that I've never thought about before when it comes to animation that I should look into later. Strobe light was obvious but motion too?
 
-I might want my circles to move in a circular motion like [Zach Saucier's Codepen](https://codepen.io/ZachSaucier/pen/rsvgK). I could then limit the rotation to so it doesn't go off the screen. At the momemnt, scale() seems to be working fine for me so far though.
+I remember seeing rel="noreferrer noopener" in the wild, and wondered if rel="noreferrer" was sufficient? Looking at this [post](https://stackoverflow.com/questions/57628890), I should do some more research on window.opener.
 
-I remember seeing rel="noreferrer noopener" in the wild, and wondered if it was any different from rel="noreferrer"? This [post](https://stackoverflow.com/questions/57628890) shed some light on it. I'm not sure what window.opener is about (TODO) but I'm guessing I want it removed on firefox 33-35?
+I was wondering what color to use for my login button. [UX stack exchange](https://ux.stackexchange.com/questions/104224) says it should be my primary color, however this doesn't look good to me because my primary color sometimes floats behind it. I'm also concerned about a11y here.
 
-I was wondering what color to use for my login button. [UX stack exchange](https://ux.stackexchange.com/questions/104224) says it should be my primary color, however this doesn't look good to me because I already have my primary color floating around behind it. I think I need something with stronger contrast for a11y reasons.
+I was worried about using innerHTML to render the metamask message. But after reading [this](https://www.reddit.com/r/learnjavascript/comments/9502x5/is_innerhtml_still_considered_bad/), it seems like it's only a major issue when it's from other users?
 
-I was worried about using innerHTML to render the metamask message. But after reading [this](https://www.reddit.com/r/learnjavascript/comments/9502x5/is_innerhtml_still_considered_bad/), it seems fine.
+I think I could've done the typewriter effect with CSS only, but it might be tricky because I've only seen this animate single lines (I think it animates using the width property?). I'm going to do something similar to [this](https://www.w3schools.com/howto/howto_js_typewriter.asp) instead in fear of animating the width on multiple lines and stuff moving around from my responsive layout.
 
-I think I could've done the typewriter effect with CSS only, but it might be tricky because I've only seen this done with one liners (I think it animates using the width property?). I'm going to do something similar to [this](https://www.w3schools.com/howto/howto_js_typewriter.asp).
+It's not as easy as I thought to slowly print out a link char-by-char (either that or I'm dumb)? I can't print out the same link using my JS strat, it keeps printing the full HTML version of the anchortag. I might have to recreate the link 17 times, char-by-char until I can think of something better.
 
-It's not as easy as I thought to slowly print out a link char-by-char (either that or I'm dumb)? I can't use the same link and slowly print it out, I have to create 17 links I think lol.
+When the user clicks the button to sign into metamask, a modal (metamask's modal not mine) will pop up prompting them to login. If they close that modal, metamask will NOT error out. Instead, my code will behave as if the user is still logging in which is not great UX. It seems like a common issue (Aave and Uniswap are the same).
 
-A provider represents a connection to the Ethereum blockchain.
-
-When the user clicks the button to sign into metamask, a modal will pop up prompting them to login. If they close this window, the user is put into limbo with nothing happening on the screen which is awkward. It seems like a common issue (Aave and Uniswap are the same).
-
-[Inspiration for interrupts](https://stackoverflow.com/questions/63438095/js-interrupt-async-execution)
+For my typewriter effect, I can't just loop through the entire string and do setTimeOut(3 secs) on each character, because then they'll ALL print at the same time 3 seconds later. So I have to do setTimeOut(3 secs * index) which gives all the chars their own unique timeOut(duration). I can't do `await new Promise(r => setTimeout(r, 2000))` because I can't use await inside useEffect(). This way works by putting a bunch of async functions on the callback queue, and then each of them one at a time. It can't start another one right away because of the await.
