@@ -8,21 +8,24 @@ import "./login.css"
 
 // TODO: Make sure to add back in the class
 
-// if there is no ethereum
-// setLoggingIn(true)
-// let linkBuilder: string = "";
-// for (const char of "download metamask") {
-//   if (metamaskParagraph.current.firstElementChild) metamaskParagraph.current.firstElementChild.remove()
-//   linkBuilder += char
-//   const updatedLink = `<a href="https://metamask.io/download" target="_blank" rel="noreferrer">${linkBuilder}</a>`
-//   metamaskParagraph.current.innerHTML += updatedLink
-//   new Promise(res => setTimeout(res, 50))
-
 export const Login: React.FC = () => {
   const { ethereum } = window
   const [disableLogin, setDisableLogin] = useState(false)
   const [message, setMessage] = useState("")
   const [animatedMessage, setAnimatedMessage] = useState("")
+  const [downloadLink, setDownloadLink] = useState(false)
+
+  useEffect(() => {
+    if (ethereum) {
+      setTimeout(() => {
+        setMessage("This app uses your ethereum wallet to make donations to contributors")
+      }, 1500)
+    } else {
+      setMessage("In order for this application to work properly, you need to have a cryptocurrency wallet. Click here to ")
+      setDownloadLink(true)
+      console.log(downloadLink)
+    }
+  }, [ethereum])
 
   useEffect(() => {
     let phrase = ""
@@ -33,9 +36,8 @@ export const Login: React.FC = () => {
         if (interrupt) return
         phrase += char
         setAnimatedMessage(phrase)
-      }, 50 * index);
+      }, 60 * index);
     })
-
 
     interrupt = false;
 
@@ -65,7 +67,7 @@ export const Login: React.FC = () => {
       <h1 className="pethreon">P<span className="Ξ">Ξ</span>threon</h1>
       <ul className="features">
         <li>Contribute monthly to your favourite creators in a trustless, privacy respecting manner</li>
-        <li>Only pay transaction fees, <a href="https://github.com/Chris56974/Pethreon/blob/main/contracts/Pethreon.sol" target="_blank" rel="noreferrer">view the smart contract on Github</a> <Github /></li>
+        <li>Only pay transaction fees, <a href="https://github.com/Chris56974/Pethreon/blob/main/contracts/Pethreon.sol" target="_blank" rel="noreferrer">view the smart contract on Github<Github /></a></li>
       </ul>
       <p className="metamessage">{animatedMessage}</p>
       <div className="metacontainer">

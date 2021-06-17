@@ -45,6 +45,8 @@
 
 .github {
   width: 2ch;
+  padding-left: 0.3rem;
+  padding-bottom: 0.05rem;
   vertical-align: text-bottom;
 }
 

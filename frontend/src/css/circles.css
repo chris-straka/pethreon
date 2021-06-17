@@ -1,33 +1,27 @@
 /* My keyframes would've made for a perfect SASS function... */
 @keyframes moveA {
-  50% {
-    transform: scale(125%) translateX(10px);
-  }
+  to { transform: scale(125%) translateX(10px); }
 }
 
 @keyframes moveB {
-  50% {
-    transform: scale(95%) translate(2px, 30px);
-  }
+  to { transform: scale(95%) translate(2px, 30px); }
 }
 
 @keyframes moveC { 
-  50% {
-    transform: scale(150%) translate(-40px, -40px);
-  }
+  to { transform: scale(150%) translate(-40px, -40px); }
 }
 
 .circleA {
   position: fixed;
   top: -5vh;
-  left: -15vw;
+  left: -13vw;
   width: 7rem;
   height: 7rem;
   background-color: var(--main-blue);
   border-radius: 50%;
   opacity: 0.4;
 
-  animation: 13s linear 0s infinite alternate none running moveA;
+  animation: 7s linear 0s infinite alternate none running moveA;
 }
 
 .circleB {
@@ -40,7 +34,7 @@
   border-radius: 50%;
   opacity: 0.4;
 
-  animation: 12s linear 1s infinite alternate none running moveB;
+  animation: 6s linear 1s infinite alternate none running moveB;
 }
 
 .circleC {
@@ -54,7 +48,7 @@
   opacity: 0.4;
   z-index: -1;
 
-  animation: 50s linear 0.5s infinite alternate none running moveC;
+  animation: 25s linear 0.5s infinite alternate none running moveC;
 }
 
 
