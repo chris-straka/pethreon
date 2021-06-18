@@ -6,38 +6,48 @@ import mp4 from "../assets/money.mp4"
 import webm from "../assets/money.webm"
 import "./login.css"
 
-// TODO: Make sure to add back in the class
-
 export const Login: React.FC = () => {
   const { ethereum } = window
   const [disableLogin, setDisableLogin] = useState(false)
   const [message, setMessage] = useState("")
   const [animatedMessage, setAnimatedMessage] = useState("")
-  const [downloadLink, setDownloadLink] = useState(false)
+  const [link, setLink] = useState(false)
+  const [animatedLink, setAnimatedLink] = useState("")
+  const [talking, setTalking] = useState(false)
 
+  // OPENING ANIMATION
   useEffect(() => {
     if (ethereum) {
       setTimeout(() => {
         setMessage("This app uses your ethereum wallet to make donations to contributors")
       }, 1500)
     } else {
-      setMessage("In order for this application to work properly, you need to have a cryptocurrency wallet. Click here to ")
-      setDownloadLink(true)
-      console.log(downloadLink)
+      setTimeout(() => {
+        setMessage("This app requires a cryptocurrency wallet to work, ")
+      }, 1500);
+      setTimeout(() => {
+        setLink(true)
+      }, 5500);
     }
   }, [ethereum])
 
+  // TEXT ANIMATION
   useEffect(() => {
     let phrase = ""
     let interrupt: boolean;
 
     message.split('').forEach((char, index) => {
       setTimeout(() => {
+        setTalking(true)
         if (interrupt) return
         phrase += char
         setAnimatedMessage(phrase)
-      }, 60 * index);
+      }, 75 * index);
     })
+
+    setTimeout(() => {
+      setTalking(false)
+    }, message.length * 76);
 
     interrupt = false;
 
@@ -46,6 +56,31 @@ export const Login: React.FC = () => {
       interrupt = true
     }
   }, [message])
+
+  // LINK ANIMATION
+  useEffect(() => {
+    let linkBuilder = ""
+    if (link) {
+      setTalking(true)
+      const linkContent = "try out metamask!"
+      linkContent.split('').forEach((char, index) => {
+        setTimeout(() => {
+          if (ethereum) return
+          linkBuilder += char
+          setAnimatedLink(linkBuilder)
+        }, 75 * index);
+      })
+
+      setTimeout(() => {
+        setTalking(false)
+      }, linkContent.length * 76);
+
+    }
+    return () => {
+      linkBuilder = ""
+      setAnimatedLink("")
+    }
+  }, [link, ethereum])
 
   const login = async () => {
     if (ethereum) {
@@ -62,17 +97,27 @@ export const Login: React.FC = () => {
     }
   }
 
+  const pleaseRefresh = () => {
+    window.confirm("You might have to refresh this page if you just installed a cryptocurrency wallet")
+  }
+
   return (
     <main className="container">
       <h1 className="pethreon">P<span className="Ξ">Ξ</span>threon</h1>
       <ul className="features">
         <li>Contribute monthly to your favourite creators in a trustless, privacy respecting manner</li>
-        <li>Only pay transaction fees, <a href="https://github.com/Chris56974/Pethreon/blob/main/contracts/Pethreon.sol" target="_blank" rel="noreferrer">view the smart contract on Github<Github /></a></li>
+        <li>Only pay transaction fees,&nbsp;
+          <a href="https://github.com/Chris56974/Pethreon/blob/main/contracts/Pethreon.sol"
+            target="_blank"
+            rel="noreferrer">
+            view the smart contract on Github<Github />
+          </a>
+        </li>
       </ul>
-      <p className="metamessage">{animatedMessage}</p>
+      <p className="metamessage">{animatedMessage} {link === true ? (<a href="https://metamask.io/download" target="_blank" rel="noreferrer">{animatedLink}</a>) : null} </p>
       <div className="metacontainer">
-        <Metamask />
-        <button className="login" onClick={login} disabled={disableLogin}>Login with metamask</button>
+        <Metamask isTalking={talking} />
+        <button className="login" onClick={ethereum ? login : pleaseRefresh} disabled={disableLogin}>Login with metamask</button>
       </div>
       <video className="vid" muted autoPlay loop>
         <source src={mp4} type="video/mp4" />
