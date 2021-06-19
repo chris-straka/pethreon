@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
-import { Metamask } from "../components/metamask-logo/metamask";
-import { Github } from "../components/github-logo/github"
+import { useHistory } from 'react-router-dom';
+import { Metamask } from "../../components/metamask-logo/metamask";
+import { Github } from "../../components/github-logo/github"
 
 import mp4 from "../assets/money.mp4"
 import webm from "../assets/money.webm"
@@ -8,6 +9,7 @@ import "./login.css"
 
 export const Login: React.FC = () => {
   const { ethereum } = window
+  const history = useHistory()
   const [disableLogin, setDisableLogin] = useState(false)
   const [message, setMessage] = useState("")
   const [animatedMessage, setAnimatedMessage] = useState("")
@@ -88,7 +90,7 @@ export const Login: React.FC = () => {
         setDisableLogin(true)
         setMessage("Logging in... You might have to click the metamask chrome extension in your browser...")
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
-        console.log(accounts)
+        history.push("/contributor")
         setDisableLogin(false)
       } catch (error) {
         setDisableLogin(false)
