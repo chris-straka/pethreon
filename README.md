@@ -1,10 +1,13 @@
 # Design Doc
 
-[This app](https://github.com/Chris56974/WeiBuddies) is a dapp frontend for [Sergei Tikhomirov's Pethreon Smart Contract](https://github.com/s-tikhomirov/pethreon/blob/master/pethreon.sol). It takes a mobile first approach with flexbox & CSS Grid. The user signs in with their cryptocurrency wallet, pools funds into their account and then contributes to creators in monthly intervals. 
+[This app](https://github.com/Chris56974/WeiBuddies) is a dapp frontend for [Sergei Tikhomirov's Pethreon Smart Contract](https://github.com/s-tikhomirov/pethreon/blob/master/pethreon.sol). The user signs in using their cryptocurrency wallet, they then pool funds into their account and then contribute regularly to creators.
+
+![Pethreon Mobile Mockup](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_mobile.png)
+![Pethreon Desktop 1](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_desktop_1.png)
+![Pethreon Desktop 2](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_desktop_2.png)
+![Pethreon Desktop 3](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_desktop_3.png)
 
 ## Wireframe
-
-
 
 ![UI Mockup](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/Pethreon_Wireframe.pdf). ![video](https://www.pexels.com/video/hands-rich-green-money-3943962/).
 
