@@ -3,8 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { Metamask } from "../../components/metamask-logo/metamask";
 import { Github } from "../../components/github-logo/github"
 
-import mp4 from "../assets/money.mp4"
-import webm from "../assets/money.webm"
+import mp4 from "../../assets/money.mp4"
+import webm from "../../assets/money.webm"
 import "./login.css"
 
 export const Login: React.FC = () => {
@@ -16,13 +16,14 @@ export const Login: React.FC = () => {
   const [link, setLink] = useState(false)
   const [animatedLink, setAnimatedLink] = useState("")
   const [talking, setTalking] = useState(false)
+  const [fade, setFade] = useState(false)
 
   // OPENING ANIMATION
   useEffect(() => {
     if (ethereum) {
       setTimeout(() => {
-        setMessage("This app uses your ethereum wallet to make donations to contributors")
-      }, 1500)
+        setMessage("This app uses your ethereum wallet to make subscriptions to creators")
+      }, 1000)
     } else {
       setTimeout(() => {
         setMessage("This app requires a cryptocurrency wallet to work, ")
@@ -88,10 +89,11 @@ export const Login: React.FC = () => {
     if (ethereum) {
       try {
         setDisableLogin(true)
-        setMessage("Logging in... You might have to click the metamask chrome extension in your browser...")
+        setMessage("Logging in... You might have to click the metamask extension in your browser or refresh")
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
-        history.push("/contributor")
-        setDisableLogin(false)
+        if (accounts) {
+          history.push("/contribute")
+        }
       } catch (error) {
         setDisableLogin(false)
         setMessage("Oh frick, we got an error... " + (error as Error).message)

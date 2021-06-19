@@ -1,4 +1,4 @@
 
-export const Creator: React.FC = () => {
-  return <p></p>
+export const Create: React.FC = () => {
+  return <p>This is the Creator Portal</p>
 }

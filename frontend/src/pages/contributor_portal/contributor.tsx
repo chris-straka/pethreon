@@ -1,4 +1,4 @@
 
-export const Contributor: React.FC = () => {
-  return <p>Hello</p>
+export const Contribute: React.FC = () => {
+  return <p>This is the contributor panel</p>
 }
