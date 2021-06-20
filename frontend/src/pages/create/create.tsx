@@ -1,4 +1,4 @@
 
 export const Create: React.FC = () => {
-  return <h1>This is the creator's portal</h1>
+  return <h1>Creator</h1>
 }
