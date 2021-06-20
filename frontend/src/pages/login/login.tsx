@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import { Metamask } from "../../components/metamask-logo/metamask";
 import { Github } from "../../components/github-logo/github"
-
 import mp4 from "../../assets/money.mp4"
 import webm from "../../assets/money.webm"
 import "./login.css"
+
 
 export const Login: React.FC = () => {
   const { ethereum } = window
@@ -16,7 +16,6 @@ export const Login: React.FC = () => {
   const [link, setLink] = useState(false)
   const [animatedLink, setAnimatedLink] = useState("")
   const [talking, setTalking] = useState(false)
-  const [fade, setFade] = useState(false)
 
   // OPENING ANIMATION
   useEffect(() => {
@@ -86,18 +85,16 @@ export const Login: React.FC = () => {
   }, [link, ethereum])
 
   const login = async () => {
-    if (ethereum) {
-      try {
-        setDisableLogin(true)
-        setMessage("Logging in... You might have to click the metamask extension in your browser or refresh")
-        const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
-        if (accounts) {
-          history.push("/contribute")
-        }
-      } catch (error) {
-        setDisableLogin(false)
-        setMessage("Oh frick, we got an error... " + (error as Error).message)
+    try {
+      setDisableLogin(true)
+      setMessage("Logging in... You might have to click the metamask extension in your browser or refresh")
+      const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
+      if (accounts) {
+        history.push("/contribute")
       }
+    } catch (error) {
+      setDisableLogin(false)
+      setMessage("Oh frick, we got an error... " + (error as Error).message)
     }
   }
 

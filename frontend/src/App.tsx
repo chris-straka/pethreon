@@ -1,11 +1,39 @@
+import { useState, useEffect } from 'react';
 import { Login } from './pages/login/login';
-import { Contribute } from './pages/contributor_portal/contributor';
-import { Create } from './pages/creator_portal/creator';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import "./css/circles.css"
+import { Contribute } from './pages/contribute/contribute';
+import { Create } from './pages/create/create';
+import { Switch, Route, Redirect, useLocation, useHistory } from 'react-router-dom';
+import "./css/login.css";
 
 const App: React.FC = () => {
-  const disablePortalButton = true;
+  const [disablePortalButton, setDisablePortalButton] = useState(true)
+  const location = useLocation()
+  const history = useHistory()
+
+  useEffect(() => {
+    const loginPage = location.pathname === '/'
+    const contributePage = location.pathname === '/contribute'
+    const creatorPage = location.pathname === '/create'
+
+    if (loginPage) {
+      setDisablePortalButton(true)
+      console.log("index")
+    }
+    if (contributePage) {
+      setDisablePortalButton(false)
+      console.log("contributor")
+    }
+    if (creatorPage) {
+      setDisablePortalButton(false)
+      console.log("creator")
+    }
+  }, [location])
+
+  const switchPortals = () => {
+    history.push("/create")
+  }
+
+
   return (
     <>
       <Switch>
@@ -15,7 +43,7 @@ const App: React.FC = () => {
         <Redirect to="/" />
       </Switch>
       <div className="circleA" />
-      <button className="circleB" disabled={disablePortalButton}/>
+      <button className="circleB" onClick={switchPortals} disabled={disablePortalButton} />
       <div className="circleC" />
     </>
   )
