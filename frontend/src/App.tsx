@@ -7,14 +7,14 @@ import "./css/login.css";
 
 const App: React.FC = () => {
   const [disablePortalButton, setDisablePortalButton] = useState(true)
-  const location = useLocation()
   const history = useHistory()
 
-  useEffect(() => {
-    const loginPage = location.pathname === '/'
-    const contributePage = location.pathname === '/contribute'
-    const creatorPage = location.pathname === '/create'
+  const location = useLocation()
+  const loginPage = location.pathname === '/'
+  const contributePage = location.pathname === '/contribute'
+  const creatorPage = location.pathname === '/create'
 
+  useEffect(() => {
     if (loginPage) {
       setDisablePortalButton(true)
       console.log("index")
@@ -27,12 +27,15 @@ const App: React.FC = () => {
       setDisablePortalButton(false)
       console.log("creator")
     }
-  }, [location])
+  }, [location, contributePage, creatorPage, loginPage])
 
-  const switchPortals = () => {
+  const switchToCreator = () => {
     history.push("/create")
   }
 
+  const switchToContributor = () => {
+    history.push("/contribute")
+  }
 
   return (
     <>
@@ -43,7 +46,7 @@ const App: React.FC = () => {
         <Redirect to="/" />
       </Switch>
       <div className="circleA" />
-      <button className="circleB" onClick={switchPortals} disabled={disablePortalButton} />
+      <button className="circleB" onClick={contributePage ? switchToCreator : switchToContributor} disabled={disablePortalButton} />
       <div className="circleC" />
     </>
   )
