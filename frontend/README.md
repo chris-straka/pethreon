@@ -62,4 +62,4 @@ When the user clicks the button to sign into metamask, a modal (metamask's modal
 
 For my typewriter effect, I can't just loop through the entire string and do setTimeOut(3 secs) on each character, because then they'll ALL print at the same time 3 seconds later. So I have to do setTimeOut(3 secs * index) which gives all the chars their own unique timeOut(duration). I can't do `await new Promise(r => setTimeout(r, 2000))` because I can't use await inside useEffect(). This way works by putting a bunch of async functions on the callback queue, and then each of them one at a time. It can't start another one right away because of the await.
 
-You have navigate to different routes with [history](https://stackoverflow.com/questions/31079081)
+I have a lot of logic in my app.tsx file which feels off. I also have a lot of className logic on the HTML elements themselves which also feels off. I'll try and figure this out later.

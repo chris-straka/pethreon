@@ -1,4 +1,3 @@
-/* My keyframes would've made for a perfect SASS function... */
 @keyframes moveA {
   to { transform: scale(125%) translateX(10px); }
 }
@@ -14,7 +13,7 @@
 .circleA {
   position: fixed;
   top: -5vh;
-  left: -13vw;
+  left: -5vw;
   width: 7rem;
   height: 7rem;
   background-color: var(--main-blue);

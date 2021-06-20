@@ -111,8 +111,8 @@ export const Login: React.FC = () => {
           <a href="https://github.com/Chris56974/Pethreon/blob/main/contracts/Pethreon.sol"
             target="_blank"
             rel="noreferrer">
-            view the smart contract on Github<Github />
-          </a>
+            view the smart contract on Github<Github /> 
+          </a> 
         </li>
       </ul>
       <p className="metamessage">{animatedMessage} {link === true ? (<a href="https://metamask.io/download" target="_blank" rel="noreferrer">{animatedLink}</a>) : null} </p>

@@ -1,33 +1,17 @@
-import { useState, useEffect } from 'react';
 import { Login } from './pages/login/login';
 import { Contribute } from './pages/contribute/contribute';
 import { Create } from './pages/create/create';
 import { Switch, Route, Redirect, useLocation, useHistory } from 'react-router-dom';
-import "./css/login.css";
+import "./circles/create.css";
+import "./circles/contribute.css";
+import "./circles/login.css";
 
 const App: React.FC = () => {
-  const [disablePortalButton, setDisablePortalButton] = useState(true)
   const history = useHistory()
-
   const location = useLocation()
   const loginPage = location.pathname === '/'
   const contributePage = location.pathname === '/contribute'
-  const creatorPage = location.pathname === '/create'
-
-  useEffect(() => {
-    if (loginPage) {
-      setDisablePortalButton(true)
-      console.log("index")
-    }
-    if (contributePage) {
-      setDisablePortalButton(false)
-      console.log("contributor")
-    }
-    if (creatorPage) {
-      setDisablePortalButton(false)
-      console.log("creator")
-    }
-  }, [location, contributePage, creatorPage, loginPage])
+  const createPage = location.pathname === '/create'
 
   const switchToCreator = () => {
     history.push("/create")
@@ -37,6 +21,12 @@ const App: React.FC = () => {
     history.push("/contribute")
   }
 
+  // const circleAnimation = (typeOfCircle: string) => {
+  //   if (loginPage) return `circle${typeOfCircle}_login`
+  //   if (createPage) return `circle${typeOfCircle}_create`
+  //   if (contributePage) return `circle${typeOfCircle}_contribute`
+  // }
+
   return (
     <>
       <Switch>
@@ -45,9 +35,28 @@ const App: React.FC = () => {
         <Route path="/create" exact component={Create} />
         <Redirect to="/" />
       </Switch>
-      <div className="circleA" />
-      <button className="circleB" onClick={contributePage ? switchToCreator : switchToContributor} disabled={disablePortalButton} />
-      <div className="circleC" />
+      <div
+        className={`
+        circleA 
+        ${contributePage ? "circleA_contribute" : ""}
+        ${createPage ? "circleA_create" : ""}
+        `}
+      />
+      <button
+        onClick={contributePage ? switchToCreator : switchToContributor}
+        disabled={loginPage ? true : false}
+        className={`
+        circleB
+        ${contributePage ? "circleB_contribute" : ""}
+        ${createPage ? "circleB_create" : ""}
+        `}
+      />
+      <div className={`
+        circleC 
+        ${contributePage ? "circleC_contribute" : ""}
+        ${createPage ? "circleC_create" : ""} 
+        `}
+      />
     </>
   )
 }

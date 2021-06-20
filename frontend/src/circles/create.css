@@ -1,0 +1,19 @@
+.circleA_contribute {
+  top: 92vh;
+  left: -13vw;
+  width: 7rem;
+  height: 7rem;
+  background-color: var(--main-blue);
+  border-radius: 50%;
+  opacity: 0.4;
+
+  animation: 7s linear 0s infinite alternate none running moveA;
+}
+
+.circleB_contribute {
+
+}
+
+.circleC_contribute {
+
+}
