@@ -1,4 +1,4 @@
-.circleA_contribute {
+.circleA_create {
   top: 92vh;
   left: -13vw;
   width: 7rem;
@@ -10,10 +10,10 @@
   animation: 7s linear 0s infinite alternate none running moveA;
 }
 
-.circleB_contribute {
+.circleB_create {
 
 }
 
-.circleC_contribute {
+.circleC_create {
 
 }
