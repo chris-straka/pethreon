@@ -4,7 +4,7 @@ import { Create } from './pages/create/create';
 import { Switch, Route, Redirect, useLocation, useHistory } from 'react-router-dom';
 import "./pages/contribute/circle.css";
 import "./pages/create/circle.css";
-import "./pages/login/circle.css";
+
 
 const App: React.FC = () => {
   const history = useHistory()
@@ -14,14 +14,15 @@ const App: React.FC = () => {
   const createPage = location.pathname === '/create'
 
   const switchPortals = () => {
-    if (contributePage) { history.push("/create") }
-    if (createPage) { history.push("/contribute") }
+    if (contributePage) history.push("/create") 
+    if (createPage)  history.push("/contribute") 
   }
 
-  const circleAnimation = (typeOfCircle: string) => {
-    if (createPage) return `circle${typeOfCircle}_create`
-    if (contributePage) return `circle${typeOfCircle}_contribute`
-    return `circle${typeOfCircle}`
+  // Circle animation depends on the route
+  const circleAnimation = (page: string) => {
+    if (createPage) return `circle${page}_create`
+    if (contributePage) return `circle${page}_contribute`
+    return `circle${page}`
   }
 
   return (
