@@ -1,12 +1,18 @@
 import { useHistory } from "react-router-dom"
+import { PaymentDetails } from "../../components/payment-details/payment-details"
+import { UserAddress } from "../../components/user-address/user-address"
 import "./create.css"
 import "./circle.css"
 
 export const Create: React.FC = () => {
   const history = useHistory()
-  const user = localStorage?.getItem("account")
-
+  const user = localStorage?.getItem("account") as string
   if (!user) { history.push("/") }
 
-  return <h1>{user}</h1>
+  return <>
+    <UserAddress user={user} />
+    <h1>$0.00</h1>
+    <button>Withdrawal</button>
+    <PaymentDetails />
+  </>
 }

@@ -29,8 +29,9 @@
   left: 92vw;
   width: 8rem;
   height: 8rem;
-  background-color: var(--main-blue-lighter);
+  background-color: var(--main-blue);
   border-radius: 50%;
+  opacity: 0.4;
 
   animation: 6s linear 1s infinite alternate none running moveB;
 }

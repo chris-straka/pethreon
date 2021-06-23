@@ -1,7 +1,7 @@
 .circleA_create {
   position: fixed;
-  top: 70vh;
-  left: 13vw;
+  top: 78vh;
+  left: 55vw;
   width: 30vw;
   height: 30vw;
   background-color: var(--main-red-lighter);
@@ -18,14 +18,15 @@
   height: 8rem;
   background-color: var(--main-blue-lighter);
   border-radius: 50%;
+  cursor: pointer;
 
   transition: all 0.5s linear;
 }
 
 .circleC_create {
   position: fixed;
-  top: 78vh;
-  left: 55vw;
+  top: 70vh;
+  left: 13vw;
   width: 30vw;
   height: 30vw;
   background-color: var(--main-red-lighter);

@@ -14,8 +14,8 @@ const App: React.FC = () => {
   const createPage = location.pathname === '/create'
 
   const switchPortals = () => {
-    if (contributePage) history.push("/create") 
-    if (createPage)  history.push("/contribute") 
+    if (contributePage) history.push("/create")
+    if (createPage) history.push("/contribute")
   }
 
   // Circle animation depends on the route
@@ -27,19 +27,18 @@ const App: React.FC = () => {
 
   return (
     <>
+      <div className={circleAnimation("A")} />
+      <button className={circleAnimation("B")} onClick={switchPortals} disabled={loginPage ? true : false} >
+        {contributePage ? "Switch to Creator Portal" : ""}
+        {createPage ? "Switch to Contributor Portal" : ""}
+      </button>
+      <div className={circleAnimation("C")} />
       <Switch>
         <Route path="/" exact component={Login} />
         <Route path="/contribute" exact component={Contribute} />
         <Route path="/create" exact component={Create} />
         <Redirect to="/" />
       </Switch>
-      <div className={circleAnimation("A")} />
-      <button className={circleAnimation("B")} onClick={switchPortals} disabled={loginPage ? true : false} >
-        {contributePage ? "Switch to Creator Portal" : ""}
-        {createPage ? "Switch to Contributor Portal" : ""}
-      </button>
-      <div className={circleAnimation("C")}
-      />
     </>
   )
 }
