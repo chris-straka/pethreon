@@ -2,7 +2,6 @@ import { useHistory } from "react-router-dom"
 import { PaymentDetails } from "../../components/payment-details/payment-details"
 import { UserAddress } from "../../components/user-address/user-address"
 import "./create.css"
-import "./circle.css"
 
 export const Create: React.FC = () => {
   const history = useHistory()

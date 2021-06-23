@@ -5,7 +5,6 @@ import { MetamaskAnimation } from '../../components/metamask/metamask-animation'
 import mp4 from "../../assets/money.mp4"
 import webm from "../../assets/money.webm"
 import "./login.css"
-import "./circle.css";
 
 export const Login: React.FC = () => {
   const { ethereum } = window
