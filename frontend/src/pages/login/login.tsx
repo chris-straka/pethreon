@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { useHistory } from 'react-router-dom';
 import { GithubSVG } from "../../components/github-logo/github"
 import { MetamaskAnimation } from '../../components/metamask/metamask-animation';
 import mp4 from "../../assets/money.mp4"
@@ -8,7 +7,6 @@ import "./login.css"
 
 export const Login: React.FC = () => {
   const { ethereum } = window
-  const history = useHistory()
   const [disableLogin, setDisableLogin] = useState(false)
   const [message, setMessage] = useState("")
   const [link, setLink] = useState(false)
@@ -32,12 +30,12 @@ export const Login: React.FC = () => {
   const login = async () => {
     try {
       setDisableLogin(true)
-      setMessage("Logging in... You might have to click the metamask extension in your browser or refresh")
+      setMessage("Logging in... You might have to click the metamask extension in your browser")
       const accounts: [string] = await ethereum.request({ method: 'eth_requestAccounts' })
       localStorage.setItem("account", accounts[0])
     } catch (error) {
       setDisableLogin(false)
-      setMessage("Oh frick, we got an error... " + (error as Error).message)
+      setMessage("Error... " + (error as Error).message)
     }
   }
 
