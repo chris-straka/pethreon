@@ -35,7 +35,6 @@ export const Login: React.FC = () => {
       setMessage("Logging in... You might have to click the metamask extension in your browser or refresh")
       const accounts: [string] = await ethereum.request({ method: 'eth_requestAccounts' })
       localStorage.setItem("account", accounts[0])
-      history.push("/contribute")
     } catch (error) {
       setDisableLogin(false)
       setMessage("Oh frick, we got an error... " + (error as Error).message)

@@ -5,6 +5,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { Circles } from './components/circles/circles';
 
 const App: React.FC = () => {
+
   return (
     <>
       <Circles />

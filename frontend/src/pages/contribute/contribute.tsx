@@ -14,8 +14,8 @@ export const Contribute: React.FC = () => {
 
   return <div className="contributeLayout">
     <UserAddress user={user} />
-    <h1>$0.00</h1>
-    <button onClick={pledge}>Make Pledge</button>
+    <h1 className="userBalance">$0.00</h1>
+    <button className="pledgeButton" onClick={pledge}>Make Pledge</button>
     <PaymentDetails />
   </div >
 }

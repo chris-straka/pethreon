@@ -1,0 +1,6 @@
+.userAddress {
+  width: 8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

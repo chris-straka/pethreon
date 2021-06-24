@@ -15,7 +15,7 @@
   position: fixed;
   top: 0vh;
   left: 60vw;
-  min-width: 40vw;
+  width: 40vw;
   
   height: 6rem;
   background-color: var(--main-red-lighter);
