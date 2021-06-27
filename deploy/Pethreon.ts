@@ -1,8 +1,8 @@
 import { HardhatRuntimeEnvironment } from 'hardhat/types';
-import { DeployFunction, Deployment} from 'hardhat-deploy/types';
-import 'hardhat-deploy/src/type-extensions' // prevents the error lol
+import { DeployFunction } from 'hardhat-deploy/types';
+import "../hardhat.config" // gets rid of the error
 
-export const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
+const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const { deployments, getNamedAccounts } = hre;
   const { deploy } = deployments;
   const { deployer } = await getNamedAccounts();
@@ -13,3 +13,5 @@ export const func: DeployFunction = async function (hre: HardhatRuntimeEnvironme
     log: true,
   });
 };
+
+export default func;
