@@ -6,8 +6,6 @@ import React, { useEffect, useState } from "react";
 import Web3Modal, { IProviderOptions } from "web3modal";
 import { Pethreon } from "./typechain/Pethreon";
 import { Pethreon__factory } from "./typechain/factories/Pethreon__factory";
-import { Playground } from "./typechain/Playground";
-import { Playground__factory } from "./typechain/factories/Playground__factory";
 
 const emptyContract = {
     instance: undefined,
@@ -28,7 +26,6 @@ const defaultSymfoniContext: SymfoniContextInterface = {
 };
 export const SymfoniContext = React.createContext<SymfoniContextInterface>(defaultSymfoniContext);
 export const PethreonContext = React.createContext<SymfoniPethreon>(emptyContract);
-export const PlaygroundContext = React.createContext<SymfoniPlayground>(emptyContract);
 
 export interface SymfoniContextInterface {
     init: (provider?: string) => void;
@@ -49,11 +46,6 @@ export interface SymfoniPethreon {
     factory?: Pethreon__factory;
 }
 
-export interface SymfoniPlayground {
-    instance?: Playground;
-    factory?: Playground__factory;
-}
-
 export const Symfoni: React.FC<SymfoniProps> = ({
     showLoading = true,
     autoInit = true,
@@ -69,7 +61,6 @@ export const Symfoni: React.FC<SymfoniProps> = ({
     const [fallbackProvider] = useState<string | undefined>(undefined);
     const [providerPriority, setProviderPriority] = useState<string[]>(["web3modal", "hardhat"]);
     const [Pethreon, setPethreon] = useState<SymfoniPethreon>(emptyContract);
-    const [Playground, setPlayground] = useState<SymfoniPlayground>(emptyContract);
     useEffect(() => {
         if (messages.length > 0)
             console.debug(messages.pop())
@@ -150,7 +141,6 @@ export const Symfoni: React.FC<SymfoniProps> = ({
             }
             const finishWithContracts = (text: string) => {
                 setPethreon(getPethreon(_provider, _signer))
-                setPlayground(getPlayground(_provider, _signer))
                 finish(text)
             }
             if (!autoInit && initializeCounter === 0) return finish("Auto init turned off.")
@@ -180,19 +170,12 @@ export const Symfoni: React.FC<SymfoniProps> = ({
     }, [initializeCounter])
 
     const getPethreon = (_provider: providers.Provider, _signer?: Signer) => {
-        let instance = _signer ? Pethreon__factory.connect(ethers.constants.AddressZero, _signer) : Pethreon__factory.connect(ethers.constants.AddressZero, _provider)
+
+        const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+        const instance = _signer ? Pethreon__factory.connect(contractAddress, _signer) : Pethreon__factory.connect(contractAddress, _provider)
         const contract: SymfoniPethreon = {
             instance: instance,
             factory: _signer ? new Pethreon__factory(_signer) : undefined,
-        }
-        return contract
-    }
-        ;
-    const getPlayground = (_provider: providers.Provider, _signer?: Signer) => {
-        let instance = _signer ? Playground__factory.connect(ethers.constants.AddressZero, _signer) : Playground__factory.connect(ethers.constants.AddressZero, _provider)
-        const contract: SymfoniPlayground = {
-            instance: instance,
-            factory: _signer ? new Playground__factory(_signer) : undefined,
         }
         return contract
     }
@@ -212,18 +195,16 @@ export const Symfoni: React.FC<SymfoniProps> = ({
                 <SignerContext.Provider value={[signer, setSigner]}>
                     <CurrentAddressContext.Provider value={[currentAddress, setCurrentAddress]}>
                         <PethreonContext.Provider value={Pethreon}>
-                            <PlaygroundContext.Provider value={Playground}>
-                                {showLoading && loading ?
-                                    props.loadingComponent
-                                        ? props.loadingComponent
-                                        : <div>
-                                            {messages.map((msg, i) => (
-                                                <p key={i}>{msg}</p>
-                                            ))}
-                                        </div>
-                                    : props.children
-                                }
-                            </PlaygroundContext.Provider >
+                            {showLoading && loading ?
+                                props.loadingComponent
+                                    ? props.loadingComponent
+                                    : <div>
+                                        {messages.map((msg, i) => (
+                                            <p key={i}>{msg}</p>
+                                        ))}
+                                    </div>
+                                : props.children
+                            }
                         </PethreonContext.Provider >
                     </CurrentAddressContext.Provider>
                 </SignerContext.Provider>

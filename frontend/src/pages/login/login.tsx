@@ -1,12 +1,18 @@
 import { useState, useEffect } from 'react'
+import { useHistory } from 'react-router';
 import { GithubSVG } from "../../components/github-logo/github"
 import { MetamaskAnimation } from '../../components/metamask/metamask-animation';
 import mp4 from "../../assets/money.mp4"
 import webm from "../../assets/money.webm"
 import "./login.css"
 
+interface MetamaskError extends Error {
+  code: number
+}
+
 export const Login: React.FC = () => {
   const { ethereum } = window
+  const history = useHistory()
   const [disableLogin, setDisableLogin] = useState(false)
   const [message, setMessage] = useState("")
   const [link, setLink] = useState(false)
@@ -29,13 +35,17 @@ export const Login: React.FC = () => {
 
   const login = async () => {
     try {
-      setDisableLogin(true)
       setMessage("Logging in... You might have to click the metamask extension in your browser")
       const accounts: [string] = await ethereum.request({ method: 'eth_requestAccounts' })
       localStorage.setItem("account", accounts[0])
+      history.push("./contribute")
     } catch (error) {
       setDisableLogin(false)
-      setMessage("Error... " + (error as Error).message)
+      if ((error as MetamaskError).code === -32002) {
+        setMessage("Request already sent, click the metamask extension in your browser")
+      } else {
+        setMessage("Error... " + (error as MetamaskError).message)
+      }
     }
   }
 

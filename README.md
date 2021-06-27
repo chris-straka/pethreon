@@ -1,31 +1,40 @@
 # Design Doc
 
-[This app](https://github.com/Chris56974/WeiBuddies) is a dapp frontend for [Sergei Tikhomirov's Pethreon Smart Contract](https://github.com/s-tikhomirov/pethreon/blob/master/pethreon.sol). The user starts off by signing into their cryptocurrency wallet, they then pool funds into their account so that they can contribute to creators in regular intervals.
-
-This app is going to be created using a mobile first design.
+[This app](https://github.com/Chris56974/WeiBuddies) is a dapp frontend for [Sergei Tikhomirov's Pethreon Smart Contract](https://github.com/s-tikhomirov/pethreon/blob/master/pethreon.sol). It's a crowd funding platform, where users (contributors/creators) can sign in through their crypto wallet to contribute/withdraw funds from an account balance in regular intervals. It's created via a mobile-first approach using these mockups (Figma).
 
 ![Pethreon Mobile Mockup](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_mobile.png)
-![Pethreon Desktop 1](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_desktop_1.png)
+![Pethreon Desktoe 1](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_desktop_1.png)
+![Money Video](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/money_two_seconds.webm)
 ![Pethreon Desktop 2](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_desktop_2.png)
 ![Pethreon Desktop 3](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_desktop_3.png)
 
-## Wireframe
+## How stuff works
 
-![UI Mockup](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/Pethreon_Wireframe.pdf). ![video](https://www.pexels.com/video/hands-rich-green-money-3943962/).
+[Hardhat](https://hardhat.org/getting-started/) is a development environment (i.e. development blockchain) for ethereum, [Waffle](https://ethereum-waffle.readthedocs.io/en/latest/index.html) is a testing library for smart contracts (which are programs that run on the blockchain) and [ethers.js](https://docs.ethers.io/v5/getting-started/) is a library for communicating with the blockchain (calling methods, reading data, etc).
 
-## Hardhat
+For this to work you need to [download metamask](https://metamask.io/). [You might also want to use a different browser profile for development](https://youtu.be/Ik8-xn4DyCo?t=15). This is so you don't confuse your fake metamask account for your real one. Once metamask is installed, you need to import a new account via "private key". The private key is a 12 word seed phrase you can use to recover an account wallet on metamask. In this case, it's a made up phrase I used for development which you can find in hardhat.config.ts (test test test...). After importing that account, you need to add a new network to metamask. Click on networks, then on custom RPC and then add these settings...
 
-[Hardhat](https://hardhat.org/getting-started/) is a development environment (i.e. dev blockchain) for ethereum, [Waffle](https://ethereum-waffle.readthedocs.io/en/latest/index.html) is a testing library for smart contracts and [ethers.js](https://docs.ethers.io/v5/getting-started/) is a library for interacting with the Ethereum blockchain.
+```text
+Network Name: Localhost 8545
+New RPC URL:  http://localhost:8545
+Chain ID:     31337
+Currency:     ETH
+```
+
+You should then be able to run these commands and get started.
 
 ```bash
-npx hardhat # help menu
-hh          # (ibid)[https://hardhat.org/guides/shorthand.html]
+yarn                      # install dependencies (or npm install)
+npx hardhat node --watch  # bootup a development blockchain on port 8585
+hh node --watch           # (shorthand for the above)[https://hardhat.org/guides/shorthand.html]
 
-hh test     # runs tests
-hh node     # lets external clients connect to hh's dev blockchain (on some port i.e. 8080)
-hh console  # for interacting with the hh dev environment
+# Open another terminal
+cd frontend
+yarn
+yarn start 
 
-hh run scripts/sample_script.ts                   # deploy 
+# To deploy the smart contract
+hh run scripts/sample_script.ts                   # deploy the contract to the ethereum provider
 hh run --network <network> scripts/sample_test.ts # deploy to a network specified in hardhat.config.ts
 ```
 
@@ -100,7 +109,30 @@ SafeMath is no longer needed for solidity 0.8.0+ (integer variable types can't o
 
 ### Passing ether around
 
-A smart contract can only have an ether balance if it has a payable function. The payable function can be `receive() external payable {}` (v0.6.0) which runs like a lifecycle hook whenever the contract receives a transaction with no input data (you can emit an event here). Or it can be a payable function that users call explicitely in the input data. Whenever you're calling a payable function from outside the contract via a library like ethersJS or web3, you'll automatically have an overrides object passed in for you where you can provide the details e.g contract.method(arg1, arg2, {overrides}). If you want the contract to send ether to someone else, then you have to make their address payable in the contract e.g payable(address). The contract's balance starts off at 0, and you can see it with address(this).balance. A provider is a connection to the Ethereum blockchain.
+There are a couple [exceptions](https://ethereum.stackexchange.com/questions/63987), but a smart contract MUST have a payable function in order for it to have an ether balance. If the smart contract does have a payable function, the user can call it by specifying it in the input data of their transaction. If you send ether to a smart contract in a transaction with NO input data (i.e. a transaction that doesn't call anything) OR you call a function that doesn't exist, it's going to call that contract's "fallback function" which could have many forms.
+
+```solidity
+// Pre solidity v0.6.0
+contract foo {
+  // You can only have one of these, they can run 2300 gas worth of computation, and they usually emit an event
+  function() external {}         // runs, throws an exception, and reverts the entire transaction
+  function() external payable {} // runs, and then deposits all the ether into the smart contract
+}  
+
+// Solidity v0.6.0+
+contract foo {
+  // You can have one or both
+  fallback() external {}         // same as before, BUT the receive() function prevails if there's no input data
+  fallback() external payable {} // ibid
+  receive() external payable {}  // called whenever there's no input data (implicitely payable)
+}  
+```
+
+In order to send a transaction with input data, you typically need to use a library like web3 or ethersJS. When you call a function using one of these libraries, you'll have the ability to pass in an "overrides object" automatically into every payable function as an extra argument -> contract.method(arg1, arg2, {overrides}). You can specify how much ether to send there.
+
+If you want the smart contract to send ether to someone else, then you need to use send(), transfer() or call() (these days, [only call() is recommended](https://consensys.net/diligence/blog/2019/09/stop-using-soliditys-transfer-now/)). The address also has to be marked payable in the smart contract i.e. payable(address). Every contract starts off at 0, and you can see the balance by creating a function that uses address(this).balance.
+
+A provider is a connection to the Ethereum blockchain.
 
 ## Attribution
 

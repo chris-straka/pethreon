@@ -20,8 +20,8 @@ export const MetamaskAnimation: React.FC<{
 
     message.split('').forEach((char, index) => {
       setTimeout(() => {
-        setTalking(true)
         if (interrupt) return
+        setTalking(true)
         phrase += char
         setAnimatedMessage(phrase)
       }, 75 * index);
@@ -63,6 +63,7 @@ export const MetamaskAnimation: React.FC<{
       setAnimatedLink("")
     }
   }, [link, ethereum])
+
   return <>
     <p className="metamessage">{animatedMessage} {link === true ? (<a href="https://metamask.io/download" target="_blank" rel="noreferrer">{animatedLink}</a>) : null} </p>
     <div className="metacontainer">
