@@ -105,7 +105,11 @@ As a bonus, I could allow contributors to make donations offline using service w
 
 ### SafeMath
 
-SafeMath is no longer needed for solidity 0.8.0+ (integer variable types can't overflow anymore). Hardhat doesn't like solidity 0.8.0 though, so I'm using 0.7.6 which means I also need an older @openzepplin/contracts dependency.
+SafeMath is no longer needed for solidity 0.8.0+ (integer variable types can't overflow anymore). Hardhat doesn't support solidity 0.8.0 though, so I'm using 0.7.6 which means I also need an older version of @openzepplin/contracts.
+
+### hardhat-react-plugin
+
+I tried using [hardhat react plugin](https://hardhat.org/plugins/hardhat-react.html) but I couldn't figure it out and I don't think it works with the latest version of typechain.
 
 ### Passing ether around
 

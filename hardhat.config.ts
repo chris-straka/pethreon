@@ -3,7 +3,6 @@ import "@nomiclabs/hardhat-waffle";
 import "@nomiclabs/hardhat-ethers";
 import "hardhat-deploy-ethers";
 import "hardhat-deploy";
-import "@symfoni/hardhat-react";
 import "hardhat-typechain";
 import "@typechain/ethers-v5";
 
@@ -20,11 +19,10 @@ task("accounts", "Prints the list of accounts", async (args, hre) => {
 const config: HardhatUserConfig = {
   namedAccounts: {
     deployer: 0,
-    whomst: 1
+    goofy: 1
   },
   networks: {
     hardhat: {
-      inject: false, // Optional. If true, it will EXPOSE the mnemonic in the frontend code. Then it would be available as an "in-page browser wallet" / signer which can sign without confirmation.
       accounts: {
         mnemonic: "test test test test test test test test test test test junk",
       },

@@ -8,10 +8,14 @@ export const Create: React.FC = () => {
   const user = localStorage?.getItem("account") as string
   if (!user) { history.push("/") }
 
+  const withdrawal = () => { console.log("todo") }
+
   return <>
-    <UserAddress user={user} />
-    <h1>$0.00</h1>
-    <button>Withdrawal</button>
-    <PaymentDetails />
+    <div className="contributeLayout">
+      <UserAddress user={user} />
+      <h1 className="userBalance">$0.00</h1>
+      <button className="pledgeButton" onClick={withdrawal}>Make Pledge</button>
+      <PaymentDetails />
+    </div >
   </>
 }
