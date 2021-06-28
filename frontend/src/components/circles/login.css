@@ -21,6 +21,7 @@
   opacity: 0.4;
 
   animation: 7s linear 0s infinite alternate none running moveA;
+  transition: all 0.5s linear;
 }
 
 .circleB {
@@ -34,6 +35,7 @@
   opacity: 0.4;
 
   animation: 6s linear 1s infinite alternate none running moveB;
+  transition: all 0.5s linear;
 }
 
 .circleC {
@@ -48,6 +50,7 @@
   z-index: -1;
 
   animation: 25s linear 0.5s infinite alternate none running moveC;
+  transition: all 0.5s linear;
 }
 
 
