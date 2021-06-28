@@ -10,8 +10,12 @@ interface MetamaskError extends Error {
   code: number
 }
 
+interface EthereumWindow extends Window {
+  ethereum?: any
+}
+
 export const Login: React.FC = () => {
-  const { ethereum } = window
+  const { ethereum } = window as EthereumWindow
   const history = useHistory()
   const [disableLogin, setDisableLogin] = useState(false)
   const [message, setMessage] = useState("")
