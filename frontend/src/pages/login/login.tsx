@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useHistory } from 'react-router';
 import { GithubSVG } from "../../components/github-logo/github"
 import { MetamaskAnimation } from '../../components/metamask/metamask-animation';
+import { UserContext } from '../../UserContext';
+
 import mp4 from "../../assets/money.mp4"
 import webm from "../../assets/money.webm"
 import "./login.css"
@@ -16,6 +18,7 @@ interface EthereumWindow extends Window {
 
 export const Login: React.FC = () => {
   const { ethereum } = window as EthereumWindow
+  const { setUser } = useContext(UserContext)
   const history = useHistory()
   const [disableLogin, setDisableLogin] = useState(false)
   const [message, setMessage] = useState("")
@@ -23,7 +26,7 @@ export const Login: React.FC = () => {
 
   // OPENING ANIMATION
   useEffect(() => {
-    if (ethereum) {
+    if (ethereum.request) {
       setTimeout(() => {
         setMessage("This app uses your ethereum wallet to make subscriptions to creators")
       }, 1000)
@@ -41,7 +44,7 @@ export const Login: React.FC = () => {
     try {
       setMessage("Logging in... You might have to click the metamask extension in your browser")
       const accounts: [string] = await ethereum.request({ method: 'eth_requestAccounts' })
-      localStorage.setItem("account", accounts[0])
+      setUser(accounts[0])
       history.push("./contribute")
     } catch (error) {
       setDisableLogin(false)
@@ -57,31 +60,29 @@ export const Login: React.FC = () => {
     window.confirm("You might have to refresh this page if you just installed a cryptocurrency wallet")
   }
 
-  return (
-    <main>
-      <h1 className="pethreon">P<span className="Ξ">Ξ</span>threon</h1>
-      <ul className="features">
-        <li>Contribute monthly to your favourite creators in a trustless, privacy respecting manner</li>
-        <li>Only pay transaction fees,&nbsp;
-          <a href="https://github.com/Chris56974/Pethreon/blob/main/contracts/Pethreon.sol"
-            target="_blank"
-            rel="noreferrer">
-            view the smart contract on Github<GithubSVG />
-          </a>
-        </li>
-      </ul>
-      <MetamaskAnimation
-        message={message}
-        link={link}
-        disableLogin={disableLogin}
-        login={ethereum ? login : pleaseRefresh}
-        ethereum={ethereum}
-      />
-      <video className="vid" muted autoPlay loop>
-        <source src={mp4} type="video/mp4" />
-        <source src={webm} type="video/webm" />
-        Your browser does not support webm or mp4 videos.
-      </video>
-    </main>
-  )
+  return <main>
+    <h1 className="pethreon">P<span className="Ξ">Ξ</span>threon</h1>
+    <ul className="features">
+      <li>Contribute monthly to your favourite creators in a trustless, privacy respecting manner</li>
+      <li>Only pay transaction fees,&nbsp;
+        <a href="https://github.com/Chris56974/Pethreon/blob/main/contracts/Pethreon.sol"
+          target="_blank"
+          rel="noreferrer">
+          view the smart contract on Github<GithubSVG />
+        </a>
+      </li>
+    </ul>
+    <MetamaskAnimation
+      message={message}
+      link={link}
+      disableLogin={disableLogin}
+      login={ethereum ? login : pleaseRefresh}
+      ethereum={ethereum}
+    />
+    <video className="vid" muted autoPlay loop>
+      <source src={mp4} type="video/mp4" />
+      <source src={webm} type="video/webm" />
+      Your browser does not support webm or mp4 videos.
+    </video>
+  </main>
 }

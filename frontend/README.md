@@ -2,30 +2,15 @@
 
 [This App](https://github.com/Chris56974/Pethreon)
 
-[Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started)
+[Create React App Docs](https://facebook.github.io/create-react-app/docs/getting-started)
 
-[React documentation](https://reactjs.org/)
-
-There was an index.css and an app.css I deleted
+[React Docs](https://reactjs.org/)
 
 ```bash
-yarn start # start a dev server on port 3000
-yarn test  # run your tests (jest)
-yarn build # build a production app
+yarn start # localhost:3000
+yarn test  # run tests (jest)
+yarn build  
 ```
-
-## Design Doc
-
-- Landing page with CSS grid.
-  - video on the right.
-  - short description on the left.
-  - animated Metamask logo with sign in button.
-
-- Once signed-in, they will have a contributor portal and a creator portal.
-  - There will be a button to switch between the two.
-  - There will be a cookie remembering which portal the user last left off at.
-  - Contributor portal will have ethereum address, balance, pledge stuff.
-  - Creator portal will have withdraw, balance, pledge stuff.
 
 ### Icons
 
@@ -34,15 +19,16 @@ yarn build # build a production app
 <ion-icon name="construct-outline"></ion-icon>
 ```
 
-### Issues
+### Cool Ideas
 
-- The user can't click the link to download metamask while metamask is talking
+My metamask text animation is set to overflow: auto; so the user can scroll through the text if it gets too long (previously it just wrote over my login button). However, there's no indication on screen telling the user that they can scroll the text. I think I have to trigger a second animation letting them know whether or not they can [scroll](https://stackoverflow.com/questions/9333379). I haven't decided how I want it to look like yet but it'd go something like this.
 
-### TODO
-
-- I should be able to interrupt the speak animation so he can say something else
-
-- Setup authenticated routes and make sure they trigger the circle shift animation
+```tsx
+75 * message.length + 1 // to run the animation at the end of the typing
+const isOverflown = (clientHeight, scrollHeight) => {
+  return scrollHeight > clientHeight // 
+}
+```
 
 ### Notes
 
@@ -62,4 +48,4 @@ It's not as easy as I thought to slowly print out a hyperlink char-by-char (eith
 
 For my typewriter effect, I can't just loop through the entire string and do setTimeOut(3 secs) on each character, because then they'll ALL print at the same time 3 seconds later. So I have to do setTimeOut(3 secs * index) which gives each char its own unique timeOut(duration). I can't do `await new Promise(r => setTimeout(r, 2000))` because I need to run my sideEffect in useEffect() which can't be asynchronous.
 
-When the user clicks the button to sign into metamask, a "sign-in" modal (metamask's modal not mine) will pop up prompting them to login. If they close that modal, metamask will NOT error out. Instead, my application will behave as if the user is still logging in which is not a great UX. It seems like Aave and Uniswap do the same thing.
+Right now when the user clicks login and signs into their crypto wallet, metamask brings up a "sign-in" modal (that is under the control of metamask and not me) prompting them to login. If the user closes that modal, metamask will NOT error out. Instead, my application will behave as if the user is still logging in which is not a great UX. It seems like Aave and Uniswap do the same thing.
