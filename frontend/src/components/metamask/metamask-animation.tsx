@@ -28,6 +28,7 @@ export const MetamaskAnimation: React.FC<{
     })
 
     setTimeout(() => {
+      if (!phrase) return 
       setTalking(false)
     }, message.length * 76);
 
