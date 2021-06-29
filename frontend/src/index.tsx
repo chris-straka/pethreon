@@ -7,9 +7,9 @@ import "./index.css";
 
 ReactDOM.render(
   <StrictMode>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </StrictMode>,
   document.getElementById('root')
 );

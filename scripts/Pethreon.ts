@@ -6,7 +6,7 @@ async function main() {
   const pethreon = await PethreonFactory.deploy(0);
 
   await pethreon.deployed();
-  console.log("Greeter deployed to: ", pethreon.address);
+  console.log("Pethreon deployed to: ", pethreon.address);
 }
 
 

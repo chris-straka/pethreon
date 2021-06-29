@@ -10,9 +10,9 @@
 
 ## How stuff works
 
-[Hardhat](https://hardhat.org/getting-started/) is a development environment (i.e. development blockchain) for ethereum, [Waffle](https://ethereum-waffle.readthedocs.io/en/latest/index.html) is a testing library for smart contracts (which are programs that run on the blockchain) and [ethers.js](https://docs.ethers.io/v5/getting-started/) is a library for communicating with the blockchain (calling methods, reading data, etc).
+[Hardhat](https://hardhat.org/getting-started/) is a development environment/blockchain for ethereum, [Waffle](https://ethereum-waffle.readthedocs.io/en/latest/index.html) is a testing library for smart contracts (which are programs that run on the blockchain) and [ethers.js](https://docs.ethers.io/v5/getting-started/) is a library for communicating with the blockchain (calling smart contracts, reading data, etc).
 
-For this to work you need to [download metamask](https://metamask.io/). [You might also want to use a different browser profile for development](https://youtu.be/Ik8-xn4DyCo?t=15). This is so you don't confuse your fake metamask account for your real one. Once metamask is installed, you need to import a new account via "private key". The private key is a 12 word seed phrase you can use to recover an account wallet on metamask. In this case, it's a made up phrase I used for development which you can find in hardhat.config.ts (test test test...). After importing that account, you need to add a new network to metamask. Click on networks, then on custom RPC and then add these settings...
+For this to work you need to [download metamask](https://metamask.io/). You might also want to use a different [browser profile](https://youtu.be/Ik8-xn4DyCo?t=15) for development so you can use a fake metamask account instead of your real one. Once metamask is installed, you need to import a new account in metamask via "private key". Use "test test test test test test test test test test test junk", this is the private key used by hardhat for development. Hardhat will give every account using this key 1000 ether. After importing that account, you need to add a new network to metamask as well. Click on networks, then on custom RPC and then add the following...
 
 ```text
 Network Name: Localhost 8545
