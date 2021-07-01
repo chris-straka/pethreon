@@ -4,7 +4,7 @@ import { GithubSVG } from "../../components/github-logo/github";
 import { MetamaskAnimation } from '../../components/metamask/metamask-animation';
 import { PethreonContext } from '../../PethreonContext';
 import { providers, Contract } from 'ethers';
-import { abi } from "../../artifacts/contracts/Pethreon.sol/Pethreon.json"
+import { abi } from "../../artifacts/localhost/Pethreon.json"
 
 import mp4 from "../../assets/money.mp4"
 import webm from "../../assets/money.webm"

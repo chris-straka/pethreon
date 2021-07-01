@@ -7,13 +7,13 @@ import "./contribute.css"
 
 export const Contribute: React.FC = () => {
   const history = useHistory()
-  const { userAddress } = useContext(PethreonContext)
+  const { userAddress, contract } = useContext(PethreonContext)
 
   useEffect(() => {
     if (!userAddress) history.push("/")
   }, [userAddress, history])
 
-  const pledge = () => { console.log("TODO") }
+  const pledge = () => { console.log(contract) }
 
   // const getContributorBalance = () => { }
 

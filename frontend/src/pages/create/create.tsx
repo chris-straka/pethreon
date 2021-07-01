@@ -7,13 +7,13 @@ import "./create.css"
 
 export const Create: React.FC = () => {
   const history = useHistory()
-  const { userAddress } = useContext(PethreonContext)
+  const { userAddress, contract } = useContext(PethreonContext)
 
   useEffect(() => {
     if (!userAddress) history.push("/")
   }, [userAddress, history])
 
-  const withdrawal = () => { console.log("todo") }
+  const withdrawal = () => { console.log(contract) }
 
   return <>
     <div className="contributeLayout">

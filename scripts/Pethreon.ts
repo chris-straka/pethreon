@@ -9,7 +9,6 @@ async function main() {
   console.log("Pethreon deployed to: ", pethreon.address);
 }
 
-
 main()
   .then(() => process.exit(0))
   .catch(error => {
