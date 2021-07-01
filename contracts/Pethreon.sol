@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.7.6;
+pragma solidity 0.8.6;
 
 import "hardhat/console.sol";
 
@@ -58,18 +58,6 @@ contract Pethreon {
 
     /***** HELPER FUNCTIONS *****/
     function currentPeriod() internal view returns (uint256 periodNumber) {
-        // console.log(
-        //     "currentPeriod() is being called by ",
-        //     msg.sender,
-        //     "the blockstamp is",
-        //     block.timestamp
-        // );
-        // console.log(
-        //     "the contract was created at",
-        //     startOfEpoch,
-        //     "the current period is ",
-        //     period
-        // );
         return (block.timestamp - startOfEpoch) / period;
     }
 
@@ -88,12 +76,12 @@ contract Pethreon {
     /***** DEPOSIT & WITHDRAW *****/
 
     function getContributorBalance() public view returns (uint256) {
-        // console.log(
-        //     "getContributorBalance() is being called by",
-        //     msg.sender,
-        //     "and their balance is",
-        //     contributorBalances[msg.sender]
-        // );
+        console.log(
+            "getContributorBalance() is being called by",
+            msg.sender,
+            "and their balance is",
+            contributorBalances[msg.sender]
+        );
         return contributorBalances[msg.sender];
     }
 

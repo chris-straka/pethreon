@@ -5,7 +5,7 @@ import { PaymentDetails } from "../../components/payment-details/payment-details
 import { UserAddress } from "../../components/user-address/user-address"
 import "./create.css"
 
-export const Create: React.FC = () => {
+export const CreatePage: React.FC = () => {
   const history = useHistory()
   const { userAddress, contract } = useContext(PethreonContext)
 

@@ -5,7 +5,7 @@ import { PaymentDetails } from "../../components/payment-details/payment-details
 import { UserAddress } from "../../components/user-address/user-address"
 import "./contribute.css"
 
-export const Contribute: React.FC = () => {
+export const ContributePage: React.FC = () => {
   const history = useHistory()
   const { userAddress, contract } = useContext(PethreonContext)
 
@@ -13,7 +13,7 @@ export const Contribute: React.FC = () => {
     if (!userAddress) history.push("/")
   }, [userAddress, history])
 
-  const pledge = () => { console.log(contract) }
+  const pledge = () => { }
 
   // const getContributorBalance = () => { }
 

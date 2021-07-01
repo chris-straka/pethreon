@@ -1,6 +1,6 @@
 # Design Doc
 
-[This app](https://github.com/Chris56974/WeiBuddies) is a dapp frontend for [Sergei Tikhomirov's Pethreon Smart Contract](https://github.com/s-tikhomirov/pethreon/blob/master/pethreon.sol). It's a crowd funding platform, where users (contributors/creators) can sign in through their crypto wallet to contribute/withdraw funds from an account balance in regular intervals. It's created via a mobile-first approach using these mockups (Figma).
+[This app](https://github.com/Chris56974/WeiBuddies) is a dapp frontend for [Sergei Tikhomirov's Pethreon Smart Contract](https://github.com/s-tikhomirov/pethreon/blob/master/pethreon.sol). It's a crowd funding platform, where users (contributors & creators) can sign in through their cryptowallet to contribute funds in regular intervals. I'm going to make it via a mobile-first approach using these mockups (Figma).
 
 ![Pethreon Mobile Mockup](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_mobile.png)
 ![Pethreon Desktoe 1](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_desktop_1.png)
@@ -10,9 +10,9 @@
 
 ## How stuff works
 
-[Hardhat](https://hardhat.org/getting-started/) is a development environment/blockchain for ethereum, [Waffle](https://ethereum-waffle.readthedocs.io/en/latest/index.html) is a testing library for smart contracts (which are programs that run on the blockchain) and [ethers.js](https://docs.ethers.io/v5/getting-started/) is a library for communicating with the blockchain (calling smart contracts, reading data, etc).
+[Hardhat](https://hardhat.org/getting-started/) is a development environment/blockchain for ethereum, [Waffle](https://ethereum-waffle.readthedocs.io/en/latest/index.html) is a testing library for smart contracts (programs that run on the blockchain) and [ethers.js](https://docs.ethers.io/v5/getting-started/) is a library for communicating with the blockchain (calling smart contracts, reading data, etc).
 
-For this to work you need to [download metamask](https://metamask.io/). You might also want to use a different [browser profile](https://youtu.be/Ik8-xn4DyCo?t=15) for development so you can use a fake metamask account instead of your real one. Once metamask is installed, you need to import a new account in metamask via "private key". Use "test test test test test test test test test test test junk", this is the private key used by hardhat for development. Hardhat will give every account using this key 1000 ether. After importing that account, you might need to add a new network to metamask as well. Click on networks, then on custom RPC and then add the following...
+For this to work you need to [download metamask](https://metamask.io/). You might also want to use a different [browser profile](https://youtu.be/Ik8-xn4DyCo?t=15) for development so that you can keep your real metamask account separate from your fake one. Once metamask is installed, you need to import a new account via "private key". The private key you need to use is "test test test test test test test test test test test junk", this is a private key used by hardhat for development. Hardhat gives every account with this mnemonic 1000 ether. After importing that account, you might need to add a new network as well. Click on networks (mainnet), then on custom RPC and then add the following network if it's not there already...
 
 ```text
 Network Name: Localhost 8545
@@ -24,16 +24,16 @@ Currency:     ETH
 You should then be able to run these commands and get started.
 
 ```bash
-yarn                      # install dependencies (or npm install)
+yarn                      # install backend dependencies (or npm install)
 npx hardhat node --watch  # bootup a development blockchain on port 8585
 hh node --watch           # (shorthand for the above)[https://hardhat.org/guides/shorthand.html]
 
 # Open another terminal
 cd frontend
-yarn
-yarn start 
+yarn                      # install frontend dependencies (react)
+yarn start                # bootup react on port 3000
 
-# To deploy the smart contract
+# To deploy the smart contract (TODO)
 hh run scripts/sample_script.ts                   # deploy the contract to the ethereum provider
 hh run --network <network> scripts/sample_test.ts # deploy to a network specified in hardhat.config.ts
 ```

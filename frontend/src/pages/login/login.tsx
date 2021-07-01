@@ -20,7 +20,7 @@ interface EthereumWindow extends Window {
 
 export const Login: React.FC = () => {
   const { ethereum } = window as EthereumWindow
-  const { contractAddress, setUserAddress, setContract, setProvider, provider } = useContext(PethreonContext)
+  const { contractAddress, setUserAddress, setContract, setProvider } = useContext(PethreonContext)
   const history = useHistory()
   const [disableLogin, setDisableLogin] = useState(false)
   const [message, setMessage] = useState("")
@@ -46,9 +46,11 @@ export const Login: React.FC = () => {
     try {
       setMessage("Logging in... You might have to click the metamask extension in your browser")
       const accounts: [string] = await ethereum.request({ method: 'eth_requestAccounts' })
+      const provider = new providers.Web3Provider(ethereum)
+      const contract = new Contract(contractAddress, abi, provider)
       setUserAddress(accounts[0])
-      setProvider(new providers.Web3Provider(ethereum))
-      setContract(new Contract(contractAddress, abi, provider))
+      setProvider(provider)
+      setContract(contract)
       history.push("./contribute")
     } catch (error) {
       setDisableLogin(false)
