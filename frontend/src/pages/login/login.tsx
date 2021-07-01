@@ -1,8 +1,10 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router';
-import { GithubSVG } from "../../components/github-logo/github"
+import { GithubSVG } from "../../components/github-logo/github";
 import { MetamaskAnimation } from '../../components/metamask/metamask-animation';
-import { UserContext } from '../../UserContext';
+import { PethreonContext } from '../../PethreonContext';
+import { providers, Contract } from 'ethers';
+import { abi } from "../../artifacts/contracts/Pethreon.sol/Pethreon.json"
 
 import mp4 from "../../assets/money.mp4"
 import webm from "../../assets/money.webm"
@@ -18,7 +20,7 @@ interface EthereumWindow extends Window {
 
 export const Login: React.FC = () => {
   const { ethereum } = window as EthereumWindow
-  const { setUser } = useContext(UserContext)
+  const { contractAddress, setUserAddress, setContract, setProvider, provider } = useContext(PethreonContext)
   const history = useHistory()
   const [disableLogin, setDisableLogin] = useState(false)
   const [message, setMessage] = useState("")
@@ -26,7 +28,7 @@ export const Login: React.FC = () => {
 
   // OPENING ANIMATION
   useEffect(() => {
-    if (ethereum.request) {
+    if (typeof ethereum !== undefined) {
       setTimeout(() => {
         setMessage("This app uses your ethereum wallet to make subscriptions to creators")
       }, 1000)
@@ -44,7 +46,9 @@ export const Login: React.FC = () => {
     try {
       setMessage("Logging in... You might have to click the metamask extension in your browser")
       const accounts: [string] = await ethereum.request({ method: 'eth_requestAccounts' })
-      setUser(accounts[0])
+      setUserAddress(accounts[0])
+      setProvider(new providers.Web3Provider(ethereum))
+      setContract(new Contract(contractAddress, abi, provider))
       history.push("./contribute")
     } catch (error) {
       setDisableLogin(false)
@@ -57,7 +61,7 @@ export const Login: React.FC = () => {
   }
 
   const pleaseRefresh = () => {
-    window.confirm("You might have to refresh this page if you just installed a cryptocurrency wallet")
+    window.confirm("You might have to refresh the page if you just installed a cryptocurrency wallet")
   }
 
   return <main>

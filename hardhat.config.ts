@@ -16,6 +16,8 @@ task("accounts", "Prints the list of accounts", async (args, hre) => {
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
 
+const INFURA_API = 'https://mainnet.infura.io/v3/5934efc92cb841e4ac589e7c070d6975'
+
 const config: HardhatUserConfig = {
   namedAccounts: {
     deployer: 0,
@@ -39,7 +41,7 @@ const config: HardhatUserConfig = {
   },
   solidity: "0.7.6",
   paths: {
-    tests: "./test"
+    artifacts: "./frontend/src/artifacts"
   }
 }
 
