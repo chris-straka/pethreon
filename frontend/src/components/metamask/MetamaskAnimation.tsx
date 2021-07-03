@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { MetamaskSVG } from "./metamaskSVG"
-import "./metamask-animation.css"
+import { MetamaskSVG } from "./MetamaskSVG"
+import "./MetamaskAnimation"
 
 export const MetamaskAnimation: React.FC<{
   message: string,

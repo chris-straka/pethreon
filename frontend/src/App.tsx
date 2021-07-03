@@ -3,7 +3,7 @@ import { Login } from './pages/login/login';
 import { ContributePage } from './pages/contribute/contribute';
 import { CreatePage } from './pages/create/create';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { Circles } from './components/circles/circles';
+import { Circles } from './components/circles/Circles';
 import { PethreonContext } from './PethreonContext';
 
 const App: React.FC = () => {

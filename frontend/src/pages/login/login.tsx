@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router';
-import { GithubSVG } from "../../components/github-logo/github";
-import { MetamaskAnimation } from '../../components/metamask/metamask-animation';
+import { GithubSVG } from "../../components/githubSVG/Github";
+import { MetamaskAnimation } from '../../components/metamask/MetamaskAnimation';
 import { PethreonContext } from '../../PethreonContext';
 import { providers, Contract } from 'ethers';
 import { abi } from "../../artifacts/localhost/Pethreon.json"
@@ -43,15 +43,15 @@ export const Login: React.FC = () => {
   }, [ethereum])
 
   const login = async () => {
+    const provider = new providers.Web3Provider(ethereum)
+    const contract = new Contract(contractAddress, abi, provider)
+    setProvider(provider)
+    setContract(contract)
     try {
       setMessage("Logging in... You might have to click the metamask extension in your browser")
       const accounts: [string] = await ethereum.request({ method: 'eth_requestAccounts' })
-      const provider = new providers.Web3Provider(ethereum)
-      const contract = new Contract(contractAddress, abi, provider)
       setUserAddress(accounts[0])
-      setProvider(provider)
-      setContract(contract)
-      history.push("./contribute")
+      history.push("/contribute")
     } catch (error) {
       setDisableLogin(false)
       if ((error as MetamaskError).code === -32002) {

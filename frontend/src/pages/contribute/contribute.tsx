@@ -1,8 +1,9 @@
 import { useContext, useEffect } from "react"
 import { PethreonContext } from '../../PethreonContext';
 import { useHistory } from "react-router-dom"
-import { PaymentDetails } from "../../components/payment-details/payment-details"
-import { UserAddress } from "../../components/user-address/user-address"
+import { PaymentDetails } from "../../components/payment-details/PaymentDetails"
+import { UserAddress } from "../../components/user-address/UserAddress"
+import { UserBalance } from "../../components/user-balance/UserBalance";
 import "./contribute.css"
 
 export const ContributePage: React.FC = () => {
@@ -13,13 +14,13 @@ export const ContributePage: React.FC = () => {
     if (!userAddress) history.push("/")
   }, [userAddress, history])
 
-  const pledge = () => { }
+  const pledge = () => { console.log(contract) }
 
-  // const getContributorBalance = () => { }
+  // const getContributorBalance = () => {}
 
   return <div className="contributeLayout">
-    <UserAddress user={userAddress!} />
-    <h1 className="userBalance">$0.00</h1>
+    <UserAddress hexAddress={userAddress!} />
+    <UserBalance balance="$0.00" />
     <button className="pledgeButton" onClick={pledge}>Make Pledge</button>
     <PaymentDetails />
   </div >

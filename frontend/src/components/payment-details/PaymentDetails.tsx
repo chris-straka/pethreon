@@ -1,4 +1,4 @@
-import "./payment-details.css"
+import "./PaymentDetails.css"
 
 export const PaymentDetails: React.FC = () => {
   return <ul>
