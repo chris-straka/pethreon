@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react"
 import { MetamaskSVG } from "./MetamaskSVG"
-import "./MetamaskAnimation"
+import "./MetamaskAnimation.css"
 
 export const MetamaskAnimation: React.FC<{
   message: string,
   link: boolean,
-  disableLogin: boolean,
   login: any,
   ethereum: any
-}> = ({ message, link, disableLogin, login, ethereum }) => {
+}> = ({ message, link, login, ethereum }) => {
   const [animatedMessage, setAnimatedMessage] = useState("")
   const [animatedLink, setAnimatedLink] = useState("")
   const [talking, setTalking] = useState(false)
@@ -28,7 +27,7 @@ export const MetamaskAnimation: React.FC<{
     })
 
     setTimeout(() => {
-      if (!phrase) return 
+      if (!phrase) return
       setTalking(false)
     }, message.length * 76);
 
@@ -69,7 +68,7 @@ export const MetamaskAnimation: React.FC<{
     <p className="metamessage">{animatedMessage} {link === true ? (<a href="https://metamask.io/download" target="_blank" rel="noreferrer">{animatedLink}</a>) : null} </p>
     <div className="metacontainer">
       <MetamaskSVG isTalking={talking} />
-      <button className="login" onClick={login} disabled={disableLogin}>Login with metamask</button>
+      <button className="login" onClick={login}>Login with metamask</button>
     </div>
   </>
 }

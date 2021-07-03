@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router';
-import { GithubSVG } from "../../components/githubSVG/Github";
+import { GithubSVG } from "../../components/githubSVG/GithubSVG";
 import { MetamaskAnimation } from '../../components/metamask/MetamaskAnimation';
 import { PethreonContext } from '../../PethreonContext';
 import { providers, Contract } from 'ethers';
@@ -19,10 +19,9 @@ interface EthereumWindow extends Window {
 }
 
 export const Login: React.FC = () => {
-  const { ethereum } = window as EthereumWindow
-  const { contractAddress, setUserAddress, setContract, setProvider } = useContext(PethreonContext)
   const history = useHistory()
-  const [disableLogin, setDisableLogin] = useState(false)
+  const { ethereum } = window as EthereumWindow
+  const { contractAddress, userAddress, setUserAddress, setContract, setProvider } = useContext(PethreonContext)
   const [message, setMessage] = useState("")
   const [link, setLink] = useState(false)
 
@@ -30,17 +29,20 @@ export const Login: React.FC = () => {
   useEffect(() => {
     if (typeof ethereum !== undefined) {
       setTimeout(() => {
+        if (userAddress) return
         setMessage("This app uses your ethereum wallet to make subscriptions to creators")
       }, 1000)
     } else {
       setTimeout(() => {
+        if (userAddress) return
         setMessage("This app requires a cryptocurrency wallet to work, ")
       }, 1500);
       setTimeout(() => {
+        if (userAddress) return
         setLink(true)
       }, 5500);
     }
-  }, [ethereum])
+  }, [ethereum, userAddress])
 
   const login = async () => {
     const provider = new providers.Web3Provider(ethereum)
@@ -53,7 +55,6 @@ export const Login: React.FC = () => {
       setUserAddress(accounts[0])
       history.push("/contribute")
     } catch (error) {
-      setDisableLogin(false)
       if ((error as MetamaskError).code === -32002) {
         setMessage("Request already sent, click the metamask extension in your browser")
       } else {
@@ -81,7 +82,6 @@ export const Login: React.FC = () => {
     <MetamaskAnimation
       message={message}
       link={link}
-      disableLogin={disableLogin}
       login={ethereum ? login : pleaseRefresh}
       ethereum={ethereum}
     />

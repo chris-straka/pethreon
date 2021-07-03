@@ -14,7 +14,10 @@ export const ContributePage: React.FC = () => {
     if (!userAddress) history.push("/")
   }, [userAddress, history])
 
-  const pledge = () => { console.log(contract) }
+  const pledge = async () => {
+    const data = await contract?.getContributorBalance()
+    console.log(data?.toString())
+  }
 
   // const getContributorBalance = () => {}
 
