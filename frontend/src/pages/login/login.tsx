@@ -44,11 +44,14 @@ export const Login: React.FC = () => {
     }
   }, [ethereum, userAddress])
 
-  const login = async () => {
+  useEffect(() => {
     const provider = new providers.Web3Provider(ethereum)
     const contract = new Contract(contractAddress, abi, provider)
     setProvider(provider)
     setContract(contract)
+  }, [setProvider, setContract, contractAddress, ethereum])
+
+  const login = async () => {
     try {
       setMessage("Logging in... You might have to click the metamask extension in your browser")
       const accounts: [string] = await ethereum.request({ method: 'eth_requestAccounts' })
