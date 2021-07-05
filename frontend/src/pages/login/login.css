@@ -9,6 +9,7 @@ main {
   font-size: clamp(3rem, 15vw, 6rem);
   font-weight: 300;
   margin: 1rem 0 2rem 1.4rem;
+  z-index: 1;
 }
 
 .Ξ {
@@ -32,4 +33,15 @@ main {
   display: none;
   border-radius: 10%;
   aspect-ratio: 256 / 135;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    background-color: var(--darktheme-background);
+    color: var(--darktheme-text);
+  }
+
+  a {
+    color: var(--primary-lighter);
+  }
 }

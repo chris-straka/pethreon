@@ -13,7 +13,6 @@
   animation: 0.2s linear 0s infinite alternate none running moveMouth;
 }
 
-
 /* LOGIN */
 .metamessage {
   overflow-y: auto;
@@ -39,8 +38,15 @@
   background: none;
   font-size: 1.2rem;
   padding: 0.5rem 0.5rem 0.5rem 0.5rem;
-  border: 3px solid var(--main-blue-darker);
-  color: var(--main-blue-darker);
+  border: 3px solid var(--primary-darker);
+  color: var(--primary-darker);
   border-radius: 12px;
   cursor: pointer;
+}
+
+@media (prefers-color-scheme: dark) {
+  .login {
+    border: 3px solid var(--primary-lighter);
+    color: var(--primary-lighter);
+  }
 }

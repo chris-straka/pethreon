@@ -1,12 +1,25 @@
+@keyframes contributeA_animation {
+  to {
+    transform: scale(115%) translate(20px, -20px);
+  }
+}
+
+@keyframes contributeC_animation {
+  to {
+    transform: scale(80%) translate(-20px, 10px);
+  }
+}
+
 .circleA_contribute {
   position: fixed;
   top: 70vh;
   left: 13vw;
   width: 30vw;
   height: 30vw;
-  background-color: var(--main-blue-lighter);
+  background-color: var(--primary-lighter);
   border-radius: 50%;
 
+  animation: 5s linear 0s infinite alternate none running contributeA_animation;
   transition: all 0.5s linear;
 }
 
@@ -16,9 +29,9 @@
   top: 0vh;
   left: 60vw;
   width: 40vw;
-  
+
   height: 6rem;
-  background-color: var(--main-red-lighter);
+  background-color: var(--secondary-lighter);
   border-radius: 0 0 0 25%;
   cursor: pointer;
 
@@ -31,8 +44,23 @@
   left: 55vw;
   width: 30vw;
   height: 30vw;
-  background-color: var(--main-blue-lighter);
+  background-color: var(--primary-lighter);
   border-radius: 50%;
 
+  animation: 5s linear 0s infinite alternate none running contributeC_animation;
   transition: all 0.5s linear;
+}
+
+@media (prefers-color-scheme: dark) {
+  .circleA_contribute {
+    background-color: var(--primary);
+  }
+
+  .circleB_contribute {
+    border-color: var(--secondary);
+  }
+
+  .circleC_contribute {
+    background-color: var(--primary);
+  }
 }
