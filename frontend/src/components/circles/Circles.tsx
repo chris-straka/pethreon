@@ -27,9 +27,9 @@ export const Circles = () => {
   return <>
     <div className={circleAnimation("A")} />
     <button className={circleAnimation("B")} onClick={switchPortals} disabled={loginPage ? true : false}>
-      {contributePage ? "Creator " : ""}
+      {contributePage ? "Creator Portal " : ""}
       {contributePage ? <CreateSVG /> : ""}
-      {createPage ? "Contributor" : ""}
+      {createPage ? "Contribute Portal " : ""}
       {createPage ? <ContributeSVG /> : ""}
     </button>
     <div className={circleAnimation("C")} />

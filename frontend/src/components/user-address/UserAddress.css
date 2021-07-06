@@ -3,4 +3,14 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  background-color: transparent;
+  color: var(--darktheme-text);
+  outline: none;
+  font-size: 1.3rem;
+
+  margin-left: 0.8rem;
+}
+
+.userAddress:focus .userAddress:hover {
+  border: solid;
 }
