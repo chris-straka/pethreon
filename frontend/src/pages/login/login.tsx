@@ -1,10 +1,10 @@
 import { useState, useEffect, useContext } from 'react';
-import { useHistory } from 'react-router';
-import { GithubSVG } from "../../components/githubSVG/GithubSVG";
-import { MetamaskAnimation } from '../../components/metamask/MetamaskAnimation';
+import { useHistory, useLocation } from 'react-router';
+import { GithubSVG } from './githubSVG/GithubSVG';
+import { MetamaskAnimation } from './metamask/MetamaskAnimation';
 import { PethreonContext } from '../../PethreonContext';
 import { providers, Contract } from 'ethers';
-import { abi } from "../../artifacts/localhost/Pethreon.json"
+import { abi } from '../../artifacts/localhost/Pethreon.json';
 
 import mp4 from "../../assets/money.mp4"
 import webm from "../../assets/money.webm"
@@ -20,6 +20,7 @@ interface EthereumWindow extends Window {
 
 export const Login: React.FC = () => {
   const history = useHistory()
+  const location = useLocation()
   const { ethereum } = window as EthereumWindow
   const { contractAddress, userAddress, setUserAddress, setContract, setProvider } = useContext(PethreonContext)
   const [message, setMessage] = useState("")
@@ -29,16 +30,16 @@ export const Login: React.FC = () => {
   useEffect(() => {
     if (typeof ethereum !== undefined) {
       setTimeout(() => {
-        if (userAddress) return
+        if (location.pathname !== "/") return
         setMessage("This app uses your ethereum wallet to make subscriptions to creators")
       }, 1000)
     } else {
       setTimeout(() => {
-        if (userAddress) return
+        if (location.pathname !== "/") return
         setMessage("This app requires a cryptocurrency wallet to work, ")
       }, 1500);
       setTimeout(() => {
-        if (userAddress) return
+        if (location.pathname !== "/") return
         setLink(true)
       }, 5500);
     }

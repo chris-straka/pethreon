@@ -12,10 +12,10 @@
 
 .circleA_contribute {
   position: fixed;
-  top: 70vh;
+  top: 76vh;
   left: 13vw;
-  width: 30vw;
-  height: 30vw;
+  width: 20vw;
+  height: 20vw;
   background-color: var(--primary-lighter);
   border-radius: 50%;
 

@@ -25,12 +25,13 @@
 
 .circleB_create {
   position: fixed;
-  top: 1vh;
-  left: 70vw;
-  width: 8rem;
-  height: 8rem;
+  top: 0vh;
+  left: 60vw;
+  width: 40vw;
+
+  height: 6rem;
   background-color: var(--primary-lighter);
-  border-radius: 50%;
+  border-radius: 0 0 0 25%;
   cursor: pointer;
 
   transition: all 0.5s linear;
