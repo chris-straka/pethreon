@@ -42,11 +42,23 @@
   color: var(--primary-darker);
   border-radius: 12px;
   cursor: pointer;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.login:focus {
+  transform: rotate(2deg);
 }
 
 @media (prefers-color-scheme: dark) {
   .login {
-    border: 3px solid var(--primary-lighter);
-    color: var(--primary-lighter);
+    border-color: var(--darktheme-text);
+    color: var(--darktheme-text);
+  }
+
+  .login:focus,
+  .login:hover {
+    background-color: var(--darktheme-text);
+    color: var(--darktheme-background);
   }
 }

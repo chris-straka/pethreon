@@ -1,13 +1,19 @@
 @keyframes moveA {
-  to { transform: scale(125%) translateX(10px); }
+  to {
+    transform: scale(125%) translateX(10px);
+  }
 }
 
 @keyframes moveB {
-  to { transform: scale(95%) translate(2px, 30px); }
+  to {
+    transform: scale(95%) translate(2px, 30px);
+  }
 }
 
-@keyframes moveC { 
-  to { transform: scale(150%) translate(-40px, -40px); }
+@keyframes moveC {
+  to {
+    transform: scale(150%) translate(-40px, -40px);
+  }
 }
 
 .circleA {
@@ -53,11 +59,18 @@
   transition: all 0.5s linear;
 }
 
-
 @media only screen and (min-height: 736px) {
   .circleC {
     top: 80vh;
     width: 19rem;
     height: 19rem;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .circleA,
+  .circleB,
+  .circleC {
+    background-color: var(--primary);
   }
 }

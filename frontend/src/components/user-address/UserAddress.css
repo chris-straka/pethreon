@@ -4,13 +4,27 @@
   overflow: hidden;
   text-overflow: ellipsis;
   background-color: transparent;
-  color: var(--darktheme-text);
   outline: none;
   font-size: 1.3rem;
-
   margin-left: 0.8rem;
+  padding: 0.3rem;
+
+  border: 1.5px solid transparent;
+  border-radius: 0.5rem;
 }
 
-.userAddress:focus .userAddress:hover {
-  border: solid;
+.userAddress:hover,
+.userAddress:focus {
+  border: 1.5px solid;
+}
+
+@media (prefers-color-scheme: dark) {
+  .userAddress {
+    color: var(--darktheme-text);
+  }
+
+  .userAddress:hover,
+  .userAddress:focus {
+    border-color: var(--darktheme-text);
+  }
 }
