@@ -1,5 +1,3 @@
 import "./UserAddress.css"
 
-export const UserAddress: React.FC<{ hexAddress: string }> = ({ hexAddress }) => {
-  return <button className="userAddress">{hexAddress}</button>
-}
+export const UserAddress: React.FC<{ hexAddress: string }> = ({ hexAddress }) => <button className="userAddress">{hexAddress}</button>;

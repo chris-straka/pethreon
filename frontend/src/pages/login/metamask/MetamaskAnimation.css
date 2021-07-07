@@ -50,6 +50,10 @@
   transform: rotate(2deg);
 }
 
+.login:active {
+  transform: none;
+}
+
 @media (prefers-color-scheme: dark) {
   .login {
     border-color: var(--darktheme-text);
