@@ -51,6 +51,5 @@
 
   .circleB_create {
     background-color: var(--darktheme-primary);
-    opacity: 0.5;
   }
 }
