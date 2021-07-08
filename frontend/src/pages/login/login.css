@@ -42,6 +42,6 @@ main {
   }
 
   a {
-    color: var(--primary-lighter);
+    color: var(--darktheme-anchor-tag);
   }
 }

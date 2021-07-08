@@ -15,14 +15,19 @@ body {
 }
 
 :root {
-  --primary: hsl(220, 51%, 50%);
-  --primary-lighter: hsl(220, 51%, 79%);
-  --primary-darker: hsl(220, 51%, 30%);
-
+  --primary: hsl(220, 50%, 50%);
   --secondary: hsl(0, 100%, 50%);
-  --secondary-lighter: hsl(0, 100%, 79%);
-  --secondary-darker: hsl(0, 100%, 30%);
+  --background: hsl(0, 0%, 47%);
+  --text: hsl(0, 0%, 15%);
+  --login-button: hsl(220, 50%, 30%);
 
-  --darktheme-background: #131516;
-  --darktheme-text: #e8e6e3;
+  /* Dark Theme */
+  --darktheme-primary: hsl(220, 50%, 50%);
+  --darktheme-secondary: hsl(0, 100%, 70%);
+
+  --darktheme-background: hsl(200, 7%, 8%);
+  --darktheme-text: hsl(36, 10%, 90%);
+  --darktheme-anchor-tag: hsl(220, 50%, 70%);
+
+  --darktheme-login-button: hsl(36, 10%, 90%);
 }

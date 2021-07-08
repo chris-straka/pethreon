@@ -71,6 +71,6 @@
   .circleA,
   .circleB,
   .circleC {
-    background-color: var(--primary);
+    background-color: var(--darktheme-primary);
   }
 }

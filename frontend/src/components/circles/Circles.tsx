@@ -1,9 +1,8 @@
 import { useLocation, useHistory } from "react-router";
-import { ContributeSVG } from "./SVGs/ContributeSVG";
-import { CreateSVG } from "./SVGs/CreateSVG";
-import "./contribute.css";
-import "./create.css";
-import "./login.css";
+import { ReactComponent as Arrow } from "../../assets/arrow-forward-circle.svg"
+import "./Contribute.css";
+import "./Create.css";
+import "./Login.css";
 
 export const Circles = () => {
   const history = useHistory()
@@ -27,10 +26,9 @@ export const Circles = () => {
   return <>
     <div className={circleAnimation("A")} />
     <button className={circleAnimation("B")} onClick={switchPortals} disabled={loginPage ? true : false}>
-      {contributePage ? "Creator Portal " : ""}
-      {contributePage ? <CreateSVG /> : ""}
-      {createPage ? "Contribute Portal " : ""}
-      {createPage ? <ContributeSVG /> : ""}
+      {contributePage ? "Create " : ""}
+      {createPage ? "Donate " : ""}
+      {!loginPage ? <Arrow style={{ width: "2ch" }} /> : ""}
     </button>
     <div className={circleAnimation("C")} />
   </>

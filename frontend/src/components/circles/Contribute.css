@@ -1,10 +1,10 @@
-@keyframes contributeA_animation {
+@keyframes animationX {
   to {
     transform: scale(115%) translate(20px, -20px);
   }
 }
 
-@keyframes contributeC_animation {
+@keyframes animationY {
   to {
     transform: scale(80%) translate(-20px, 10px);
   }
@@ -16,10 +16,11 @@
   left: 13vw;
   width: 20vw;
   height: 20vw;
-  background-color: var(--primary-lighter);
+  background-color: var(--primary);
+  opacity: 0.4;
   border-radius: 50%;
 
-  animation: 5s linear 0s infinite alternate none running contributeA_animation;
+  animation: 5s linear 0s infinite alternate none running animationX;
   transition: all 0.5s linear;
 }
 
@@ -29,11 +30,14 @@
   top: 0vh;
   left: 60vw;
   width: 40vw;
+  height: 13vh;
 
-  height: 6rem;
-  background-color: var(--secondary-lighter);
-  border-radius: 0 0 0 25%;
+  background-color: var(--secondary);
+  border-radius: 0 0 0 2rem;
   cursor: pointer;
+
+  font-size: 1.5rem;
+  font-weight: bold;
 
   transition: all 0.5s linear;
 }
@@ -44,23 +48,22 @@
   left: 55vw;
   width: 30vw;
   height: 30vw;
-  background-color: var(--primary-lighter);
+  background-color: var(--primary);
+  opacity: 0.6;
   border-radius: 50%;
 
-  animation: 5s linear 0s infinite alternate none running contributeC_animation;
+  animation: 5s linear 0s infinite alternate none running animationY;
   transition: all 0.5s linear;
 }
 
 @media (prefers-color-scheme: dark) {
-  .circleA_contribute {
-    background-color: var(--primary);
+  .circleA_contribute,
+  .circleC_contribute {
+    background-color: var(--darktheme-primary);
   }
 
   .circleB_contribute {
-    border-color: var(--secondary);
-  }
-
-  .circleC_contribute {
-    background-color: var(--primary);
+    background-color: var(--darktheme-secondary);
+    opacity: 0.5;
   }
 }

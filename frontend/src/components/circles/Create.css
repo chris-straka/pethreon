@@ -1,0 +1,56 @@
+.circleA_create {
+  position: fixed;
+  top: 78vh;
+  left: 55vw;
+  width: 30vw;
+  height: 30vw;
+  background-color: var(--secondary);
+  opacity: 0.4;
+  border-radius: 50%;
+
+  animation: 5s linear 0s infinite alternate none running animationY;
+  transition: all 0.5s linear;
+}
+
+.circleB_create {
+  position: fixed;
+  top: 0vh;
+  left: 60vw;
+  width: 40vw;
+  height: 13vh;
+
+  background-color: var(--primary);
+  border-radius: 0 0 0 2rem;
+  cursor: pointer;
+
+  font-size: 1.5rem;
+  font-weight: bold;
+
+  transition: all 0.5s linear;
+}
+
+.circleC_create {
+  position: fixed;
+  top: 76vh;
+  left: 13vw;
+  width: 20vw;
+  height: 20vw;
+  background-color: var(--secondary);
+  opacity: 0.6;
+  border-radius: 50%;
+
+  animation: 5s linear 0s infinite alternate none running animationX;
+  transition: all 0.5s linear;
+}
+
+@media (prefers-color-scheme: dark) {
+  .circleA_create,
+  .circleC_create {
+    background-color: var(--darktheme-secondary);
+  }
+
+  .circleB_create {
+    background-color: var(--darktheme-primary);
+    opacity: 0.5;
+  }
+}

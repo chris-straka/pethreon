@@ -38,8 +38,8 @@
   background: none;
   font-size: 1.2rem;
   padding: 0.5rem 0.5rem 0.5rem 0.5rem;
-  border: 3px solid var(--primary-darker);
-  color: var(--primary-darker);
+  border: 3px solid var(--login-button);
+  color: var(--login-button);
   border-radius: 12px;
   cursor: pointer;
   outline: none;
@@ -56,13 +56,13 @@
 
 @media (prefers-color-scheme: dark) {
   .login {
-    border-color: var(--darktheme-text);
-    color: var(--darktheme-text);
+    border-color: var(--darktheme-login-button);
+    color: var(--darktheme-login-button);
   }
 
   .login:focus,
   .login:hover {
-    background-color: var(--darktheme-text);
+    background-color: var(--darktheme-login-button);
     color: var(--darktheme-background);
   }
 }

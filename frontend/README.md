@@ -49,5 +49,3 @@ It's not as easy as I thought to slowly print out a hyperlink char-by-char (eith
 For my typewriter effect, I can't just loop through the entire string and do setTimeOut(3 secs) on each character, because then they'll ALL print at the same time 3 seconds later. So I have to do setTimeOut(3 secs * index) which gives each char its own unique timeOut(duration). I can't do `await new Promise(r => setTimeout(r, 2000))` because I need to run my sideEffect in useEffect() which can't be asynchronous.
 
 Right now when the user clicks login and signs into their crypto wallet, metamask brings up a "sign-in" modal (that is under the control of metamask and not me) prompting them to login. If the user closes that modal, metamask will NOT error out. Instead, my application will behave as if the user is still logging in which is not a great UX. It seems like Aave and Uniswap do the same thing.
-
-When I tried to add a pseudo-element to the user's cryptowallet address on hover/focus, it would disapear past the border of the original element and I'm not sure why haha. It seems to work just fine in [this example](https://codepen.io/team/css-tricks/pen/RPmpYa).
