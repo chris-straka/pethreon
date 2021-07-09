@@ -25,7 +25,6 @@ interface PethreonInterface extends ethers.utils.Interface {
     "cancelPledge(address)": FunctionFragment;
     "createPledge(address,uint256,uint256)": FunctionFragment;
     "deposit()": FunctionFragment;
-    "getContractBalance()": FunctionFragment;
     "getContributorBalance()": FunctionFragment;
     "getCreatorBalance()": FunctionFragment;
     "myPledgeTo(address)": FunctionFragment;
@@ -42,10 +41,6 @@ interface PethreonInterface extends ethers.utils.Interface {
     values: [string, BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "deposit", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "getContractBalance",
-    values?: undefined
-  ): string;
   encodeFunctionData(
     functionFragment: "getContributorBalance",
     values?: undefined
@@ -73,10 +68,6 @@ interface PethreonInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "getContractBalance",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(
     functionFragment: "getContributorBalance",
     data: BytesLike
@@ -186,14 +177,6 @@ export class Pethreon extends Contract {
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    getContractBalance(
-      overrides?: CallOverrides
-    ): Promise<[BigNumber] & { balance: BigNumber }>;
-
-    "getContractBalance()"(
-      overrides?: CallOverrides
-    ): Promise<[BigNumber] & { balance: BigNumber }>;
-
     getContributorBalance(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     "getContributorBalance()"(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -277,10 +260,6 @@ export class Pethreon extends Contract {
     overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  getContractBalance(overrides?: CallOverrides): Promise<BigNumber>;
-
-  "getContractBalance()"(overrides?: CallOverrides): Promise<BigNumber>;
-
   getContributorBalance(overrides?: CallOverrides): Promise<BigNumber>;
 
   "getContributorBalance()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -356,10 +335,6 @@ export class Pethreon extends Contract {
     deposit(overrides?: CallOverrides): Promise<BigNumber>;
 
     "deposit()"(overrides?: CallOverrides): Promise<BigNumber>;
-
-    getContractBalance(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "getContractBalance()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     getContributorBalance(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -492,10 +467,6 @@ export class Pethreon extends Contract {
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    getContractBalance(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "getContractBalance()"(overrides?: CallOverrides): Promise<BigNumber>;
-
     getContributorBalance(overrides?: CallOverrides): Promise<BigNumber>;
 
     "getContributorBalance()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -565,14 +536,6 @@ export class Pethreon extends Contract {
 
     "deposit()"(
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    getContractBalance(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
-    "getContractBalance()"(
-      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getContributorBalance(

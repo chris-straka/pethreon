@@ -40,6 +40,16 @@ hh run --network <network> scripts/sample_test.ts # deploy to a network specifie
 
 ## Issues
 
+### Getting Expected Payments in Batch
+
+```solidity
+// TODO: get expected payments in batch (can't return uint[]?)
+function getExpectedPayment(uint period) constant returns (uint expectedPayment) {
+  return (period < afterLastWithdrawalPeriod[msg.sender]) ? 0 :
+  expectedPayments[msg.sender][period];
+}
+```
+
 ### Recurring payments
 
 Implementing [recurring payments](https://ethereum.stackexchange.com/questions/49596) on Ethereum is not as easy as I thought it'd be. Running contracts at a later point in time is also [non-trivial](https://ethereum.stackexchange.com/questions/42). This is because in Ethereum, only EOA's "Externally Owned Accounts" (humans) can create transactions. A smart contract can't create a transaction at a later date, even if both parties want that to happen. Someone has to send a transaction into the smart contract at that later date. One cool way to do this is with [Ethereum Alarm Clock](https://www.ethereum-alarm-clock.com/) which is a decentralized service I might look at later. It's also worth noting that I can't run a transaction in the EVM forever either, I'd run out of gas. Which means I can't "wait for callback" in the EVM at a later date, if my understanding is correct.
@@ -134,7 +144,7 @@ contract foo {
 
 In order to send a transaction with input data, you typically need to use a library like web3 or ethersJS. When you call a function using one of these libraries, you'll have the ability to pass in an "overrides object" automatically into every payable function as an extra argument -> contract.method(arg1, arg2, {overrides}). You can specify how much ether to send there.
 
-If you want the smart contract to send ether to someone else, then you need to use send(), transfer() or call() (these days, [only call() is recommended](https://consensys.net/diligence/blog/2019/09/stop-using-soliditys-transfer-now/)). The address also has to be marked payable in the smart contract i.e. payable(address). Every contract starts off at 0, and you can see the balance by creating a function that uses address(this).balance.
+If you want the smart contract to send ether to someone else, then you need to use send(), transfer() or call(). These days however, only [call](https://ethereum.stackexchange.com/questions/78124/) is recommended. The address also has to be marked payable in the smart contract i.e. payable(address). Every contract starts off at 0, and you can see the balance by creating a function that uses address(this).balance.
 
 A provider is a connection to the Ethereum blockchain.
 

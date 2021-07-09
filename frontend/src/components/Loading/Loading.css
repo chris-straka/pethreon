@@ -1,0 +1,12 @@
+@font-face {
+  font-family: cute;
+  src: url(../../assets/Cutesy.ttf);
+}
+
+.loading {
+  font-family: cute;
+}
+
+.dot1, .dot2, .dot3 {
+  border-radius: 50%;
+}

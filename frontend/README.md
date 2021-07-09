@@ -49,3 +49,5 @@ It's not as easy as I thought to slowly print out a hyperlink char-by-char (eith
 For my typewriter effect, I can't just loop through the entire string and do setTimeOut(3 secs) on each character, because then they'll ALL print at the same time 3 seconds later. So I have to do setTimeOut(3 secs * index) which gives each char its own unique timeOut(duration). I can't do `await new Promise(r => setTimeout(r, 2000))` because I need to run my sideEffect in useEffect() which can't be asynchronous.
 
 Right now when the user clicks login and signs into their crypto wallet, metamask brings up a "sign-in" modal (that is under the control of metamask and not me) prompting them to login. If the user closes that modal, metamask will NOT error out. Instead, my application will behave as if the user is still logging in which is not a great UX. It seems like Aave and Uniswap do the same thing.
+
+The contributor can deposit, withdrawal, view their balance, create a pledge, view an existing pledge and cancel a pledge.
