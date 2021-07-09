@@ -6,7 +6,8 @@ import "hardhat-deploy";
 import "hardhat-typechain";
 import "@typechain/ethers-v5";
 
-const INFURA_API = 'https://mainnet.infura.io/v3/5934efc92cb841e4ac589e7c070d6975'
+const INFURA_MAINNET_API = 'https://mainnet.infura.io/v3/5934efc92cb841e4ac589e7c070d6975'
+const INFURA_TESTNET_API = 'https://rinkeby.infura.io/v3/5934efc92cb841e4ac589e7c070d6975'
 
 const config: HardhatUserConfig = {
   typechain: {

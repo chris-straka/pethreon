@@ -1,8 +1,8 @@
 import { useContext, useEffect } from "react"
 import { PethreonContext } from '../../PethreonContext';
 import { useHistory } from "react-router-dom"
-import { PaymentDetails } from "../../components/payment-details/PaymentDetails"
-import { UserBalance } from "../../components/user-balance/UserBalance";
+import { PaymentDetails } from "../../components/PaymentDetails/PaymentDetails"
+import { UserBalance } from "../../components/UserBalance/UserBalance";
 import "./contribute.css"
 
 export const ContributePage: React.FC = () => {

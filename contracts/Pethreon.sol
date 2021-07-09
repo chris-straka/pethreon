@@ -42,13 +42,9 @@ contract Pethreon {
 
     mapping(address => uint256) contributorBalances;
     mapping(address => uint256) creatorBalances;
-
-    // contributor => (creator => pledge)
-    mapping(address => mapping(address => Pledge)) pledges;
-
-    // creator => (periodNumber => payment)
-    mapping(address => mapping(uint256 => uint256)) expectedPayments;
     mapping(address => uint256) afterLastWithdrawalPeriod;
+    mapping(address => mapping(address => Pledge)) pledges; // contributor => (creator => pledge)
+    mapping(address => mapping(uint256 => uint256)) expectedPayments; // creator => (periodNumber => payment)
 
     constructor(uint256 _period) {
         startOfEpoch = block.timestamp; // 1621619224...
@@ -129,8 +125,9 @@ contract Pethreon {
         // );
 
         // are they withdrawing as a contributor or as a creator?
-        mapping(address => uint256) storage balances =
-            isContributor ? contributorBalances : creatorBalances;
+        mapping(address => uint256) storage balances = isContributor
+            ? contributorBalances
+            : creatorBalances;
 
         uint256 oldBalance = balances[msg.sender];
 
@@ -200,13 +197,12 @@ contract Pethreon {
         }
 
         // store the data structure so that contributor can cancel pledge
-        Pledge memory pledge =
-            Pledge({
-                creator: _creator,
-                weiPerPeriod: _weiPerPeriod,
-                afterLastPeriod: currentPeriod() + _periods,
-                initialized: true
-            });
+        Pledge memory pledge = Pledge({
+            creator: _creator,
+            weiPerPeriod: _weiPerPeriod,
+            afterLastPeriod: currentPeriod() + _periods,
+            initialized: true
+        });
 
         pledges[msg.sender][_creator] = pledge;
         contributorBalances[msg.sender] -= _weiPerPeriod * _periods;

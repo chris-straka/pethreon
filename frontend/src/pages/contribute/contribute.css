@@ -4,11 +4,12 @@
   flex-direction: column;
   align-content: space-around;
   margin-top: 12vh;
+  margin-left: 1.5rem;
 }
 
 .pledgeButton {
   align-self: flex-end;
   margin-right: 1rem;
   padding: 0.5rem 0.5rem;
-  background-color: brown;
+  background-color: var(--darktheme-secondary);
 }

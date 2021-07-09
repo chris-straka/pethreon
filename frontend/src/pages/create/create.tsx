@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react"
 import { PethreonContext } from "../../PethreonContext";
 import { useHistory } from "react-router-dom"
-import { PaymentDetails } from "../../components/payment-details/PaymentDetails"
+import { PaymentDetails } from "../../components/PaymentDetails/PaymentDetails"
 import "./create.css"
 
 export const CreatePage: React.FC = () => {
