@@ -1,9 +1,9 @@
 import { useContext, useEffect } from "react"
 import { useHistory } from "react-router"
 import { PethreonContext } from '../../PethreonContext';
-import { ContributorPledges } from "./components/ContributorPledges/ContributorPledges"
-import { ContributorActions } from "./components/ContributorActions/ContributorActions"
-import { UserBalance } from "../../components/UserBalance/UserBalance";
+import { Pledges as Pledges } from "./Pledges/Pledges"
+import { Actions } from "./Actions/Actions"
+import { Balance } from "../../components/Balance/Balance"
 import "./contribute.css"
 
 export const ContributePage: React.FC = () => {
@@ -15,8 +15,8 @@ export const ContributePage: React.FC = () => {
   }, [userAddress, history])
 
   return <div className="contributeLayout">
-    <UserBalance balance="$0.00" />
-    <ContributorActions contract={contract!} />
-    <ContributorPledges />
+    <Balance contract={contract!} />
+    <Actions contract={contract!} />
+    <Pledges contract={contract!} />
   </div >
 }
