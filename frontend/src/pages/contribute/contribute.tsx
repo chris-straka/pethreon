@@ -1,7 +1,8 @@
 import { useContext, useEffect } from "react"
+import { useHistory } from "react-router"
 import { PethreonContext } from '../../PethreonContext';
-import { useHistory } from "react-router-dom"
-import { PaymentDetails } from "../../components/PaymentDetails/PaymentDetails"
+import { ContributorPledges } from "./components/ContributorPledges/ContributorPledges"
+import { ContributorActions } from "./components/ContributorActions/ContributorActions"
 import { UserBalance } from "../../components/UserBalance/UserBalance";
 import "./contribute.css"
 
@@ -13,16 +14,9 @@ export const ContributePage: React.FC = () => {
     if (!userAddress) history.push("/")
   }, [userAddress, history])
 
-  const pledge = async () => {
-    const data = await contract?.getContributorBalance()
-    console.log(data?.toString())
-  }
-
-  // const getContributorBalance = () => {}
-
   return <div className="contributeLayout">
     <UserBalance balance="$0.00" />
-    <button className="pledgeButton" onClick={pledge}>Make Pledge</button>
-    <PaymentDetails />
+    <ContributorActions contract={contract!} />
+    <ContributorPledges />
   </div >
 }

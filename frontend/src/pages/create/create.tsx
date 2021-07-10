@@ -1,7 +1,6 @@
 import { useContext, useEffect } from "react"
 import { PethreonContext } from "../../PethreonContext";
 import { useHistory } from "react-router-dom"
-import { PaymentDetails } from "../../components/PaymentDetails/PaymentDetails"
 import "./create.css"
 
 export const CreatePage: React.FC = () => {
@@ -18,7 +17,6 @@ export const CreatePage: React.FC = () => {
     <div className="contributeLayout">
       <h1 className="userBalance">$0.00</h1>
       <button className="pledgeButton" onClick={withdrawal}>Make Pledge</button>
-      <PaymentDetails />
     </div >
   </>
 }
