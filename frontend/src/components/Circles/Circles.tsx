@@ -1,5 +1,5 @@
 import { useLocation, useHistory } from "react-router";
-import { ReactComponent as Arrow } from "../../assets/arrow-forward-circle.svg"
+import { ReactComponent as Arrow } from "../../assets/arrow.svg";
 import "./Contribute.css";
 import "./Create.css";
 import "./Login.css";

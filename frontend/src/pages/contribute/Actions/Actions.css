@@ -1,0 +1,12 @@
+.actions {
+  
+}
+
+.deposit, .withdraw, .pledge {
+ padding: 0.5rem;
+}
+
+.actionSVG {
+  width: 2ch;
+  vertical-align: text-bottom;
+}

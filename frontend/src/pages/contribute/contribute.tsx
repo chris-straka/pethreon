@@ -1,8 +1,8 @@
 import { useContext, useEffect } from "react"
 import { useHistory } from "react-router"
 import { PethreonContext } from '../../PethreonContext';
-import { Pledges as Pledges } from "./Pledges/Pledges"
-import { Actions } from "./Actions/Actions"
+import { Pledges } from "./Pledges/Pledges"
+import { Actions } from "./Actions"
 import { Balance } from "../../components/Balance/Balance"
 import "./contribute.css"
 
