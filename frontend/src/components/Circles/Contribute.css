@@ -40,6 +40,13 @@
   font-weight: bold;
 
   transition: all 0.5s linear;
+  transition-property: top, left, width, height, border-radius, background-color,
+    font-size, font-weight;
+}
+
+.circleB_contribute:focus {
+  outline-offset: 3px;
+  outline: 3px dotted var(--secondary);
 }
 
 .circleC_contribute {
@@ -66,4 +73,9 @@
     background-color: var(--darktheme-secondary);
     opacity: 0.6;
   }
+}
+.circleB_contribute:focus {
+  background-color: var(--darktheme-secondary);
+  opacity: 0.6;
+  outline-color: var(--darktheme-secondary);
 }

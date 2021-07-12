@@ -25,7 +25,12 @@ export const Circles = () => {
 
   return <>
     <div className={circleAnimation("A")} />
-    <button className={circleAnimation("B")} onClick={switchPortals} disabled={loginPage ? true : false}>
+    <button
+      className={circleAnimation("B")}
+      onClick={switchPortals}
+      disabled={loginPage ? true : false}
+      tabIndex={loginPage ? -1 : 1}
+    >
       {contributePage ? "Create " : ""}
       {createPage ? "Donate " : ""}
       {!loginPage ? <Arrow style={{ width: "2ch" }} /> : ""}

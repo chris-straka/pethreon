@@ -39,6 +39,7 @@
   background-color: var(--primary);
   border-radius: 50%;
   opacity: 0.4;
+  outline: none;
 
   animation: 6s linear 1s infinite alternate none running moveB;
   transition: all 0.5s linear;

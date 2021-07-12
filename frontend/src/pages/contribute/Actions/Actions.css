@@ -1,9 +1,26 @@
 .actions {
-  
+  display: flex;
+  justify-content: center;
+  margin-top: 0.9rem;
 }
 
-.deposit, .withdraw, .pledge {
- padding: 0.5rem;
+.deposit,
+.withdraw,
+.pledge {
+  padding: 0.7rem;
+  font-size: 1rem;
+}
+
+.withdraw {
+  border-right: 2px solid var(--darktheme-secondary);
+  border-left: 2px solid var(--darktheme-secondary);
+}
+
+.deposit:focus,
+.withdraw:focus,
+.pledge:focus {
+  outline-offset: 3px;
+  outline: 3px dotted var(--darktheme-secondary);
 }
 
 .actionSVG {

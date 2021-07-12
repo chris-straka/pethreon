@@ -4,10 +4,13 @@ import { PethreonContext } from '../../PethreonContext';
 import { Pledges } from "./Pledges/Pledges"
 import { Actions } from "./Actions"
 import { Balance } from "../../components/Balance/Balance"
+// import { Loading } from "../../components/Loading/Loading"
 import "./contribute.css"
 
 export const ContributePage: React.FC = () => {
   const history = useHistory()
+  // const [isLoading, setLoading] = useState(false)
+  // {isLoading ? <Loading /> : ""}
   const { userAddress, contract } = useContext(PethreonContext)
 
   useEffect(() => {
