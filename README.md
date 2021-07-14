@@ -75,7 +75,7 @@ CRA "Create React App" uses Jest, but Truffle uses Mocha and Chai. I was plannin
 ```ts
 // node_modules
 declare const: expect = Chai.ExpectStatic; // this kept conflicting with...
-declare const expect: jest.Expect;         // this 
+declare const expect: jest.Expect;         // this
 ```
 
 ## Charity application idea?
@@ -116,7 +116,7 @@ As a bonus, I could allow contributors to make donations offline using service w
 
 ### SafeMath
 
-SafeMath is no longer needed for solidity 0.8.0+ (integer variable types can't overflow anymore). If you're using an older version of solidity, make sure you also use an older version of SafeMath too (@openzepplin/contracts)[https://github.com/OpenZeppelin/openzeppelin-contracts].
+SafeMath is no longer needed for solidity 0.8.0+ (integer variable types can't overflow anymore). If you're using an older version of solidity, make sure you also use an older version of SafeMath too [@openzepplin/contracts](https://github.com/OpenZeppelin/openzeppelin-contracts).
 
 ### hardhat-react-plugin
 
@@ -132,7 +132,7 @@ contract foo {
   // You can only have ONE of the following, they can each run 2300 gas worth of computation, and are usually used to emit an event to the frontend
   function() external {}         // runs, throws an exception, and reverts the entire transaction
   function() external payable {} // runs, and then deposits all the ether into the smart contract
-}  
+}
 
 // Solidity v0.6.0+
 contract foo {
@@ -140,7 +140,7 @@ contract foo {
   fallback() external {}         // same as before, BUT the receive() function prevails if there's no input data in the transaction
   fallback() external payable {} // ibid
   receive() external payable {}  // called whenever there's no input data, puts all ether into the smart contract
-}  
+}
 ```
 
 In order to send a transaction with input data, you need to use a library like web3 or ethersJS. Normal human accounts (EOAs) don't have/need this libary, it's just used by decentralized applications as far as I'm aware. When you call a function using one of these libraries, you'll have the ability to pass in an "overrides object" automatically into every payable function as an extra argument. The contract looks this `method(arg1, arg2)` and you call it in JS like this `contract.method(arg1, arg2, {overrides})`. You can specify how much ether to send in the overrides as well as other stuff like gas.
@@ -148,6 +148,14 @@ In order to send a transaction with input data, you need to use a library like w
 If you want YOUR smart contract to send ether to someone else, then you need to use the send(), transfer() or call() functions. These days however, only [call()](https://ethereum.stackexchange.com/questions/78124/) is recommended. The address that you're sending money to must also be marked payable in the smart contract code i.e. payable(address). Every contract starts off at 0 balance, and your contract can see its own balance via address(this).balance. Sites like [Remix](https://remix.ethereum.org/) will also show you I think.
 
 A provider is a connection to the Ethereum blockchain.
+
+### Measuring time in smart contracts (the period stuff in Pethreon.sol)
+
+You can measure time with an oracle, but for simplicity I think Sergei uses blocktime instead. There are roughly [~6,400 blocks mined per day](https://ycharts.com/indicators/ethereum_blocks_per_day), or 192,000 blocks per month. The cool part about Sergei's contract is you get to choose which increments you would like to pay people in (hourly, daily, monthly, yearly). I'm going to make it daily for now.
+
+### How does Solidity's multiple return values transfer over to JS?
+
+JS functions can't return multiple values, but solidity functions can. In JS, these multiple return values come back as an array which makes sense. But logging that array during my tests reveals twice as many items in the array. I think the other half is meant to describe the first half of the array which is cool. I can only destructure the first half of the array, how did they do that? >.<
 
 ## Attribution
 
@@ -163,4 +171,4 @@ A provider is a connection to the Ethereum blockchain.
 
 - [Artsy Cat's Cutesy Font](https://www.dafont.com/cutesy.font)
 
-- [Sarah Fossheim (for my loading component)](https://fossheim.io/writing/posts/react-text-splitting-animations/)
+- [Sarah Fossheim's Loading Animation](https://fossheim.io/writing/posts/react-text-splitting-animations/)

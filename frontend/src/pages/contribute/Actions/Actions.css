@@ -8,22 +8,49 @@
 .withdraw,
 .pledge {
   padding: 0.7rem;
+  color: var(--text);
+  background-color: var(--primary);
+  outline: none;
   font-size: 1rem;
-}
-
-.withdraw {
-  border-right: 2px solid var(--darktheme-secondary);
-  border-left: 2px solid var(--darktheme-secondary);
+  font-weight: 600;
 }
 
 .deposit:focus,
 .withdraw:focus,
 .pledge:focus {
   outline-offset: 3px;
-  outline: 3px dotted var(--darktheme-secondary);
+  outline: 3px dotted var(--secondary);
 }
 
+.deposit:active,
+.withdraw:active,
+.pledge:active {
+  outline: none;
+}
+
+.withdraw {
+  border-right: 2px solid var(--darktheme-text);
+  border-left: 2px solid var(--darktheme-text);
+}
 .actionSVG {
   width: 2ch;
   vertical-align: text-bottom;
+}
+
+@media (prefers-color-scheme: dark) {
+  .withdraw {
+    border-color: var(--text);
+  }
+
+  .deposit,
+  .withdraw,
+  .pledge {
+    background-color: var(--darktheme-secondary);
+  }
+
+  .deposit:focus,
+  .withdraw:focus,
+  .pledge:focus {
+    outline: 3px dotted var(--darktheme-secondary);
+  }
 }

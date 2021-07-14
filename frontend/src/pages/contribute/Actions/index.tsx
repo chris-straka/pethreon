@@ -7,8 +7,8 @@ import "./Actions.css"
 
 export const Actions: React.FC<{ contract: Pethreon }> = ({ contract }) => {
   return <div className="actions">
-    <button className="deposit" onClick={() => deposit(contract)}>Deposit <DepositSVG className="actionSVG" /></button>
-    <button className="withdraw" onClick={() => withdraw(contract)}>Withdraw <WithdrawSVG className="actionSVG" /></button>
-    <button className="pledge" onClick={() => pledge(contract)}>Pledge <PledgeSVG className="actionSVG" /></button>
+    <button className="deposit" onClick={() => deposit(contract)} tabIndex={2}>Deposit <DepositSVG className="actionSVG" /></button>
+    <button className="withdraw" onClick={() => withdraw(contract)} tabIndex={2}>Withdraw <WithdrawSVG className="actionSVG" /></button>
+    <button className="pledge" onClick={() => pledge(contract)} tabIndex={2}>Pledge <PledgeSVG className="actionSVG" /></button>
   </div>
 }

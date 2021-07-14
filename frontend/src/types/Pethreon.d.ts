@@ -181,13 +181,9 @@ export class Pethreon extends Contract {
 
     "getContributorBalance()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    getCreatorBalance(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    getCreatorBalance(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    "getCreatorBalance()"(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    "getCreatorBalance()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     myPledgeTo(
       _creator: string,
@@ -264,13 +260,9 @@ export class Pethreon extends Contract {
 
   "getContributorBalance()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-  getCreatorBalance(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  getCreatorBalance(overrides?: CallOverrides): Promise<BigNumber>;
 
-  "getCreatorBalance()"(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  "getCreatorBalance()"(overrides?: CallOverrides): Promise<BigNumber>;
 
   myPledgeTo(
     _creator: string,
@@ -471,13 +463,9 @@ export class Pethreon extends Contract {
 
     "getContributorBalance()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getCreatorBalance(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    getCreatorBalance(overrides?: CallOverrides): Promise<BigNumber>;
 
-    "getCreatorBalance()"(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    "getCreatorBalance()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     myPledgeTo(_creator: string, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -546,12 +534,10 @@ export class Pethreon extends Contract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    getCreatorBalance(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    getCreatorBalance(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "getCreatorBalance()"(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     myPledgeTo(

@@ -44,3 +44,5 @@ It's not as easy as I thought to slowly print out a hyperlink char-by-char (eith
 When the user clicks login and signs into metamask a "sign-in" modal popups (its under the control of metamask, not me). If the user closes it without signing in, metamask will NOT error out. Instead, my code behaves as if the user is still logging in which is not great UX. It looks like other popular sites like Aave and Uniswap behave the same?
 
 🙅 onClick={function(arg)} 🙅 -> onClick(() => function(arg))
+
+When you navigate the contributor screen by keyboard, it jumps to the action buttons first before the create button. I had to fix this by setting the tabIndex but it seems like this is a bad practice. I might have to figure out why this doesn't work later.

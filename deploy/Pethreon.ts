@@ -9,7 +9,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
   await deploy('Pethreon', {
     from: deployer,
-    args: [0],
+    args: [6400],
     log: true,
   });
 };

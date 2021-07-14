@@ -35,7 +35,7 @@ contract Pethreon {
         address creator;
         uint256 weiPerPeriod;
         uint256 afterLastPeriod; // first period s.t. pledge makes no payment
-        bool initialized;
+        bool exists;
     }
 
     mapping(address => uint256) contributorBalances;
@@ -51,19 +51,19 @@ contract Pethreon {
     }
 
     function currentPeriod() internal view returns (uint256 periodNumber) {
-        return (block.timestamp - startOfEpoch) / period;
+        return (block.timestamp - startOfEpoch) / period; // how many days has it been since the beginning?
     }
 
     function getContributorBalance() public view returns (uint256) {
         return contributorBalances[msg.sender];
     }
 
-    function getCreatorBalance() public returns (uint256) {
+    function getCreatorBalance() public view returns (uint256) {
         uint256 amount = 0;
         for (
-            period = lastWithdrawalPeriod[msg.sender];
-            period < currentPeriod();
-            period++
+            uint256 _period = lastWithdrawalPeriod[msg.sender]; // 0
+            _period < currentPeriod();
+            _period++
         ) {
             amount += expectedPayments[msg.sender][period];
         }
@@ -123,23 +123,22 @@ contract Pethreon {
         uint256 _weiPerPeriod,
         uint256 _periods
     ) public {
-        require(canPledge(_weiPerPeriod, _periods), "insufficient funds");
+        require(canPledge(_weiPerPeriod, _periods), "Insufficient funds");
         require(
-            !contributorPledges[msg.sender][_creator].initialized,
-            "can't pledge twice to the same creator"
+            !contributorPledges[msg.sender][_creator].exists,
+            "A pledge already exists for this creator. You can't edit existing pledges, you have to cancel your existing pledge and create a new one"
         );
 
-        // update creator's mapping of future payments
-        for (uint256 periodO = currentPeriod(); periodO < _periods; periodO++) {
-            expectedPayments[_creator][periodO] += _weiPerPeriod;
+        // Update the CREATOR'S list of future payments
+        for (uint256 _period = currentPeriod(); _period < _periods; _period++) {
+            expectedPayments[_creator][_period] += _weiPerPeriod;
         }
 
-        // store the data structure so that contributor can cancel pledge
         Pledge memory pledge = Pledge({
             creator: _creator,
             weiPerPeriod: _weiPerPeriod,
             afterLastPeriod: currentPeriod() + _periods,
-            initialized: true
+            exists: true
         });
 
         contributorPledges[msg.sender][_creator] = pledge;
@@ -155,16 +154,16 @@ contract Pethreon {
 
     function cancelPledge(address _creator) public {
         Pledge memory pledge = contributorPledges[msg.sender][_creator];
-        require(pledge.initialized);
+        require(pledge.exists);
         contributorBalances[msg.sender] +=
             pledge.weiPerPeriod *
             (pledge.afterLastPeriod - currentPeriod());
         for (
-            uint256 periodT = currentPeriod();
-            periodT < pledge.afterLastPeriod;
-            periodT++
+            uint256 _period = currentPeriod();
+            _period < pledge.afterLastPeriod;
+            _period++
         ) {
-            expectedPayments[_creator][periodT] -= pledge.weiPerPeriod;
+            expectedPayments[_creator][_period] -= pledge.weiPerPeriod;
         }
         delete contributorPledges[msg.sender][_creator];
         emit PledgeCancelled(currentPeriod(), _creator, msg.sender);

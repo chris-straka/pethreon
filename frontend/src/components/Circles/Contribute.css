@@ -71,11 +71,11 @@
 
   .circleB_contribute {
     background-color: var(--darktheme-secondary);
-    opacity: 0.6;
+    opacity: .95;
   }
-}
-.circleB_contribute:focus {
-  background-color: var(--darktheme-secondary);
-  opacity: 0.6;
-  outline-color: var(--darktheme-secondary);
+
+  .circleB_contribute:focus {
+    background-color: var(--darktheme-secondary);
+    outline-color: var(--darktheme-secondary);
+  }
 }

@@ -33,7 +33,7 @@ export const Circles = () => {
     >
       {contributePage ? "Create " : ""}
       {createPage ? "Donate " : ""}
-      {!loginPage ? <Arrow style={{ width: "2ch" }} /> : ""}
+      {!loginPage ? <Arrow style={{ width: "2ch", verticalAlign: "bottom" }} /> : ""}
     </button>
     <div className={circleAnimation("C")} />
   </>
