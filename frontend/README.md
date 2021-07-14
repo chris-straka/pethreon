@@ -46,3 +46,5 @@ When the user clicks login and signs into metamask a "sign-in" modal popups (its
 🙅 onClick={function(arg)} 🙅 -> onClick(() => function(arg))
 
 When you navigate the contributor screen by keyboard, it jumps to the action buttons first before the create button. I had to fix this by setting the tabIndex but it seems like this is a bad practice. I might have to figure out why this doesn't work later.
+
+It's weird when my circles animate slowly between pages but my content renders instantly. I need framer-motion or react-transition-group but it's something I should add last I think.

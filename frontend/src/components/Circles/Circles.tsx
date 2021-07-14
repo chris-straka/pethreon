@@ -29,7 +29,6 @@ export const Circles = () => {
       className={circleAnimation("B")}
       onClick={switchPortals}
       disabled={loginPage ? true : false}
-      tabIndex={loginPage ? -1 : 1}
     >
       {contributePage ? "Create " : ""}
       {createPage ? "Donate " : ""}
