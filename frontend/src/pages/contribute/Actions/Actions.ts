@@ -1,18 +1,16 @@
-import { Dispatch, SetStateAction } from "react"
-import { Pethreon } from "../../../types"
+import { Dispatch, SetStateAction, useContext } from "react"
+import { PethreonContext } from "../../../PethreonContext"
 
-type toggleType = Dispatch<SetStateAction<boolean>>,
+const { contract } = useContext(PethreonContext)
 
-export const deposit = (contract: Pethreon, toggleModal: toggleType) => {
-  toggleModal(true)
+export const deposit = () => {
   const amount = window.prompt("How much would you like to deposit? (ether)");
 }
 
-export const withdraw = (contract: Pethreon, toggleModal: toggleType) => {
-  toggleModal(true)
+export const withdraw = () => {
   const amount = window.prompt("How much would you like to withdraw")
 }
 
-export const pledge = (contract: Pethreon, toggleModal: toggleType) => {
-  toggleModal(true);
+export const pledge = () => {
+  const amount = window.prompt("How much would you like to withdraw")
 }

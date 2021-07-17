@@ -5,7 +5,7 @@ interface PledgesProps {
   contract: Pethreon
 }
 
-export const Pledges = ({ contract }: PledgesProps) => {
+export const Pledges = () => {
 
   return <ul className="payment-details-layout">
     <li>One</li>
