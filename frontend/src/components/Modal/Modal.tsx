@@ -1,5 +1,24 @@
+import { ReactNode } from "react"
+import { createPortal } from "react-dom"
 import "./Modal.css"
 
-export const Modal: React.FC = () => {
-  return <div>hello</div>
+interface ModalProps {
+  open: boolean,
+  onClose: () => void,
+  children: ReactNode
+}
+
+export const Modal = ({ open, onClose, children }: ModalProps) => {
+  if (!open) return null
+
+  return createPortal(
+    <>
+      <div className="modal-overlay" />
+      <div className="modal">
+        <button onClick={onClose}>x</button>
+        {children}
+      </div>
+    </>,
+    document.getElementById('portal') as HTMLElement
+  )
 }

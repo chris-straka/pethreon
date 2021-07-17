@@ -3,7 +3,7 @@ import { PethreonContext } from "../../PethreonContext";
 import { useHistory } from "react-router-dom"
 import "./create.css"
 
-export const CreatePage: React.FC = () => {
+export const CreatePage = () => {
   const history = useHistory()
   const { userAddress, contract } = useContext(PethreonContext)
 

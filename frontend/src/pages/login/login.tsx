@@ -18,7 +18,7 @@ interface EthereumWindow extends Window {
   ethereum?: any
 }
 
-export const Login: React.FC = () => {
+export const Login = () => {
   const history = useHistory()
   const { ethereum, location } = window as EthereumWindow
   const { contractAddress, userAddress, setUserAddress, setContract, setProvider } = useContext(PethreonContext)

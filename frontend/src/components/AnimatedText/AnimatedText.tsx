@@ -1,5 +1,10 @@
-export const AnimatedText: React.FC<{ textClassName: string, text: string }> = ({ textClassName, text }) => {
-  return <p className={textClassName} aria-label={text}>
+interface AnimatedTextProps {
+  animatedTextCssClass: string,
+  text: string
+}
+
+export const AnimatedText = ({ animatedTextCssClass, text }: AnimatedTextProps) => {
+  return <p className={animatedTextCssClass} aria-label={text}>
     {text.split("").map((char, index) => {
       let style: any = { "animation-delay": + (0.5 + index / 10) + "s" }
       return <span

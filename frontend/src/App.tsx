@@ -6,7 +6,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { Circles } from './components/Circles/Circles';
 import { PethreonContext } from './PethreonContext';
 
-const App: React.FC = () => {
+const App = () => {
   const [userAddress, setUserAddress] = useState("")
   const [provider, setProvider] = useState("")
   const [contract, setContract] = useState(null)

@@ -1,7 +1,11 @@
 import { Pethreon } from "../../../types/Pethreon"
 import "./Pledges.css"
 
-export const Pledges: React.FC<{ contract: Pethreon }> = ({ contract }) => {
+interface PledgesProps {
+  contract: Pethreon
+}
+
+export const Pledges = ({ contract }: PledgesProps) => {
 
   return <ul className="payment-details-layout">
     <li>One</li>

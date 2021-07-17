@@ -2,12 +2,14 @@ import { useEffect, useState } from "react"
 import { MetamaskSVG } from "./MetamaskSVG"
 import "./MetamaskAnimation.css"
 
-export const MetamaskAnimation: React.FC<{
+interface MetamaskAnimationProps {
   message: string,
   link: boolean,
   login: any,
   ethereum: any
-}> = ({ message, link, login, ethereum }) => {
+}
+
+export const MetamaskAnimation = ({ message, link, login, ethereum }: MetamaskAnimationProps) => {
   const [animatedMessage, setAnimatedMessage] = useState("")
   const [animatedLink, setAnimatedLink] = useState("")
   const [talking, setTalking] = useState(false)
