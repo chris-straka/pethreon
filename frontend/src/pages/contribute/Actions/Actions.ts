@@ -1,15 +1,18 @@
+import { Dispatch, SetStateAction } from "react"
 import { Pethreon } from "../../../types"
 
-export const deposit = (contract: Pethreon) => { 
+type toggleType = Dispatch<SetStateAction<boolean>>,
+
+export const deposit = (contract: Pethreon, toggleModal: toggleType) => {
+  toggleModal(true)
   const amount = window.prompt("How much would you like to deposit? (ether)");
-  console.log(amount)
 }
 
-export const withdraw = (contract: Pethreon) => { 
+export const withdraw = (contract: Pethreon, toggleModal: toggleType) => {
+  toggleModal(true)
   const amount = window.prompt("How much would you like to withdraw")
-  console.log(amount)
 }
 
-export const pledge = (contract: Pethreon) => { 
-
+export const pledge = (contract: Pethreon, toggleModal: toggleType) => {
+  toggleModal(true);
 }

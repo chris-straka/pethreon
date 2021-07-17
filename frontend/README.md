@@ -23,6 +23,10 @@ const isOverflown = (clientHeight, scrollHeight) => {
 }
 ```
 
+### TODO
+
+Store a boolean in localstorage that checks to see if the user has seen the contract disclaimer before.
+
 ### Notes
 
 I want my circle animations to run infinitely, but do I really have to specify eight properties in the css `animation: ;` just to get infinite playback? [>_<](https://youtu.be/AbnWq7F9o20?t=11)
@@ -50,3 +54,5 @@ When you navigate the contributor screen by keyboard, it jumps to the action but
 It's weird when my circles animate slowly between pages but my content renders instantly. I need framer-motion or react-transition-group but it's something I should add last I think.
 
 Weirdly enough, it looks like [React.FC<>](https://github.com/typescript-cheatsheets/react#function-components) is discouraged.
+
+I should've made mockups for my modal.

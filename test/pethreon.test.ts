@@ -21,7 +21,7 @@ describe("Pethreon", () => {
 
   describe("owner tests", async () => {
 
-    it("should be able to deposit and remove 1 ether", async () => {
+    it("should be able to deposit and withdraw 1 ether", async () => {
       expect(await Pethreon.getContributorBalance()).to.equal(0)
 
       await Pethreon.deposit({ value: oneEther })
@@ -47,7 +47,6 @@ describe("Pethreon", () => {
       expect(periods).to.equal(3)
 
       // TODO: Figure a way to make the time transpire
-
     })
 
     it("should be able to cancel a pledge after making one", async () => {
