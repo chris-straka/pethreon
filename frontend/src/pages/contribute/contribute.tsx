@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react"
 import { useHistory } from "react-router"
 import { PethreonContext } from '../../PethreonContext';
 import { Pledges } from "./Pledges/Pledges"
-import { Actions } from "./Actions/ActionBar"
+import { Actions } from "./ActionBar"
 import { Balance } from "../../components/Balance/Balance"
 import "./contribute.css"
 

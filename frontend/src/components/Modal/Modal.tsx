@@ -13,9 +13,9 @@ export const Modal = ({ open, onClose, children }: ModalProps) => {
 
   return createPortal(
     <>
-      <div className="modal-overlay" />
+      <div className="modalOverlay" onClick={onClose} />
       <div className="modal">
-        <button onClick={onClose}>x</button>
+        <button className="closeModal" onClick={onClose} >x</button>
         {children}
       </div>
     </>,

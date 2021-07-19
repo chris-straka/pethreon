@@ -1,8 +1,8 @@
-import { ReactComponent as CautionSVG } from "../../../../assets/warning.svg"
+import { ReactComponent as CautionSVG } from "../../../assets/warning.svg"
 
 export const DepositModal = () => {
   return <>
-    <p>How much would like to deposit in Ether?</p>
+    <p>How much to deposit? (Ether)</p>
     <input type="text" />
   </>
 }

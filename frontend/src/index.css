@@ -24,10 +24,9 @@ body {
   /* Dark Theme */
   --darktheme-primary: hsl(220, 50%, 50%);
   --darktheme-secondary: hsl(267, 95%, 76%);
-
   --darktheme-background: hsl(200, 7%, 8%);
+  --darktheme-modal-background: hsl(200, 7%, 18%);
   --darktheme-text: hsl(36, 10%, 90%);
   --darktheme-anchor-tag: hsl(220, 50%, 70%);
-
   --darktheme-login-button: hsl(36, 10%, 90%);
 }

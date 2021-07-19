@@ -1,4 +1,4 @@
-import { Pethreon } from "../../types/Pethreon"
+// import { useContext } from "react"
 import "./Balance.css"
 
 export const Balance = () => {

@@ -27,6 +27,10 @@ const isOverflown = (clientHeight, scrollHeight) => {
 
 Store a boolean in localstorage that checks to see if the user has seen the contract disclaimer before.
 
+My circles animate slowly but my content loads instantly. I need to use framer-motion or react-transition-group.
+
+Keyboard navigation on my contributor/creator page is messed up. I tried changing the tabIndex but it didn't work.
+
 ### Notes
 
 I want my circle animations to run infinitely, but do I really have to specify eight properties in the css `animation: ;` just to get infinite playback? [>_<](https://youtu.be/AbnWq7F9o20?t=11)
@@ -49,10 +53,6 @@ When the user clicks login and signs into metamask a "sign-in" modal popups (its
 
 🙅 onClick={function(arg)} 🙅 -> onClick(() => function(arg))
 
-When you navigate the contributor screen by keyboard, it jumps to the action buttons first before the create button. I had to fix this by setting the tabIndex but it seems like this is a bad practice. I might have to figure out why this doesn't work later.
+[React.FC<>](https://github.com/typescript-cheatsheets/react#function-components) is discouraged.
 
-It's weird when my circles animate slowly between pages but my content renders instantly. I need framer-motion or react-transition-group but it's something I should add last I think.
-
-Weirdly enough, it looks like [React.FC<>](https://github.com/typescript-cheatsheets/react#function-components) is discouraged.
-
-I should've made mockups for my modal.
+If you want to pass useState down as a prop, you need to import Dispatch and SetStateAction from React and use that for its type `Dispatch<SetStateAction>`
