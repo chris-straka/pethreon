@@ -1,19 +1,31 @@
 .modal {
   position: fixed;
   background-color: #fff;
+  border-radius: 1.1rem;
   top: 50%;
   left: 50%;
-  height: 40vh;
+  height: 45vh;
   transform: translate(-50%, -50%);
-  padding: 2rem;
+  padding: 1.5rem;
   z-index: 1000;
 }
 
 .X {
+  background-color: transparent;
   position: absolute;
   right: 0;
   top: 0;
-  padding: 0.5rem 0.5rem 0 0;
+  height: 2ch;
+  width: 2ch;
+  font-weight: bolder;
+  margin: 1rem 1rem 0 0;
+  padding: 3px;
+  border: 2px solid transparent;
+  border-radius: 100%;
+}
+
+.X:hover {
+  border: 2px solid var(--text);
 }
 
 .modalOverlay {
@@ -29,7 +41,9 @@
   }
 
   .X {
-    background-color: var(--darktheme-modal-background);
     color: var(--darktheme-text);
+  }
+  .X:hover {
+    border-color: var(--darktheme-text);
   }
 }

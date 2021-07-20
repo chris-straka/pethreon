@@ -1,26 +1,39 @@
 import { ReactComponent as CautionSVG } from "../../../../assets/caution.svg"
-import { useState, ChangeEvent } from "react"
+import { useState } from "react"
 import "./Deposit.css"
 
+const warning = () => window.alert("This smart contract has not been professionally audited for security vulnerabilities. Please use at your own risk!")
 const deposit = () => { }
+
+const fetchData = async () => {
+  const data = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=USD")
+  console.log(data)
+}
 
 export const DepositModal = () => {
   const [disable, setDisable] = useState(true)
-  const checkboxChanged = (e: ChangeEvent<HTMLInputElement>) => setDisable(!disable)
+  // const [exchangeRateData, setExchangeRateData] = useState({})
+  const checkboxChanged = () => setDisable(!disable)
 
-  const tada = () => window.alert("This smart contract has not been professionally audited for security issues. Please use at your own risk.")
+  // useEffect(() => {
+  //   fetch("")
+  //     .then(data => setExchangeRateData(data))
+  // }, [exchangeRateData])
 
   return (
-    <div className="depositModal">
-      <h3>How much to deposit? (Ether)</h3>
-      <input type="text" />
-      <strong onClick={tada}>Caution! <CautionSVG className="cautionSVG" /></strong>
-      <p>This smart contract has not been professionally audited for security issues. Please use at your own risk.</p>
+    <form className="depositModal">
+      <h3>How much to deposit?</h3>
+      <p onClick={warning}><strong><CautionSVG className="cautionSVG" />Please read this first!<CautionSVG className="cautionSVG" /></strong> </p>
       <div className="consentContainer">
-        <label htmlFor="consent">I understand and accept</label>
+        <label htmlFor="consent">Do you accept?</label>
         <input type="checkbox" id="consent" onChange={checkboxChanged} />
       </div>
       <button onClick={deposit} disabled={disable}>Deposit</button>
-    </div>
+      <button onClick={fetchData}>fetch data</button>
+    </form>
   );
 }
+
+// curl -X 'GET' \
+//   '' \
+//   -H 'accept: application/json'

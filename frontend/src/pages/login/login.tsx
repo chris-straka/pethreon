@@ -18,6 +18,10 @@ interface EthereumWindow extends Window {
   ethereum?: any
 }
 
+const pleaseRefresh = () => {
+  window.confirm("You might have to refresh the page if you just installed a cryptocurrency wallet")
+}
+
 export const Login = () => {
   const history = useHistory()
   const { ethereum, location } = window as EthereumWindow
@@ -61,10 +65,6 @@ export const Login = () => {
         setMessage("Error... " + (error as MetamaskError).message)
       }
     }
-  }
-
-  const pleaseRefresh = () => {
-    window.confirm("You might have to refresh the page if you just installed a cryptocurrency wallet")
   }
 
   return <main>

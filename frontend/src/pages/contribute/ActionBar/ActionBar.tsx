@@ -17,9 +17,7 @@ export const ActionBar = () => {
     if (currentModal === "deposit") setModalBody(<DepositModal />)
     if (currentModal === "withdraw") setModalBody(<WithdrawModal />)
     if (currentModal === "pledge") setModalBody(<PledgeModal />)
-    return () => {
-      setModalBody(null)
-    }
+    return () => { setModalBody(null) }
   }, [currentModal])
 
   return <>

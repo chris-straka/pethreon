@@ -11,8 +11,6 @@
   color: white;
 }
 
-.consentContainer {
-  display: flex;
-  justify-content: space-around;
-  align-content: center;
+.depositField {
+  background-color: transparent;
 }
