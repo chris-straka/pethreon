@@ -1,0 +1,12 @@
+.depositModal {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.cautionSVG {
+  width: 3ch;
+  vertical-align: text-bottom;
+  color: white;
+}

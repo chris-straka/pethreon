@@ -3,6 +3,8 @@ interface AnimatedTextProps {
   text: string
 }
 
+// [Sarah Fossheim](https://fossheim.io/writing/posts/react-text-splitting-animations/)
+
 export const AnimatedText = ({ animatedTextCssClass, text }: AnimatedTextProps) => {
   return <p className={animatedTextCssClass} aria-label={text}>
     {text.split("").map((char, index) => {
