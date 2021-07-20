@@ -15,7 +15,7 @@ export const Modal = ({ open, onClose, children }: ModalProps) => {
     <>
       <div className="modalOverlay" onClick={onClose} />
       <div className="modal">
-        <button className="closeModal" onClick={onClose} >x</button>
+        <button className="X" onClick={onClose}>X</button>
         {children}
       </div>
     </>,

@@ -1,4 +1,4 @@
-import { ReactComponent as CautionSVG } from "../../../assets/caution.svg"
+import { ReactComponent as CautionSVG } from "../../../../assets/caution.svg"
 import { useState, ChangeEvent } from "react"
 import "./Deposit.css"
 
@@ -16,7 +16,7 @@ export const DepositModal = () => {
       <input type="text" />
       <strong onClick={tada}>Caution! <CautionSVG className="cautionSVG" /></strong>
       <p>This smart contract has not been professionally audited for security issues. Please use at your own risk.</p>
-      <div className="consentBox">
+      <div className="consentContainer">
         <label htmlFor="consent">I understand and accept</label>
         <input type="checkbox" id="consent" onChange={checkboxChanged} />
       </div>

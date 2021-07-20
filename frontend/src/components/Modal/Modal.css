@@ -9,7 +9,7 @@
   z-index: 1000;
 }
 
-.closeModal {
+.X {
   position: absolute;
   right: 0;
   top: 0;
@@ -28,7 +28,7 @@
     background-color: var(--darktheme-modal-background);
   }
 
-  .closeModal {
+  .X {
     background-color: var(--darktheme-modal-background);
     color: var(--darktheme-text);
   }

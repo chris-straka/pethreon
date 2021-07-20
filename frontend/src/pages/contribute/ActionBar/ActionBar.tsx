@@ -1,14 +1,14 @@
-import { ReactComponent as DepositSVG } from "../../assets/deposit.svg";
-import { ReactComponent as WithdrawSVG } from "../../assets/withdraw.svg"
-import { ReactComponent as PledgeSVG } from "../../assets/pledge.svg";
-import { WithdrawModal } from './Actions/Withdraw';
-import { DepositModal } from './Actions/Deposit';
-import { PledgeModal } from './Actions/Pledge';
+import { ReactComponent as DepositSVG } from "../../../assets/deposit.svg";
+import { ReactComponent as WithdrawSVG } from "../../../assets/withdraw.svg"
+import { ReactComponent as PledgeSVG } from "../../../assets/pledge.svg";
+import { WithdrawModal } from './Withdraw/Withdraw';
+import { DepositModal } from './Deposit/Deposit';
+import { PledgeModal } from './Pledge/Pledge';
 import { useEffect, useState } from 'react';
-import { Modal } from "../../components/Modal/Modal";
+import { Modal } from "../../../components/Modal/Modal";
 import "./ActionBar.css"
 
-export const Actions = () => {
+export const ActionBar = () => {
   const [currentModal, setCurrentModal] = useState("")
   const [modalBody, setModalBody] = useState<JSX.Element | null>(null)
 
