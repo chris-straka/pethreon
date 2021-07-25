@@ -1,4 +1,5 @@
 import { ReactComponent as CautionSVG } from "../../../../assets/caution.svg"
+import { CurrencySelect } from "../../../../components/CurrencySelect/CurrrencySelect"
 import { useState } from "react"
 import "./Deposit.css"
 
@@ -20,9 +21,12 @@ export const DepositModal = () => {
   //     .then(data => setExchangeRateData(data))
   // }, [exchangeRateData])
 
+  const getAmount = () => console.log("hello")
+
   return (
     <form className="depositModal">
       <h3>How much to deposit?</h3>
+      <CurrencySelect getAmount={getAmount} />
       <p onClick={warning}><strong><CautionSVG className="cautionSVG" />Please read this first!<CautionSVG className="cautionSVG" /></strong> </p>
       <div className="consentContainer">
         <label htmlFor="consent">Do you accept?</label>
