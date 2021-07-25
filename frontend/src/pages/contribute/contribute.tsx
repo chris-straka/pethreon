@@ -8,11 +8,11 @@ import "./contribute.css"
 
 export const ContributePage = () => {
   const history = useHistory()
-  const { userAddress } = useContext(PethreonContext)
+  const { userAccounts } = useContext(PethreonContext)
 
   useEffect(() => {
-    if (!userAddress) history.push("/")
-  }, [userAddress, history])
+    if (!userAccounts) history.push("/")
+  }, [userAccounts, history])
 
   return <div className="contributeLayout">
     <Balance />

@@ -5,18 +5,16 @@ import "./create.css"
 
 export const CreatePage = () => {
   const history = useHistory()
-  const { userAddress, contract } = useContext(PethreonContext)
+  const { userAccounts } = useContext(PethreonContext)
 
   useEffect(() => {
-    if (!userAddress) history.push("/")
-  }, [userAddress, history])
-
-  const withdrawal = () => { console.log(contract) }
+    if (!userAccounts) history.push("/")
+  }, [userAccounts, history])
 
   return <>
     <div className="contributeLayout">
       <h1 className="userBalance">$0.00</h1>
-      <button className="pledgeButton" onClick={withdrawal}>Make Pledge</button>
+      <button className="pledgeButton">Make Pledge</button>
     </div >
   </>
 }

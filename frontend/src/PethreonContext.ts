@@ -1,22 +1,24 @@
 import { createContext } from 'react';
 import { Pethreon } from "./types/Pethreon"
 
-type TODO = any | null // I'm not sure what to put for some stuff yet
+type TODO = any | null 
 
-export const PethreonContext = createContext<{
-  contractAddress: string, 
+interface PethreonType {
   contract: Pethreon | null,
   setContract: TODO,
-  userAddress: string | null,
-  setUserAddress: TODO,
+  contractAddress: string,
+  userAccounts: TODO,
+  setUserAccounts: TODO,
   provider: TODO,
   setProvider: TODO,
-}>({
-  contractAddress: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-  userAddress: null,
-  setUserAddress: null,
-  provider: null,
-  setProvider: null,
+}
+
+export const PethreonContext = createContext<PethreonType>({
   contract: null,
-  setContract: null
+  setContract: null,
+  contractAddress: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+  userAccounts: null,
+  setUserAccounts: null,
+  provider: null,
+  setProvider: null
 })

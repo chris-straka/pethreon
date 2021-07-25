@@ -7,17 +7,17 @@ import { Circles } from './components/Circles/Circles';
 import { PethreonContext } from './PethreonContext';
 
 const App = () => {
-  const [userAddress, setUserAddress] = useState("")
+  const [userAccounts, setUserAccounts] = useState("")
   const [provider, setProvider] = useState("")
   const [contract, setContract] = useState(null)
   const { contractAddress } = useContext(PethreonContext)
 
   const pethreon_context_value = useMemo(() => ({
     contractAddress,
-    userAddress, setUserAddress,
+    userAccounts, setUserAccounts,
     provider, setProvider,
     contract, setContract
-  }), [userAddress, provider, contract, contractAddress])
+  }), [userAccounts, provider, contract, contractAddress])
 
   return <>
     <Circles />

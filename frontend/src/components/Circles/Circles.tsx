@@ -30,9 +30,9 @@ export const Circles = () => {
       onClick={switchPortals}
       disabled={loginPage ? true : false}
     >
-      {contributePage ? "Create " : ""}
-      {createPage ? "Donate " : ""}
-      {!loginPage ? <Arrow style={{ width: "2ch", verticalAlign: "bottom" }} /> : ""}
+      {contributePage && "Create "}
+      {createPage && "Donate "}
+      {!loginPage && <Arrow style={{ width: "2ch", verticalAlign: "bottom" }} />}
     </button>
     <div className={circleAnimation("C")} />
   </>

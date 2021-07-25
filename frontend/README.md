@@ -31,6 +31,8 @@ My circles animate slowly but my content loads instantly. I need to use framer-m
 
 Keyboard navigation on my contributor/creator page is messed up. I tried changing the tabIndex but it didn't work.
 
+Maybe have the metamask logo hover up and down when he's done talking
+
 ### Notes
 
 I want my circle animations to run infinitely, but do I really have to specify eight properties in the css `animation: ;` just to get infinite playback? [>_<](https://youtu.be/AbnWq7F9o20?t=11)
@@ -57,4 +59,4 @@ When the user clicks login and signs into metamask a "sign-in" modal popups (its
 
 If you want to pass useState down as a prop, you need to import Dispatch and SetStateAction from React and use that for its type `Dispatch<SetStateAction>`
 
-https://codepen.io/havardob/pen/dyYXBBr
+[cool styles](https://codepen.io/havardob/pen/dyYXBBr)

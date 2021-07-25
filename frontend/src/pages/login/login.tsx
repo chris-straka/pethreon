@@ -25,7 +25,7 @@ const pleaseRefresh = () => {
 export const Login = () => {
   const history = useHistory()
   const { ethereum, location } = window as EthereumWindow
-  const { contractAddress, userAddress, setUserAddress, setContract, setProvider } = useContext(PethreonContext)
+  const { contractAddress, userAccounts, setUserAccounts, setContract, setProvider } = useContext(PethreonContext)
   const [message, setMessage] = useState("")
   const [link, setLink] = useState(false)
 
@@ -43,7 +43,7 @@ export const Login = () => {
         if (location.pathname === "/") setLink(true)
       }, 5500);
     }
-  }, [ethereum, userAddress, location])
+  }, [ethereum, userAccounts, location])
 
   useEffect(() => {
     const provider = new providers.Web3Provider(ethereum)
@@ -56,7 +56,7 @@ export const Login = () => {
     try {
       setMessage("Logging in... You might have to click the metamask extension in your browser")
       const accounts: [string] = await ethereum.request({ method: 'eth_requestAccounts' })
-      setUserAddress(accounts[0])
+      setUserAccounts(accounts)
       history.push("/contribute")
     } catch (error) {
       if ((error as MetamaskError).code === -32002) {
