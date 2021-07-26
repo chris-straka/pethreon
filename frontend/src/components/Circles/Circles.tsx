@@ -1,8 +1,9 @@
 import { useLocation, useHistory } from "react-router";
 import { ReactComponent as Arrow } from "../../assets/arrow.svg";
-import "./Contribute.css";
-import "./Create.css";
-import "./Login.css";
+import contributeStyles from "./Contribute.module.css"
+import createStyles from "./Create.module.css"
+import loginStyles from "./Login.module.css"
+const styles = { ...contributeStyles, ...createStyles, ...loginStyles }
 
 export const Circles = () => {
   const history = useHistory()
@@ -16,17 +17,18 @@ export const Circles = () => {
     if (createPage) history.push("/contribute")
   }
 
-  // Circle animation depends on the route
-  const circleAnimation = (page: string) => {
-    if (createPage) return `circle${page}_create`
-    if (contributePage) return `circle${page}_contribute`
-    return `circle${page}_login`
-  }
-
+  // Short circuit city 😎 
   return <>
-    <div className={circleAnimation("A")} />
-    <button
-      className={circleAnimation("B")}
+    <div className={`
+      ${loginPage && styles.circleA_login}
+      ${contributePage && styles.circleA_contribute}
+      ${createPage && styles.circleA_create}
+    `} />
+    <button className={`
+      ${loginPage && styles.circleB_login} 
+      ${contributePage && styles.circleB_login} 
+      ${createPage && styles.circleB_create}
+    `}
       onClick={switchPortals}
       disabled={loginPage ? true : false}
     >
@@ -34,6 +36,10 @@ export const Circles = () => {
       {createPage && "Donate "}
       {!loginPage && <Arrow style={{ width: "2ch", verticalAlign: "bottom" }} />}
     </button>
-    <div className={circleAnimation("C")} />
+    <div className={`
+      ${loginPage && styles.circleC_login} 
+      ${contributePage && styles.circleC_login} 
+      ${createPage && styles.circleC_create}
+    `} />
   </>
 }
