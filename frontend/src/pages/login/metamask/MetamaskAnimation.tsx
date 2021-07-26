@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { MetamaskSVG } from "./MetamaskSVG"
-import styles from "./MetamaskAnimation.module.css"
+import "./MetamaskAnimation.css"
 
 interface MetamaskAnimationProps {
   message: string,
@@ -9,6 +9,8 @@ interface MetamaskAnimationProps {
   ethereum: any
 }
 
+const animationDelay = 75;
+
 export const MetamaskAnimation = ({ message, link, login, ethereum }: MetamaskAnimationProps) => {
   const [animatedMessage, setAnimatedMessage] = useState("")
   const [animatedLink, setAnimatedLink] = useState("")
@@ -16,8 +18,8 @@ export const MetamaskAnimation = ({ message, link, login, ethereum }: MetamaskAn
 
   // TEXT ANIMATION
   useEffect(() => {
-    let phrase = ""
     let interrupt: boolean;
+    let phrase = ""
 
     message.split('').forEach((char, index) => {
       setTimeout(() => {
@@ -25,7 +27,7 @@ export const MetamaskAnimation = ({ message, link, login, ethereum }: MetamaskAn
         setTalking(true)
         phrase += char
         setAnimatedMessage(phrase)
-      }, 75 * index);
+      }, animationDelay * index);
     })
 
     setTimeout(() => {
@@ -52,7 +54,7 @@ export const MetamaskAnimation = ({ message, link, login, ethereum }: MetamaskAn
           if (ethereum) return
           linkBuilder += char
           setAnimatedLink(linkBuilder)
-        }, 75 * index);
+        }, animationDelay * index);
       })
 
       setTimeout(() => {
@@ -67,10 +69,10 @@ export const MetamaskAnimation = ({ message, link, login, ethereum }: MetamaskAn
   }, [link, ethereum])
 
   return <>
-    <p className={styles.metamessage}>{animatedMessage} {link === true ? (<a href="https://metamask.io/download" target="_blank" rel="noreferrer">{animatedLink}</a>) : null} </p>
-    <div className={styles.metacontainer}>
+    <p className="metamessage">{animatedMessage} {link === true ? (<a href="https://metamask.io/download" target="_blank" rel="noreferrer">{animatedLink}</a>) : null} </p>
+    <div className="metacontainer">
       <MetamaskSVG isTalking={talking} />
-      <button className={styles.login} onClick={login}>Login with metamask</button>
+      <button className="login" onClick={login}>Login with metamask</button>
     </div>
   </>
 }

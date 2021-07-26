@@ -1,4 +1,4 @@
-export const MetamaskSVG = ({ isTalking }: { isTalking: boolean }) => <svg id="metamaskFox" viewBox="0 0 154 154" fill="none" xmlns="http://www.w3.org/2000/svg">
+export const MetamaskSVG = ({ isTalking }: { isTalking: boolean }) => <svg className={!isTalking ? "floating" : ""} id="metamaskFox" viewBox="0 0 154 154" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path id="rightEarMuff" d="M132.49 17.1594L84.3955 52.8801L93.2894 31.8054L132.49 17.1594Z" fill="#E2761B" stroke="#E2761B" strokeLinecap="round" strokeLinejoin="round" />
   <path id="leftEarMuff" d="M21.4614 17.1594L69.1695 53.2184L60.7106 31.8054L21.4614 17.1594Z" fill="#E4761B" stroke="#E4761B" strokeLinecap="round" strokeLinejoin="round" />
   <path id="rightEar" d="M134.52 55.2002L138.629 35.4789L132.49 17.1594L85.9906 51.6717L103.875 66.801L129.155 74.1965L134.762 67.671L132.345 65.9309L136.212 62.4024L133.215 60.0822L137.082 57.1337L134.52 55.2002Z" fill="#763D16" stroke="#763D16" strokeLinecap="round" strokeLinejoin="round" />
