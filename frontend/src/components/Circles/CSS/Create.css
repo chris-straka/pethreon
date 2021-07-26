@@ -8,7 +8,7 @@
   opacity: 0.4;
   border-radius: 50%;
 
-  animation: 5s linear 0s infinite alternate none running animationY;
+  animation: 5s linear 0s infinite alternate none running rightBall_animation;
   transition: all 0.5s linear;
 }
 
@@ -39,7 +39,7 @@
   opacity: 0.6;
   border-radius: 50%;
 
-  animation: 5s linear 0s infinite alternate none running animationX;
+  animation: 5s linear 0s infinite alternate none running leftBall_animation;
   transition: all 0.5s linear;
 }
 

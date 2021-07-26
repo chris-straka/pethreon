@@ -1,21 +1,3 @@
-@keyframes moveA {
-  to {
-    transform: scale(125%) translateX(10px);
-  }
-}
-
-@keyframes moveB {
-  to {
-    transform: scale(95%) translate(2px, 30px);
-  }
-}
-
-@keyframes moveC {
-  to {
-    transform: scale(150%) translate(-40px, -40px);
-  }
-}
-
 .circleA_login {
   position: fixed;
   top: -5vh;
@@ -26,7 +8,7 @@
   border-radius: 50%;
   opacity: 0.4;
 
-  animation: 7s linear 0s infinite alternate none running moveA;
+  animation: 7s linear 0s infinite alternate none running circleA_animation;
   transition: all 0.5s linear;
 }
 
@@ -41,7 +23,7 @@
   opacity: 0.4;
   outline: none;
 
-  animation: 6s linear 1s infinite alternate none running moveB;
+  animation: 6s linear 1s infinite alternate none running circleB_animation;
   transition: all 0.5s linear;
 }
 
@@ -56,7 +38,7 @@
   opacity: 0.4;
   z-index: -1;
 
-  animation: 25s linear 0.5s infinite alternate none running moveC;
+  animation: 25s linear 0.5s infinite alternate none running circleC_animation;
   transition: all 0.5s linear;
 }
 

@@ -77,12 +77,7 @@ export const Login = () => {
         </a>
       </li>
     </ul>
-    <MetamaskAnimation
-      message={message}
-      link={link}
-      login={ethereum ? login : pleaseRefresh}
-      ethereum={ethereum}
-    />
+    <MetamaskAnimation message={message} link={link} login={ethereum ? login : pleaseRefresh} ethereum={ethereum} />
     <video className={styles.vid} muted autoPlay loop>
       <source src={mp4} type="video/mp4" />
       <source src={webm} type="video/webm" />
