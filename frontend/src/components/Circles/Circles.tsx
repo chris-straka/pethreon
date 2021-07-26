@@ -20,7 +20,7 @@ export const Circles = () => {
   const circleAnimation = (page: string) => {
     if (createPage) return `circle${page}_create`
     if (contributePage) return `circle${page}_contribute`
-    return `circle${page}`
+    return `circle${page}_login`
   }
 
   return <>

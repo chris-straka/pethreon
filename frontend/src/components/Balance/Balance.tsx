@@ -1,7 +1,5 @@
-// import { useContext } from "react"
-import "./Balance.css"
+import styles from "./Balance.module.css"
 
 export const Balance = () => {
-  // TODO
-  return <h1 className="balance">$0.00</h1>
+  return <h1 className={styles.balance}>$0.00</h1>
 }

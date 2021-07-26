@@ -31,4 +31,3 @@ export const MetamaskSVG = ({ isTalking }: { isTalking: boolean }) => <svg id="m
     <path id="leftChin" d="M51.6234 119.584L66.8493 126.787L66.7527 122.291L67.9611 111.609L51.6234 119.584Z" fill="#D7C1B3" stroke="#D7C1B3" strokeLinecap="round" strokeLinejoin="round" />
   </g>
 </svg>
-

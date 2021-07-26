@@ -33,6 +33,11 @@ Keyboard navigation on my contributor/creator page is messed up. I tried changin
 
 Maybe have the metamask logo hover up and down when he's done talking
 
+### Useful Links
+
+- [Ethers.js Display Logic](https://docs.ethers.io/v5/api/utils/display-logic/#display-logic)
+- [Ethers.js Conversion Logic](https://docs.ethers.io/v5/api/utils/display-logic/#unit-conversion)
+
 ### Notes
 
 I want my circle animations to run infinitely, but do I really have to specify eight properties in the css `animation: ;` just to get infinite playback? [>_<](https://youtu.be/AbnWq7F9o20?t=11)

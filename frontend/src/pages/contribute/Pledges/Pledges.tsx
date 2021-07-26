@@ -1,7 +1,7 @@
-import "./Pledges.css"
+import styles from "./Pledges.module.css"
 
 export const Pledges = () => {
-  return <ul className="payment-details-layout">
+  return <ul className={styles.paymentDetailsLayout}>
     <li>One</li>
     <li>Two</li>
     <li>Three</li>

@@ -16,7 +16,7 @@
   }
 }
 
-.circleA {
+.circleA_login {
   position: fixed;
   top: -5vh;
   left: -5vw;
@@ -30,7 +30,7 @@
   transition: all 0.5s linear;
 }
 
-.circleB {
+.circleB_login {
   position: fixed;
   top: 40vh;
   left: 92vw;
@@ -45,7 +45,7 @@
   transition: all 0.5s linear;
 }
 
-.circleC {
+.circleC_login {
   position: fixed;
   top: 92vh;
   left: 30vw;

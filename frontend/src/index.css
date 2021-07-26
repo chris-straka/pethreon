@@ -1,3 +1,5 @@
+/* I want these to be accessible everywhere, therefore I'm not making it a CSS module */
+
 /* Remove the default margin and padding */
 *,
 *::after,

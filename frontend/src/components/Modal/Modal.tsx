@@ -1,6 +1,6 @@
 import { ReactNode } from "react"
 import { createPortal } from "react-dom"
-import "./Modal.css"
+import styles from "./Modal.module.css"
 
 interface ModalProps {
   open: boolean,
@@ -13,9 +13,9 @@ export const Modal = ({ open, onClose, children }: ModalProps) => {
 
   return createPortal(
     <>
-      <div className="modalOverlay" onClick={onClose} />
-      <div className="modal">
-        <button className="X" onClick={onClose}>X</button>
+      <div className={styles.modalOverlay} onClick={onClose} />
+      <div className={styles.modal}>
+        <button className={styles.X} onClick={onClose}>X</button>
         {children}
       </div>
     </>,

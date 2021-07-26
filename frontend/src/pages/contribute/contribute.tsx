@@ -4,7 +4,7 @@ import { PethreonContext } from '../../PethreonContext';
 import { Pledges } from "./Pledges/Pledges"
 import { ActionBar } from "./ActionBar/ActionBar"
 import { Balance } from "../../components/Balance/Balance"
-import "./contribute.css"
+import styles from "./contribute.module.css"
 
 export const ContributePage = () => {
   const history = useHistory()
@@ -14,7 +14,7 @@ export const ContributePage = () => {
     if (!userAccounts) history.push("/")
   }, [userAccounts, history])
 
-  return <div className="contributeLayout">
+  return <div className={styles.contributeLayout}>
     <Balance />
     <ActionBar />
     <Pledges />

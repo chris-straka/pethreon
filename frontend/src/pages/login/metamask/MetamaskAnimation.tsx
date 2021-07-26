@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { MetamaskSVG } from "./MetamaskSVG"
-import "./MetamaskAnimation.css"
+import styles from "./MetamaskAnimation.module.css"
 
 interface MetamaskAnimationProps {
   message: string,
@@ -67,10 +67,10 @@ export const MetamaskAnimation = ({ message, link, login, ethereum }: MetamaskAn
   }, [link, ethereum])
 
   return <>
-    <p className="metamessage">{animatedMessage} {link === true ? (<a href="https://metamask.io/download" target="_blank" rel="noreferrer">{animatedLink}</a>) : null} </p>
-    <div className="metacontainer">
+    <p className={styles.metamessage}>{animatedMessage} {link === true ? (<a href="https://metamask.io/download" target="_blank" rel="noreferrer">{animatedLink}</a>) : null} </p>
+    <div className={styles.metacontainer}>
       <MetamaskSVG isTalking={talking} />
-      <button className="login" onClick={login}>Login with metamask</button>
+      <button className={styles.login} onClick={login}>Login with metamask</button>
     </div>
   </>
 }

@@ -1,6 +1,6 @@
 import { AnimatedText } from "../AnimatedText/AnimatedText"
-import "./Loading.css"
+import styles from "./Loading.module.css"
 
 export const Loading = () => {
-  return <AnimatedText text="Loading..." animatedTextCssClass="loading" />
+  return <AnimatedText text="Loading..." animatedTextCssClass={styles.loading} />
 }

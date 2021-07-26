@@ -6,7 +6,7 @@ import { DepositModal } from './Deposit/Deposit';
 import { PledgeModal } from './Pledge/Pledge';
 import { useEffect, useState } from 'react';
 import { Modal } from "../../../components/Modal/Modal";
-import "./ActionBar.css"
+import styles from "./ActionBar.module.css"
 
 export const ActionBar = () => {
   const [currentModal, setCurrentModal] = useState("")
@@ -22,9 +22,9 @@ export const ActionBar = () => {
 
   return <>
     <div className="actions">
-      <button className="deposit" onClick={() => setCurrentModal("deposit")}>Deposit <DepositSVG className="actionSVG" /></button>
-      <button className="withdraw" onClick={() => setCurrentModal("withdraw")}>Withdraw <WithdrawSVG className="actionSVG" /></button>
-      <button className="pledge" onClick={() => setCurrentModal("pledge")}>Pledge <PledgeSVG className="actionSVG" /></button>
+      <button className={styles.deposit} onClick={() => setCurrentModal("deposit")}>Deposit <DepositSVG className={styles.actionSVG} /></button>
+      <button className={styles.withdraw} onClick={() => setCurrentModal("withdraw")}>Withdraw <WithdrawSVG className={styles.actionSVG} /></button>
+      <button className={styles.pledge} onClick={() => setCurrentModal("pledge")}>Pledge <PledgeSVG className={styles.actionSVG} /></button>
     </div>
     <Modal open={currentModal === "" ? false : true} onClose={() => setCurrentModal("")}>{modalBody}</Modal>
   </>

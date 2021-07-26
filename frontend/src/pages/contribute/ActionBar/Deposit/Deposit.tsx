@@ -1,7 +1,7 @@
 import { ReactComponent as CautionSVG } from "../../../../assets/caution.svg"
 import { CurrencySelect } from "../../../../components/CurrencySelect/CurrrencySelect"
 import { useState } from "react"
-import "./Deposit.css"
+import styles from "./Deposit.module.css"
 
 const warning = () => window.alert("This smart contract has not been professionally audited for security vulnerabilities. Please use at your own risk!")
 const deposit = () => { }
@@ -24,11 +24,11 @@ export const DepositModal = () => {
   const getAmount = () => console.log("hello")
 
   return (
-    <form className="depositModal">
+    <form className={styles.depositModal}>
       <h3>How much to deposit?</h3>
       <CurrencySelect getAmount={getAmount} />
-      <p onClick={warning}><strong><CautionSVG className="cautionSVG" />Please read this first!<CautionSVG className="cautionSVG" /></strong> </p>
-      <div className="consentContainer">
+      <p onClick={warning}><strong><CautionSVG className={styles.cautionSVG} />Please read this first!<CautionSVG className={styles.cautionSVG} /></strong></p>
+      <div className={styles.consentContainer}>
         <label htmlFor="consent">Do you accept?</label>
         <input type="checkbox" id="consent" onChange={checkboxChanged} />
       </div>

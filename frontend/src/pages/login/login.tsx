@@ -5,10 +5,10 @@ import { MetamaskAnimation } from './metamask/MetamaskAnimation';
 import { PethreonContext } from '../../PethreonContext';
 import { providers, Contract } from 'ethers';
 import { abi } from '../../artifacts/localhost/Pethreon.json';
+import styles from "./login.module.css"
 
 import mp4 from "../../assets/money.mp4"
 import webm from "../../assets/money.webm"
-import "./login.css"
 
 interface MetamaskError extends Error {
   code: number
@@ -18,9 +18,7 @@ interface EthereumWindow extends Window {
   ethereum?: any
 }
 
-const pleaseRefresh = () => {
-  window.confirm("You might have to refresh the page if you just installed a cryptocurrency wallet")
-}
+const pleaseRefresh = () => window.confirm("You might have to refresh the page if you just installed a cryptocurrency wallet")
 
 export const Login = () => {
   const history = useHistory()
@@ -68,8 +66,8 @@ export const Login = () => {
   }
 
   return <main>
-    <h1 className="pethreon">P<span className="Ξ">Ξ</span>threon</h1>
-    <ul className="features">
+    <h1 className={styles.pethreon}>P<span className={styles.Ξ}>Ξ</span>threon</h1>
+    <ul className={styles.features}>
       <li>Contribute monthly to your favourite creators in a trustless, privacy respecting manner</li>
       <li>Only pay transaction fees,&nbsp;
         <a href="https://github.com/Chris56974/Pethreon/blob/main/contracts/Pethreon.sol"
@@ -85,7 +83,7 @@ export const Login = () => {
       login={ethereum ? login : pleaseRefresh}
       ethereum={ethereum}
     />
-    <video className="vid" muted autoPlay loop>
+    <video className={styles.vid} muted autoPlay loop>
       <source src={mp4} type="video/mp4" />
       <source src={webm} type="video/webm" />
       Your browser does not support webm or mp4 videos.
