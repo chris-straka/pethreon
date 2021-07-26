@@ -13,8 +13,8 @@ export const Circles = () => {
   const createPage = location.pathname === '/create'
 
   const switchPortals = () => {
-    if (contributePage) history.push("/create")
-    if (createPage) history.push("/contribute")
+    if (contributePage) history.replace("/create")
+    if (createPage) history.replace("/contribute")
   }
 
   const circleCSS = (circle: string) => {
