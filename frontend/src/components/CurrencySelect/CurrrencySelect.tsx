@@ -1,28 +1,23 @@
-import { useState, ChangeEvent } from 'react';
+import { ChangeEvent } from 'react';
+import { CurrencyDenomination } from "./CurrencyDenomination/CurrencyDenomination"
 import styles from "./CurrencySelect.module.css"
 
 interface CurrencySelectProps {
-  getAmount: (money: number) => void
+  amount: string,
+  getAmount: (event: ChangeEvent<HTMLInputElement>) => void,
+  getCurrency: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
-export const CurrencySelect = ({ getAmount }: CurrencySelectProps) => {
-  const [amount, setAmount] = useState("0.00")
-  // const [currency, setCurrency] = useState("USD")
-  const updateAmount = (event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)
-  const foo = (event: ChangeEvent<HTMLInputElement>) => console.log(event.target.value)
+export const CurrencySelect = ({ amount, getAmount, getCurrency }: CurrencySelectProps) => {
+
 
   return (
     <>
-      <input className={styles.depositField} type="number" placeholder="0.00" onChange={updateAmount} value={amount} />
-      <div className={styles.currencyRadios} onChange={foo}>
-        <label>
-          <input type="radio" name="currency" defaultChecked value="USD" />
-          <span>USD</span>
-        </label>
-        <label>
-          <input type="radio" name="currency" value="Ether" />
-          <span>Ether</span>
-        </label>
+      <input className={styles.depositField} type="number" placeholder="0.00" onChange={getAmount} value={amount} />
+      <div className={styles.currencyRadios} onChange={getCurrency}>
+        <CurrencyDenomination defaultChecked={true} denomination="USD" />
+        <CurrencyDenomination defaultChecked={false} denomination="Ether" />
+        <CurrencyDenomination defaultChecked={false} denomination="Wei" />
       </div>
     </>
   )

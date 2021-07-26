@@ -1,43 +1,50 @@
-import { ReactComponent as CautionSVG } from "../../../../assets/caution.svg"
+import { useState, ChangeEvent, FormEvent } from "react"
 import { CurrencySelect } from "../../../../components/CurrencySelect/CurrrencySelect"
-import { useState } from "react"
+import { Consent } from "../../../../components/Consent/Consent"
 import styles from "./Deposit.module.css"
 
-const warning = () => window.alert("This smart contract has not been professionally audited for security vulnerabilities. Please use at your own risk!")
-const deposit = () => { }
-
-const fetchData = async () => {
-  const data = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=USD")
-  console.log(data)
-}
+const WARNING_MESSAGE = "This smart contract hasn't been professionally audited for security vulnerabilities. Please use at your own risk!"
 
 export const DepositModal = () => {
+  const [amount, setAmount] = useState("")
+  const [consent, setConsent] = useState(false)
+  const [currency, setCurrency] = useState("USD")
   const [disable, setDisable] = useState(true)
-  // const [exchangeRateData, setExchangeRateData] = useState({})
-  const checkboxChanged = () => setDisable(!disable)
 
-  // useEffect(() => {
-  //   fetch("")
-  //     .then(data => setExchangeRateData(data))
-  // }, [exchangeRateData])
+  const getAmount = (amount: ChangeEvent<HTMLInputElement>) => {
+    setAmount(amount.target.value)
+  }
 
-  const getAmount = () => console.log("hello")
+  const getCurrency = (currency: ChangeEvent<HTMLInputElement>) => {
+    if (currency.target.value === "USD") setCurrency("USD")
+    if (currency.target.value === "Ether") setCurrency("Ether")
+    if (currency.target.value === "Wei") setCurrency("Wei")
+  }
+
+  const getConsent = (consent: ChangeEvent<HTMLInputElement>) => {
+    if (consent.target.checked) {
+      setConsent(true)
+      setDisable(false)
+    } else {
+      setConsent(false)
+      setDisable(true)
+    }
+  }
+
+  const deposit = (event: FormEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    console.log(consent)
+    console.log(amount)
+    console.log(currency)
+  }
+
 
   return (
     <form className={styles.depositModal}>
       <h3>How much to deposit?</h3>
-      <CurrencySelect getAmount={getAmount} />
-      <p onClick={warning}><strong><CautionSVG className={styles.cautionSVG} />Please read this first!<CautionSVG className={styles.cautionSVG} /></strong></p>
-      <div className={styles.consentContainer}>
-        <label htmlFor="consent">Do you accept?</label>
-        <input type="checkbox" id="consent" onChange={checkboxChanged} />
-      </div>
+      <CurrencySelect amount={amount} getAmount={getAmount} getCurrency={getCurrency} />
+      <Consent getConsent={getConsent}>⚠️ Warning! Please read! ⚠️ ️️</Consent>
       <button onClick={deposit} disabled={disable}>Deposit</button>
-      <button onClick={fetchData}>fetch data</button>
     </form>
   );
 }
-
-// curl -X 'GET' \
-//   '' \
-//   -H 'accept: application/json'
