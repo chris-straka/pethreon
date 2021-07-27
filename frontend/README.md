@@ -25,13 +25,11 @@ const isOverflown = (clientHeight, scrollHeight) => {
 
 ### TODO
 
-Store a boolean in localstorage that checks to see if the user has seen the contract disclaimer before.
-
 My circles animate slowly but my content loads instantly. I need to use framer-motion or react-transition-group.
 
 Keyboard navigation on my contributor/creator page is messed up. I tried changing the tabIndex but it didn't work.
 
-Maybe have the metamask logo hover up and down when he's done talking
+My modal and circleB are not keyboard a11y
 
 ### Useful Links
 

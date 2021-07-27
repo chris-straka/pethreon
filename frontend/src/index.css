@@ -14,13 +14,15 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 62.5%;
+  color: var(--white-text);
 }
 
 :root {
   --primary: hsl(220, 50%, 50%);
   --secondary: hsl(0, 100%, 50%);
   --background: hsl(0, 0%, 47%);
-  --text: hsl(0, 0%, 15%);
+  --white-text: hsl(36, 10%, 90%);
+  --black-text: hsl(0, 0%, 15%);
   --login-button: hsl(220, 50%, 30%);
 
   /* Dark Theme */
@@ -28,7 +30,8 @@ body {
   --darktheme-secondary: hsl(267, 95%, 76%);
   --darktheme-background: hsl(200, 7%, 8%);
   --darktheme-modal-background: hsl(200, 7%, 18%);
-  --darktheme-text: hsl(36, 10%, 90%);
+  --darktheme-white-text: hsl(36, 10%, 90%);
+  --darktheme-black-text: hsl(0, 0%, 15%);
   --darktheme-anchor-tag: hsl(220, 50%, 70%);
   --darktheme-login-button: hsl(36, 10%, 90%);
 }

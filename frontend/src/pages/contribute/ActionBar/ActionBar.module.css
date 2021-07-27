@@ -1,4 +1,4 @@
-.actions {
+.actionBar {
   display: flex;
   justify-content: center;
   margin-top: 0.9rem;
@@ -8,7 +8,6 @@
 .withdraw,
 .pledge {
   padding: 0.7rem;
-  color: var(--text);
   background-color: var(--primary);
   outline: none;
   font-size: 1rem;
@@ -29,9 +28,10 @@
 }
 
 .withdraw {
-  border-right: 2px solid var(--darktheme-text);
-  border-left: 2px solid var(--darktheme-text);
+  border-right: 2px solid var(--white-text);
+  border-left: 2px solid var(--white-text);
 }
+
 .actionSVG {
   width: 2ch;
   vertical-align: text-bottom;
@@ -39,7 +39,7 @@
 
 @media (prefers-color-scheme: dark) {
   .withdraw {
-    border-color: var(--text);
+    border-color: var(--darktheme-black-text);
   }
 
   .deposit,

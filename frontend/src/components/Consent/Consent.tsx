@@ -9,10 +9,9 @@ interface ConsentProps {
 export const Consent = ({ getConsent, children }: ConsentProps) => {
   return (
     <>
-      <p>{children}</p>
       <div className={styles.consentContainer}>
-        <label htmlFor="consent">I understand and accept the risks</label>
-        <input required type="checkbox" id="consent" onChange={getConsent} />
+        <label htmlFor="consent">{children}</label>
+        <input type="checkbox" id="consent" onChange={getConsent} />
       </div>
     </>
   )

@@ -2,3 +2,9 @@
   font-size: 4rem;
   margin-top: 13vh;
 }
+
+@media (prefers-color-scheme: dark) {
+  .balance {
+    color: var(--darktheme-white-text);
+  }
+}
