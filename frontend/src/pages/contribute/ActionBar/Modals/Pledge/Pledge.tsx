@@ -1,8 +1,11 @@
 import styles from "./Pledge.module.css"
 
-const pledge = () => { }
+interface PledgeModalProps {
+  closeModal: () => void
+}
 
-export const PledgeModal = () => {
+export const PledgeModal = ({ closeModal }: PledgeModalProps) => {
+  const pledge = () => console.log("pledge")
   return (
     <div className={styles.PledgeModal}>
       <p>How much would you like to Pledge?</p>

@@ -1,8 +1,13 @@
 import styles from "./Withdraw.module.css"
 
-const withdraw = () => { }
+interface WithdrawModalProps {
+  closeModal: () => void
+}
 
-export const WithdrawModal = () => {
+export const WithdrawModal = ({ closeModal }: WithdrawModalProps) => {
+
+  const withdraw = () => console.log("withdraw")
+
   return (
     <div className={styles.withdrawModal}>
       <p>How much would you like to withdraw in Ether?</p >

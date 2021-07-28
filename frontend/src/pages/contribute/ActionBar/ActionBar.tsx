@@ -1,11 +1,11 @@
 import { ReactComponent as DepositSVG } from "../../../assets/deposit.svg";
 import { ReactComponent as WithdrawSVG } from "../../../assets/withdraw.svg"
 import { ReactComponent as PledgeSVG } from "../../../assets/pledge.svg";
-import { WithdrawModal } from './Withdraw/Withdraw';
-import { DepositModal } from './Deposit/Deposit';
-import { PledgeModal } from './Pledge/Pledge';
+import { WithdrawModal } from './Modals/Withdraw/Withdraw';
+import { DepositModal } from './Modals/Deposit/Deposit';
+import { PledgeModal } from './Modals/Pledge/Pledge';
 import { useEffect, useState } from 'react';
-import { Modal } from "../../../components/Modal/Modal";
+import { Modal } from "../../../components/ModalOutline/ModalOutline";
 import styles from "./ActionBar.module.css"
 
 export const ActionBar = () => {
@@ -14,9 +14,9 @@ export const ActionBar = () => {
 
   useEffect(() => {
     if (currentModal === "") return
-    if (currentModal === "deposit") setModalBody(<DepositModal />)
-    if (currentModal === "withdraw") setModalBody(<WithdrawModal />)
-    if (currentModal === "pledge") setModalBody(<PledgeModal />)
+    if (currentModal === "deposit") setModalBody(<DepositModal closeModal={() => setCurrentModal("")} />)
+    if (currentModal === "withdraw") setModalBody(<WithdrawModal closeModal={() => setCurrentModal("")} />)
+    if (currentModal === "pledge") setModalBody(<PledgeModal closeModal={() => setCurrentModal("")} />)
     return () => { setModalBody(null) }
   }, [currentModal])
 

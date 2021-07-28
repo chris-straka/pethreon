@@ -11,7 +11,7 @@ export const Consent = ({ getConsent, children }: ConsentProps) => {
     <>
       <div className={styles.consentContainer}>
         <label htmlFor="consent">{children}</label>
-        <input type="checkbox" id="consent" onChange={getConsent} />
+        <input required type="checkbox" id="consent" onChange={getConsent} />
       </div>
     </>
   )

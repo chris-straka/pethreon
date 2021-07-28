@@ -1,19 +1,21 @@
 import { useState, ChangeEvent, FormEvent } from "react"
-import { CurrencySelect } from "../../../../components/CurrencySelect/CurrrencySelect"
-import { Consent } from "../../../../components/Consent/Consent"
+import { CurrencySelect } from "../../../../../components/CurrencySelect/CurrrencySelect"
+import { Consent } from "../../../../../components/Consent/Consent"
 import styles from "./Deposit.module.css"
 
 const WARNING_MESSAGE = "This smart contract hasn't been professionally audited for security vulnerabilities. Please use at your own risk! It will also take time for your transaction to be mined on the blockchain, please be patient."
 
-export const DepositModal = () => {
+interface DepositModalProps {
+  closeModal: () => void
+}
+
+export const DepositModal = ({ closeModal }: DepositModalProps) => {
+  const [disabled, setDisabled] = useState(true)
   const [amount, setAmount] = useState("")
   const [currency, setCurrency] = useState("USD")
   const [consent, setConsent] = useState(false)
-  const [disable, setDisable] = useState(true)
 
-  const getAmount = (amount: ChangeEvent<HTMLInputElement>) => {
-    setAmount(amount.target.value)
-  }
+  const getAmount = (amount: ChangeEvent<HTMLInputElement>) => setAmount(amount.target.value);
 
   const getCurrency = (currency: ChangeEvent<HTMLInputElement>) => {
     if (currency.target.value === "USD") setCurrency("USD")
@@ -24,10 +26,10 @@ export const DepositModal = () => {
   const getConsent = (consent: ChangeEvent<HTMLInputElement>) => {
     if (consent.target.checked) {
       setConsent(true)
-      setDisable(false)
+      setDisabled(false)
     } else {
       setConsent(false)
-      setDisable(true)
+      setDisabled(true)
     }
   }
 
@@ -36,6 +38,7 @@ export const DepositModal = () => {
     console.log(consent)
     console.log(amount)
     console.log(currency)
+    closeModal()
   }
 
   const warning = (event: FormEvent<HTMLButtonElement>) => {
@@ -47,8 +50,8 @@ export const DepositModal = () => {
     <form className={styles.depositForm}>
       <h3 className={styles.modalHeading}>How much to deposit?</h3>
       <CurrencySelect amount={amount} getAmount={getAmount} currency={currency} getCurrency={getCurrency} />
-      <Consent getConsent={getConsent}>⚠️ I have read and accept the <button className={styles.disclaimer} onClick={warning}>following risks</button>⚠️️️</Consent>
-      <button className={styles.depositButton} onClick={deposit} disabled={disable}>Deposit</button>
-    </form>
+      <Consent getConsent={getConsent}>⚠️ I have read and accept the <button type="button" className={styles.disclaimer} onClick={warning}>following risks</button>⚠️️️</Consent>
+      <button type="submit" className={styles.depositButton} onClick={deposit} disabled={disabled}>Deposit</button>
+    </form >
   );
 }

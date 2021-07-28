@@ -2,11 +2,11 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .modalHeading {
   font-size: 1rem;
+  margin-bottom: .8rem;
 }
 
 .depositButton {

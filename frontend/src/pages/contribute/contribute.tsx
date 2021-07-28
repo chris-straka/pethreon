@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react"
 import { useHistory } from "react-router"
 import { PethreonContext } from '../../PethreonContext';
-import { Pledges } from "./Pledges/Pledges"
+import { TransactionHistory } from "./TransactionHistory/TransactionHistory"
 import { ActionBar } from "./ActionBar/ActionBar"
 import { Balance } from "../../components/Balance/Balance"
 import styles from "./contribute.module.css"
@@ -17,6 +17,6 @@ export const ContributePage = () => {
   return <div className={styles.contributeLayout}>
     <Balance />
     <ActionBar />
-    <Pledges />
+    <TransactionHistory />
   </div >
 }

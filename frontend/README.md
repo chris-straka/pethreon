@@ -35,6 +35,7 @@ My modal and circleB are not keyboard a11y
 
 - [Ethers.js Display Logic](https://docs.ethers.io/v5/api/utils/display-logic/#display-logic)
 - [Ethers.js Conversion Logic](https://docs.ethers.io/v5/api/utils/display-logic/#unit-conversion)
+- [cool styles](https://codepen.io/havardob/pen/dyYXBBr)
 
 ### Notes
 
@@ -61,5 +62,3 @@ When the user clicks login and signs into metamask a "sign-in" modal popups (its
 [React.FC<>](https://github.com/typescript-cheatsheets/react#function-components) is discouraged.
 
 If you want to pass useState down as a prop, you need to import Dispatch and SetStateAction from React and use that for its type `Dispatch<SetStateAction>`
-
-[cool styles](https://codepen.io/havardob/pen/dyYXBBr)

@@ -1,6 +1,6 @@
 import { ReactNode } from "react"
 import { createPortal } from "react-dom"
-import styles from "./Modal.module.css"
+import styles from "./ModalOutline.module.css"
 
 interface ModalProps {
   open: boolean,

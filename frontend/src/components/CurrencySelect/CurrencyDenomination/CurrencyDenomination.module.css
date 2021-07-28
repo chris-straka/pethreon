@@ -1,3 +1,17 @@
-.currency {
-  border: solid 2px transparent;
+.denomination {
+  cursor: pointer;
+  display: flex;
+  align-content: center;
+  border: solid 2px var(--primary);
+  border-radius: 2rem;
+  padding: .4rem;
+  margin-right: 0.3rem;
+}
+
+.radioButton {
+  margin-right: 0.4rem;
+}
+
+.currencySpan {
+  text-align: center;
 }
