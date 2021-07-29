@@ -1,4 +1,5 @@
 .button {
+  cursor: pointer;
   color: var(--darktheme-background);
   background-color: var(--darktheme-secondary);
   font-size: 1rem;
@@ -8,4 +9,9 @@
   width: 100px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  background-color: grey;
 }

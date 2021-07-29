@@ -15,13 +15,6 @@
   margin-bottom: 0.8rem;
 }
 
-/* margin-top is degen but I want to make my components reusable */
-.depositButton {
-  margin-top: 2.5rem;
-  background-color: var(--primary);
-  font-size: 1.3rem;
-}
-
 .depositSVG {
   width: 2ch;
   vertical-align: text-bottom;
