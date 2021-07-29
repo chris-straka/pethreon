@@ -1,16 +1,31 @@
-.depositForm {
+.depositFormLayout {
   height: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.modalHeading {
+.heading {
   font-size: 1rem;
-  margin-bottom: .8rem;
+  margin-bottom: 0.8rem;
+  margin-top: 0.5rem;
 }
 
+/* <CurrencySelect/> div1 */
+.heading + div {
+  margin-bottom: 0.8rem;
+}
+
+/* margin-top is degen but I want to make my components reusable */
 .depositButton {
+  margin-top: 2.5rem;
   background-color: var(--primary);
+  font-size: 1.3rem;
+}
+
+.depositSVG {
+  width: 2ch;
+  vertical-align: text-bottom;
+  font-weight: 600;
 }
 
 @media (prefers-color-scheme: dark) {

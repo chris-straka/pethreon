@@ -1,0 +1,28 @@
+.disclaimerText {
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.disclaimerButton {
+  font-size: 1rem;
+  border-bottom: 2px solid var(--primary);
+  background-color: transparent;
+  color: var(--primary);
+}
+
+.consentContainer {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.consentText {
+  margin-right: 0.5rem;
+}
+
+
+@media (prefers-color-scheme: dark) {
+  .disclaimerButton {
+    color: var(--darktheme-white-text);
+  }
+}

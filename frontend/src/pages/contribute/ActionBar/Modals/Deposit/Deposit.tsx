@@ -1,9 +1,10 @@
 import { useState, ChangeEvent, FormEvent } from "react"
+import { ReactComponent as DepositSVG } from "../../../../../assets/deposit.svg"
 import { CurrencySelect } from "../../../../../components/CurrencySelect/CurrrencySelect"
+import { ActionSubmit } from "../../../../../components/Buttons/Action/ActionSubmit"
 import { Consent } from "../../../../../components/Consent/Consent"
+import { Spacer } from "../../../../../components/Spacer/Spacer"
 import styles from "./Deposit.module.css"
-
-const WARNING_MESSAGE = "This smart contract hasn't been professionally audited for security vulnerabilities. Please use at your own risk! It will also take time for your transaction to be mined on the blockchain, please be patient."
 
 interface DepositModalProps {
   closeModal: () => void
@@ -41,17 +42,14 @@ export const DepositModal = ({ closeModal }: DepositModalProps) => {
     closeModal()
   }
 
-  const warning = (event: FormEvent<HTMLButtonElement>) => {
-    event.preventDefault()
-    window.alert(WARNING_MESSAGE)
-  }
-
   return (
-    <form className={styles.depositForm}>
-      <h3 className={styles.modalHeading}>How much to deposit?</h3>
+    <form className={styles.depositFormLayout}>
+      <h3 className={styles.heading}>How much to deposit?</h3>
       <CurrencySelect amount={amount} getAmount={getAmount} currency={currency} getCurrency={getCurrency} />
-      <Consent getConsent={getConsent}>⚠️ I have read and accept the <button type="button" className={styles.disclaimer} onClick={warning}>following risks</button>⚠️️️</Consent>
-      <button type="submit" className={styles.depositButton} onClick={deposit} disabled={disabled}>Deposit</button>
-    </form >
+      <Spacer marginTop="1rem" marginBottom="1rem" />
+      <Consent getConsent={getConsent}></Consent>
+      <Spacer marginTop="1rem" marginBottom="1rem" />
+      <ActionSubmit handler={deposit} disabled={disabled}>Deposit <DepositSVG className={styles.depositSVG}/></ActionSubmit>
+    </form>
   );
 }

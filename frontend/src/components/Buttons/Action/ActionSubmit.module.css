@@ -1,0 +1,11 @@
+.button {
+  color: var(--darktheme-background);
+  background-color: var(--darktheme-secondary);
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 30px;
+  padding: 10px;
+  width: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
