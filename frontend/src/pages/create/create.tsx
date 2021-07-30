@@ -4,7 +4,7 @@ import styles from "./create.module.css"
 
 export const CreatePage = () => {
   const [loading, setLoading] = useState(false)
-
+  console.log(setLoading)
   return <>
     {loading && <Loading />}
     <div className={styles.contributeLayout}>
