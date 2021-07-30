@@ -62,3 +62,5 @@ When the user clicks login and signs into metamask a "sign-in" modal popups (its
 [React.FC<>](https://github.com/typescript-cheatsheets/react#function-components) is discouraged.
 
 If you want to pass useState down as a prop, you need to import Dispatch and SetStateAction from React and use that for its type `Dispatch<SetStateAction>`
+
+In ethers, you get wei by parsing and you get greater than wei higher by formatting.

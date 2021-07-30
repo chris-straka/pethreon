@@ -37,8 +37,8 @@ yarn                      # install frontend dependencies (react)
 yarn start                # bootup react on port 3000
 
 # To deploy the smart contract (TODO)
-hh run scripts/sample_script.ts                   # deploy the contract to the ethereum provider
-hh run --network <network> scripts/sample_test.ts # deploy to a network specified in hardhat.config.ts
+hh run scripts/Pethreon.ts                # deploy the contract to the ethereum provider
+hh run --network <network> scripts/Pethreon.ts # deploy to a network specified in hardhat.config.ts
 ```
 
 ## Issues

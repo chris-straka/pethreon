@@ -1,22 +1,19 @@
-import { useContext, useEffect } from "react"
-import { useHistory } from "react-router"
-import { PethreonContext } from '../../PethreonContext';
-import { TransactionHistory } from "./TransactionHistory/TransactionHistory"
+import { useState } from "react"
+import { Pledges } from "./Pledges/Pledges"
 import { ActionBar } from "./ActionBar/ActionBar"
 import { Balance } from "../../components/Balance/Balance"
+import { Loading } from "../../components/Loading/Loading"
 import styles from "./contribute.module.css"
 
 export const ContributePage = () => {
-  const history = useHistory()
-  const { userAccounts } = useContext(PethreonContext)
+  const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
-    if (!userAccounts) history.push("/")
-  }, [userAccounts, history])
-
-  return <div className={styles.contributeLayout}>
-    <Balance />
-    <ActionBar />
-    <TransactionHistory />
-  </div >
+  return <>
+    {loading && <Loading />}
+    <div className={styles.contributeLayout}>
+      <Balance />
+      <ActionBar setLoading={setLoading} />
+      <Pledges />
+    </div >
+  </>
 }

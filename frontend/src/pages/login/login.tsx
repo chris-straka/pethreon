@@ -1,10 +1,8 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { GithubSVG } from './githubSVG/GithubSVG';
 import { MetamaskAnimation } from './metamask/MetamaskAnimation';
-import { PethreonContext } from '../../PethreonContext';
-import { providers, Contract } from 'ethers';
-import { abi } from '../../artifacts/localhost/Pethreon.json';
+import { EthereumWindow } from "../../ethers/login"
 import styles from "./login.module.css"
 
 import mp4 from "../../assets/money.mp4"
@@ -14,16 +12,11 @@ interface MetamaskError extends Error {
   code: number
 }
 
-interface EthereumWindow extends Window {
-  ethereum?: any
-}
-
 const pleaseRefresh = () => window.confirm("You might have to refresh the page if you just installed a cryptocurrency wallet")
 
 export const Login = () => {
   const history = useHistory()
   const { ethereum, location } = window as EthereumWindow
-  const { contractAddress, userAccounts, setUserAccounts, setContract, setProvider } = useContext(PethreonContext)
   const [message, setMessage] = useState("")
   const [link, setLink] = useState(false)
 
@@ -41,20 +34,12 @@ export const Login = () => {
         if (location.pathname === "/") setLink(true)
       }, 5500);
     }
-  }, [ethereum, userAccounts, location])
+  }, [ethereum, location])
 
-  useEffect(() => {
-    const provider = new providers.Web3Provider(ethereum)
-    const contract = new Contract(contractAddress, abi, provider)
-    setProvider(provider)
-    setContract(contract)
-  }, [setProvider, setContract, contractAddress, ethereum])
-
-  const login = async () => {
+  async function login() {
     try {
       setMessage("Logging in... You might have to click the metamask extension in your browser")
-      const accounts: [string] = await ethereum.request({ method: 'eth_requestAccounts' })
-      setUserAccounts(accounts)
+      await ethereum.request({ method: 'eth_requestAccounts' })
       history.push("/contribute")
     } catch (error) {
       if ((error as MetamaskError).code === -32002) {
