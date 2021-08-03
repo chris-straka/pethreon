@@ -15,10 +15,11 @@ const config: HardhatUserConfig = {
   },
   namedAccounts: {
     deployer: 0,
-    goofy: 1
+    first: 1
   },
   networks: {
     hardhat: {
+      chainId: 1337,
       accounts: {
         mnemonic: "test test test test test test test test test test test junk",
       },

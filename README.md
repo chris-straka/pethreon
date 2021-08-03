@@ -1,6 +1,6 @@
 # Design Doc
 
-[This app](https://github.com/Chris56974/WeiBuddies) is a dapp frontend for [Sergei Tikhomirov's Smart Contract](https://github.com/s-tikhomirov/pethreon/blob/master/pethreon.sol). It's a crowd funding platform, where users (contributors & creators) can sign in through their cryptowallet to contribute funds to each other in regular intervals. It's made under a mobile first approach via these mockups (Figma).
+[This app](https://github.com/Chris56974/WeiBuddies) is a dapp frontend for [Sergei Tikhomirov's Smart Contract](https://github.com/s-tikhomirov/pethreon/blob/master/pethreon.sol). It's a crowd funding platform, where users (contributors & creators) can sign in through their cryptowallet to contribute funds to each other in regular intervals. It's made under a mobile first approach using these mockups (Figma).
 
 ![Pethreon Mobile Mockup](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_mobile.png)
 ![Pethreon Desktoe 1](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_desktop_1.png)
@@ -9,18 +9,18 @@
 
 ## How it works
 
-[Hardhat](https://hardhat.org/getting-started/) is a development environment/blockchain for ethereum, [Waffle](https://ethereum-waffle.readthedocs.io/en/latest/index.html) is a testing library for smart contracts (programs that run on the blockchain) and [ethers.js](https://docs.ethers.io/v5/getting-started/) is a library for communicating with the blockchain (calling smart contracts, reading data, etc). My frontend talks to an ethereum node which I have running at [infura](https://infura.io/).
+[Hardhat](https://hardhat.org/getting-started/) is a development environment/blockchain for ethereum, [Waffle](https://ethereum-waffle.readthedocs.io/en/latest/index.html) is a testing library for smart contracts (programs that run on the blockchain) and [ethers.js](https://docs.ethers.io/v5/getting-started/) is a frontend library for communicating with the blockchain (it calls smart contracts, reads blockchain data, etc). My frontend is a react app that talks to an ethereum node running at [infura](https://infura.io/).
 
-When I compile my smart contract - Pethreon.sol, I get back a Pethreon.json file. This file has the bytecode for the contract which I can deploy to Ethereum + the ABI for the contract which tells my frontend which functions exist on my smart contract. I have to make sure I attach the ABI to my frontend otherwise ethers.js won't know what functions exist on the smart contract and it won't know what to tell my infura node.
+Essentially, I write smart contracts in solidity (Pethreon.sol) and then compile them to JSON (Pethreon.json). Inside the JSON file there is "bytecode" that I can deploy to Ethereum, and an "ABI" that describes the functions on that smart contract. My React application can use this ABI to call those functions with ethersJS. My react application doesn't (via etherJS) talk to any Ethereum node on the network, it talks to MY ethereum node which I have running at infura.
 
 ## How to develop
 
-For this to work you need to [download metamask](https://metamask.io/). You might also want to use a different [browser profile](https://youtu.be/Ik8-xn4DyCo?t=15) for development so that you can keep your real metamask account separate from your fake one. Once metamask is installed, you need to import a new metamask account via "private key". The private key you need to use is "test test test test test test test test test test test junk", this is a private key used by hardhat for development. Hardhat gives every account with this key 1000 ether. After importing that account, you might need to add a new network as well. Click on networks (mainnet), then on custom RPC and then add the following network if it's not there already...
+For this to work you need to [download metamask](https://metamask.io/). You might also want to use a different [browser profile](https://youtu.be/Ik8-xn4DyCo?t=15) for development so that you can keep your real metamask account separate from your fake one. Once metamask is installed, you need to import a new metamask account via "private key". Insert "test test test test test test test test test test test junk". This is a unique key used by hardhat for development, in which every account gets 1000 ether. After importing that account, you might need to add a new network as well. Click on networks (mainnet), then on custom RPC and then add the following network if it's not there already...
 
 ```text
 Network Name: Localhost 8545
 New RPC URL:  http://localhost:8545
-Chain ID:     31337
+Chain ID:     1337
 Currency:     ETH
 ```
 
@@ -40,6 +40,12 @@ yarn start                # bootup react on port 3000
 hh run scripts/Pethreon.ts                # deploy the contract to the ethereum provider
 hh run --network <network> scripts/Pethreon.ts # deploy to a network specified in hardhat.config.ts
 ```
+
+If you get an error that says "Nonce too high. Expected nonce to be X but got Y". Chances are you restarted the hardhat node, but Metamask is still using the old transaction data. I'm not sure how to automatically refresh the transaction data everytime a new node kicks up, but there's two things you can do manually.
+
+1. Go to your metamask accounts page and click on settings -> advanced -> customized transaction nonce and turn it ON. Then on your next transaction, insert the nonce that it's expecting.
+
+2. Go to the same advanced settings in step 1 and "reset account". Then switch the metamask network to something else (other than localhost:8545) and then back to localhost:8545. This should reset the transaction data in metamask and the nonce should now be back at 0.
 
 ## Issues
 
@@ -170,5 +176,7 @@ JS functions can't return multiple values, but solidity functions can. In JS, th
 - [Github logo](https://github.com/logos)
 
 - [Artsy Cat's Cutesy Font](https://www.dafont.com/cutesy.font)
+
+- [Sora Sagano's Aileron Font](https://fontsarena.com/aileron-by-sora-sagano/)
 
 - [Sarah Fossheim's Loading Animation](https://fossheim.io/writing/posts/react-text-splitting-animations/)

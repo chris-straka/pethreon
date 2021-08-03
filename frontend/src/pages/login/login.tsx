@@ -2,15 +2,12 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { GithubSVG } from './githubSVG/GithubSVG';
 import { MetamaskAnimation } from './metamask/MetamaskAnimation';
-import { EthereumWindow } from "../../ethers/login"
+import { EthereumWindow } from "../../ethers/utility"
+import { MetamaskError } from "../../ethers/utility"
 import styles from "./login.module.css"
 
 import mp4 from "../../assets/money.mp4"
 import webm from "../../assets/money.webm"
-
-interface MetamaskError extends Error {
-  code: number
-}
 
 const pleaseRefresh = () => window.confirm("You might have to refresh the page if you just installed a cryptocurrency wallet")
 

@@ -1,5 +1,13 @@
+.eth {
+  font-family: aileron;
+  font-weight: 200;
+  width: 2ch;
+}
+
 .balance {
-  font-size: 4rem;
+  font-family: aileron;
+  font-weight: 400;
+  font-size: 3rem;
 }
 
 @media (prefers-color-scheme: dark) {

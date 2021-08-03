@@ -1,6 +1,6 @@
 @font-face {
   font-family: cute;
-  src: url(../../../assets/Cutesy.ttf);
+  src: url(../../../assets/Cutesy.woff2);
 }
 
 @keyframes moveMouth {

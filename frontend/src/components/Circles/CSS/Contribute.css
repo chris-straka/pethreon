@@ -1,9 +1,9 @@
 .circleA_contribute {
   position: fixed;
   top: 76vh;
-  left: 13vw;
-  width: 20vw;
-  height: 20vw;
+  left: 17vw;
+  width: 10vh;
+  height: 10vh;
   background-color: var(--primary);
   opacity: 0.4;
   border-radius: 50%;
@@ -39,10 +39,10 @@
 
 .circleC_contribute {
   position: fixed;
-  top: 78vh;
+  top: 77vh;
   left: 55vw;
-  width: 30vw;
-  height: 30vw;
+  width: 18vh;
+  height: 18vh;
   background-color: var(--primary);
   opacity: 0.6;
   border-radius: 50%;

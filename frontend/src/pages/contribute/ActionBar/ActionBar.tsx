@@ -9,20 +9,25 @@ import { Modal } from "../../../components/ModalOutline/ModalOutline";
 import styles from "./ActionBar.module.css"
 
 interface ActionBarProps {
-  setLoading: Dispatch<SetStateAction<boolean>>
+  setLoading: Dispatch<SetStateAction<boolean>>,
+  setBalance: Dispatch<SetStateAction<string>>
 }
 
-export const ActionBar = ({ setLoading }: ActionBarProps) => {
+export const ActionBar = ({ setLoading, setBalance }: ActionBarProps) => {
   const [currentModal, setCurrentModal] = useState("")
   const [modalBody, setModalBody] = useState<JSX.Element | null>(null)
 
   useEffect(() => {
+    const deposit = <DepositModal closeModal={() => setCurrentModal("")} setLoading={setLoading} setBalance={setBalance} />
+    const withdraw = <WithdrawModal closeModal={() => setCurrentModal("")} setLoading={setLoading} />
+    const pledge = <PledgeModal closeModal={() => setCurrentModal("")} setLoading={setLoading} />
+
     if (currentModal === "") return
-    if (currentModal === "deposit") setModalBody(<DepositModal closeModal={() => setCurrentModal("")} setLoading={setLoading} />)
-    if (currentModal === "withdraw") setModalBody(<WithdrawModal closeModal={() => setCurrentModal("")} setLoading={setLoading} />)
-    if (currentModal === "pledge") setModalBody(<PledgeModal closeModal={() => setCurrentModal("")} setLoading={setLoading} />)
+    if (currentModal === "deposit") setModalBody(deposit)
+    if (currentModal === "withdraw") setModalBody(withdraw)
+    if (currentModal === "pledge") setModalBody(pledge)
     return () => { setModalBody(null) }
-  }, [currentModal, setLoading])
+  }, [currentModal, setLoading, setBalance])
 
   return <>
     <div className={styles.actionBar}>

@@ -1,7 +1,3 @@
-.currencyButtons {
-  display: flex;
-}
-
 .depositAmount {
   color: var(--darktheme-white-text);
   background-color: transparent;
@@ -13,10 +9,13 @@
   display: flex;
   align-content: center;
   font-size: 2.5rem;
-  outline: none;
 }
 
 .Ξ { 
   margin-right: .7rem;
   width: 1ch;
+}
+
+.currencyButtons {
+  display: flex;
 }

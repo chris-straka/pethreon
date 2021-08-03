@@ -6,14 +6,16 @@ import { Consent } from "../../../../components/Consent/Consent"
 import { Spacer } from "../../../../components/Spacer/Spacer"
 
 import { deposit } from "../../../../ethers/deposit"
+import { getBalance } from "../../../../ethers/getBalance"
 import styles from "./Deposit.module.css"
 
 interface DepositModalProps {
   closeModal: () => void,
-  setLoading: Dispatch<SetStateAction<boolean>>
+  setLoading: Dispatch<SetStateAction<boolean>>,
+  setBalance: Dispatch<SetStateAction<string>>
 }
 
-export const DepositModal = ({ closeModal, setLoading }: DepositModalProps) => {
+export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositModalProps) => {
   const [disabled, setDisabled] = useState(true)
   const [amount, setAmount] = useState("")
   const [currency, setCurrency] = useState("Ether")
@@ -37,7 +39,7 @@ export const DepositModal = ({ closeModal, setLoading }: DepositModalProps) => {
     }
   }
 
-  const submitDeposit = (event: FormEvent<HTMLButtonElement>) => {
+  const submitDeposit = async (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
     if (!consent) return
     if (!amount) {
@@ -45,7 +47,9 @@ export const DepositModal = ({ closeModal, setLoading }: DepositModalProps) => {
       return
     }
     closeModal()
-    deposit(amount, currency, setLoading)
+    await deposit(amount, currency, setLoading)
+    const newBalance = await getBalance(setLoading)
+    setBalance(newBalance)
   }
 
   return (

@@ -1,5 +1,9 @@
 import styles from "./Balance.module.css"
 
-export const Balance = () => {
-  return <h1 className={styles.balance}>$0.00</h1>
+interface BalanceProps {
+  balance: string
+}
+
+export const Balance = ({ balance }: BalanceProps) => {
+  return <h1 className={styles.balance}><span className={styles.eth}>ETH</span> {balance}</h1>
 }
