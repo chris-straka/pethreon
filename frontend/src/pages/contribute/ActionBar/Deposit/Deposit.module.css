@@ -4,7 +4,7 @@
   flex-direction: column;
 }
 
-.heading {
+.depositHeading {
   font-size: 1rem;
   margin-bottom: 0.8rem;
   margin-top: 0.5rem;
@@ -31,4 +31,3 @@
     background-color: var(--darktheme-secondary);
   }
 }
-

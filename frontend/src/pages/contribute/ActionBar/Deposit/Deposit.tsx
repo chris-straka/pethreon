@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, FormEvent, Dispatch, SetStateAction } from "react"
 import { ReactComponent as DepositSVG } from "../../../../assets/deposit.svg"
-import { CurrencySelect } from "../../../../components/CurrencyField/CurrrencySelect"
+import { CurrencyField } from "../../../../components/CurrencyField/CurrrencyField"
 import { CurrencyDenomination } from "../../../../components/CurrencyDenomination/CurrencyDenomination"
 import { ActionSubmit } from "../../../../components/Buttons/Action/ActionSubmit"
 import { Consent } from "../../../../components/Consent/Consent"
@@ -63,8 +63,8 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositModa
 
   return (
     <form className={styles.depositFormLayout}>
-      <h3 className={styles.heading}>How much to deposit?</h3>
-      <CurrencySelect amount={amount} getAmount={getAmount} />
+      <h3 className={styles.depositHeading}>How much to deposit?</h3>
+      <CurrencyField amount={amount} getAmount={getAmount} />
       <div className={styles.currencyButtons} onChange={getCurrency}>
         <CurrencyDenomination defaultChecked={true} denomination="Ether" checked={currency === "Ether"} />
         <CurrencyDenomination defaultChecked={false} denomination="Gwei" checked={currency === "Gwei"} />

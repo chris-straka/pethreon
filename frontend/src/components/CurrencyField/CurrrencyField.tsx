@@ -1,12 +1,12 @@
 import { ChangeEvent } from 'react';
-import styles from "./CurrencySelect.module.css"
+import styles from "./CurrencyField.module.css"
 
 interface CurrencySelectProps {
   amount: string,
   getAmount: (event: ChangeEvent<HTMLInputElement>) => void,
 }
 
-export const CurrencySelect = ({ amount, getAmount }: CurrencySelectProps) => {
+export const CurrencyField = ({ amount, getAmount }: CurrencySelectProps) => {
   return (
     <div className={styles.currencyContainer}>
       <span className={styles.Ξ}>Ξ</span>
