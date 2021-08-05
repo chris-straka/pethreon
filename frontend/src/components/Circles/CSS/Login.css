@@ -40,7 +40,7 @@
 }
 
 @media only screen and (min-height: 736px) {
-  .circleC {
+  .circleC_login {
     top: 80vh;
     width: 19rem;
     height: 19rem;
@@ -48,9 +48,9 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  .circleA,
-  .circleB,
-  .circleC {
+  .circleA_login,
+  .circleB_login,
+  .circleC_login {
     background-color: var(--darktheme-primary);
   }
 }

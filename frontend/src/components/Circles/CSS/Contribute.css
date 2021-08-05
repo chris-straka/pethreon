@@ -50,9 +50,12 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  .circleA_contribute,
-  .circleC_contribute {
+  .circleA_contribute {
     background-color: var(--darktheme-primary);
+  }
+
+  .circleC_contribute {
+    background-color: var(--darktheme-primary-light);
   }
 
   .circleB_contribute {

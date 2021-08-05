@@ -1,17 +1,22 @@
-.denomination {
+.currencyLabelContainer {
   cursor: pointer;
   display: flex;
   align-content: center;
   border: solid 2px var(--primary);
   border-radius: 2rem;
-  padding: .4rem;
+  padding: 0.4rem;
   margin-right: 0.3rem;
 }
 
 .radioButton {
+  outline: none;
   margin-right: 0.4rem;
+  border: solid 2px var(--primary);
 }
 
 .currencySpan {
   text-align: center;
+}
+
+@media (prefers-color-scheme: dark) {
 }

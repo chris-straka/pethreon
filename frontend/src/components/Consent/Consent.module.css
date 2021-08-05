@@ -7,8 +7,8 @@
 .popup {
   cursor: pointer;
   font-size: 1rem;
-  border-bottom: 2px solid var(--primary-dark);
   background-color: transparent;
+  border-bottom: 2px solid var(--primary-dark);
   color: var(--primary-dark);
 }
 
@@ -23,9 +23,13 @@
   margin-right: 0.5rem;
 }
 
-
 @media (prefers-color-scheme: dark) {
-  .disclaimerButton {
-    color: var(--darktheme-white-text);
+  .popup {
+    color: var(--darktheme-anchor-tag);
+    border-color: var(--darktheme-anchor-tag);
+  }
+  .popup:focus {
+    color: var(--darktheme-secondary);
+    border-color: var(--darktheme-secondary);
   }
 }

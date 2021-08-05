@@ -1,38 +1,4 @@
 /* I want these to be accessible everywhere, therefore I'm not making it a CSS module */
-:root {
-  --primary: hsl(215, 50%, 68%);
-  --primary-light: hsl(215, 50%, 79%);
-  --primary-dark: hsl(215, 50%, 50%);
-
-  --secondary: #a99cdf;
-  --secondary-dark: hsl(245, 50%, 50%);
-
-  --background: hsl(0, 0%, 47%);
-  --white-text: hsl(36, 10%, 90%);
-  --black-text: hsl(0, 0%, 15%);
-
-  /* Dark Theme */
-  --darktheme-primary: hsl(220, 50%, 50%);
-
-  --darktheme-background: hsl(200, 7%, 8%);
-  --darktheme-modal-background: hsl(200, 7%, 18%);
-  --darktheme-white-text: hsl(36, 10%, 90%);
-  --darktheme-black-text: hsl(0, 0%, 15%);
-  --darktheme-anchor-tag: hsl(220, 50%, 70%);
-}
-
-/* #264879 darktheme-primary*/
-/* #1F3858 darktheme-primary-darker*/
-
-/* Remove the default margin and padding */
-*,
-*::after,
-*::before {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  box-sizing: inherit;
-}
 
 @font-face {
   font-family: aileron;
@@ -50,6 +16,49 @@
   src: url(./assets/Aileron-UltraLight.woff2);
   font-weight: 200;
 }
+
+:root {
+  --primary: hsl(215, 50%, 68%);
+  --primary-light: hsl(215, 50%, 79%);
+  --primary-dark: hsl(215, 50%, 50%);
+
+  --secondary: hsl(252, 51%, 74%);
+  --secondary-dark: hsl(245, 50%, 50%);
+
+  --background: hsl(0, 0%, 47%);
+  --white-text: hsl(36, 10%, 90%);
+  --black-text: hsl(0, 0%, 15%);
+
+  /* Dark Theme */
+  /* 1f3858 */
+  /* 2b4c7c */
+  --darktheme-primary: hsl(216, 49%, 29%);
+  --darktheme-primary-light: hsl(216, 49%, 49%);
+  --darktheme-primary-dark: hsl(216, 49%, 33%);
+
+  --darktheme-secondary: hsl(267, 95%, 76%);
+  --darktheme-secondary-light: hsl(267, 95%, 76%);
+  --darktheme-secondary-dark: hsl(267, 95%, 76%);
+
+  --darktheme-white-text: hsl(36, 10%, 90%);
+  --darktheme-black-text: hsl(0, 0%, 15%);
+  --darktheme-anchor-tag: hsl(220, 50%, 70%);
+
+  --darktheme-background: hsl(200, 7%, 8%);
+  --darktheme-modal-background: hsl(200, 7%, 18%);
+}
+
+
+/* Remove the default margin and padding */
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: inherit;
+}
+
 
 /* 16px * 0.625 = 10px */
 body {

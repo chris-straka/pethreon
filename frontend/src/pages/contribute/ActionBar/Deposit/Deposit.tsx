@@ -66,9 +66,9 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositModa
       <h3 className={styles.heading}>How much to deposit?</h3>
       <CurrencySelect amount={amount} getAmount={getAmount} />
       <div className={styles.currencyButtons} onChange={getCurrency}>
-        <CurrencyDenomination defaultChecked={true} denomination="Ether" />
-        <CurrencyDenomination defaultChecked={false} denomination="Gwei" />
-        <CurrencyDenomination defaultChecked={false} denomination="Wei" />
+        <CurrencyDenomination defaultChecked={true} denomination="Ether" checked={currency === "Ether"} />
+        <CurrencyDenomination defaultChecked={false} denomination="Gwei" checked={currency === "Gwei"} />
+        <CurrencyDenomination defaultChecked={false} denomination="Wei" checked={currency === "Wei"} />
       </div>
       <Spacer marginTop="1rem" marginBottom="1rem" />
       <Consent getConsent={getConsent}></Consent>
