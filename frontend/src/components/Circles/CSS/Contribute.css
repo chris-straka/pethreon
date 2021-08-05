@@ -4,8 +4,7 @@
   left: 17vw;
   width: 10vh;
   height: 10vh;
-  background-color: var(--primary);
-  opacity: 0.4;
+  background-color: var(--primary-light);
   border-radius: 50%;
 
   animation: 5s linear 0s infinite alternate none running leftBall_animation;
@@ -44,7 +43,6 @@
   width: 18vh;
   height: 18vh;
   background-color: var(--primary);
-  opacity: 0.6;
   border-radius: 50%;
 
   animation: 5s linear 0s infinite alternate none running rightBall_animation;
@@ -59,7 +57,6 @@
 
   .circleB_contribute {
     background-color: var(--darktheme-secondary);
-    opacity: .95;
   }
 
   .circleB_contribute:focus {

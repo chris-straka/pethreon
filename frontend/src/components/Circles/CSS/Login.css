@@ -4,9 +4,8 @@
   left: -5vw;
   width: 7rem;
   height: 7rem;
-  background-color: var(--primary);
+  background-color: var(--primary-light);
   border-radius: 50%;
-  opacity: 0.4;
 
   animation: 7s linear 0s infinite alternate none running circleA_animation;
   transition: all 0.5s linear;
@@ -18,9 +17,8 @@
   left: 92vw;
   width: 8rem;
   height: 8rem;
-  background-color: var(--primary);
+  background-color: var(--primary-light);
   border-radius: 50%;
-  opacity: 0.4;
   outline: none;
 
   animation: 6s linear 1s infinite alternate none running circleB_animation;
@@ -33,9 +31,8 @@
   left: 30vw;
   width: 10rem;
   height: 10rem;
-  background-color: var(--primary);
+  background-color: var(--primary-light);
   border-radius: 50%;
-  opacity: 0.4;
   z-index: -1;
 
   animation: 25s linear 0.5s infinite alternate none running circleC_animation;

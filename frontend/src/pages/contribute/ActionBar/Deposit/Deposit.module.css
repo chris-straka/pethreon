@@ -21,9 +21,14 @@
   font-weight: 600;
 }
 
+.currencyButtons {
+  display: flex;
+}
+
 @media (prefers-color-scheme: dark) {
   .depositButton {
     color: var(--darktheme-black-text);
     background-color: var(--darktheme-secondary);
   }
 }
+

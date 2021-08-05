@@ -1,16 +1,18 @@
+/* Warning! Please read! */
 .disclaimerText {
   font-size: 1rem;
   margin-bottom: 1.2rem;
 }
 
-.disclaimerButton {
+.popup {
   cursor: pointer;
   font-size: 1rem;
-  border-bottom: 2px solid var(--primary);
+  border-bottom: 2px solid var(--primary-dark);
   background-color: transparent;
-  color: var(--primary);
+  color: var(--primary-dark);
 }
 
+/* I accept the risks */
 .consentContainer {
   display: flex;
   align-items: center;

@@ -1,20 +1,28 @@
 /* I want these to be accessible everywhere, therefore I'm not making it a CSS module */
 :root {
-  --primary: hsl(220, 50%, 50%);
-  --secondary: hsl(258, 100%, 35%);
+  --primary: hsl(215, 50%, 68%);
+  --primary-light: hsl(215, 50%, 79%);
+  --primary-dark: hsl(215, 50%, 50%);
+
+  --secondary: #a99cdf;
+  --secondary-dark: hsl(245, 50%, 50%);
+
   --background: hsl(0, 0%, 47%);
   --white-text: hsl(36, 10%, 90%);
   --black-text: hsl(0, 0%, 15%);
 
   /* Dark Theme */
   --darktheme-primary: hsl(220, 50%, 50%);
-  --darktheme-secondary: hsl(267, 95%, 76%);
+
   --darktheme-background: hsl(200, 7%, 8%);
   --darktheme-modal-background: hsl(200, 7%, 18%);
   --darktheme-white-text: hsl(36, 10%, 90%);
   --darktheme-black-text: hsl(0, 0%, 15%);
   --darktheme-anchor-tag: hsl(220, 50%, 70%);
 }
+
+/* #264879 darktheme-primary*/
+/* #1F3858 darktheme-primary-darker*/
 
 /* Remove the default margin and padding */
 *,

@@ -1,0 +1,52 @@
+.currencyContainer {
+  display: flex;
+  align-content: center;
+  font-size: 2.5rem;
+}
+
+.Ξ {
+  margin-right: 0.7rem;
+  width: 1ch;
+  border-bottom: 2px solid transparent;
+}
+
+.currencyField {
+  color: var(--text);
+  background-color: transparent;
+  width: 100%;
+  font-size: 2.5rem;
+  caret-color: var(--primary);
+  outline: none;
+  border-bottom: 5px solid transparent;
+}
+
+.currencyField:focus {
+  transition: border-image 2s;
+  border-width: 5px;
+  border-top: 0;
+  border-left: 0;
+  border-style: solid;
+  border-image: linear-gradient(to right, var(--primary), transparent 80%) 1;
+}
+
+.currencyField::selection {
+  background-color: var(--secondary);
+}
+
+
+@media (prefers-color-scheme: dark) {
+  .currencyField {
+    color: var(--darktheme-white-text);
+    caret-color: var(--darktheme-secondary);
+  }
+
+  .currencyField:focus,
+  .currencyField:active {
+    border-image: linear-gradient(
+        to right,
+        var(--darktheme-secondary),
+        transparent 80%
+      )
+      1;
+  }
+}

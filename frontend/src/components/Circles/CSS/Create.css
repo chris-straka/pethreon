@@ -4,8 +4,7 @@
   left: 55vw;
   width: 30vw;
   height: 30vw;
-  background-color: var(--secondary);
-  opacity: 0.4;
+  background-color: var(--secondary-light);
   border-radius: 50%;
 
   animation: 5s linear 0s infinite alternate none running rightBall_animation;
@@ -19,7 +18,7 @@
   width: 40vw;
   height: 13vh;
 
-  background-color: var(--primary);
+  background-color: var(--primary-light);
   border-radius: 0 0 0 2rem;
   cursor: pointer;
 
@@ -36,7 +35,6 @@
   width: 20vw;
   height: 20vw;
   background-color: var(--secondary);
-  opacity: 0.6;
   border-radius: 50%;
 
   animation: 5s linear 0s infinite alternate none running leftBall_animation;

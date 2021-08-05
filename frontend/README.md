@@ -64,3 +64,5 @@ When the user clicks login and signs into metamask a "sign-in" modal popups (its
 If you want to pass useState down as a prop, you need to import Dispatch and SetStateAction from React and use that for its type `Dispatch<SetStateAction>`
 
 In ethers, you get wei by parsing and you get greater than wei higher by formatting.
+
+I was worried about the performance of my circle animations and found out that the opacity property slows down rendering by a [fair margin](https://stackoverflow.com/questions/38523826). I only used opacity to get the color I wanted, so I'm going to switch it to rgba instead.

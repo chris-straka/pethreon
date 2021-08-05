@@ -1,6 +1,7 @@
 import { useState, ChangeEvent, FormEvent, Dispatch, SetStateAction } from "react"
 import { ReactComponent as DepositSVG } from "../../../../assets/deposit.svg"
-import { CurrencySelect } from "../../../../components/CurrencySelect/CurrrencySelect"
+import { CurrencySelect } from "../../../../components/CurrencyField/CurrrencySelect"
+import { CurrencyDenomination } from "../../../../components/CurrencyDenomination/CurrencyDenomination"
 import { ActionSubmit } from "../../../../components/Buttons/Action/ActionSubmit"
 import { Consent } from "../../../../components/Consent/Consent"
 import { Spacer } from "../../../../components/Spacer/Spacer"
@@ -8,6 +9,7 @@ import { Spacer } from "../../../../components/Spacer/Spacer"
 import { deposit } from "../../../../ethers/deposit"
 import { getBalance } from "../../../../ethers/getBalance"
 import styles from "./Deposit.module.css"
+import { MetamaskError } from "../../../../ethers/utility"
 
 interface DepositModalProps {
   closeModal: () => void,
@@ -47,15 +49,27 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositModa
       return
     }
     closeModal()
-    await deposit(amount, currency, setLoading)
-    const newBalance = await getBalance(setLoading)
-    setBalance(newBalance)
+    try {
+      setLoading(true)
+      await deposit(amount, currency)
+      const newBalance = await getBalance()
+      setBalance(newBalance)
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+      window.alert(`Error: ${(error as MetamaskError).message}`)
+    }
   }
 
   return (
     <form className={styles.depositFormLayout}>
       <h3 className={styles.heading}>How much to deposit?</h3>
-      <CurrencySelect amount={amount} getAmount={getAmount} getCurrency={getCurrency} />
+      <CurrencySelect amount={amount} getAmount={getAmount} />
+      <div className={styles.currencyButtons} onChange={getCurrency}>
+        <CurrencyDenomination defaultChecked={true} denomination="Ether" />
+        <CurrencyDenomination defaultChecked={false} denomination="Gwei" />
+        <CurrencyDenomination defaultChecked={false} denomination="Wei" />
+      </div>
       <Spacer marginTop="1rem" marginBottom="1rem" />
       <Consent getConsent={getConsent}></Consent>
       <Spacer marginTop="1rem" marginBottom="1rem" />

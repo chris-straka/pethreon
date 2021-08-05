@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { MetamaskSVG } from "./MetamaskSVG"
-import { LoginButton } from "../../../components/Buttons/Login/LoginButton"
+import { LoginButton } from "../LoginButton/LoginButton"
 import "./MetamaskAnimation.css"
 
 interface MetamaskAnimationProps {

@@ -1,10 +1,8 @@
-import { Dispatch, SetStateAction } from "react"
 import { BigNumber, providers, Contract, utils } from "ethers"
 import { abi } from "../artifacts/localhost/Pethreon.json"
 import { PETHREON_CONTRACT_ADDRESS, EthereumWindow } from "./utility"
 
-export async function getBalance(setLoading: Dispatch<SetStateAction<boolean>>): Promise<string> {
-  setLoading(true)
+export async function getBalance(): Promise<string> {
   const { ethereum } = window as EthereumWindow
   if (ethereum === undefined) window.alert("I tried to fetch the balance but I can't find your ethereum wallet")
 
@@ -15,6 +13,5 @@ export async function getBalance(setLoading: Dispatch<SetStateAction<boolean>>):
   const balanceToString = await balance.toString()
   const balanceInEther = utils.formatEther(balanceToString)
 
-  setLoading(false)
   return balanceInEther
 }

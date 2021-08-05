@@ -16,7 +16,7 @@ export const Consent = ({ getConsent }: ConsentProps) => {
 
   return (
     <>
-      <p className={styles.disclaimerText}>⚠️&nbsp;&nbsp;Warning! <button type="button" className={styles.disclaimerButton} onClick={warning}>Please read!</button>&nbsp;&nbsp;</p>
+      <p className={styles.disclaimerText}>⚠️&nbsp;&nbsp;Warning! <button type="button" className={styles.popup} onClick={warning}>Please read!</button>&nbsp;&nbsp;</p>
       <div className={styles.consentContainer}>
         <label className={styles.consentText} htmlFor="consent">🤝 I accept the risks️️</label>
         <input className={styles.checkbox} required type="checkbox" id="consent" onChange={getConsent} />

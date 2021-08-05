@@ -1,7 +1,7 @@
 .button {
   cursor: pointer;
-  color: var(--darktheme-background);
-  background-color: var(--darktheme-secondary);
+  color: var(--text);
+  background-color: var(--secondary);
   font-size: 1rem;
   font-weight: 600;
   border-radius: 30px;
@@ -14,4 +14,11 @@
 .button:disabled {
   cursor: not-allowed;
   background-color: grey;
+}
+
+@media (prefers-color-scheme: dark) {
+  .button {
+    color: var(--darktheme-black-text);
+    background-color: var(--darktheme-secondary);
+  }
 }
