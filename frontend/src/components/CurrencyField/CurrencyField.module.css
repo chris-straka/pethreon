@@ -1,21 +1,35 @@
 .currencyContainer {
+  position: relative;
   display: flex;
   align-content: center;
   font-size: 2.5rem;
-  border-bottom: 5px solid transparent;
-  margin-bottom: .2em;
-}
-
-.currencyContainer:focus-within {
+  padding-bottom: 5px;
+  margin-bottom: 9px;
   border-width: 0 0 5px 0;
   border-style: solid;
-  border-image: linear-gradient(to right, var(--darktheme-secondary), transparent 80%) 1;
+  border-image: linear-gradient(
+      to right,
+      var(--darktheme-secondary),
+      transparent 80%
+    )
+    1;
 }
 
-.Ξ {
-  margin-right: 0.7rem;
-  width: 1ch;
-  border-bottom: 2px solid transparent;
+.currencyContainer::after {
+  position: absolute;
+  content: "_______________________________________________________________"; /* _____L_O_L */
+  overflow: hidden;
+  pointer-events: none;
+  font-size: 100px;
+  width: 65vw;
+  top: -55px;
+  left: -1px;
+  color: var(--darktheme-modal-background);
+  transition: opacity .25s;
+}
+
+.currencyContainer:focus-within::after {
+  opacity: 0;
 }
 
 .currencyField {
@@ -25,10 +39,11 @@
   font-size: 2.5rem;
   caret-color: var(--primary);
   outline: none;
+  margin-left: 10px;
 }
 
 .currencyField::selection {
-  background-color: var(--secondary);
+  background-color: var(--darktheme-secondary);
 }
 
 @media (prefers-color-scheme: dark) {

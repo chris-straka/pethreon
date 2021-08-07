@@ -18,6 +18,7 @@ export const CurrencyField = ({ amount, getAmount }: CurrencySelectProps) => {
         placeholder="0.00"
         onChange={getAmount}
         value={amount}
+        min="0"
       />
     </div>
   )

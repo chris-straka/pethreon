@@ -1,5 +1,6 @@
 .depositFormLayout {
   height: 100%;
+  width: 65vw;
   display: flex;
   flex-direction: column;
 }

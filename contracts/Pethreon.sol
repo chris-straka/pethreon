@@ -71,6 +71,7 @@ contract Pethreon {
     }
 
     function deposit() public payable returns (uint256 newBalance) {
+        require(msg.value > 0, "Can't deposit 0");
         contributorBalances[msg.sender] += msg.value;
         emit ContributorDeposited(currentPeriod(), msg.sender, msg.value);
         return contributorBalances[msg.sender];
