@@ -8,7 +8,7 @@ export const CreatePage = () => {
   const { ethereum } = window as EthereumWindow
 
   useEffect(() => {
-    if (ethereum === undefined) history.push("/")
+    if (typeof ethereum === undefined) history.push("/")
     if (!ethereum.isConnected()) history.push("/")
   }, [ethereum, history])
 

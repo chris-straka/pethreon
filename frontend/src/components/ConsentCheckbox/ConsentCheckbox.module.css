@@ -1,0 +1,19 @@
+.consentContainer {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.consentText {
+  margin-right: 0.5rem;
+}
+
+.checkbox:focus {
+  outline: 4px dotted var(--secondary);
+}
+
+@media (prefers-color-scheme: dark) {
+  .checkbox:focus {
+    outline-color: var(--darktheme-secondary);
+  }
+}

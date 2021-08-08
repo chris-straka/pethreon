@@ -15,7 +15,7 @@ export const CurrencyField = ({ amount, getAmount }: CurrencySelectProps) => {
         required
         className={styles.currencyField}
         type="number"
-        placeholder="0.00"
+        placeholder="0"
         onChange={getAmount}
         value={amount}
         min="0"

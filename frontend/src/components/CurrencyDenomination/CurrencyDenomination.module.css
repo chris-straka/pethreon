@@ -1,5 +1,6 @@
 /* <label> ... </label> */
 .currencyLabelContainer {
+  color: white;
   display: flex;
   cursor: pointer;
   position: relative;
@@ -16,19 +17,22 @@
 }
 
 .radioButton + span {
-  /* color: var(--darktheme-white-text); */
-  /* background-color: var(--primary-light); */
   font-size: 0.8rem;
   font-weight: bolder;
+  transition: box-shadow 0.3s;
+}
+
+.radioButton:focus + span {
+  box-shadow: inset 0 0 0 0.125em var(--secondary);
 }
 
 /* <input checked /> <span> */
 .radioButton:checked + span {
-  /* background-color: var(--primary); */
+  background-color: var(--primary);
 }
 
 .radioButton:checked + span::before {
-  /* box-shadow: inset 0 0 0 0.4375em var(--primary-dark); */
+  box-shadow: inset 0 0 0 0.4375em var(--primary-dark);
 }
 
 .currencySpan {
@@ -36,10 +40,9 @@
   align-items: center;
   padding: 0.375em 0.75em 0.375em 0.375em;
   border-radius: 99em;
-  transition: 0.25s ease;
 }
 
-.currencySpan:before {
+.currencySpan::before {
   display: flex;
   flex-shrink: 0;
   content: "";
@@ -49,20 +52,23 @@
   border-radius: 50%;
   margin-right: 0.375em;
   transition: 0.25s ease;
-  /* box-shadow: inset 0 0 0 0.125em var(--darktheme-primary-light); */
+  box-shadow: inset 0 0 0 0.125em var(--darktheme-primary-light);
 }
 
 @media (prefers-color-scheme: dark) {
+  .radioButton:focus + span {
+    box-shadow: inset 0 0 0 0.225em var(--darktheme-secondary);
+  }
+
   .radioButton:checked + span {
     background-color: var(--darktheme-primary-light);
   }
-
 
   .radioButton:checked + span::before {
     box-shadow: inset 0 0 0 0.4375em var(--darktheme-primary);
   }
 
-  .currencySpan:before {
+  .currencySpan::before {
     box-shadow: inset 0 0 0 0.125em var(--darktheme-primary-dark);
   }
 }

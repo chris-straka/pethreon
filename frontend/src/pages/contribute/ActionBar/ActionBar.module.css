@@ -22,12 +22,6 @@
   outline: 3px dotted var(--primary);
 }
 
-.deposit:active,
-.withdraw:active,
-.pledge:active {
-  outline: none;
-}
-
 .withdraw {
   border-right: 2px solid var(--white-text);
   border-left: 2px solid var(--white-text);
@@ -52,6 +46,6 @@
   .deposit:focus,
   .withdraw:focus,
   .pledge:focus {
-    outline: 3px dotted var(--darktheme-secondary);
+    outline-color: var(--darktheme-secondary);
   }
 }

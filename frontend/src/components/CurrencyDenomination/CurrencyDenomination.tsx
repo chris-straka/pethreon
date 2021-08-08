@@ -13,6 +13,7 @@ export const CurrencyDenomination = ({ defaultChecked, denomination }: CurrencyD
       value={denomination}
       className={styles.radioButton}
       defaultChecked={defaultChecked}
+      required
     />
     <span className={styles.currencySpan}>{denomination}</span>
   </label>

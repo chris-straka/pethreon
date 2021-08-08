@@ -3,12 +3,24 @@
   color: var(--text);
   background-color: var(--secondary);
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: bolder;
   border-radius: 30px;
   padding: 10px;
   width: 100px;
   margin-left: auto;
   margin-right: auto;
+  outline: none;
+  outline: 5px;
+  transition: all .2s;
+  outline: 5px dotted transparent;
+  outline-offset: 6px;
+}
+
+.button:focus {
+  outline-color: var(--primary);
+}
+.button:active {
+  outline: none;
 }
 
 .button:disabled {
@@ -20,5 +32,9 @@
   .button {
     color: var(--darktheme-black-text);
     background-color: var(--darktheme-secondary);
+  }
+
+  .button:focus {
+    outline-color: var(--darktheme-secondary);
   }
 }

@@ -16,7 +16,7 @@ export const ContributePage = () => {
   const history = useHistory()
 
   useEffect(() => {
-    if (ethereum === undefined) history.push("/")
+    if (typeof ethereum === undefined) history.push("/")
     if (!ethereum.isConnected()) history.push("/")
   }, [ethereum, history])
 

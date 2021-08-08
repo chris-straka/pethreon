@@ -1,15 +1,17 @@
 import { useState, ChangeEvent, FormEvent, Dispatch, SetStateAction } from "react"
+import { useHistory } from "react-router"
 import { ReactComponent as DepositSVG } from "../../../../assets/deposit.svg"
+import { ConsentCheckbox } from "../../../../components/ConsentCheckbox/ConsentCheckbox"
 import { CurrencyField } from "../../../../components/CurrencyField/CurrrencyField"
 import { CurrencyDenomination } from "../../../../components/CurrencyDenomination/CurrencyDenomination"
-import { ActionSubmit } from "../../../../components/Buttons/Action/ActionSubmit"
-import { Consent } from "../../../../components/Consent/Consent"
+import { Submit } from "../../../../components/Submit/Submit"
+import { Disclaimer } from "../../../../components/Disclaimer/Disclaimer"
 import { Spacer } from "../../../../components/Spacer/Spacer"
 
 import { deposit } from "../../../../ethers/deposit"
 import { getBalance } from "../../../../ethers/getBalance"
 import styles from "./Deposit.module.css"
-import { MetamaskError } from "../../../../ethers/utility"
+import { EthereumWindow, MetamaskError } from "../../../../ethers/utility"
 
 interface DepositModalProps {
   closeModal: () => void,
@@ -22,6 +24,8 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositModa
   const [amount, setAmount] = useState("")
   const [currency, setCurrency] = useState("Ether")
   const [consent, setConsent] = useState(false)
+  const history = useHistory()
+  const { ethereum } = window as EthereumWindow
 
   const getAmount = (amount: ChangeEvent<HTMLInputElement>) => setAmount(amount.target.value);
 
@@ -43,6 +47,11 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositModa
 
   const submitDeposit = async (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
+    if (typeof ethereum === undefined) {
+      window.alert("You're not signed in")
+      history.push('/')
+      return null
+    }
     if (!consent) return
     if (!amount) {
       window.alert("Please insert an amount")
@@ -71,9 +80,10 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositModa
         <CurrencyDenomination defaultChecked={false} denomination="Wei" />
       </div>
       <Spacer marginTop="1rem" marginBottom="1rem" />
-      <Consent getConsent={getConsent}></Consent>
+      <Disclaimer />
+      <ConsentCheckbox getConsent={getConsent}></ConsentCheckbox>
       <Spacer marginTop="1rem" marginBottom="1rem" />
-      <ActionSubmit handler={submitDeposit} disabled={disabled}>Deposit <DepositSVG className={styles.depositSVG} /></ActionSubmit>
+      <Submit handler={submitDeposit} disabled={disabled}>Deposit <DepositSVG className={styles.depositSVG} /></Submit>
     </form>
   );
 }
