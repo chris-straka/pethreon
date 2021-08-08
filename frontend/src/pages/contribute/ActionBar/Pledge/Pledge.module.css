@@ -1,0 +1,21 @@
+.pledgeFormLayout {
+  height: 100%;
+  width: 65vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.pledgeSVG {
+  width: 2ch;
+  vertical-align: text-bottom;
+  font-weight: 600;
+}
+
+.pledgeHeading {
+  font-size: 1rem;
+  margin: 0.5rem 0 0.8rem 0;
+}
+
+.currencyButtons {
+  display: flex;
+}

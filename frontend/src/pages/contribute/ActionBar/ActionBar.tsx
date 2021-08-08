@@ -19,8 +19,8 @@ export const ActionBar = ({ setLoading, setBalance }: ActionBarProps) => {
 
   useEffect(() => {
     const deposit = <DepositModal closeModal={() => setCurrentModal("")} setLoading={setLoading} setBalance={setBalance} />
-    const withdraw = <WithdrawModal closeModal={() => setCurrentModal("")} setLoading={setLoading} />
-    const pledge = <PledgeModal closeModal={() => setCurrentModal("")} setLoading={setLoading} />
+    const withdraw = <WithdrawModal closeModal={() => setCurrentModal("")} setLoading={setLoading} setBalance={setBalance} />
+    const pledge = <PledgeModal closeModal={() => setCurrentModal("")} setLoading={setLoading} setBalance={setBalance} />
 
     if (currentModal === "") return
     if (currentModal === "deposit") setModalBody(deposit)

@@ -1,20 +1,90 @@
-import { Dispatch, SetStateAction } from "react"
+import { useState, Dispatch, SetStateAction, ChangeEvent, FormEvent } from "react"
+import { useHistory } from "react-router"
+import { ReactComponent as WithdrawSVG } from "../../../../assets/withdraw.svg"
+import { CurrencyField } from "../../../../components/CurrencyField/CurrrencyField"
+import { CurrencyDenomination } from "../../../../components/CurrencyDenomination/CurrencyDenomination"
+import { Spacer } from "../../../../components/Spacer/Spacer"
+import { Disclaimer } from "../../../../components/Disclaimer/Disclaimer"
+import { ConsentCheckbox } from "../../../../components/ConsentCheckbox/ConsentCheckbox"
+import { Submit } from "../../../../components/Submit/Submit"
+
+import { MetamaskError, EthereumWindow } from "../../../../ethers/utility"
+import { contributorWithdraw } from "../../../../ethers/contributorWithdraw"
+import { getBalance } from "../../../../ethers/getBalance"
+
 import styles from "./Withdraw.module.css"
 
 interface WithdrawModalProps {
-  closeModal: () => void
-  setLoading: Dispatch<SetStateAction<boolean>>
+  closeModal: () => void,
+  setLoading: Dispatch<SetStateAction<boolean>>,
+  setBalance: Dispatch<SetStateAction<string>>
 }
 
-export const WithdrawModal = ({ closeModal, setLoading }: WithdrawModalProps) => {
+export const WithdrawModal = ({ closeModal, setLoading, setBalance }: WithdrawModalProps) => {
+  const [disabled, setDisabled] = useState(true)
+  const [amount, setAmount] = useState("")
+  const [currency, setCurrency] = useState("Ether")
+  const [consent, setConsent] = useState(false)
+  const history = useHistory()
+  const { ethereum } = window as EthereumWindow
 
-  const withdraw = () => console.log("withdraw")
+  const getAmount = (amount: ChangeEvent<HTMLInputElement>) => setAmount(amount.target.value);
+
+  const getCurrency = (currency: ChangeEvent<HTMLInputElement>) => {
+    if (currency.target.value === "Ether") setCurrency("Ether")
+    if (currency.target.value === "Gwei") setCurrency("Gwei")
+    if (currency.target.value === "Wei") setCurrency("Wei")
+  }
+
+  const getConsent = (consent: ChangeEvent<HTMLInputElement>) => {
+    if (consent.target.checked) {
+      setConsent(true)
+      setDisabled(false)
+    } else {
+      setConsent(false)
+      setDisabled(true)
+    }
+  }
+
+  const submitWithdraw = async (event: FormEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    if (typeof ethereum === undefined) {
+      window.alert("You're not signed in")
+      history.push('/')
+      return null
+    }
+    if (!consent) return
+    if (!amount) {
+      window.alert("Please insert an amount")
+      return
+    }
+    closeModal()
+    try {
+      setLoading(true)
+      await contributorWithdraw(amount, currency)
+      const newBalance = await getBalance()
+      setBalance(newBalance)
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+      window.alert(`Error: ${(error as MetamaskError).message}`)
+    }
+  }
 
   return (
-    <div className={styles.withdrawModal}>
-      <p>How much would you like to withdraw in Ether?</p >
-      <input type="text" />
-      <button onClick={withdraw}>Withdraw</button>
-    </div>
+    <form className={styles.withdrawFormLayout}>
+      <h3 className={styles.withdrawHeading}>How much to withdraw?</h3>
+      <CurrencyField amount={amount} getAmount={getAmount} />
+      <div className={styles.currencyButtons} onChange={getCurrency}>
+        <CurrencyDenomination defaultChecked={true} denomination="Ether" />
+        <CurrencyDenomination defaultChecked={false} denomination="Gwei" />
+        <CurrencyDenomination defaultChecked={false} denomination="All" />
+      </div>
+      <Spacer marginTop="1rem" marginBottom="1rem" />
+      <Disclaimer />
+      <ConsentCheckbox getConsent={getConsent}></ConsentCheckbox>
+      <Spacer marginTop="1rem" marginBottom="1rem" />
+      <Submit handler={submitWithdraw} disabled={disabled}>Withdraw <WithdrawSVG className={styles.withdrawSVG} /></Submit>
+    </form>
   )
 }

@@ -5,5 +5,5 @@ interface BalanceProps {
 }
 
 export const Balance = ({ balance }: BalanceProps) => {
-  return <h1 className={styles.balance}><span className={styles.eth}>ETH</span> {balance}</h1>
+  return <h1 className={styles.balance}><span className={styles.eth}>ETH</span>{balance}</h1>
 }

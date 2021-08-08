@@ -157,7 +157,7 @@ A provider is a connection to the Ethereum blockchain.
 
 ### Measuring time in smart contracts (the period stuff in Pethreon.sol)
 
-You can measure time with an oracle, but for simplicity I think Sergei uses blocktime instead. There are roughly [~6,400 blocks mined per day](https://ycharts.com/indicators/ethereum_blocks_per_day), or 192,000 blocks per month. The cool part about Sergei's contract is you get to choose which increments you would like to pay people in (hourly, daily, monthly, yearly). I'm going to make it daily for now.
+You can measure time using an oracle, but for simplicity Pethreon uses blocktime. There are [~6,400 blocks mined per day](https://ycharts.com/indicators/ethereum_blocks_per_day), or 192,000 blocks per month. I'm going to make it daily for now.
 
 ### How does Solidity's multiple return values transfer over to JS?
 

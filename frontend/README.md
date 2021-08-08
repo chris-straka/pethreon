@@ -31,6 +31,8 @@ Keyboard navigation on my contributor/creator page is messed up. I tried changin
 
 My modal and circleB are not keyboard a11y
 
+I use a lot of window.alert() for my form validation when I should use text popups instead
+
 ### Useful Links
 
 - [Ethers.js Display Logic](https://docs.ethers.io/v5/api/utils/display-logic/#display-logic)

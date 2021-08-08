@@ -2,6 +2,7 @@
   display: flex;
   align-items: center;
   font-size: 1rem;
+  transition: outline 0.2s;
 }
 
 .consentText {
@@ -10,6 +11,7 @@
 
 .checkbox:focus {
   outline: 4px dotted var(--secondary);
+  outline-offset: 3px;
 }
 
 @media (prefers-color-scheme: dark) {
