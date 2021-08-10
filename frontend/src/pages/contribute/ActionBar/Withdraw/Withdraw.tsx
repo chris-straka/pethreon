@@ -24,19 +24,8 @@ export const WithdrawModal = ({ closeModal, setLoading, setBalance }: WithdrawMo
   const [disabled, setDisabled] = useState(true)
   const [amount, setAmount] = useState("")
   const [currency, setCurrency] = useState("Ether")
-  const [consent, setConsent] = useState(false)
   const history = useHistory()
   const { ethereum } = window as EthereumWindow
-
-  const getConsent = (consent: ChangeEvent<HTMLInputElement>) => {
-    if (consent.target.checked) {
-      setConsent(true)
-      setDisabled(false)
-    } else {
-      setConsent(false)
-      setDisabled(true)
-    }
-  }
 
   const submitWithdraw = async (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
@@ -45,7 +34,6 @@ export const WithdrawModal = ({ closeModal, setLoading, setBalance }: WithdrawMo
       history.push('/')
       return null
     }
-    if (!consent) return
     if (!amount && currency !== "All") {
       window.alert("Please insert an amount")
       return
@@ -65,19 +53,27 @@ export const WithdrawModal = ({ closeModal, setLoading, setBalance }: WithdrawMo
 
   return (
     <form className={styles.withdrawFormLayout}>
+
       <h3 className={styles.withdrawHeading}>How much to withdraw?</h3>
-      <CurrencyField amount={amount} disabled={currency === "All" ? true : false} getAmount={(event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)} />
+      <CurrencyField
+        amount={amount}
+        disabled={currency === "All" ? true : false}
+        getAmount={(event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)}
+      />
       <Spacer marginBottom="16px" />
-      <div className={styles.currencyButtons} onChange={(event: ChangeEvent<HTMLInputElement>) => setCurrency(event.target.value)}>
+      <div
+        className={styles.currencyButtons}
+        onChange={(event: ChangeEvent<HTMLInputElement>) => setCurrency(event.target.value)}>
         <CurrencyDenomination defaultChecked={true} denomination="Ether" />
         <CurrencyDenomination defaultChecked={false} denomination="Gwei" />
         <CurrencyDenomination defaultChecked={false} denomination="All" />
       </div>
-      <Spacer marginTop="16px" marginBottom="16px" />
+      <Spacer marginBottom="32px" />
+
       <Disclaimer />
-      <Spacer marginBottom="18px"/>
-      <ConsentCheckbox getConsent={getConsent} />
-      <Spacer marginTop="16px" marginBottom="16px" />
+      <Spacer marginBottom="18px" />
+      <ConsentCheckbox getConsent={(event: ChangeEvent<HTMLInputElement>) => setDisabled(!event.target.checked)} />
+      <Spacer marginBottom="32px" />
       <Submit handler={submitWithdraw} disabled={disabled}>Withdraw <WithdrawSVG className={styles.withdrawSVG} /></Submit>
     </form>
   )

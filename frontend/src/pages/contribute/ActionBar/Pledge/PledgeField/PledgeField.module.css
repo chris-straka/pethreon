@@ -1,0 +1,8 @@
+.pledgeFieldContainer {
+  display: flex;
+}
+
+.pledgeFieldInput {
+  outline: none;  
+  background-color: transparent;
+}

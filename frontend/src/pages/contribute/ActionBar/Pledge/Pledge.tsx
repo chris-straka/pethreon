@@ -36,9 +36,9 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance }: PledgeModalP
       history.push('/')
       return null
     }
-    if (!pledgeAmount) window.alert("Please enter a pledge amount")
-    if (!address) window.alert("Please enter a destination address")
-    if (!duration) window.alert("Please set a pledge duration")
+    if (!pledgeAmount) return window.alert("Please enter a pledge amount") 
+    if (!address) return window.alert("Please enter a destination address")
+    if (!duration) return window.alert("Please set a pledge duration")
 
     closeModal()
     try {
@@ -61,7 +61,7 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance }: PledgeModalP
       min={0}
       value={pledgeAmount}
       onChange={(event: ChangeEvent<HTMLInputElement>) => setPledgeAmount(event.target.value)}
-    ><CashSVG /></PledgeField>
+    ><CashSVG className={styles.pledgeSVG} /></PledgeField>
     <Spacer marginBottom="8px" />
     <div className={styles.currencyButtons} onChange={(event: ChangeEvent<HTMLInputElement>) => setCurrency(event.target.value)}>
       <CurrencyDenomination defaultChecked={true} denomination="Ether" />
@@ -75,7 +75,7 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance }: PledgeModalP
       min={0}
       value={duration}
       onChange={(event: ChangeEvent<HTMLInputElement>) => setDuration(event.target.value)}
-    ><DateSVG /></PledgeField>
+    ><DateSVG className={styles.pledgeSVG} /></PledgeField>
     <Spacer marginBottom="16px" />
     <h3 className={styles.pledgeHeading}>To which ethereum address?</h3>
     <PledgeField
@@ -83,8 +83,8 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance }: PledgeModalP
       placeholder="0x"
       value={address}
       onChange={(event: ChangeEvent<HTMLInputElement>) => setAddress(event.target.value)}
-    ><PersonSVG /></PledgeField>
+    ><PersonSVG className={styles.pledgeSVG} /></PledgeField>
     <Spacer marginBottom="16px" />
-    <Submit handler={submitPledge} disabled={address && pledgeAmount && duration ? true : false}>Pledge <PledgeSVG className={styles.pledgeSVG} /></Submit>
+    <Submit handler={submitPledge}>Pledge <PledgeSVG className={styles.submitSVG} /></Submit>
   </form>
 }

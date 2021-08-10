@@ -9,6 +9,13 @@
   width: 2ch;
   vertical-align: text-bottom;
   font-weight: 600;
+  margin-right: 5px;
+}
+
+.submitSVG {
+  width: 2ch;
+  vertical-align: text-bottom;
+  font-weight: 600;
 }
 
 .pledgeHeading {
@@ -18,5 +25,5 @@
 
 .currencyButtons {
   display: flex;
-  font-size: 20rem;
+  font-size: 8px;
 }

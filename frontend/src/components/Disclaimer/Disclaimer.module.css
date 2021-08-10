@@ -10,7 +10,7 @@
   border-bottom: 5px dotted transparent;
   color: var(--primary-dark);
   outline: none;
-  transition: all 0.2s;
+  transition: all 0.3s;
 }
 
 .popup:focus {

@@ -48,6 +48,6 @@
   }
 
   .circleB_create {
-    background-color: var(--darktheme-primary);
+    background-color: var(--darktheme-primary-light);
   }
 }

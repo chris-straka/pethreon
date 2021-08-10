@@ -6,15 +6,15 @@ interface CurrencyDenominationProps {
 };
 
 export const CurrencyDenomination = ({ defaultChecked, denomination }: CurrencyDenominationProps) => {
-  return <label className={styles.currencyLabelContainer}>
+  return <label className={styles.currencyContainer}>
     <input
       type="radio"
       name="currency"
       value={denomination}
-      className={styles.radioButton}
+      className={styles.radioButtonInput}
       defaultChecked={defaultChecked}
       required
     />
-    <span className={styles.currencySpan}>{denomination}</span>
+    <span className={styles.radioButtonTextSpan}>{denomination}</span>
   </label>
 }

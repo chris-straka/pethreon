@@ -5,13 +5,13 @@
 }
 
 .consentText {
-  margin-right: 0.5rem;
+  margin-right: 0.8rem;
 }
 
 .checkbox {
   outline: 4px dotted transparent;
   outline-offset: 3px;
-  transition: outline-color 0.2s;
+  transition: outline-color 0.3s;
 }
 
 .checkbox:focus {

@@ -23,19 +23,8 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositModa
   const [disabled, setDisabled] = useState(true)
   const [amount, setAmount] = useState("")
   const [currency, setCurrency] = useState("Ether")
-  const [consent, setConsent] = useState(false)
   const history = useHistory()
   const { ethereum } = window as EthereumWindow
-
-  const getConsent = (consent: ChangeEvent<HTMLInputElement>) => {
-    if (consent.target.checked) {
-      setConsent(true)
-      setDisabled(false)
-    } else {
-      setConsent(false)
-      setDisabled(true)
-    }
-  }
 
   const submitDeposit = async (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
@@ -44,11 +33,9 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositModa
       history.push('/')
       return null
     }
-    if (!consent) return
-    if (!amount) {
-      window.alert("Please insert an amount")
-      return
-    }
+
+    if (!amount || +amount <= 0) return window.alert("Please insert an amount")
+
     closeModal()
     try {
       setLoading(true)
@@ -61,7 +48,6 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositModa
       window.alert(`Error: ${(error as MetamaskError).message}`)
     }
   }
-
 
   return (
     <form className={styles.depositFormLayout}>
@@ -76,7 +62,7 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositModa
       <Spacer marginTop="16px" marginBottom="16px" />
       <Disclaimer />
       <Spacer marginBottom="18px"></Spacer>
-      <ConsentCheckbox getConsent={getConsent} />
+      <ConsentCheckbox getConsent={(event: ChangeEvent<HTMLInputElement>) => setDisabled(!event.target.checked)} />
       <Spacer marginTop="16px" marginBottom="16px" />
       <Submit handler={submitDeposit} disabled={disabled}>Deposit <DepositSVG className={styles.depositSVG} /></Submit>
     </form>
