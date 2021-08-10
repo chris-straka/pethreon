@@ -28,14 +28,6 @@ export const WithdrawModal = ({ closeModal, setLoading, setBalance }: WithdrawMo
   const history = useHistory()
   const { ethereum } = window as EthereumWindow
 
-  const getAmount = (amount: ChangeEvent<HTMLInputElement>) => setAmount(amount.target.value);
-
-  const getCurrency = (currency: ChangeEvent<HTMLInputElement>) => {
-    if (currency.target.value === "Ether") setCurrency("Ether")
-    if (currency.target.value === "Gwei") setCurrency("Gwei")
-    if (currency.target.value === "Wei") setCurrency("Wei")
-  }
-
   const getConsent = (consent: ChangeEvent<HTMLInputElement>) => {
     if (consent.target.checked) {
       setConsent(true)
@@ -54,7 +46,7 @@ export const WithdrawModal = ({ closeModal, setLoading, setBalance }: WithdrawMo
       return null
     }
     if (!consent) return
-    if (!amount) {
+    if (!amount && currency !== "All") {
       window.alert("Please insert an amount")
       return
     }
@@ -74,16 +66,18 @@ export const WithdrawModal = ({ closeModal, setLoading, setBalance }: WithdrawMo
   return (
     <form className={styles.withdrawFormLayout}>
       <h3 className={styles.withdrawHeading}>How much to withdraw?</h3>
-      <CurrencyField amount={amount} getAmount={getAmount} />
-      <div className={styles.currencyButtons} onChange={getCurrency}>
+      <CurrencyField amount={amount} disabled={currency === "All" ? true : false} getAmount={(event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)} />
+      <Spacer marginBottom="16px" />
+      <div className={styles.currencyButtons} onChange={(event: ChangeEvent<HTMLInputElement>) => setCurrency(event.target.value)}>
         <CurrencyDenomination defaultChecked={true} denomination="Ether" />
         <CurrencyDenomination defaultChecked={false} denomination="Gwei" />
         <CurrencyDenomination defaultChecked={false} denomination="All" />
       </div>
-      <Spacer marginTop="1rem" marginBottom="1rem" />
+      <Spacer marginTop="16px" marginBottom="16px" />
       <Disclaimer />
-      <ConsentCheckbox getConsent={getConsent}></ConsentCheckbox>
-      <Spacer marginTop="1rem" marginBottom="1rem" />
+      <Spacer marginBottom="18px"/>
+      <ConsentCheckbox getConsent={getConsent} />
+      <Spacer marginTop="16px" marginBottom="16px" />
       <Submit handler={submitWithdraw} disabled={disabled}>Withdraw <WithdrawSVG className={styles.withdrawSVG} /></Submit>
     </form>
   )

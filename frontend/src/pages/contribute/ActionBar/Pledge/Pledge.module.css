@@ -13,9 +13,10 @@
 
 .pledgeHeading {
   font-size: 1rem;
-  margin: 0.5rem 0 0.8rem 0;
+  margin-bottom: .3rem;
 }
 
 .currencyButtons {
   display: flex;
+  font-size: 20rem;
 }

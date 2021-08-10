@@ -1,11 +1,13 @@
 import { useState, Dispatch, ChangeEvent, SetStateAction, FormEvent } from "react"
 import { useHistory } from "react-router"
 import { ReactComponent as PledgeSVG } from "../../../../assets/pledge.svg"
-import { Disclaimer } from "../../../../components/Disclaimer/Disclaimer"
-import { ConsentCheckbox } from "../../../../components/ConsentCheckbox/ConsentCheckbox"
-import { CurrencyField } from "../../../../components/CurrencyField/CurrrencyField"
-import { Submit } from "../../../../components/Submit/Submit"
 import { CurrencyDenomination } from "../../../../components/CurrencyDenomination/CurrencyDenomination"
+import { PledgeField } from "./PledgeField/PledgeField"
+import { Submit } from "../../../../components/Submit/Submit"
+import { Spacer } from "../../../../components/Spacer/Spacer"
+import { ReactComponent as CashSVG } from "../../../../assets/cash.svg"
+import { ReactComponent as PersonSVG } from "../../../../assets/person.svg"
+import { ReactComponent as DateSVG } from "../../../../assets/date.svg"
 
 import { EthereumWindow, MetamaskError } from "../../../../ethers/utility"
 import { getBalance } from "../../../../ethers/getBalance"
@@ -21,46 +23,27 @@ interface PledgeModalProps {
 
 export const PledgeModal = ({ closeModal, setLoading, setBalance }: PledgeModalProps) => {
   const [pledgeAmount, setPledgeAmount] = useState("")
-  const [destinationAddress, setDestinationAddress] = useState("")
+  const [address, setAddress] = useState("")
   const [currency, setCurrency] = useState("")
-  const [consent, setConsent] = useState(false)
-  const [disabled, setDisabled] = useState(false)
-
+  const [duration, setDuration] = useState("")
   const history = useHistory()
   const { ethereum } = window as EthereumWindow
-
-  const getAmount = (amount: ChangeEvent<HTMLInputElement>) => setPledgeAmount(amount.target.value);
-
-  const getCurrency = (currency: ChangeEvent<HTMLInputElement>) => {
-    if (currency.target.value === "Ether") setCurrency("Ether")
-    if (currency.target.value === "Gwei") setCurrency("Gwei")
-    if (currency.target.value === "Wei") setCurrency("Wei")
-  }
-
-  const getConsent = (consent: ChangeEvent<HTMLInputElement>) => {
-    if (consent.target.checked) {
-      setConsent(true)
-      setDisabled(false)
-    } else {
-      setConsent(false)
-      setDisabled(true)
-    }
-  }
 
   const submitPledge = async (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
     if (typeof ethereum === undefined) {
-      window.alert("You're not signed in")
+      window.alert("Ethereum wallet not detected")
       history.push('/')
       return null
     }
     if (!pledgeAmount) window.alert("Please enter a pledge amount")
-    if (!destinationAddress) window.alert("Please enter a destination address")
-    if (!consent) return
+    if (!address) window.alert("Please enter a destination address")
+    if (!duration) window.alert("Please set a pledge duration")
+
     closeModal()
     try {
       setLoading(true)
-      await createPledge(pledgeAmount, currency, destinationAddress)
+      await createPledge(pledgeAmount, currency, address)
       const newBalance = await getBalance()
       setBalance(newBalance)
       setLoading(false)
@@ -72,16 +55,36 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance }: PledgeModalP
 
   return <form className={styles.pledgeFormLayout}>
     <h3 className={styles.pledgeHeading}>How much to pledge?</h3>
-    <CurrencyField amount={pledgeAmount} getAmount={getAmount}></CurrencyField>
-    <div className={styles.currencyButtons} onChange={getCurrency}>
+    <PledgeField
+      type="number"
+      placeholder="0"
+      min={0}
+      value={pledgeAmount}
+      onChange={(event: ChangeEvent<HTMLInputElement>) => setPledgeAmount(event.target.value)}
+    ><CashSVG /></PledgeField>
+    <Spacer marginBottom="8px" />
+    <div className={styles.currencyButtons} onChange={(event: ChangeEvent<HTMLInputElement>) => setCurrency(event.target.value)}>
       <CurrencyDenomination defaultChecked={true} denomination="Ether" />
       <CurrencyDenomination defaultChecked={false} denomination="Gwei" />
       <CurrencyDenomination defaultChecked={false} denomination="Wei" />
     </div>
-    <h3 className={styles.pledgeHeading}>Who would you like to pledge to?</h3>
-    <input type="text" />
-    <Disclaimer />
-    <ConsentCheckbox getConsent={getConsent}></ConsentCheckbox>
-    <Submit handler={submitPledge} disabled={disabled}>Pledge <PledgeSVG className={styles.pledgeSVG} /></Submit>
+    <h3 className={styles.pledgeHeading}>Over how many days?</h3>
+    <PledgeField
+      type="number"
+      placeholder="0"
+      min={0}
+      value={duration}
+      onChange={(event: ChangeEvent<HTMLInputElement>) => setDuration(event.target.value)}
+    ><DateSVG /></PledgeField>
+    <Spacer marginBottom="16px" />
+    <h3 className={styles.pledgeHeading}>To which ethereum address?</h3>
+    <PledgeField
+      type="text"
+      placeholder="0x"
+      value={address}
+      onChange={(event: ChangeEvent<HTMLInputElement>) => setAddress(event.target.value)}
+    ><PersonSVG /></PledgeField>
+    <Spacer marginBottom="16px" />
+    <Submit handler={submitPledge} disabled={address && pledgeAmount && duration ? true : false}>Pledge <PledgeSVG className={styles.pledgeSVG} /></Submit>
   </form>
 }

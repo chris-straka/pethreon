@@ -27,14 +27,6 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositModa
   const history = useHistory()
   const { ethereum } = window as EthereumWindow
 
-  const getAmount = (amount: ChangeEvent<HTMLInputElement>) => setAmount(amount.target.value);
-
-  const getCurrency = (currency: ChangeEvent<HTMLInputElement>) => {
-    if (currency.target.value === "Ether") setCurrency("Ether")
-    if (currency.target.value === "Gwei") setCurrency("Gwei")
-    if (currency.target.value === "Wei") setCurrency("Wei")
-  }
-
   const getConsent = (consent: ChangeEvent<HTMLInputElement>) => {
     if (consent.target.checked) {
       setConsent(true)
@@ -70,19 +62,22 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositModa
     }
   }
 
+
   return (
     <form className={styles.depositFormLayout}>
       <h3 className={styles.depositHeading}>How much to deposit?</h3>
-      <CurrencyField amount={amount} getAmount={getAmount} />
-      <div className={styles.currencyButtons} onChange={getCurrency}>
+      <CurrencyField amount={amount} getAmount={(event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)} />
+      <Spacer marginBottom="16px" />
+      <div className={styles.currencyButtons} onChange={(event: ChangeEvent<HTMLInputElement>) => setCurrency(event.target.value)}>
         <CurrencyDenomination defaultChecked={true} denomination="Ether" />
         <CurrencyDenomination defaultChecked={false} denomination="Gwei" />
         <CurrencyDenomination defaultChecked={false} denomination="Wei" />
       </div>
-      <Spacer marginTop="1rem" marginBottom="1rem" />
+      <Spacer marginTop="16px" marginBottom="16px" />
       <Disclaimer />
-      <ConsentCheckbox getConsent={getConsent}></ConsentCheckbox>
-      <Spacer marginTop="1rem" marginBottom="1rem" />
+      <Spacer marginBottom="18px"></Spacer>
+      <ConsentCheckbox getConsent={getConsent} />
+      <Spacer marginTop="16px" marginBottom="16px" />
       <Submit handler={submitDeposit} disabled={disabled}>Deposit <DepositSVG className={styles.depositSVG} /></Submit>
     </form>
   );

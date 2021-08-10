@@ -6,13 +6,12 @@
 }
 
 .withdrawHeading {
-  font-size: 1rem;
+  font-size: 16px;
   margin: 0.5rem 0 0.8rem 0;
 }
 
-/* <CurrencySelect/> div1 */
 .withdrawHeading + div {
-  margin-bottom: 0.8rem;
+  font-size: 40px;
 }
 
 .withdrawSVG {

@@ -1,7 +1,7 @@
 import { Pledge } from "./Pledge/Pledge"
-import styles from "./Pledges.module.css"
+import styles from "./PledgeList.module.css"
 
-export const Pledges = () => {
+export const PledgeList = () => {
   return <ul className={styles.transactionHistory}>
     <Pledge />
     <Pledge />

@@ -2,16 +2,20 @@
   display: flex;
   align-items: center;
   font-size: 1rem;
-  transition: outline 0.2s;
 }
 
 .consentText {
   margin-right: 0.5rem;
 }
 
-.checkbox:focus {
-  outline: 4px dotted var(--secondary);
+.checkbox {
+  outline: 4px dotted transparent;
   outline-offset: 3px;
+  transition: outline-color 0.2s;
+}
+
+.checkbox:focus {
+  outline-color: var(--secondary);
 }
 
 @media (prefers-color-scheme: dark) {

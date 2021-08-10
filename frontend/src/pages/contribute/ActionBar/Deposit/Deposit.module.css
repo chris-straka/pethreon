@@ -10,9 +10,8 @@
   margin: 0.5rem 0 0.8rem 0;
 }
 
-/* <CurrencySelect/> div1 */
-.heading + div {
-  margin-bottom: 0.8rem;
+.depositHeading + div {
+  font-size: 40px;
 }
 
 .depositSVG {

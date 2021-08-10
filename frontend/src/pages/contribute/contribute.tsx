@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useHistory } from "react-router"
-import { Pledges } from "./Pledges/Pledges"
+import { PledgeList } from "./PledgeList/PledgeList"
 import { ActionBar } from "./ActionBar/ActionBar"
 import { Balance } from "../../components/Balance/Balance"
 import { Loading } from "../../components/Loading/Loading"
@@ -23,18 +23,23 @@ export const ContributePage = () => {
 
   useEffect(() => {
     async function startBalance() {
-      let balance = await getBalance()
-      setBalance(balance)
+      try {
+        let balance = await getBalance()
+        setBalance(balance)
+      } catch (error) {
+        window.alert(`${error}`)
+        history.push("/")
+      }
     }
     startBalance()
-  }, [])
+  }, [history])
 
   return <>
     {loading && <Loading />}
     <div className={styles.contributeLayout}>
       <Balance balance={balance} />
       <ActionBar setBalance={setBalance} setLoading={setLoading} />
-      <Pledges />
+      <PledgeList />
     </div >
   </>
 }

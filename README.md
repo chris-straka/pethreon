@@ -1,6 +1,6 @@
 # Design Doc
 
-[This app](https://github.com/Chris56974/WeiBuddies) is a dapp frontend for [Sergei Tikhomirov's Smart Contract](https://github.com/s-tikhomirov/pethreon/blob/master/pethreon.sol). It's a crowd funding platform, where users (contributors & creators) can sign in through their cryptowallet to contribute funds to each other in regular intervals. It's made under a mobile first approach using these mockups (Figma).
+[This app](https://github.com/Chris56974/WeiBuddies) is a dapp frontend for [Sergei Tikhomirov's "Pethreon" Smart Contract](https://github.com/s-tikhomirov/pethreon/blob/master/pethreon.sol). It's a crowd funding platform, where users (contributors & creators) can sign in through their cryptowallet to contribute funds to each other in regular intervals. It's made under a mobile first approach using these mockups (Figma).
 
 ![Pethreon Mobile Mockup](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_mobile.png)
 ![Pethreon Desktoe 1](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_desktop_1.png)
@@ -9,13 +9,13 @@
 
 ## How it works
 
-[Hardhat](https://hardhat.org/getting-started/) is a development environment/blockchain for ethereum, [Waffle](https://ethereum-waffle.readthedocs.io/en/latest/index.html) is a testing library for smart contracts (programs that run on the blockchain) and [ethers.js](https://docs.ethers.io/v5/getting-started/) is a frontend library for communicating with the blockchain (it calls smart contracts, reads blockchain data, etc). My frontend is a react app that talks to an ethereum node running at [infura](https://infura.io/).
+[Hardhat](https://hardhat.org/getting-started/) is a development environment/blockchain for ethereum, [Waffle](https://ethereum-waffle.readthedocs.io/en/latest/index.html) is a testing library for smart contracts (programs that run on the blockchain) and [ethers.js](https://docs.ethers.io/v5/getting-started/) is a frontend library for communicating with the blockchain (used to make smart contract calls from JS). My frontend is a react app that talks to an ethereum node running at [infura](https://infura.io/) (the AWS of Ethereum).
 
-Essentially, I write smart contracts in solidity (Pethreon.sol) and then compile them to JSON (Pethreon.json). Inside the JSON file there is "bytecode" that I can deploy to Ethereum, and an "ABI" that describes the functions on that smart contract. My React application can use this ABI to call those functions with ethersJS. My react application doesn't (via etherJS) talk to any Ethereum node on the network, it talks to MY ethereum node which I have running at infura.
+Essentially, I write smart contracts in solidity (Pethreon.sol) and then compile them to JSON (Pethreon.json). Inside that JSON file there is "bytecode" that I can deploy to Ethereum itself, and an "ABI" that describes the functions that exist on that smart contract. My React application (or any other application) can then use this ABI together with a library like ethersJS to make calls to this smart contract. I then direct those calls to an ethereum node (like the one I have running at Infura) to execute them. Some of these calls will require real money because they have to be verified by every other ethereum node in the network ([~5,000](https://www.ethernodes.org/history)), others are "free" (subject to my plan at Infura).
 
 ## How to develop
 
-For this to work you need to [download metamask](https://metamask.io/). You might also want to use a different [browser profile](https://youtu.be/Ik8-xn4DyCo?t=15) for development so that you can keep your real metamask account separate from your fake one. Once metamask is installed, you need to import a new metamask account via "private key". Insert "test test test test test test test test test test test junk". This is a unique key used by hardhat for development, in which every account gets 1000 ether. After importing that account, you might need to add a new network as well. Click on networks (mainnet), then on custom RPC and then add the following network if it's not there already...
+For this to work you need to [download metamask](https://metamask.io/). You might also want to use a different [browser profile](https://youtu.be/Ik8-xn4DyCo?t=15) for development so that you can keep your personal metamask account separate from your development one. Once metamask is installed, you need to import a new metamask account via "private key" and insert "test test test test test test test test test test test junk". This is a unique key used by hardhat for development, in which every account is given 1000 ether. After importing that account, you might need to add a new network as well. Click on networks (mainnet), then on custom RPC and then add the following network if it's not there already...
 
 ```text
 Network Name: Localhost 8545
@@ -41,15 +41,19 @@ hh run scripts/Pethreon.ts                # deploy the contract to the ethereum 
 hh run --network <network> scripts/Pethreon.ts # deploy to a network specified in hardhat.config.ts
 ```
 
-If you get an error that says "Nonce too high. Expected nonce to be X but got Y". Chances are you restarted the hardhat node, but Metamask is still using the old transaction data. I'm not sure how to automatically refresh the transaction data everytime a new node kicks up, but there's two things you can do manually.
+If you get an error that says "Nonce too high. Expected nonce to be X but got Y". Chances are you restarted the hardhat node, but Metamask is still using the old transaction data. I'm not sure how to _automatically_ refresh the transaction data everytime a new node kicks up, but you can do one of two things manually.
 
 1. Go to your metamask accounts page and click on settings -> advanced -> customized transaction nonce and turn it ON. Then on your next transaction, insert the nonce that it's expecting.
 
-2. Go to the same advanced settings in step 1 and "reset account". Then switch the metamask network to something else (other than localhost:8545) and then back to localhost:8545. This should reset the transaction data in metamask and the nonce should now be back at 0.
+2. Turn off the hardhat node and go to the same advanced settings in step 1 and "reset account". Then switch the metamask network to something else (something other than localhost:8545) and then back to localhost:8545. This should reset the transaction data in metamask and the nonce should now be back at 0. Turn on the hardhat node and you're good to go again.
 
 ## Issues
 
+These are issues I've faced during development.
+
 ### Getting Expected Payments in Batch
+
+Currently, the app forces creators to withdraw all their money at once. Sergei had plans to let the creator withdraw funds in batches instead of all at once.
 
 ```solidity
 // TODO: get expected payments in batch (can't return uint[]?)
@@ -61,18 +65,16 @@ function getExpectedPayment(uint period) constant returns (uint expectedPayment)
 
 ### Recurring payments
 
-Implementing [recurring payments](https://ethereum.stackexchange.com/questions/49596) on Ethereum is not as easy as I thought it'd be. Running contracts at a later point in time is also [non-trivial](https://ethereum.stackexchange.com/questions/42). This is because in Ethereum, only EOA's "Externally Owned Accounts" (humans) can create transactions. A smart contract can't create a transaction at a later date, even if both parties want that to happen. Someone has to send a transaction into the smart contract at that later date. One cool way to do this is with [Ethereum Alarm Clock](https://www.ethereum-alarm-clock.com/) which is a decentralized service I might look at later. It's also worth noting that I can't run a transaction in the EVM forever either, I'd run out of gas. Which means I can't "wait for callback" in the EVM at a later date, if my understanding is correct.
+Implementing [recurring payments](https://ethereum.stackexchange.com/questions/49596) on Ethereum is not as easy as I thought it'd be. Running contracts at a later point in time is also [non-trivial](https://ethereum.stackexchange.com/questions/42). It's hard to create recurring transactions because in Ethereum, only EOAs "Externally Owned Accounts" (humans) can create transactions and NOT CAs "Contract Accounts" (aka smart contracts). This means I can't have a contract create a transaction every month to bill a user, I need a human to create a transaction every month to bill a user which defeats the point. "Instead of creating a transaction every month, can't you create a _single_ transaction that bills them every month?" I don't think so, because that transaction would have to sit in the EVM for months and months (which would be prohibitively expensive becaue it would bog down the network). There is a decentralized way of creating a transaction every month using [Ethereum Alarm Clock](https://www.ethereum-alarm-clock.com/) but I didn't bother looking into it.
 
 ### Security, profanity and offensive content
 
-I originally wanted creators to create their own landing page by storing all their details on the ethereum blockchain. Users could then grab all the landing page details from the blockchain and cache them locally (localstorage). The issue is, it's tricky to validate those landing page details. It feels like I just gave creators direct access to my database. Solidity is great at validating boolean logic and numbers (with require()), but text content seems much more difficult (creator bio, youtube links, etc).
+I originally wanted creators to create their own landing page advertizing to doners, and store all the landing page details on the ethereum blockchain. The client would then fetch those details and cache them on the user's browser. I ran into a bunch of issues with this. I found that the data I wanted to store on the blockchain was far too expensive to store (images). It's also tricky to validate anything that isn't numbers in solidity (like text). There are also a whole host of security issues
 
-Some pitfalls I discovered are.
+- People could easily impersonate as creators and wrongfully claim donations on their behalf
+- Creators could easily post links to offensive or malicious content
 
-- People impersonating creators and wrongfully claiming donations on their behalf
-- Creators posting offensive content or malicioius links/scripts on their landing page
-
-I could take a hybrid approach and introduce a server to validate input, but I've decided to compromise and stick to data that is easy to validate.
+I could take a hybrid approach and introduce a server to validate input, but I've decided to compromise and stick to a decentralized approach (and it's much easier).
 
 ### Multiple testing frameworks?
 
@@ -84,31 +86,25 @@ declare const: expect = Chai.ExpectStatic; // this kept conflicting with...
 declare const expect: jest.Expect;         // this
 ```
 
-## Charity application idea?
-
-Pethreon relies on contributions being locked up in the smart contract. I'm not a fan of this because I think that money can be put to work (DeFi). So I thought about another idea for my next project. I was thinking users could donate money into different charity pools. The money in the pool could then be locked up into a DeFi protocol like [Aave](https://aave.com/), the accrued interest could then be redirected to a charity address like [0x54a465610d119ad28deafd4bce555834c38beeb9](https://thewaterproject.org/donate-ethereum). Users could withdraw their donations from the pool, but ~25% will remain in the pool so that it can continue to grow.
-
 ## Features & Ideas
+
+These are ideas for features that I thought about adding.
 
 ### Unipledge?
 
-It'd be cool to make a pledge that would donate to all creators on the platform. It might create an influx of fake creators (and repeat creators) but maybe I'll play around with it anyways.
+It'd be cool to make a pledge that would donate to all creators on the platform. It might create an influx of fake creators though (and repeat creators) but maybe I'll play around with it.
 
 ### Privacy?
 
-Sergei's original implementation respects the privacy of contributors and creators. There might be advantages to sacrificing more of the creator's privacy to improve the website for contributors.
+Sergei's original implementation respects the privacy of contributors and creators (address only). There might be advantages to sacrificing more of the creator's privacy to improve the website for prospective contributors (include links to a creator's youtube page).
 
 ### CSR? SSG? SSR?
 
-If I bring in SSR (Next.js) then my users won't have to download metamask to look at creators. I can fetch them from the server and show them straight away to the client. This is a much better UX, but for now I decided against SSR to make it more decentralized (to differentiate it more from Patreon). This is a more censor resistant approach.
+If I bring in a server and use something like SSR (Next.js), then my users won't have to download metamask to look at creators. The server can fetch the list of creators for them on their behalf and show them to the client. This is a much better UX, but for now I decided against SSR to make it more decentralized (to differentiate it more from Patreon).
 
 ### Caching (localstorage vs indexedDB)
 
-Localstorage can only store strings, but I think that's all I need.
-
-### HTML5 main tag and SPA's?
-
-Some people recommend using the main tag on [every page](https://stackoverflow.com/questions/44308760). Does this apply to SPAs too? If I'm only serving one HTML page, won't it see the main tag multiple times on the "same page". Will that effect SEO? I've never thought of this until now. I've decided to only use it once.
+I still have to figure out what I should store and how (localstorage can only store strings, but that should be fine I think?)
 
 ### How much data can I read from the blockchain?
 
@@ -117,6 +113,10 @@ Calls are free, but is there a limit to how much data I can read from the blockc
 ### Background Synchronization?
 
 As a bonus, I could allow contributors to make donations offline using service workers and then synchronizing them in the background once they come back online.
+
+### Charity application idea?
+
+Pethreon relies on contributions being locked up inside the smart contract. I'm not a fan of this because I think that money can be put to better uses (DeFi). So I thought about another idea for my next project. I was thinking users could donate money into different charity pools. The money in the pool could then be locked into a DeFi protocol like [Aave](https://aave.com/), the accrued interest could then go towards a charity address like [0x54a465610d119ad28deafd4bce555834c38beeb9](https://thewaterproject.org/donate-ethereum). Users could withdraw donations from the pool, but ~25% will remain in the pool so that it can continue to grow.
 
 ## Notes
 

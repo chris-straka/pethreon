@@ -47,24 +47,26 @@ There are [accessibility concerns](https://developer.mozilla.org/en-US/docs/Web/
 
 I remember seeing rel="noreferrer noopener" in the wild, and wondered if rel="noreferrer" was sufficient? This [post](https://stackoverflow.com/questions/57628890) shed some light. TODO -> look into window.opener().
 
-I was wondering what color to use for my login button. [UX stack exchange](https://ux.stackexchange.com/questions/104224) says it should be my primary color, however this doesn't look good because my circles are the same color, and they float behind the login button occasionally.
+Some people recommend using the main tag on [every page](https://stackoverflow.com/questions/44308760). This probably doesn't apply to SPAs though eh? If I'm only serving one HTML page, there might be SEO issues if it sees "main" multiple times on the "same page".
 
-I was worried about using innerHTML to render the metamask message for XSS. But after reading [this](https://www.reddit.com/r/learnjavascript/comments/9502x5/is_innerhtml_still_considered_bad/), it seems like it's only a major issue when it's innerHTML coming from other users.
+I was wondering what color to use for my login button. [UX stack exchange](https://ux.stackexchange.com/questions/104224) says it should be my primary color, however this doesn't look good because my animated circles are the same color, and they float behind the login button occasionally. I'm wondering if I should use my secondary color or if it's "too pink" or if it should be the same color as my text.
 
-I probably could've done the typewriter effect with CSS only, but I think it could get tricky because I've only seen this done with single lines of text. I think they do this by animating the width property, which might get ugly with multiple lines of text. I'm going to do something similar to [this](https://www.w3schools.com/howto/howto_js_typewriter.asp) instead.
+I was worried about using innerHTML to render my metamask message because of XSS. But after reading [this](https://www.reddit.com/r/learnjavascript/comments/9502x5/is_innerhtml_still_considered_bad/), it seems like it's only a problem when _other_ users are inserting innerHTML and not the developer.
 
-My typewriter effect was tricky. I couldn't loop through the entire string and do setTimeOut(3 secs) on each character, because then they'd ALL print at the same time 3 seconds later. I couldn't use `await new Promise(r => setTimeout(r, 2000))` because I couldn't run an asynchronous function inside useEffect() because it's expecting a cleanup function and not a promise (normally it would work though). So I ended up doing setTimeOut(3 secs * index) which gives each char its own unique timeOut(duration). Each character then runs a function that checks a boolean to see whether or not it should print.
+I probably could've done my typewriter effect (metamask message) with CSS only, but I think it could get tricky because I've only seen this done with people animating single lines of text. I think they do this by animating the width property? This could get ugly if I have multiple lines of text so I decided to do something similar to [this](https://www.w3schools.com/howto/howto_js_typewriter.asp) instead.
 
-It's not as easy as I thought to slowly print out a hyperlink char-by-char (either that or I'm dumb)? When I try to print out the same link, I accidentally print out all the HTML markup as well, which I don't want. So my current implementation recreates the link 17 times, char-by-char. I might have to look into a better way later.
+My typewriter effect was tricky. I couldn't loop through the entire string and do setTimeOut(3 secs) on each char, because then they'd ALL print at the same time 3 seconds later. I couldn't use `await new Promise(r => setTimeout(r, 2000))` either, because you can't run an asynchronous function inside useEffect() because it's expecting a cleanup function and not a promise. I found out later that people get around this by doing [this](https://stackoverflow.com/questions/53332321), but I ended up doing setTimeOut(3 secs * index) which gives each char its own unique timeOut(duration). Each char also checks a boolean to see whether or not it has been interrupted or not.
+
+I also had issues printing a hyperlink char-by-char (either that or I'm dumb)? When I tried to do this initially, I accidentally printed out ALL the HTML markup as well `<a blah blah>download metamask<a>`, which I don't want. So my current implementation recreates the link 17 times, char-by-char. I might have to look into a better way later.
 
 When the user clicks login and signs into metamask a "sign-in" modal popups (its under the control of metamask, not me). If the user closes it without signing in, metamask will NOT error out. Instead, my code behaves as if the user is still logging in which is not great UX. It looks like other popular sites like Aave and Uniswap behave the same?
 
 🙅 onClick={function(arg)} 🙅 -> onClick(() => function(arg))
 
-[React.FC<>](https://github.com/typescript-cheatsheets/react#function-components) is discouraged.
+Turns out [React.FC<>](https://github.com/typescript-cheatsheets/react#function-components) is discouraged. It's better to use interfaces instead.
 
-If you want to pass useState down as a prop, you need to import Dispatch and SetStateAction from React and use that for its type `Dispatch<SetStateAction>`
+If you want to pass down useState's setState() handler as a prop in typescript, you need to import Dispatch and SetStateAction from React and use that for its type `Dispatch<SetStateAction>`
 
-In ethers, you get wei by parsing and you get greater than wei higher by formatting.
+In ethers, you get wei by parsing and you get denominations greater than wei by formatting.
 
-I was worried about the performance of my circle animations and found out that the opacity property slows down rendering by a [fair margin](https://stackoverflow.com/questions/38523826). I only used opacity to get the color I wanted, so I'm going to switch it to rgba instead.
+I was worried about the performance of my circle animations and found out that the opacity property slows down rendering by a [fair amount](https://stackoverflow.com/questions/38523826). I only used opacity to get the color I wanted, so I'm going to switch it to rgba instead.
