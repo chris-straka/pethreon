@@ -36,14 +36,20 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance }: PledgeModalP
       history.push('/')
       return null
     }
-    if (!pledgeAmount) return window.alert("Please enter a pledge amount") 
+    if (!pledgeAmount && currency === "All") return window.alert("Please enter a pledge amount")
     if (!address) return window.alert("Please enter a destination address")
     if (!duration) return window.alert("Please set a pledge duration")
 
+    address.trim()
+
+    if (address.indexOf(" ") >= 0) return window.alert("There is a space in the ethereum address")
+    if (address.length !== 42) return window.alert(`Your ethereum address is ${address.length} characters long. It should be 42 characters long`)
+
     closeModal()
+
     try {
       setLoading(true)
-      await createPledge(pledgeAmount, currency, address)
+      await createPledge(pledgeAmount, currency, address, duration)
       const newBalance = await getBalance()
       setBalance(newBalance)
       setLoading(false)
@@ -56,27 +62,31 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance }: PledgeModalP
   return <form className={styles.pledgeFormLayout}>
     <h3 className={styles.pledgeHeading}>How much to pledge?</h3>
     <PledgeField
+      autofocus={true}
       type="number"
       placeholder="0"
-      min={0}
+      min="0"
+      disabled={currency === "All" ? true : false}
       value={pledgeAmount}
       onChange={(event: ChangeEvent<HTMLInputElement>) => setPledgeAmount(event.target.value)}
     ><CashSVG className={styles.pledgeSVG} /></PledgeField>
-    <Spacer marginBottom="8px" />
+    <Spacer marginBottom="13px" />
     <div className={styles.currencyButtons} onChange={(event: ChangeEvent<HTMLInputElement>) => setCurrency(event.target.value)}>
       <CurrencyDenomination defaultChecked={true} denomination="Ether" />
       <CurrencyDenomination defaultChecked={false} denomination="Gwei" />
       <CurrencyDenomination defaultChecked={false} denomination="Wei" />
+      <CurrencyDenomination defaultChecked={false} denomination="All" />
     </div>
-    <h3 className={styles.pledgeHeading}>Over how many days?</h3>
+    <Spacer marginBottom="16px" />
+    <h3 className={styles.pledgeHeading}>Across how many days?</h3>
     <PledgeField
       type="number"
       placeholder="0"
-      min={0}
+      min="0"
       value={duration}
       onChange={(event: ChangeEvent<HTMLInputElement>) => setDuration(event.target.value)}
     ><DateSVG className={styles.pledgeSVG} /></PledgeField>
-    <Spacer marginBottom="16px" />
+    <Spacer marginBottom="14px" />
     <h3 className={styles.pledgeHeading}>To which ethereum address?</h3>
     <PledgeField
       type="text"
@@ -84,7 +94,7 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance }: PledgeModalP
       value={address}
       onChange={(event: ChangeEvent<HTMLInputElement>) => setAddress(event.target.value)}
     ><PersonSVG className={styles.pledgeSVG} /></PledgeField>
-    <Spacer marginBottom="16px" />
+    <Spacer marginBottom="22px" />
     <Submit handler={submitPledge}>Pledge <PledgeSVG className={styles.submitSVG} /></Submit>
   </form>
 }

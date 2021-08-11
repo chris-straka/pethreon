@@ -3,6 +3,36 @@
 }
 
 .pledgeFieldInput {
-  outline: none;  
+  outline: none;
   background-color: transparent;
+  caret-color: var(--secondary);
+  font-size: 25px;
+  overflow-x: auto;
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+  transition: border-bottom 0.3s;
+}
+
+.pledgeFieldInput:focus {
+  border-bottom: 2px solid var(--secondary);
+}
+
+.pledgeFieldInput::selection {
+  background-color: var(--secondary);
+}
+
+@media (prefers-color-scheme: dark) {
+  .pledgeFieldInput {
+    caret-color: var(--darktheme-secondary);
+    color: var(--darktheme-white-text);
+  }
+
+  .pledgeFieldInput:focus {
+    border-bottom: 2px solid var(--darktheme-secondary);
+  }
+
+  .pledgeFieldInput::selection {
+    background-color: var(--darktheme-secondary);
+    color: var(--darktheme-black-text);
+  }
 }

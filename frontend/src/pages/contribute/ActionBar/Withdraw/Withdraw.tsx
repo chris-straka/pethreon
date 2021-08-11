@@ -61,9 +61,8 @@ export const WithdrawModal = ({ closeModal, setLoading, setBalance }: WithdrawMo
         getAmount={(event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)}
       />
       <Spacer marginBottom="16px" />
-      <div
-        className={styles.currencyButtons}
-        onChange={(event: ChangeEvent<HTMLInputElement>) => setCurrency(event.target.value)}>
+      <div className={styles.currencyButtons}
+        onChange={(event: ChangeEvent<HTMLInputElement>) => setCurrency(event.target.value)} >
         <CurrencyDenomination defaultChecked={true} denomination="Ether" />
         <CurrencyDenomination defaultChecked={false} denomination="Gwei" />
         <CurrencyDenomination defaultChecked={false} denomination="All" />

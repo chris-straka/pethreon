@@ -2,7 +2,7 @@ import { BigNumberish, utils, providers, Contract } from "ethers"
 import { EthereumWindow, PETHREON_CONTRACT_ADDRESS } from "./utility"
 import { abi } from "../artifacts/localhost/Pethreon.json"
 
-export async function createPledge(amount: string, currency: string, address: string) {
+export async function createPledge(amount: string, currency: string, address: string, days: string) {
   const { ethereum } = window as EthereumWindow
 
   let amountInWei: BigNumberish = amount
@@ -16,6 +16,6 @@ export async function createPledge(amount: string, currency: string, address: st
   const contract = new Contract(PETHREON_CONTRACT_ADDRESS, abi, signer)
 
   // createPledge(address, weiPerPeriod, periods)
-  const transaction = await contract.createPledge(address, )
+  const transaction = await contract.createPledge(address,)
   await transaction.wait()
 }

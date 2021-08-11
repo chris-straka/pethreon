@@ -70,3 +70,9 @@ If you want to pass down useState's setState() handler as a prop in typescript, 
 In ethers, you get wei by parsing and you get denominations greater than wei by formatting.
 
 I was worried about the performance of my circle animations and found out that the opacity property slows down rendering by a [fair amount](https://stackoverflow.com/questions/38523826). I only used opacity to get the color I wanted, so I'm going to switch it to rgba instead.
+
+I found out that window.alerts are very annoying for UX which is good to know. I'm going to use it for now so I don't have to make a third modal or a text-tooltip component
+
+It's funny that Pledge is a verb and a noun and I've used both meanings when referencing stuff -> Y I K E S
+
+I think the frontend is going to end up looking a lot better on mobile (because it was designed for mobile first), even though I'm not sure how smooth the metamask app experience is going to be.

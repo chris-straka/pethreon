@@ -23,6 +23,7 @@ main {
   line-height: 1.9rem;
   list-style-type: none;
   margin: 0 24px 0 24px;
+  z-index: 1;
 }
 
 .features li {

@@ -5,25 +5,26 @@
   flex-direction: column;
 }
 
+.pledgeHeading {
+  font-size: 1rem;
+  margin-bottom: 7px;
+}
+
+.currencyButtons {
+  display: flex;
+  font-size: 10px;
+}
+
 .pledgeSVG {
-  width: 2ch;
+  width: 5.5ch;
   vertical-align: text-bottom;
   font-weight: 600;
-  margin-right: 5px;
+  margin-right: 10px;
+  overflow: visible;
 }
 
 .submitSVG {
   width: 2ch;
   vertical-align: text-bottom;
   font-weight: 600;
-}
-
-.pledgeHeading {
-  font-size: 1rem;
-  margin-bottom: .3rem;
-}
-
-.currencyButtons {
-  display: flex;
-  font-size: 8px;
 }
