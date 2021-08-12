@@ -1,6 +1,7 @@
 /* Warning! Please read! */
 .disclaimerText {
   font-size: 1rem;
+  user-select: none;
 }
 
 .popup {

@@ -1,17 +1,17 @@
 import { useState, ChangeEvent, FormEvent, Dispatch, SetStateAction } from "react"
 import { useHistory } from "react-router"
-import { ReactComponent as DepositSVG } from "../../../../assets/deposit.svg"
 import { ConsentCheckbox } from "../../../../components/ConsentCheckbox/ConsentCheckbox"
 import { CurrencyField } from "../../../../components/CurrencyField/CurrrencyField"
 import { CurrencyDenomination } from "../../../../components/CurrencyDenomination/CurrencyDenomination"
 import { Submit } from "../../../../components/Submit/Submit"
 import { Disclaimer } from "../../../../components/Disclaimer/Disclaimer"
 import { Spacer } from "../../../../components/Spacer/Spacer"
+import { ReactComponent as DepositSVG } from "../../../../assets/deposit.svg"
 
 import { deposit } from "../../../../ethers/deposit"
 import { getBalance } from "../../../../ethers/getBalance"
+import { EtherDenomination, EthereumWindow, MetamaskError } from "../../../../ethers/utility"
 import styles from "./Deposit.module.css"
-import { EthereumWindow, MetamaskError } from "../../../../ethers/utility"
 
 interface DepositModalProps {
   closeModal: () => void,
@@ -22,7 +22,7 @@ interface DepositModalProps {
 export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositModalProps) => {
   const [disabled, setDisabled] = useState(true)
   const [amount, setAmount] = useState("")
-  const [currency, setCurrency] = useState("Ether")
+  const [currency, setCurrency] = useState<EtherDenomination>(EtherDenomination.ETHER)
   const history = useHistory()
   const { ethereum } = window as EthereumWindow
 
@@ -54,10 +54,10 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositModa
       <h3 className={styles.depositHeading}>How much to deposit?</h3>
       <CurrencyField amount={amount} getAmount={(event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)} />
       <Spacer marginBottom="16px" />
-      <div className={styles.currencyButtons} onChange={(event: ChangeEvent<HTMLInputElement>) => setCurrency(event.target.value)}>
-        <CurrencyDenomination defaultChecked={true} denomination="Ether" />
-        <CurrencyDenomination defaultChecked={false} denomination="Gwei" />
-        <CurrencyDenomination defaultChecked={false} denomination="Wei" />
+      <div className={styles.currencyButtons} onChange={(event: ChangeEvent<HTMLInputElement>) => setCurrency((event.target.value) as EtherDenomination)}>
+        <CurrencyDenomination defaultChecked={true} denomination={EtherDenomination.ETHER} />
+        <CurrencyDenomination defaultChecked={false} denomination={EtherDenomination.GWEI} />
+        <CurrencyDenomination defaultChecked={false} denomination={EtherDenomination.WEI} />
       </div>
       <Spacer marginTop="16px" marginBottom="16px" />
       <Disclaimer />

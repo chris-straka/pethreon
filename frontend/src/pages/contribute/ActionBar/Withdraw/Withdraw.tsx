@@ -1,14 +1,14 @@
 import { useState, Dispatch, SetStateAction, ChangeEvent, FormEvent } from "react"
 import { useHistory } from "react-router"
-import { ReactComponent as WithdrawSVG } from "../../../../assets/withdraw.svg"
 import { CurrencyField } from "../../../../components/CurrencyField/CurrrencyField"
 import { CurrencyDenomination } from "../../../../components/CurrencyDenomination/CurrencyDenomination"
 import { Spacer } from "../../../../components/Spacer/Spacer"
 import { Disclaimer } from "../../../../components/Disclaimer/Disclaimer"
 import { ConsentCheckbox } from "../../../../components/ConsentCheckbox/ConsentCheckbox"
 import { Submit } from "../../../../components/Submit/Submit"
+import { ReactComponent as WithdrawSVG } from "../../../../assets/withdraw.svg"
 
-import { MetamaskError, EthereumWindow } from "../../../../ethers/utility"
+import { MetamaskError, EthereumWindow, EtherDenomination } from "../../../../ethers/utility"
 import { contributorWithdraw } from "../../../../ethers/contributorWithdraw"
 import { getBalance } from "../../../../ethers/getBalance"
 
@@ -23,7 +23,7 @@ interface WithdrawModalProps {
 export const WithdrawModal = ({ closeModal, setLoading, setBalance }: WithdrawModalProps) => {
   const [disabled, setDisabled] = useState(true)
   const [amount, setAmount] = useState("")
-  const [currency, setCurrency] = useState("Ether")
+  const [currency, setCurrency] = useState<EtherDenomination>(EtherDenomination.ETHER)
   const history = useHistory()
   const { ethereum } = window as EthereumWindow
 
@@ -62,10 +62,10 @@ export const WithdrawModal = ({ closeModal, setLoading, setBalance }: WithdrawMo
       />
       <Spacer marginBottom="16px" />
       <div className={styles.currencyButtons}
-        onChange={(event: ChangeEvent<HTMLInputElement>) => setCurrency(event.target.value)} >
-        <CurrencyDenomination defaultChecked={true} denomination="Ether" />
-        <CurrencyDenomination defaultChecked={false} denomination="Gwei" />
-        <CurrencyDenomination defaultChecked={false} denomination="All" />
+        onChange={(event: ChangeEvent<HTMLInputElement>) => setCurrency((event.target.value) as EtherDenomination)} >
+        <CurrencyDenomination defaultChecked={true} denomination={EtherDenomination.ETHER} />
+        <CurrencyDenomination defaultChecked={false} denomination={EtherDenomination.GWEI} />
+        <CurrencyDenomination defaultChecked={false} denomination={EtherDenomination.ALL} />
       </div>
       <Spacer marginBottom="32px" />
 

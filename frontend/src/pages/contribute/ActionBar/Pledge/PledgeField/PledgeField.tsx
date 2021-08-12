@@ -8,11 +8,12 @@ interface PledgeFieldProps {
   type: string,
   placeholder: string,
   value: string | number,
+  spellCheck?: boolean,
   onChange: (event: ChangeEvent<HTMLInputElement>) => void,
   children: ReactNode
 }
 
-export const PledgeField = ({ autofocus = false, disabled = false, type, placeholder, min, value, onChange, children }: PledgeFieldProps) => {
+export const PledgeField = ({ autofocus = false, disabled = false, type, spellCheck, placeholder, min, value, onChange, children }: PledgeFieldProps) => {
   return <div className={styles.pledgeFieldContainer}>
     {children}
     <input
@@ -22,6 +23,7 @@ export const PledgeField = ({ autofocus = false, disabled = false, type, placeho
       type={disabled ? "text" : type}
       placeholder={placeholder}
       min={min}
+      spellCheck={spellCheck}
       className={styles.pledgeFieldInput}
       value={disabled ? "ALL" : value}
       onChange={onChange}

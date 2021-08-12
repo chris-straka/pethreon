@@ -6,12 +6,15 @@
 
 .consentText {
   margin-right: 0.8rem;
+  user-select: none;
+  cursor: pointer;
 }
 
 .checkbox {
   outline: 4px dotted transparent;
   outline-offset: 3px;
   transition: outline-color 0.3s;
+  cursor: pointer;
 }
 
 .checkbox:focus {

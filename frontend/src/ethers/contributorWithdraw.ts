@@ -1,9 +1,9 @@
 import { BigNumberish, utils, providers, Contract } from "ethers"
-import { EthereumWindow, PETHREON_CONTRACT_ADDRESS } from "./utility"
+import { EtherDenomination, EthereumWindow, PETHREON_CONTRACT_ADDRESS } from "./utility"
 import { abi } from "../artifacts/localhost/Pethreon.json"
 import { getBalance } from "./getBalance"
 
-export async function contributorWithdraw(amount: string, currency: string) {
+export async function contributorWithdraw(amount: string, currency: EtherDenomination) {
   const { ethereum } = window as EthereumWindow
 
   let amountInWei: BigNumberish = amount

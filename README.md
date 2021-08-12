@@ -15,7 +15,7 @@ Essentially, I write smart contracts in solidity (Pethreon.sol) and then compile
 
 ## How to develop
 
-For this to work you need to [download metamask](https://metamask.io/). You might also want to use a different [browser profile](https://youtu.be/Ik8-xn4DyCo?t=15) for development so that you can keep your personal metamask account separate from your development one. Once metamask is installed, you need to import a new metamask account via "private key" and insert "test test test test test test test test test test test junk". This is a unique key used by hardhat for development, in which every account is given 1000 ether. After importing that account, you might need to add a new network as well. Click on networks (mainnet), then on custom RPC and then add the following network if it's not there already...
+For this to work you need to [download metamask](https://metamask.io/). You might also want to use a different [browser profile](https://youtu.be/Ik8-xn4DyCo?t=15) for development so that you can keep your personal metamask account separate from your development one. Once metamask is installed, you need to import a new metamask account via "private key" and insert "test test test test test test test test test test test junk". This is a unique key used by hardhat for development, in which every account is given 1000 ether. After importing that private key, you might need to add a new network as well. Click on networks (mainnet), then on custom RPC and then add the following network if it's not there already...
 
 ```text
 Network Name: Localhost 8545
@@ -24,7 +24,7 @@ Chain ID:     1337
 Currency:     ETH
 ```
 
-You should then be able to run these commands and get started.
+You should then be able to run these commands and get started. If you need another account to test out the pledge feature, open up your metamask wallet and make the pledge to your other metamask accounts (they should also have 1000 ether).
 
 ```bash
 yarn                      # install backend dependencies (or npm install)
@@ -84,6 +84,29 @@ CRA "Create React App" uses Jest, but Truffle uses Mocha and Chai. I was plannin
 // node_modules
 declare const: expect = Chai.ExpectStatic; // this kept conflicting with...
 declare const expect: jest.Expect;         // this
+```
+
+### Can't iterate over all the pledges
+
+In Sergei's original contract, it wasn't possible to iterate over all of a user's pledges. But my application needs to do that so that I can show the user their current pledges (so they can view/cancel them). I have to figure out how to do this, because maps are not iterable in solidity. I think I have to do something like this
+
+```cpp
+contract Pethreon {
+  mapping(address => uint) userTransactionNonce;
+  mapping(address => mapping(uint => uint[])) userTransactions;
+
+  function createPledge() public returns(uint) {
+    userTransactions[msg.sender][userTransactionNonce[msg.sender]]
+    // make the pledge and set it equal to the contibutor nonce
+    // increment the contributor nonce
+  }
+
+  function getPledges() view {
+    // iterate through all the transactions
+    // Check each pledge at each transaction
+    // Return them all back to the user
+  }
+}
 ```
 
 ## Features & Ideas

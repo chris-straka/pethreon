@@ -10,24 +10,25 @@ import styles from "./ActionBar.module.css"
 
 interface ActionBarProps {
   setLoading: Dispatch<SetStateAction<boolean>>,
-  setBalance: Dispatch<SetStateAction<string>>
+  setBalance: Dispatch<SetStateAction<string>>,
+  setPledges: Dispatch<SetStateAction<string[]>>
 }
 
-export const ActionBar = ({ setLoading, setBalance }: ActionBarProps) => {
+export const ActionBar = ({ setLoading, setBalance, setPledges }: ActionBarProps) => {
   const [currentModal, setCurrentModal] = useState("")
   const [modalBody, setModalBody] = useState<JSX.Element | null>(null)
 
   useEffect(() => {
     const deposit = <DepositModal closeModal={() => setCurrentModal("")} setLoading={setLoading} setBalance={setBalance} />
     const withdraw = <WithdrawModal closeModal={() => setCurrentModal("")} setLoading={setLoading} setBalance={setBalance} />
-    const pledge = <PledgeModal closeModal={() => setCurrentModal("")} setLoading={setLoading} setBalance={setBalance} />
+    const pledge = <PledgeModal closeModal={() => setCurrentModal("")} setLoading={setLoading} setBalance={setBalance} setPledges={setPledges} />
 
     if (currentModal === "") return
     if (currentModal === "deposit") setModalBody(deposit)
     if (currentModal === "withdraw") setModalBody(withdraw)
     if (currentModal === "pledge") setModalBody(pledge)
     return () => { setModalBody(null) }
-  }, [currentModal, setLoading, setBalance])
+  }, [currentModal, setLoading, setBalance, setPledges])
 
   return <>
     <div className={styles.actionBar}>

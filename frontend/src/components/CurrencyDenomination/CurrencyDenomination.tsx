@@ -1,8 +1,9 @@
+import { EtherDenomination } from "../../ethers/utility"
 import styles from "./CurrencyDenomination.module.css"
 
 interface CurrencyDenominationProps {
   defaultChecked: boolean,
-  denomination: string
+  denomination: EtherDenomination
 };
 
 export const CurrencyDenomination = ({ defaultChecked, denomination }: CurrencyDenominationProps) => {

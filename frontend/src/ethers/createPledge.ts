@@ -1,21 +1,30 @@
 import { BigNumberish, utils, providers, Contract } from "ethers"
-import { EthereumWindow, PETHREON_CONTRACT_ADDRESS } from "./utility"
+import { EtherDenomination, EthereumWindow, PETHREON_CONTRACT_ADDRESS } from "./utility"
 import { abi } from "../artifacts/localhost/Pethreon.json"
+import { getBalance } from "./getBalance"
 
-export async function createPledge(amount: string, currency: string, address: string, days: string) {
+interface createPledgeProps {
+  address: string,
+  amountPerPeriod: string,
+  period: string,
+  currency: EtherDenomination
+}
+
+export async function createPledge({ address, amountPerPeriod, period, currency }: createPledgeProps) {
   const { ethereum } = window as EthereumWindow
 
-  let amountInWei: BigNumberish = amount
-  if (currency === "Ether") amountInWei = utils.parseEther(amount)
-  if (currency === "Gwei") amountInWei = utils.parseUnits(amount, "gwei")
-
-  console.log(amountInWei)
+  let amountPerPeriodInWei: BigNumberish = amountPerPeriod
+  if (currency === EtherDenomination.ETHER) amountPerPeriodInWei = utils.parseEther(amountPerPeriod)
+  if (currency === EtherDenomination.WEI) amountPerPeriodInWei = utils.parseUnits(amountPerPeriod, "gwei")
+  if (currency === EtherDenomination.ALL) {
+    const fullBalance = await getBalance()
+    amountPerPeriodInWei = utils.parseEther(fullBalance)
+  }
+  let dateCreated = Date.now();
 
   const provider = new providers.Web3Provider(ethereum)
   const signer = provider.getSigner()
   const contract = new Contract(PETHREON_CONTRACT_ADDRESS, abi, signer)
-
-  // createPledge(address, weiPerPeriod, periods)
-  const transaction = await contract.createPledge(address,)
+  const transaction = await contract.createPledge(address, amountPerPeriodInWei, period, dateCreated)
   await transaction.wait()
 }

@@ -23,9 +23,10 @@ import { TypedEventFilter, TypedEvent, TypedListener } from "./commons";
 interface PethreonInterface extends ethers.utils.Interface {
   functions: {
     "cancelPledge(address)": FunctionFragment;
-    "createPledge(address,uint256,uint256)": FunctionFragment;
+    "createPledge(address,uint256,uint256,uint256)": FunctionFragment;
     "deposit()": FunctionFragment;
     "getContributorBalance()": FunctionFragment;
+    "getContributorPledges()": FunctionFragment;
     "getCreatorBalance()": FunctionFragment;
     "myPledgeTo(address)": FunctionFragment;
     "withdrawAsContributor(uint256)": FunctionFragment;
@@ -38,11 +39,15 @@ interface PethreonInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "createPledge",
-    values: [string, BigNumberish, BigNumberish]
+    values: [string, BigNumberish, BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "deposit", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "getContributorBalance",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getContributorPledges",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -70,6 +75,10 @@ interface PethreonInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getContributorBalance",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getContributorPledges",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -159,13 +168,15 @@ export class Pethreon extends Contract {
       _creator: string,
       _weiPerPeriod: BigNumberish,
       _periods: BigNumberish,
+      _dateCreated: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    "createPledge(address,uint256,uint256)"(
+    "createPledge(address,uint256,uint256,uint256)"(
       _creator: string,
       _weiPerPeriod: BigNumberish,
       _periods: BigNumberish,
+      _dateCreated: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -180,6 +191,50 @@ export class Pethreon extends Contract {
     getContributorBalance(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     "getContributorBalance()"(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    getContributorPledges(
+      overrides?: CallOverrides
+    ): Promise<
+      [
+        ([string, BigNumber, BigNumber, BigNumber, boolean] & {
+          creator: string;
+          weiPerPeriod: BigNumber;
+          afterLastPeriod: BigNumber;
+          dateCreated: BigNumber;
+          exists: boolean;
+        })[]
+      ] & {
+        allPledges: ([string, BigNumber, BigNumber, BigNumber, boolean] & {
+          creator: string;
+          weiPerPeriod: BigNumber;
+          afterLastPeriod: BigNumber;
+          dateCreated: BigNumber;
+          exists: boolean;
+        })[];
+      }
+    >;
+
+    "getContributorPledges()"(
+      overrides?: CallOverrides
+    ): Promise<
+      [
+        ([string, BigNumber, BigNumber, BigNumber, boolean] & {
+          creator: string;
+          weiPerPeriod: BigNumber;
+          afterLastPeriod: BigNumber;
+          dateCreated: BigNumber;
+          exists: boolean;
+        })[]
+      ] & {
+        allPledges: ([string, BigNumber, BigNumber, BigNumber, boolean] & {
+          creator: string;
+          weiPerPeriod: BigNumber;
+          afterLastPeriod: BigNumber;
+          dateCreated: BigNumber;
+          exists: boolean;
+        })[];
+      }
+    >;
 
     getCreatorBalance(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -238,13 +293,15 @@ export class Pethreon extends Contract {
     _creator: string,
     _weiPerPeriod: BigNumberish,
     _periods: BigNumberish,
+    _dateCreated: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  "createPledge(address,uint256,uint256)"(
+  "createPledge(address,uint256,uint256,uint256)"(
     _creator: string,
     _weiPerPeriod: BigNumberish,
     _periods: BigNumberish,
+    _dateCreated: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -259,6 +316,30 @@ export class Pethreon extends Contract {
   getContributorBalance(overrides?: CallOverrides): Promise<BigNumber>;
 
   "getContributorBalance()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+  getContributorPledges(
+    overrides?: CallOverrides
+  ): Promise<
+    ([string, BigNumber, BigNumber, BigNumber, boolean] & {
+      creator: string;
+      weiPerPeriod: BigNumber;
+      afterLastPeriod: BigNumber;
+      dateCreated: BigNumber;
+      exists: boolean;
+    })[]
+  >;
+
+  "getContributorPledges()"(
+    overrides?: CallOverrides
+  ): Promise<
+    ([string, BigNumber, BigNumber, BigNumber, boolean] & {
+      creator: string;
+      weiPerPeriod: BigNumber;
+      afterLastPeriod: BigNumber;
+      dateCreated: BigNumber;
+      exists: boolean;
+    })[]
+  >;
 
   getCreatorBalance(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -314,13 +395,15 @@ export class Pethreon extends Contract {
       _creator: string,
       _weiPerPeriod: BigNumberish,
       _periods: BigNumberish,
+      _dateCreated: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    "createPledge(address,uint256,uint256)"(
+    "createPledge(address,uint256,uint256,uint256)"(
       _creator: string,
       _weiPerPeriod: BigNumberish,
       _periods: BigNumberish,
+      _dateCreated: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -331,6 +414,30 @@ export class Pethreon extends Contract {
     getContributorBalance(overrides?: CallOverrides): Promise<BigNumber>;
 
     "getContributorBalance()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getContributorPledges(
+      overrides?: CallOverrides
+    ): Promise<
+      ([string, BigNumber, BigNumber, BigNumber, boolean] & {
+        creator: string;
+        weiPerPeriod: BigNumber;
+        afterLastPeriod: BigNumber;
+        dateCreated: BigNumber;
+        exists: boolean;
+      })[]
+    >;
+
+    "getContributorPledges()"(
+      overrides?: CallOverrides
+    ): Promise<
+      ([string, BigNumber, BigNumber, BigNumber, boolean] & {
+        creator: string;
+        weiPerPeriod: BigNumber;
+        afterLastPeriod: BigNumber;
+        dateCreated: BigNumber;
+        exists: boolean;
+      })[]
+    >;
 
     getCreatorBalance(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -441,13 +548,15 @@ export class Pethreon extends Contract {
       _creator: string,
       _weiPerPeriod: BigNumberish,
       _periods: BigNumberish,
+      _dateCreated: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    "createPledge(address,uint256,uint256)"(
+    "createPledge(address,uint256,uint256,uint256)"(
       _creator: string,
       _weiPerPeriod: BigNumberish,
       _periods: BigNumberish,
+      _dateCreated: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -462,6 +571,10 @@ export class Pethreon extends Contract {
     getContributorBalance(overrides?: CallOverrides): Promise<BigNumber>;
 
     "getContributorBalance()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getContributorPledges(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "getContributorPledges()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     getCreatorBalance(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -508,13 +621,15 @@ export class Pethreon extends Contract {
       _creator: string,
       _weiPerPeriod: BigNumberish,
       _periods: BigNumberish,
+      _dateCreated: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    "createPledge(address,uint256,uint256)"(
+    "createPledge(address,uint256,uint256,uint256)"(
       _creator: string,
       _weiPerPeriod: BigNumberish,
       _periods: BigNumberish,
+      _dateCreated: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -531,6 +646,14 @@ export class Pethreon extends Contract {
     ): Promise<PopulatedTransaction>;
 
     "getContributorBalance()"(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getContributorPledges(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    "getContributorPledges()"(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
