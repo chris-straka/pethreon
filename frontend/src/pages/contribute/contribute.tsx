@@ -1,7 +1,7 @@
 import styles from "./contribute.module.css"
 import { useState, useEffect } from "react"
 import { useHistory } from "react-router"
-import { PledgeList } from "./PledgeList/PledgeList"
+import { Pledge } from "./Pledge/Pledge"
 import { ActionBar } from "./ActionBar/ActionBar"
 import { Balance } from "../../components/Balance/Balance"
 import { Loading } from "../../components/Loading/Loading"
@@ -23,13 +23,14 @@ export const ContributePage = () => {
   }, [ethereum, history])
 
   useEffect(() => {
-    ethereum.on("accountsChanged", (accounts: any) => {
+    ethereum.on("accountsChanged", () => {
       history.push('/')
     })
   }, [ethereum, history])
 
   useEffect(() => {
     async function init() {
+      if (window.location.pathname === "/") return
       try {
         let balance = await getBalance()
         let pledges = await getPledges()
@@ -48,7 +49,9 @@ export const ContributePage = () => {
     <div className={styles.contributeLayout}>
       <Balance balance={balance} />
       <ActionBar setBalance={setBalance} setLoading={setLoading} setPledges={setPledges} />
-      <PledgeList pledges={pledges} />
+      <ul className={styles.transactionHistory}>
+        {pledges.map((pledge: any) => <Pledge pledge={pledge} key={pledge.creatorAddress} />)}
+      </ul>
     </div >
   </>
 }

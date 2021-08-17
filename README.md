@@ -88,7 +88,7 @@ declare const expect: jest.Expect;         // this
 
 ### Can't iterate over all the pledges
 
-In Sergei's original contract, it wasn't possible to iterate over all of a user's pledges. But my application needs to do that so that I can show the user their current pledges (so they can view/cancel them). I have to figure out how to do this, because maps are not iterable in solidity. I think I have to do something like this
+In Sergei's original contract, it wasn't possible for a contributor to grab all the pledges they have made. It also wasn't possible for a creator to see all the pledges that have been made to them. grab all of the pledges a contributor has made OR  a creator/contributor to grab all of a user's pledges. iterate over all of a user's pledges. But my application needs to do that so that I can show the user their current pledges (so they can view/cancel them). I have to figure out how to do this, because maps are not iterable in solidity. I think I have to do something like this
 
 ```cpp
 contract Pethreon {

@@ -155,17 +155,17 @@ export class Pethreon extends Contract {
 
   functions: {
     cancelPledge(
-      _creator: string,
+      _creatorAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     "cancelPledge(address)"(
-      _creator: string,
+      _creatorAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     createPledge(
-      _creator: string,
+      _creatorAddress: string,
       _weiPerPeriod: BigNumberish,
       _periods: BigNumberish,
       _dateCreated: BigNumberish,
@@ -173,7 +173,7 @@ export class Pethreon extends Contract {
     ): Promise<ContractTransaction>;
 
     "createPledge(address,uint256,uint256,uint256)"(
-      _creator: string,
+      _creatorAddress: string,
       _weiPerPeriod: BigNumberish,
       _periods: BigNumberish,
       _dateCreated: BigNumberish,
@@ -197,7 +197,7 @@ export class Pethreon extends Contract {
     ): Promise<
       [
         ([string, BigNumber, BigNumber, BigNumber, boolean] & {
-          creator: string;
+          creatorAddress: string;
           weiPerPeriod: BigNumber;
           afterLastPeriod: BigNumber;
           dateCreated: BigNumber;
@@ -205,7 +205,7 @@ export class Pethreon extends Contract {
         })[]
       ] & {
         allPledges: ([string, BigNumber, BigNumber, BigNumber, boolean] & {
-          creator: string;
+          creatorAddress: string;
           weiPerPeriod: BigNumber;
           afterLastPeriod: BigNumber;
           dateCreated: BigNumber;
@@ -219,7 +219,7 @@ export class Pethreon extends Contract {
     ): Promise<
       [
         ([string, BigNumber, BigNumber, BigNumber, boolean] & {
-          creator: string;
+          creatorAddress: string;
           weiPerPeriod: BigNumber;
           afterLastPeriod: BigNumber;
           dateCreated: BigNumber;
@@ -227,7 +227,7 @@ export class Pethreon extends Contract {
         })[]
       ] & {
         allPledges: ([string, BigNumber, BigNumber, BigNumber, boolean] & {
-          creator: string;
+          creatorAddress: string;
           weiPerPeriod: BigNumber;
           afterLastPeriod: BigNumber;
           dateCreated: BigNumber;
@@ -241,7 +241,7 @@ export class Pethreon extends Contract {
     "getCreatorBalance()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     myPledgeTo(
-      _creator: string,
+      _creatorAddress: string,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber] & {
@@ -251,7 +251,7 @@ export class Pethreon extends Contract {
     >;
 
     "myPledgeTo(address)"(
-      _creator: string,
+      _creatorAddress: string,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber] & {
@@ -280,17 +280,17 @@ export class Pethreon extends Contract {
   };
 
   cancelPledge(
-    _creator: string,
+    _creatorAddress: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   "cancelPledge(address)"(
-    _creator: string,
+    _creatorAddress: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   createPledge(
-    _creator: string,
+    _creatorAddress: string,
     _weiPerPeriod: BigNumberish,
     _periods: BigNumberish,
     _dateCreated: BigNumberish,
@@ -298,7 +298,7 @@ export class Pethreon extends Contract {
   ): Promise<ContractTransaction>;
 
   "createPledge(address,uint256,uint256,uint256)"(
-    _creator: string,
+    _creatorAddress: string,
     _weiPerPeriod: BigNumberish,
     _periods: BigNumberish,
     _dateCreated: BigNumberish,
@@ -321,7 +321,7 @@ export class Pethreon extends Contract {
     overrides?: CallOverrides
   ): Promise<
     ([string, BigNumber, BigNumber, BigNumber, boolean] & {
-      creator: string;
+      creatorAddress: string;
       weiPerPeriod: BigNumber;
       afterLastPeriod: BigNumber;
       dateCreated: BigNumber;
@@ -333,7 +333,7 @@ export class Pethreon extends Contract {
     overrides?: CallOverrides
   ): Promise<
     ([string, BigNumber, BigNumber, BigNumber, boolean] & {
-      creator: string;
+      creatorAddress: string;
       weiPerPeriod: BigNumber;
       afterLastPeriod: BigNumber;
       dateCreated: BigNumber;
@@ -346,7 +346,7 @@ export class Pethreon extends Contract {
   "getCreatorBalance()"(overrides?: CallOverrides): Promise<BigNumber>;
 
   myPledgeTo(
-    _creator: string,
+    _creatorAddress: string,
     overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber] & {
@@ -356,7 +356,7 @@ export class Pethreon extends Contract {
   >;
 
   "myPledgeTo(address)"(
-    _creator: string,
+    _creatorAddress: string,
     overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber] & {
@@ -384,15 +384,18 @@ export class Pethreon extends Contract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    cancelPledge(_creator: string, overrides?: CallOverrides): Promise<void>;
+    cancelPledge(
+      _creatorAddress: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     "cancelPledge(address)"(
-      _creator: string,
+      _creatorAddress: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
     createPledge(
-      _creator: string,
+      _creatorAddress: string,
       _weiPerPeriod: BigNumberish,
       _periods: BigNumberish,
       _dateCreated: BigNumberish,
@@ -400,7 +403,7 @@ export class Pethreon extends Contract {
     ): Promise<void>;
 
     "createPledge(address,uint256,uint256,uint256)"(
-      _creator: string,
+      _creatorAddress: string,
       _weiPerPeriod: BigNumberish,
       _periods: BigNumberish,
       _dateCreated: BigNumberish,
@@ -419,7 +422,7 @@ export class Pethreon extends Contract {
       overrides?: CallOverrides
     ): Promise<
       ([string, BigNumber, BigNumber, BigNumber, boolean] & {
-        creator: string;
+        creatorAddress: string;
         weiPerPeriod: BigNumber;
         afterLastPeriod: BigNumber;
         dateCreated: BigNumber;
@@ -431,7 +434,7 @@ export class Pethreon extends Contract {
       overrides?: CallOverrides
     ): Promise<
       ([string, BigNumber, BigNumber, BigNumber, boolean] & {
-        creator: string;
+        creatorAddress: string;
         weiPerPeriod: BigNumber;
         afterLastPeriod: BigNumber;
         dateCreated: BigNumber;
@@ -444,7 +447,7 @@ export class Pethreon extends Contract {
     "getCreatorBalance()"(overrides?: CallOverrides): Promise<BigNumber>;
 
     myPledgeTo(
-      _creator: string,
+      _creatorAddress: string,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber] & {
@@ -454,7 +457,7 @@ export class Pethreon extends Contract {
     >;
 
     "myPledgeTo(address)"(
-      _creator: string,
+      _creatorAddress: string,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber] & {
@@ -499,25 +502,25 @@ export class Pethreon extends Contract {
 
     CreatorWithdrew(
       period: null,
-      creator: null,
+      creatorAddress: null,
       amount: null
     ): TypedEventFilter<
       [BigNumber, string, BigNumber],
-      { period: BigNumber; creator: string; amount: BigNumber }
+      { period: BigNumber; creatorAddress: string; amount: BigNumber }
     >;
 
     PledgeCancelled(
       period: null,
-      creator: null,
+      creatorAddress: null,
       contributor: null
     ): TypedEventFilter<
       [BigNumber, string, string],
-      { period: BigNumber; creator: string; contributor: string }
+      { period: BigNumber; creatorAddress: string; contributor: string }
     >;
 
     PledgeCreated(
       period: null,
-      creator: null,
+      creatorAddress: null,
       contributor: null,
       weiPerPeriod: null,
       periods: null
@@ -525,7 +528,7 @@ export class Pethreon extends Contract {
       [BigNumber, string, string, BigNumber, BigNumber],
       {
         period: BigNumber;
-        creator: string;
+        creatorAddress: string;
         contributor: string;
         weiPerPeriod: BigNumber;
         periods: BigNumber;
@@ -535,17 +538,17 @@ export class Pethreon extends Contract {
 
   estimateGas: {
     cancelPledge(
-      _creator: string,
+      _creatorAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     "cancelPledge(address)"(
-      _creator: string,
+      _creatorAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     createPledge(
-      _creator: string,
+      _creatorAddress: string,
       _weiPerPeriod: BigNumberish,
       _periods: BigNumberish,
       _dateCreated: BigNumberish,
@@ -553,7 +556,7 @@ export class Pethreon extends Contract {
     ): Promise<BigNumber>;
 
     "createPledge(address,uint256,uint256,uint256)"(
-      _creator: string,
+      _creatorAddress: string,
       _weiPerPeriod: BigNumberish,
       _periods: BigNumberish,
       _dateCreated: BigNumberish,
@@ -580,10 +583,13 @@ export class Pethreon extends Contract {
 
     "getCreatorBalance()"(overrides?: CallOverrides): Promise<BigNumber>;
 
-    myPledgeTo(_creator: string, overrides?: CallOverrides): Promise<BigNumber>;
+    myPledgeTo(
+      _creatorAddress: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     "myPledgeTo(address)"(
-      _creator: string,
+      _creatorAddress: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -608,17 +614,17 @@ export class Pethreon extends Contract {
 
   populateTransaction: {
     cancelPledge(
-      _creator: string,
+      _creatorAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     "cancelPledge(address)"(
-      _creator: string,
+      _creatorAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     createPledge(
-      _creator: string,
+      _creatorAddress: string,
       _weiPerPeriod: BigNumberish,
       _periods: BigNumberish,
       _dateCreated: BigNumberish,
@@ -626,7 +632,7 @@ export class Pethreon extends Contract {
     ): Promise<PopulatedTransaction>;
 
     "createPledge(address,uint256,uint256,uint256)"(
-      _creator: string,
+      _creatorAddress: string,
       _weiPerPeriod: BigNumberish,
       _periods: BigNumberish,
       _dateCreated: BigNumberish,
@@ -664,12 +670,12 @@ export class Pethreon extends Contract {
     ): Promise<PopulatedTransaction>;
 
     myPledgeTo(
-      _creator: string,
+      _creatorAddress: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     "myPledgeTo(address)"(
-      _creator: string,
+      _creatorAddress: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 

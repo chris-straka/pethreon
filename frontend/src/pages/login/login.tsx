@@ -35,7 +35,7 @@ export const Login = () => {
 
   async function login() {
     try {
-      setMessage("Logging in... You might have to click the metamask extension in your browser")
+      setMessage("Logging in... You might have to click the metamask extension in your browser...")
       await ethereum.request({ method: 'eth_requestAccounts' })
       history.push("/contribute")
     } catch (error) {

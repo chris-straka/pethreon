@@ -47,7 +47,8 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
     if (address.indexOf(" ") >= 0) return window.alert("There is a space in the ethereum address")
     if (address.length !== 42) return window.alert(`Your ethereum address is ${address.length} characters long. It should be 42 characters long`)
 
-    const amountPerPeriod = (+pledgeAmount / +period).toFixed()
+    const amountPerPeriod = (+pledgeAmount / +period).toString()
+    console.log(typeof amountPerPeriod)
 
     window.confirm(`The total comes to ${amountPerPeriod} per day, over ${period} day(s). Do you accept?`)
 

@@ -13,3 +13,10 @@
   padding: 0.5rem 0.5rem;
   background-color: var(--darktheme-secondary);
 }
+
+.transactionHistory {
+  overflow: auto;
+  list-style: none;
+  margin-top: 1.7rem;
+  height: 30vh
+}

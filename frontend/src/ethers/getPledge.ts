@@ -8,7 +8,7 @@ export async function getPledge(creatorAddress: string) {
 
   const provider = new providers.Web3Provider(ethereum)
   const signer = provider.getSigner()
-  const contract = new Contract(PETHREON_CONTRACT_ADDRESS, abi, provider)
+  const contract = new Contract(PETHREON_CONTRACT_ADDRESS, abi, signer)
 
   const pledge = await contract.myPledgeTo(creatorAddress)
 

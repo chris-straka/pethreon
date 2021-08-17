@@ -1,0 +1,32 @@
+.pledgeContainer {
+  overflow-y: auto;
+  background-color: var(--darktheme-modal-background);
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 16px;
+  border-radius: 4px;
+  display: grid;
+  grid: 100px / 200px;
+}
+
+.creatorAddress {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.cancelButton {
+  background-color: transparent;
+}
+
+.trashSVG {
+  width: 2ch;
+  vertical-align: text-bottom;
+}
+
+@media (prefers-color-scheme: dark) {
+  .cancelButton {
+    color: var(--darktheme-text-white);
+  }
+}
