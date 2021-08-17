@@ -7,21 +7,40 @@
   margin-bottom: 16px;
   border-radius: 4px;
   display: grid;
-  grid: 100px / 200px;
+  font-size: 0.9rem;
+  grid: repeat(4, 1fr) / 3fr 1fr;
+  grid-template-areas:
+    "address delete"
+    "weiPerPeriod delete"
+    "duration delete"
+    "date delete";
 }
 
 .creatorAddress {
+  grid-area: address;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
 
+.weiPerPeriod {
+  grid-area: weiPerPeriod;
+}
+
+.dateCreated {
+  grid-area: date;
+}
+
 .cancelButton {
+  grid-area: delete;
+  place-self: stretch;
   background-color: transparent;
+  font-size: 0.8rem;
 }
 
 .trashSVG {
   width: 2ch;
+  margin-right: 4px;
   vertical-align: text-bottom;
 }
 

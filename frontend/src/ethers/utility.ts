@@ -1,3 +1,5 @@
+import { BigNumber } from "@ethersproject/bignumber"
+
 export interface EthereumWindow extends Window {
   ethereum?: any,
 }
@@ -12,6 +14,19 @@ export enum EtherDenomination {
   GWEI = "Gwei",
   WEI = "Wei",
   ALL = "All",
+}
+
+export type PledgeType = {
+  0: string,
+  1: BigNumber,
+  2: BigNumber,
+  3: BigNumber,
+  4: true,
+  afterLastPeriod: BigNumber,
+  creatorAddress: string,
+  dateCreated: BigNumber,
+  exists: boolean
+  weiPerPeriod: BigNumber,
 }
 
 export const PETHREON_DEVELOPMENT_PRIVATE_KEY = "test test test test test test test test test test test junk"

@@ -7,11 +7,12 @@ import { PledgeModal } from './Pledge/Pledge';
 import { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { Modal } from "../../../components/ModalOutline/ModalOutline";
 import styles from "./ActionBar.module.css"
+import { PledgeType } from "../../../ethers/utility";
 
 interface ActionBarProps {
   setLoading: Dispatch<SetStateAction<boolean>>,
   setBalance: Dispatch<SetStateAction<string>>,
-  setPledges: Dispatch<SetStateAction<string[]>>
+  setPledges: Dispatch<SetStateAction<PledgeType[]>>
 }
 
 export const ActionBar = ({ setLoading, setBalance, setPledges }: ActionBarProps) => {

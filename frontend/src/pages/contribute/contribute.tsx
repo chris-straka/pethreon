@@ -6,14 +6,14 @@ import { ActionBar } from "./ActionBar/ActionBar"
 import { Balance } from "../../components/Balance/Balance"
 import { Loading } from "../../components/Loading/Loading"
 
-import { EthereumWindow } from "../../ethers/utility"
+import { EthereumWindow, PledgeType } from "../../ethers/utility"
 import { getBalance } from "../../ethers/getBalance"
 import { getPledges } from "../../ethers/getPledges"
 
 export const ContributePage = () => {
   const [loading, setLoading] = useState(false)
   const [balance, setBalance] = useState("0.0")
-  const [pledges, setPledges] = useState<string[]>([])
+  const [pledges, setPledges] = useState<PledgeType[]>([])
   const { ethereum } = window as EthereumWindow
   const history = useHistory()
 
@@ -50,7 +50,7 @@ export const ContributePage = () => {
       <Balance balance={balance} />
       <ActionBar setBalance={setBalance} setLoading={setLoading} setPledges={setPledges} />
       <ul className={styles.transactionHistory}>
-        {pledges.map((pledge: any) => <Pledge pledge={pledge} key={pledge.creatorAddress} />)}
+        {pledges.map((pledge: PledgeType) => <Pledge pledge={pledge} key={pledge.creatorAddress} />)}
       </ul>
     </div >
   </>

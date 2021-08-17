@@ -1,20 +1,10 @@
-import { BigNumber, utils } from "ethers"
+import { utils } from "ethers"
+import { PledgeType } from "../../../ethers/utility"
 import { ReactComponent as TrashSVG } from "../../../assets/trash.svg"
 import styles from "./Pledge.module.css"
 
 interface PledgeProps {
-  pledge: {
-    0: string,
-    1: BigNumber,
-    2: BigNumber,
-    3: BigNumber,
-    4: true,
-    afterLastPeriod: BigNumber,
-    creatorAddress: string,
-    dateCreated: BigNumber,
-    exists: boolean
-    weiPerPeriod: BigNumber,
-  }
+  pledge: PledgeType 
 }
 
 export const Pledge = ({ pledge }: PledgeProps) => (
