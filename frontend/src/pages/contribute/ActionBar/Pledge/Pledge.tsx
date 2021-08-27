@@ -11,7 +11,7 @@ import { ReactComponent as PersonSVG } from "../../../../assets/person.svg"
 import { ReactComponent as DateSVG } from "../../../../assets/date.svg"
 
 import { EtherDenomination, EthereumWindow, MetamaskError, PledgeType } from "../../../../ethers/utility"
-import { getBalance } from "../../../../ethers/getBalance"
+import { getContributorBalance } from "../../../../ethers/getContributorBalance"
 import { createPledge } from "../../../../ethers/createPledge"
 import { getPledges } from "../../../../ethers/getPledges"
 
@@ -55,8 +55,8 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
 
     try {
       setLoading(true)
-      await createPledge({ address, amountPerPeriod, period, currency })
-      const newBalance = await getBalance()
+      await createPledge({ address, amountPerPeriod, days, currency })
+      const newBalance = await getContributorBalance()
       const newPledges = await getPledges()
       setBalance(newBalance)
       setPledges(newPledges)

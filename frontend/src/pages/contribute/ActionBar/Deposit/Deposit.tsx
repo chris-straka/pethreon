@@ -9,7 +9,7 @@ import { Spacer } from "../../../../components/Spacer/Spacer"
 import { ReactComponent as DepositSVG } from "../../../../assets/deposit.svg"
 
 import { deposit } from "../../../../ethers/deposit"
-import { getBalance } from "../../../../ethers/getBalance"
+import { getContributorBalance } from "../../../../ethers/getContributorBalance"
 import { EtherDenomination, EthereumWindow, MetamaskError } from "../../../../ethers/utility"
 import styles from "./Deposit.module.css"
 
@@ -40,7 +40,7 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositModa
     try {
       setLoading(true)
       await deposit(amount, currency)
-      const newBalance = await getBalance()
+      const newBalance = await getContributorBalance()
       setBalance(newBalance)
       setLoading(false)
     } catch (error) {

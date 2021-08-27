@@ -4,7 +4,6 @@ pragma solidity 0.8.6;
 import "hardhat/console.sol";
 
 contract Pethreon {
-    /***** EVENTS *****/
     event ContributorDeposited(
         uint256 period,
         address contributor,
@@ -35,49 +34,58 @@ contract Pethreon {
 
     /***** CONSTANTS *****/
     uint256 period;
-    address owner;
-    uint256 startOfEpoch;
+    uint256 public startOfEpoch;
+
+    constructor(uint256 _period) {
+        startOfEpoch = block.timestamp; // 1621619224... contract creation date in Unix Time
+        period = _period; // hourly (3600), daily (86400), or weekly (604800)? (seconds)
+    }
 
     /***** DATA STRUCTURES *****/
     struct Pledge {
         address creatorAddress;
+        address contributorAddress;
         uint256 weiPerPeriod;
-        uint256 afterLastPeriod; // first period s.t. pledge makes no payment
         uint256 dateCreated;
-        bool exists;
+        uint256 expirationDate;
     }
 
     mapping(address => uint256) contributorBalances;
     mapping(address => Pledge[]) contributorPledges;
-    mapping(address => uint256) creatorBalances;
+
+    mapping(address => Pledge[]) creatorPledges;
     mapping(address => uint256) lastWithdrawalPeriod;
-    mapping(address => mapping(address => Pledge)) pledges; // contributor => (creatorAddress => pledge)
+
     mapping(address => mapping(uint256 => uint256)) expectedPayments; // creatorAddress => (periodNumber => payment)
 
-    constructor(uint256 _period) {
-        startOfEpoch = block.timestamp; // 1621619224...
-        owner = msg.sender;
-        period = _period;
+    function currentPeriod() public view returns (uint256 periodNumber) {
+        return (block.timestamp - startOfEpoch) / period; // how many periods (days) has it been since the beginning?
     }
 
-    function currentPeriod() internal view returns (uint256 periodNumber) {
-        return (block.timestamp - startOfEpoch) / period; // how many days has it been since the beginning?
-    }
-
-    function getContributorBalance() public view returns (uint256) {
-        return contributorBalances[msg.sender];
+    function blockTimestamp() public view returns (uint256 currentTimestamp) {
+        return block.timestamp;
     }
 
     function getCreatorBalance() public view returns (uint256) {
         uint256 amount = 0;
         for (
-            uint256 _period = lastWithdrawalPeriod[msg.sender]; // 0
-            _period < currentPeriod();
+            uint256 _period = lastWithdrawalPeriod[msg.sender]; // when was the last time they withdrew?
+            _period <= currentPeriod(); // keep going until you reach the currentPeriod
             _period++
         ) {
-            amount += expectedPayments[msg.sender][period];
+            amount += expectedPayments[msg.sender][_period]; // add up all the payments from every period since their lastWithdrawal
         }
         return amount;
+    }
+
+    function creatorWithdraw() public returns (uint256 newBalance) {
+        uint256 amount = getCreatorBalance(); // add up all their pledges SINCE their last withdrawal
+        lastWithdrawalPeriod[msg.sender] = currentPeriod(); // set a new withdrawal period (re-entrancy?)
+        require(amount > 0, "Nothing to withdraw");
+        (bool success, ) = payable(msg.sender).call{value: amount}(""); // send them money
+        require(success, "withdrawal failed");
+        emit CreatorWithdrew(currentPeriod(), msg.sender, amount);
+        return getCreatorBalance();
     }
 
     function deposit() public payable returns (uint256 newBalance) {
@@ -87,46 +95,23 @@ contract Pethreon {
         return contributorBalances[msg.sender];
     }
 
-    function withdraw(bool isContributor, uint256 amount)
-        internal
+    function getContributorBalance() public view returns (uint256) {
+        return contributorBalances[msg.sender];
+    }
+
+    function contributorWithdraw(uint256 amount)
+        public
         returns (uint256 newBalance)
     {
-        mapping(address => uint256) storage balances = isContributor
-            ? contributorBalances
-            : creatorBalances;
-
-        uint256 oldBalance = balances[msg.sender];
-
-        if (balances[msg.sender] < amount) {
-            return oldBalance; // insufficient funds
-        }
-
-        balances[msg.sender] -= amount; // withdraw first to prevent re-entrancy
-
-        (bool success, ) = payable(msg.sender).call{value: amount}(""); // then send
+        require(
+            amount <= contributorBalances[msg.sender],
+            "Insufficient funds"
+        );
+        contributorBalances[msg.sender] -= amount; // withdraw first to prevent re-entrancy
+        (bool success, ) = payable(msg.sender).call{value: amount}("");
         require(success, "withdrawal failed");
-
-        return balances[msg.sender];
-    }
-
-    function withdrawAsContributor(uint256 amount) public {
-        withdraw(true, amount);
         emit ContributorWithdrew(currentPeriod(), msg.sender, amount);
-    }
-
-    function withdrawAsCreator() public {
-        uint256 amount = getCreatorBalance();
-        lastWithdrawalPeriod[msg.sender] = currentPeriod();
-        withdraw(false, amount);
-        emit CreatorWithdrew(currentPeriod(), msg.sender, amount);
-    }
-
-    function canPledge(uint256 _weiPerPeriod, uint256 _periods)
-        internal
-        view
-        returns (bool enoughFunds)
-    {
-        return (contributorBalances[msg.sender] >= _weiPerPeriod * _periods);
+        return contributorBalances[msg.sender];
     }
 
     function getContributorPledges()
@@ -140,32 +125,36 @@ contract Pethreon {
     function createPledge(
         address _creatorAddress,
         uint256 _weiPerPeriod,
-        uint256 _periods,
-        uint256 _dateCreated
+        uint256 _periods
     ) public {
-        require(canPledge(_weiPerPeriod, _periods), "Insufficient funds");
         require(
-            !pledges[msg.sender][_creatorAddress].exists,
-            "A pledge already exists for this creatorAddress. You can't edit existing pledges, you have to cancel your existing pledge and create a new one"
+            contributorBalances[msg.sender] >= _weiPerPeriod * _periods,
+            "insufficient funds"
         );
 
-        contributorBalances[msg.sender] -= _weiPerPeriod * _periods;
+        contributorBalances[msg.sender] -= _weiPerPeriod * _periods; // subtract first to prevent re-entrancy
+
+        uint256 _currentPeriod = currentPeriod(); // grab the # of periods its been since contract creation
 
         // Update the CREATOR'S list of future payments
-        for (uint256 _period = currentPeriod(); _period < _periods; _period++) {
+        for (
+            uint256 _period = _currentPeriod;
+            _period < (_currentPeriod + _periods);
+            _period++
+        ) {
             expectedPayments[_creatorAddress][_period] += _weiPerPeriod;
         }
 
         Pledge memory pledge = Pledge({
             creatorAddress: _creatorAddress,
+            contributorAddress: msg.sender,
             weiPerPeriod: _weiPerPeriod,
-            afterLastPeriod: currentPeriod() + _periods,
-            dateCreated: _dateCreated,
-            exists: true
+            dateCreated: currentPeriod(),
+            expirationDate: currentPeriod() + _periods
         });
 
         contributorPledges[msg.sender].push(pledge);
-        pledges[msg.sender][_creatorAddress] = pledge;
+        creatorPledges[_creatorAddress].push(pledge);
 
         emit PledgeCreated(
             currentPeriod(),
@@ -176,29 +165,35 @@ contract Pethreon {
         );
     }
 
+    // This can get expensive but I doubt it will happen often
+    // I also doubt that the contributor will be iterating over lots of pledges
     function cancelPledge(address _creatorAddress) public {
-        Pledge memory pledge = pledges[msg.sender][_creatorAddress];
-        require(pledge.exists);
-        contributorBalances[msg.sender] +=
-            pledge.weiPerPeriod *
-            (pledge.afterLastPeriod - currentPeriod());
+        Pledge[] memory pledges = contributorPledges[msg.sender];
+        Pledge memory pledge;
+
+        for (uint256 i = 0; i < pledges.length; i++) {
+            if (pledges[i].creatorAddress == _creatorAddress) {
+                pledge = pledges[i];
+            }
+        }
+
+        require(
+            currentPeriod() <= pledge.expirationDate,
+            "It's too late to cancel this pledge"
+        );
+
         for (
             uint256 _period = currentPeriod();
-            _period < pledge.afterLastPeriod;
+            _period < pledge.expirationDate;
             _period++
         ) {
             expectedPayments[_creatorAddress][_period] -= pledge.weiPerPeriod;
         }
-        delete pledges[msg.sender][_creatorAddress];
-        emit PledgeCancelled(currentPeriod(), _creatorAddress, msg.sender);
-    }
 
-    function myPledgeTo(address _creatorAddress)
-        public
-        view
-        returns (uint256 weiPerPeriod, uint256 afterLastPeriod)
-    {
-        Pledge memory pledge = pledges[msg.sender][_creatorAddress];
-        return (pledge.weiPerPeriod, pledge.afterLastPeriod);
+        contributorBalances[msg.sender] +=
+            pledge.weiPerPeriod *
+            (pledge.expirationDate - currentPeriod());
+
+        emit PledgeCancelled(currentPeriod(), _creatorAddress, msg.sender);
     }
 }

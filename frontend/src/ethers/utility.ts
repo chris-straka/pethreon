@@ -18,15 +18,15 @@ export enum EtherDenomination {
 
 export type PledgeType = {
   0: string,
-  1: BigNumber,
+  1: string,
   2: BigNumber,
   3: BigNumber,
-  4: true,
-  afterLastPeriod: BigNumber,
+  4: BigNumber,
   creatorAddress: string,
-  dateCreated: BigNumber,
-  exists: boolean
+  contributorAddress: string,
   weiPerPeriod: BigNumber,
+  dateCreated: BigNumber,
+  expirationDate: BigNumber,
 }
 
 export const PETHREON_DEVELOPMENT_PRIVATE_KEY = "test test test test test test test test test test test junk"

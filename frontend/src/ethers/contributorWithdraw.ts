@@ -1,7 +1,7 @@
 import { BigNumberish, utils, providers, Contract } from "ethers"
 import { EtherDenomination, EthereumWindow, PETHREON_CONTRACT_ADDRESS } from "./utility"
 import { abi } from "../artifacts/localhost/Pethreon.json"
-import { getBalance } from "./getBalance"
+import { getContributorBalance } from "./getContributorBalance"
 
 export async function contributorWithdraw(amount: string, currency: EtherDenomination) {
   const { ethereum } = window as EthereumWindow
@@ -9,7 +9,7 @@ export async function contributorWithdraw(amount: string, currency: EtherDenomin
   let amountInWei: BigNumberish = amount
   if (currency === "Ether") amountInWei = utils.parseEther(amount)
   if (currency === "All") {
-    const fullBalance = await getBalance()
+    const fullBalance = await getContributorBalance()
     amountInWei = utils.parseEther(fullBalance)
   }
 

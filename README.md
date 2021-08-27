@@ -1,6 +1,6 @@
 # Design Doc
 
-[This app](https://github.com/Chris56974/WeiBuddies) is a dapp frontend for [Sergei Tikhomirov's "Pethreon" Smart Contract](https://github.com/s-tikhomirov/pethreon/blob/master/pethreon.sol). It's a crowd funding platform, where users (contributors & creators) can sign in through their cryptowallet to contribute funds to each other in regular intervals. It's made under a mobile first approach using these mockups (Figma).
+[This dapp](https://github.com/Chris56974/WeiBuddies) (decentralized application) is a modified version of [Sergei Tikhomirov's "Pethreon" Smart Contract](https://github.com/s-tikhomirov/pethreon/blob/master/pethreon.sol). It's a crowd funding platform, where users (contributors & creators) can sign in through their cryptowallet to contribute funds to each other in regular intervals. It's made under a mobile first approach using these mockups (Figma).
 
 ![Pethreon Mobile Mockup](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_mobile.png)
 ![Pethreon Desktoe 1](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_desktop_1.png)
@@ -9,13 +9,13 @@
 
 ## How it works
 
-[Hardhat](https://hardhat.org/getting-started/) is a development environment/blockchain for ethereum, [Waffle](https://ethereum-waffle.readthedocs.io/en/latest/index.html) is a testing library for smart contracts (programs that run on the blockchain) and [ethers.js](https://docs.ethers.io/v5/getting-started/) is a frontend library for communicating with the blockchain (used to make smart contract calls from JS). My frontend is a react app that talks to an ethereum node running at [infura](https://infura.io/) (the AWS of Ethereum).
+[Hardhat](https://hardhat.org/getting-started/) is a development environment/blockchain for ethereum, [Waffle](https://ethereum-waffle.readthedocs.io/en/latest/index.html) is a testing library for smart contracts (programs that run on the blockchain) and [ethers.js](https://docs.ethers.io/v5/getting-started/) is a frontend library for communicating with the blockchain. Basically, I'm creating a react app that talks to an ethereum node that I have running at [infura](https://infura.io/) (kinda like AWS for Ethereum).
 
-Essentially, I write smart contracts in solidity (Pethreon.sol) and then compile them to JSON (Pethreon.json). Inside that JSON file there is "bytecode" that I can deploy to Ethereum itself, and an "ABI" that describes the functions that exist on that smart contract. My React application (or any other application) can then use this ABI together with a library like ethersJS to make calls to this smart contract. I then direct those calls to an ethereum node (like the one I have running at Infura) to execute them. Some of these calls will require real money because they have to be verified by every other ethereum node in the network ([~5,000](https://www.ethernodes.org/history)), others are "free" (subject to my plan at Infura).
+To create a smart contract, you have to write a solidity file (Pethreon.sol) and compile it to JSON (Pethreon.json). Inside that JSON file, there's "bytecode" that you can deploy to Ethereum, and an "ABI" that describes what functions exist on that smart contract. My React application (or any other application) can then use this ABI together with a library (like ethersJS/Web3) to make calls to that smart contract after it's been deployed. The calls have to be carried out by an ethereum node (like the one I have running at Infura). Some of these calls require real money because they require action that must be verified by every other ethereum node in the network ([~5,000](https://www.ethernodes.org/history)). Other calls are "free" and usually involve grabbing information from an ethereum node.
 
 ## How to develop
 
-For this to work you need to [download metamask](https://metamask.io/). You might also want to use a different [browser profile](https://youtu.be/Ik8-xn4DyCo?t=15) for development so that you can keep your personal metamask account separate from your development one. Once metamask is installed, you need to import a new metamask account via "private key" and insert "test test test test test test test test test test test junk". This is a unique key used by hardhat for development, in which every account is given 1000 ether. After importing that private key, you might need to add a new network as well. Click on networks (mainnet), then on custom RPC and then add the following network if it's not there already...
+For this to work you need to [download metamask](https://metamask.io/). You might also want to use a different [browser profile](https://youtu.be/Ik8-xn4DyCo?t=15) for development so that you can keep your personal metamask account separate from your development one. Once metamask is installed, you need to import a new metamask account via "private key" and insert "test test test test test test test test test test test junk". This is a unique key used by hardhat for development, in which every account in that wallet is given 1000 ether. After importing that private key, you might also need to add a new network as well. Click on networks (mainnet), then on custom RPC and then add the following network if it's not there already...
 
 ```text
 Network Name: Localhost 8545
@@ -41,27 +41,13 @@ hh run scripts/Pethreon.ts                # deploy the contract to the ethereum 
 hh run --network <network> scripts/Pethreon.ts # deploy to a network specified in hardhat.config.ts
 ```
 
-If you get an error that says "Nonce too high. Expected nonce to be X but got Y". Chances are you restarted the hardhat node, but Metamask is still using the old transaction data. I'm not sure how to _automatically_ refresh the transaction data everytime a new node kicks up, but you can do one of two things manually.
+If you get an error that says "Nonce too high. Expected nonce to be X but got Y". Chances are you restarted the hardhat node, but Metamask is still using the old transaction data. I'm not sure how to _automatically_ refresh the transaction data everytime a new node kicks up, but you can do one of these two things manually.
 
 1. Go to your metamask accounts page and click on settings -> advanced -> customized transaction nonce and turn it ON. Then on your next transaction, insert the nonce that it's expecting.
 
-2. Turn off the hardhat node and go to the same advanced settings in step 1 and "reset account". Then switch the metamask network to something else (something other than localhost:8545) and then back to localhost:8545. This should reset the transaction data in metamask and the nonce should now be back at 0. Turn on the hardhat node and you're good to go again.
+2. Turn off the hardhat node in your terminal and go to the advanced settings in step 1 and "reset account". Then switch the metamask network to something else (something other than localhost:8545) and then back to localhost:8545. This should reset the transaction data in metamask and the nonce should now be back at 0. Turn on the hardhat node and you're good to go again.
 
-## Issues
-
-These are issues I've faced during development.
-
-### Getting Expected Payments in Batch
-
-Currently, the app forces creators to withdraw all their money at once. Sergei had plans to let the creator withdraw funds in batches instead of all at once.
-
-```solidity
-// TODO: get expected payments in batch (can't return uint[]?)
-function getExpectedPayment(uint period) constant returns (uint expectedPayment) {
-  return (period < afterLastWithdrawalPeriod[msg.sender]) ? 0 :
-  expectedPayments[msg.sender][period];
-}
-```
+## Issues (that I've faced during development)
 
 ### Recurring payments
 
@@ -86,9 +72,9 @@ declare const: expect = Chai.ExpectStatic; // this kept conflicting with...
 declare const expect: jest.Expect;         // this
 ```
 
-### Can't iterate over all the pledges
+### Can't iterate over any of the pledges
 
-In Sergei's original contract, it wasn't possible for a contributor to grab all the pledges they have made. It also wasn't possible for a creator to see all the pledges that have been made to them. grab all of the pledges a contributor has made OR  a creator/contributor to grab all of a user's pledges. iterate over all of a user's pledges. But my application needs to do that so that I can show the user their current pledges (so they can view/cancel them). I have to figure out how to do this, because maps are not iterable in solidity. I think I have to do something like this
+In Sergei's original contract, it wasn't possible for a contributor/creator to see _all_ their pledges. I think that would make for a much better UX. There's lot of ways that I can do this, and it can get expensive depending on how I implement this. Maps aren't iterable in solidity.  
 
 ```cpp
 contract Pethreon {
@@ -106,6 +92,31 @@ contract Pethreon {
     // Check each pledge at each transaction
     // Return them all back to the user
   }
+}
+```
+
+### Original Pethreon contract not working?
+
+When looking at lines 152-155 inside createPledge() in the original Pethreon contract...
+
+```cpp
+  // update creator's mapping of future payments
+  for (uint period = currentPeriod(); period < _periods; period++) {
+    expectedPayments[_creator][period] += _weiPerPeriod;
+  }
+```
+
+currentPeriod() represents the number of periods (days/seconds/weeks) since the contract was created. And I think the _periods variable is the number of periods a contributor would like to donate for (2 days, 3 days, etc). However, if the contract is 50 days old and the contributor wants to donate for 5 days, then this loop doesn't run and the creator doesn't get any money. So it might be worth a pull request, or I've misunderstood what this contract is doing.
+
+### Getting Expected Payments in Batch
+
+Currently, the app forces creators to withdraw all their money at once. Sergei had plans to let the creator withdraw funds in batches instead of all at once.
+
+```solidity
+// TODO: get expected payments in batch (can't return uint[]?)
+function getExpectedPayment(uint period) constant returns (uint expectedPayment) {
+  return (period < afterLastWithdrawalPeriod[msg.sender]) ? 0 :
+  expectedPayments[msg.sender][period];
 }
 ```
 
@@ -140,6 +151,8 @@ As a bonus, I could allow contributors to make donations offline using service w
 ### Charity application idea?
 
 Pethreon relies on contributions being locked up inside the smart contract. I'm not a fan of this because I think that money can be put to better uses (DeFi). So I thought about another idea for my next project. I was thinking users could donate money into different charity pools. The money in the pool could then be locked into a DeFi protocol like [Aave](https://aave.com/), the accrued interest could then go towards a charity address like [0x54a465610d119ad28deafd4bce555834c38beeb9](https://thewaterproject.org/donate-ethereum). Users could withdraw donations from the pool, but ~25% will remain in the pool so that it can continue to grow.
+
+### Allow the creator to create a CSV with all the pledge data
 
 ## Notes
 
@@ -180,11 +193,15 @@ A provider is a connection to the Ethereum blockchain.
 
 ### Measuring time in smart contracts (the period stuff in Pethreon.sol)
 
-You can measure time using an oracle, but for simplicity Pethreon uses blocktime. There are [~6,400 blocks mined per day](https://ycharts.com/indicators/ethereum_blocks_per_day), or 192,000 blocks per month. I'm going to make it daily for now.
+Sergei's contract lets you decide what time increments or "periods" you want to use for your contract (hourly, daily, monthly). In solidity you can get the time (in seconds) since the [Unix Epoch](https://en.wikipedia.org/wiki/Unix_time) using `block.timestamp`. So to set a period, we use seconds (3600 = hourly, 86400 daily). You can create time dependent tests with [this](https://ethereum.stackexchange.com/questions/86633).
 
 ### How does Solidity's multiple return values transfer over to JS?
 
 JS functions can't return multiple values, but solidity functions can. In JS, these multiple return values come back as an array which makes sense. But logging that array during my tests reveals twice as many items in the array. I think the other half is meant to describe the first half of the array which is cool. I can only destructure the first half of the array, how did they do that? >.<
+
+### Using other people's stuff
+
+I've been bit twice already using other people's stuff (despite not having that many dependencies imo).
 
 ## Attribution
 

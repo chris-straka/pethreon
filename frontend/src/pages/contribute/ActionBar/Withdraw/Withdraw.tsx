@@ -10,7 +10,7 @@ import { ReactComponent as WithdrawSVG } from "../../../../assets/withdraw.svg"
 
 import { MetamaskError, EthereumWindow, EtherDenomination } from "../../../../ethers/utility"
 import { contributorWithdraw } from "../../../../ethers/contributorWithdraw"
-import { getBalance } from "../../../../ethers/getBalance"
+import { getContributorBalance } from "../../../../ethers/getContributorBalance"
 
 import styles from "./Withdraw.module.css"
 
@@ -42,7 +42,7 @@ export const WithdrawModal = ({ closeModal, setLoading, setBalance }: WithdrawMo
     try {
       setLoading(true)
       await contributorWithdraw(amount, currency)
-      const newBalance = await getBalance()
+      const newBalance = await getContributorBalance()
       setBalance(newBalance)
       setLoading(false)
     } catch (error) {

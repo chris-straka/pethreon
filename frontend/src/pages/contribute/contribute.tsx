@@ -7,7 +7,7 @@ import { Balance } from "../../components/Balance/Balance"
 import { Loading } from "../../components/Loading/Loading"
 
 import { EthereumWindow, PledgeType } from "../../ethers/utility"
-import { getBalance } from "../../ethers/getBalance"
+import { getContributorBalance } from "../../ethers/getContributorBalance"
 import { getPledges } from "../../ethers/getPledges"
 
 export const ContributePage = () => {
@@ -32,7 +32,7 @@ export const ContributePage = () => {
     async function init() {
       if (window.location.pathname === "/") return
       try {
-        let balance = await getBalance()
+        let balance = await getContributorBalance()
         let pledges = await getPledges()
         setBalance(balance)
         setPledges(pledges)

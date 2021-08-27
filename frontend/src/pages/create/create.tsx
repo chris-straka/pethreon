@@ -20,12 +20,12 @@ export const CreatePage = () => {
 
   return <>
     {loading && <Loading />}
-    <div className={styles.contributeLayout}>
+    <div className={styles.createLayout}>
       <Balance balance={balance} />
       <ul className={styles.transactionHistory}>
         {pledges.map((pledge: any) => <Pledge pledge={pledge} key={pledge.creatorAddress} />)}
       </ul>
-    </div >
+    </div>
   </>
 
 }

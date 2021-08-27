@@ -1,0 +1,9 @@
+.createLayout {
+  display: flex;
+  height: 70%;
+  flex-direction: column;
+  align-content: space-around;
+  margin: 15vh 24px 0 24px;
+  height: 60vh;
+}
+
