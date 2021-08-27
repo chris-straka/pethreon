@@ -32,6 +32,7 @@ interface PethreonInterface extends ethers.utils.Interface {
     "getContributorBalance()": FunctionFragment;
     "getContributorPledges()": FunctionFragment;
     "getCreatorBalance()": FunctionFragment;
+    "getCreatorPledges()": FunctionFragment;
     "startOfEpoch()": FunctionFragment;
   };
 
@@ -70,6 +71,10 @@ interface PethreonInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "getCreatorBalance",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getCreatorPledges",
     values?: undefined
   ): string;
   encodeFunctionData(
@@ -112,6 +117,10 @@ interface PethreonInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "getCreatorBalance",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "getCreatorPledges",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -296,6 +305,50 @@ export class Pethreon extends Contract {
 
     "getCreatorBalance()"(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    getCreatorPledges(
+      overrides?: CallOverrides
+    ): Promise<
+      [
+        ([string, string, BigNumber, BigNumber, BigNumber] & {
+          creatorAddress: string;
+          contributorAddress: string;
+          weiPerPeriod: BigNumber;
+          dateCreated: BigNumber;
+          expirationDate: BigNumber;
+        })[]
+      ] & {
+        allPledges: ([string, string, BigNumber, BigNumber, BigNumber] & {
+          creatorAddress: string;
+          contributorAddress: string;
+          weiPerPeriod: BigNumber;
+          dateCreated: BigNumber;
+          expirationDate: BigNumber;
+        })[];
+      }
+    >;
+
+    "getCreatorPledges()"(
+      overrides?: CallOverrides
+    ): Promise<
+      [
+        ([string, string, BigNumber, BigNumber, BigNumber] & {
+          creatorAddress: string;
+          contributorAddress: string;
+          weiPerPeriod: BigNumber;
+          dateCreated: BigNumber;
+          expirationDate: BigNumber;
+        })[]
+      ] & {
+        allPledges: ([string, string, BigNumber, BigNumber, BigNumber] & {
+          creatorAddress: string;
+          contributorAddress: string;
+          weiPerPeriod: BigNumber;
+          dateCreated: BigNumber;
+          expirationDate: BigNumber;
+        })[];
+      }
+    >;
+
     startOfEpoch(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     "startOfEpoch()"(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -391,6 +444,30 @@ export class Pethreon extends Contract {
 
   "getCreatorBalance()"(overrides?: CallOverrides): Promise<BigNumber>;
 
+  getCreatorPledges(
+    overrides?: CallOverrides
+  ): Promise<
+    ([string, string, BigNumber, BigNumber, BigNumber] & {
+      creatorAddress: string;
+      contributorAddress: string;
+      weiPerPeriod: BigNumber;
+      dateCreated: BigNumber;
+      expirationDate: BigNumber;
+    })[]
+  >;
+
+  "getCreatorPledges()"(
+    overrides?: CallOverrides
+  ): Promise<
+    ([string, string, BigNumber, BigNumber, BigNumber] & {
+      creatorAddress: string;
+      contributorAddress: string;
+      weiPerPeriod: BigNumber;
+      dateCreated: BigNumber;
+      expirationDate: BigNumber;
+    })[]
+  >;
+
   startOfEpoch(overrides?: CallOverrides): Promise<BigNumber>;
 
   "startOfEpoch()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -477,6 +554,30 @@ export class Pethreon extends Contract {
     getCreatorBalance(overrides?: CallOverrides): Promise<BigNumber>;
 
     "getCreatorBalance()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getCreatorPledges(
+      overrides?: CallOverrides
+    ): Promise<
+      ([string, string, BigNumber, BigNumber, BigNumber] & {
+        creatorAddress: string;
+        contributorAddress: string;
+        weiPerPeriod: BigNumber;
+        dateCreated: BigNumber;
+        expirationDate: BigNumber;
+      })[]
+    >;
+
+    "getCreatorPledges()"(
+      overrides?: CallOverrides
+    ): Promise<
+      ([string, string, BigNumber, BigNumber, BigNumber] & {
+        creatorAddress: string;
+        contributorAddress: string;
+        weiPerPeriod: BigNumber;
+        dateCreated: BigNumber;
+        expirationDate: BigNumber;
+      })[]
+    >;
 
     startOfEpoch(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -609,6 +710,10 @@ export class Pethreon extends Contract {
 
     "getCreatorBalance()"(overrides?: CallOverrides): Promise<BigNumber>;
 
+    getCreatorPledges(overrides?: CallOverrides): Promise<BigNumber>;
+
+    "getCreatorPledges()"(overrides?: CallOverrides): Promise<BigNumber>;
+
     startOfEpoch(overrides?: CallOverrides): Promise<BigNumber>;
 
     "startOfEpoch()"(overrides?: CallOverrides): Promise<BigNumber>;
@@ -694,6 +799,12 @@ export class Pethreon extends Contract {
     getCreatorBalance(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "getCreatorBalance()"(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getCreatorPledges(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    "getCreatorPledges()"(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 

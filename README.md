@@ -1,21 +1,21 @@
 # Design Doc
 
-[This dapp](https://github.com/Chris56974/WeiBuddies) (decentralized application) is a modified version of [Sergei Tikhomirov's "Pethreon" Smart Contract](https://github.com/s-tikhomirov/pethreon/blob/master/pethreon.sol). It's a crowd funding platform, where users (contributors & creators) can sign in through their cryptowallet to contribute funds to each other in regular intervals. It's made under a mobile first approach using these mockups (Figma).
+[This dapp](https://github.com/Chris56974/WeiBuddies) (decentralized application) is a modified version of [Sergei Tikhomirov et al's "Pethreon" Smart Contract](https://github.com/s-tikhomirov/pethreon/blob/master/pethreon.sol). It's a crowd funding platform, where users (contributors & creators) can sign in through their cryptowallet to contribute funds to each other in regular intervals. It's made under a mobile first approach using these mockups (Figma).
 
 ![Pethreon Mobile Mockup](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_mobile.png)
 ![Pethreon Desktoe 1](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_desktop_1.png)
 ![Pethreon Desktop 2](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_desktop_2.png)
 ![Pethreon Desktop 3](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_desktop_3.png)
 
-## How it works
+## How it works (high level)
 
-[Hardhat](https://hardhat.org/getting-started/) is a development environment/blockchain for ethereum, [Waffle](https://ethereum-waffle.readthedocs.io/en/latest/index.html) is a testing library for smart contracts (programs that run on the blockchain) and [ethers.js](https://docs.ethers.io/v5/getting-started/) is a frontend library for communicating with the blockchain. Basically, I'm creating a react app that talks to an ethereum node that I have running at [infura](https://infura.io/) (kinda like AWS for Ethereum).
+[Hardhat](https://hardhat.org/getting-started/) is a development environment/blockchain for ethereum, [Waffle](https://ethereum-waffle.readthedocs.io/en/latest/index.html) is a testing library for smart contracts (programs that run on the blockchain) and [ethers.js](https://docs.ethers.io/v5/getting-started/) is a frontend JS library for communicating with the ethereum network. Basically, I'm creating a react app that talks to an ethereum node that I have running at [infura](https://infura.io/) (~AWS for Ethereum).
 
-To create a smart contract, you have to write a solidity file (Pethreon.sol) and compile it to JSON (Pethreon.json). Inside that JSON file, there's "bytecode" that you can deploy to Ethereum, and an "ABI" that describes what functions exist on that smart contract. My React application (or any other application) can then use this ABI together with a library (like ethersJS/Web3) to make calls to that smart contract after it's been deployed. The calls have to be carried out by an ethereum node (like the one I have running at Infura). Some of these calls require real money because they require action that must be verified by every other ethereum node in the network ([~5,000](https://www.ethernodes.org/history)). Other calls are "free" and usually involve grabbing information from an ethereum node.
+To create a smart contract, you have to write a solidity file (Pethreon.sol) and compile it to JSON (Pethreon.json). Inside that JSON file, there's some smart contract "bytecode" that you can deploy to Ethereum, and an "ABI" that describes what functions exist on that smart contract. My React application (or any other frontend application) can then use this ABI together with a library (like ethersJS/Web3) to make calls to that smart contract after it's been deployed. The calls have to be carried out by an ethereum node (like the one I have running at Infura). Some of these calls require real money (creating a pledge) because they require verification from every other node in the ethereum network ([~5,000 nodes](https://www.ethernodes.org/history)). The costs for these types of calls are delegated to the user in the form of "gas fees". Other calls are free (subject to my agreement @ infura, I currently get [100,000 free calls a day](https://infura.io/pricing)) and usually involve grabbing smart contract data, like grabbing all the existing pledges for a user.
 
 ## How to develop
 
-For this to work you need to [download metamask](https://metamask.io/). You might also want to use a different [browser profile](https://youtu.be/Ik8-xn4DyCo?t=15) for development so that you can keep your personal metamask account separate from your development one. Once metamask is installed, you need to import a new metamask account via "private key" and insert "test test test test test test test test test test test junk". This is a unique key used by hardhat for development, in which every account in that wallet is given 1000 ether. After importing that private key, you might also need to add a new network as well. Click on networks (mainnet), then on custom RPC and then add the following network if it's not there already...
+For this to work you need to [download metamask](https://metamask.io/). You might also want to use a different [browser profile](https://youtu.be/Ik8-xn4DyCo?t=15) for development so that you can keep your personal metamask account separate from your development environment. Once metamask is installed, you need to import a new metamask wallet via "private key" and type in "test test test test test test test test test test test junk". This is a unique key used by hardhat for development, in which every account in that wallet is given 1000 ether for use in the development network. You might also need to add the development network to metamask as well (if it's not on there already). Click on networks (mainnet), then on custom RPC and add the following network...
 
 ```text
 Network Name: Localhost 8545
@@ -24,7 +24,7 @@ Chain ID:     1337
 Currency:     ETH
 ```
 
-You should then be able to run these commands and get started. If you need another account to test out the pledge feature, open up your metamask wallet and make the pledge to your other metamask accounts (they should also have 1000 ether).
+You should then be able to run these commands and get started. If you need another account to pledge to, open up your metamask wallet and use one of your other accounts (they should also have 1000 ETH).
 
 ```bash
 yarn                      # install backend dependencies (or npm install)
@@ -41,30 +41,52 @@ hh run scripts/Pethreon.ts                # deploy the contract to the ethereum 
 hh run --network <network> scripts/Pethreon.ts # deploy to a network specified in hardhat.config.ts
 ```
 
-If you get an error that says "Nonce too high. Expected nonce to be X but got Y". Chances are you restarted the hardhat node, but Metamask is still using the old transaction data. I'm not sure how to _automatically_ refresh the transaction data everytime a new node kicks up, but you can do one of these two things manually.
+If you get an error that says "Nonce too high. Expected nonce to be X but got Y". Chances are you restarted the hardhat node, but your Metamask is still using the old transaction data. I'm not sure how to _automatically_ refresh the transaction data in metamask everytime a new node kicks up in your terminal, but you can do one of these two things manually.
 
-1. Go to your metamask accounts page and click on settings -> advanced -> customized transaction nonce and turn it ON. Then on your next transaction, insert the nonce that it's expecting.
+1. Go to your metamask accounts page and click on settings -> advanced -> customized transaction nonce and switch it ON. Then on your next transaction, insert the nonce that it's expecting.
 
-2. Turn off the hardhat node in your terminal and go to the advanced settings in step 1 and "reset account". Then switch the metamask network to something else (something other than localhost:8545) and then back to localhost:8545. This should reset the transaction data in metamask and the nonce should now be back at 0. Turn on the hardhat node and you're good to go again.
+2. Turn off the hardhat node in your terminal and go to the advanced settings in step 1 and "reset account". Then switch the metamask network to something else (something other than localhost:8545) and then back to localhost:8545 to invalidate the cache. This should reset the transaction data in metamask and the nonce should now be set back at 0. Turn the hardhat node back on in your terminal and you should be good to go again.
 
 ## Issues (that I've faced during development)
 
+### Original Pethreon contract from Sergei et al doesn't work?
+
+One of the cool things from Sergei's contract is you can choose over what time "period" the payments should be made in, i.e. should payments be made daily, weekly or monthly? You do this by passing in how many seconds a period should be into Pethreon's constructor (hourly (3600), daily (86400), weekly (604800)).
+
+When looking at lines 152-155 inside createPledge() from the original Pethreon contract...
+
+```cpp
+  // update creator's mapping of future payments
+  for (uint period = currentPeriod(); period < _periods; period++) {
+    expectedPayments[_creator][period] += _weiPerPeriod;
+  }
+```
+
+The currentPeriod() will grab the number of periods (days/seconds/weeks) it's been since the contract was created. And the _periods variable is the number of periods a contributor would like to donate for (2 days, 3 days, etc). However, if the contract is 50 days old and the contributor wants to donate for 5 days, then this loop never runs and the creator doesn't get any money? So it might be worth a pull request, or I've misunderstood something.
+
 ### Recurring payments
 
-Implementing [recurring payments](https://ethereum.stackexchange.com/questions/49596) on Ethereum is not as easy as I thought it'd be. Running contracts at a later point in time is also [non-trivial](https://ethereum.stackexchange.com/questions/42). It's hard to create recurring transactions because in Ethereum, only EOAs "Externally Owned Accounts" (humans) can create transactions and NOT CAs "Contract Accounts" (aka smart contracts). This means I can't have a contract create a transaction every month to bill a user, I need a human to create a transaction every month to bill a user which defeats the point. "Instead of creating a transaction every month, can't you create a _single_ transaction that bills them every month?" I don't think so, because that transaction would have to sit in the EVM for months and months (which would be prohibitively expensive becaue it would bog down the network). There is a decentralized way of creating a transaction every month using [Ethereum Alarm Clock](https://www.ethereum-alarm-clock.com/) but I didn't bother looking into it.
+Implementing [recurring payments](https://ethereum.stackexchange.com/questions/49596) on Ethereum is not as easy as I thought it'd be. It's hard to create recurring transactions because in Ethereum, only EOAs "Externally Owned Accounts" (humans) can create transactions, a smart contract or CA "Contract Account" can't. This means my smart contract can't create a transaction every day/month/week to bill the user, only a human can do that which defeats the point (no longer decentralized - unless I use Ethereum Alarm Clock, see below...). People normally get around this by evaluating the transaction [eagerly or lazily](https://ethereum.stackexchange.com/questions/42). Sergei solved this problem for me by handling this problem lazily.
+
+The contributor updates the creator's list of future payments by adding their donation amount to the creator's hashmap (called expectedPayments). Each future payment in that hashmap is timestamped ([Unix Time](https://en.wikipedia.org/wiki/Unix_time) to some date in the future along with the money they're owed. In order for the creator to get any money, they must call a withdraw() function in the future that tallies up everything they're owed from all previous expectedPayments.
+
+I thought about doing this eagerly using a decentralized service called [Ethereum Alarm Clock](https://www.ethereum-alarm-clock.com/). This would incentivize random people to call my smart contract every time there needs to be a payment, the creator wouldn't have to do anything (they wouldn't even have to use my app) and still have money come into their account. But I avoided this approach because I think it could prove too costly (especially if I set my contract to make daily payments).
+
+You might be wondering, "instead of creating a transaction every month, or handling things lazily, why don't we just create a _single_ transaction that stays in the EVM and bills the user every month?". This wouldn't work because that transaction would be prohibitively expensive (since it would bog down the ethereum network and eat up too much resources).
 
 ### Security, profanity and offensive content
 
-I originally wanted creators to create their own landing page advertizing to doners, and store all the landing page details on the ethereum blockchain. The client would then fetch those details and cache them on the user's browser. I ran into a bunch of issues with this. I found that the data I wanted to store on the blockchain was far too expensive to store (images). It's also tricky to validate anything that isn't numbers in solidity (like text). There are also a whole host of security issues
+I originally wanted creators to create their own unique landing page so that contributors would have a better UX. I was thinking they could store pictures, youtube links, and other social media on the blockchain and the client could then fetch those details on the frontend, browse through featured creators and cache that data locally. Besides being a ton of work, there was a lot of pitfalls. Pictures are prohibitively expensive to store on the blockchain (which is why NFTs don't do this, they store links instead), for some perspective, a [1KB image](https://lh6.googleusercontent.com/D_4dsybsvBPG-gxULIw24WJT_bEHIQGTsrkNWeicdz_IBdD9FQz1tHXw0jS8lrYGenxcGWcARWxa88P7kwc9tQYCHPGhaKTvGT3k-EMbZyUjR-Hz7LSreaMnVF8A6DWoOzJKA6U3) [costs about $20](https://blog.chain.link/build-deploy-and-sell-your-own-dynamic-nft/). I also underestimated how tricky it is to validate user input in solidity. It was like giving people the keys to the database (because ethereum is sort of like a public database). This brought on a whole host of security related issues.
 
-- People could easily impersonate as creators and wrongfully claim donations on their behalf
+- People could easily impersonate as other creators and wrongfully claim donations on their behalf
 - Creators could easily post links to offensive or malicious content
+- There was no way to take down anyone (spammers, repeat creators, etc)
 
-I could take a hybrid approach and introduce a server to validate input, but I've decided to compromise and stick to a decentralized approach (and it's much easier).
+I could take a hybrid approach and introduce a server to validate input, but I've decided to compromise and stick to a decentralized approach. It's much easier to do this, and I think there would be very little point to using my application over Patreon if I decided to centralize it.
 
 ### Multiple testing frameworks?
 
-CRA "Create React App" uses Jest, but Truffle uses Mocha and Chai. I was planning on using all three in the same project, but I ran into issues where typechain would create conflicting type definitions between Chai and Jest. Maybe there's an easy way around this, but at the time I didn't want to [eject my CRA](https://create-react-app.dev/docs/available-scripts#npm-run-eject) and remove Jest. I thought maybe I could separate dependencies via [Yarn Workspaces](https://classic.yarnpkg.com/en/docs/workspaces) but I ended up settling on an even better typescipt-react setup using hardhat instead of Truffle. It comes with stacktraces and console logging for smart contracts which will make it much easier for me to understand everything.
+CRA "Create React App" uses Jest, but Truffle uses Mocha and Chai. I was planning on using all three in the same project, but I ran into issues where typechain would create conflicting type definitions between Chai and Jest. Maybe there's an easy way around this, but at the time I didn't want to [eject my CRA](https://create-react-app.dev/docs/available-scripts#npm-run-eject) and remove Jest for just Mocha and Chai. I also didn't want to fiddle around with [Yarn Workspaces](https://classic.yarnpkg.com/en/docs/workspaces) to see if I could get it working that way.
 
 ```ts
 // node_modules
@@ -72,9 +94,11 @@ declare const: expect = Chai.ExpectStatic; // this kept conflicting with...
 declare const expect: jest.Expect;         // this
 ```
 
+I ended up switching away from Truffle because I wasn't happy with their typescript support. I moved to hardhat which I think is much more robust with typescript (I also got console.logging and stack traces in solidity which was invaluable). I based my project off of the boilerplate project in [this plugin](https://hardhat.org/plugins/hardhat-react.html) which actually ended up biting me later on. The boiler plate project was incompatible with my version of solidity/hardhat and I wanted my project to use the latest everything #CrazyZoomer. I think the only thing I needed to solve my typescript issue, was to separate my frontend into its own package.json instead of using the same package.json for both? So I think I could've gotten away with Truffle but hardhat rocks, so I don't think I'll go back (despite having Truffle having a cool migrations feature).
+
 ### Can't iterate over any of the pledges
 
-In Sergei's original contract, it wasn't possible for a contributor/creator to see _all_ their pledges. I think that would make for a much better UX. There's lot of ways that I can do this, and it can get expensive depending on how I implement this. Maps aren't iterable in solidity.  
+In Sergei's original contract, it wasn't possible for a contributor/creator to see _all_ their pledges. I think that would make for a much better UX so I added that in. I have to be careful how I do it because it can get really expensive (maps aren't iterable in solidity and iteration can get very costly in calls that require validation from other ethereum nodes). I still need to be able to cancel them too.
 
 ```cpp
 contract Pethreon {
@@ -95,19 +119,6 @@ contract Pethreon {
 }
 ```
 
-### Original Pethreon contract not working?
-
-When looking at lines 152-155 inside createPledge() in the original Pethreon contract...
-
-```cpp
-  // update creator's mapping of future payments
-  for (uint period = currentPeriod(); period < _periods; period++) {
-    expectedPayments[_creator][period] += _weiPerPeriod;
-  }
-```
-
-currentPeriod() represents the number of periods (days/seconds/weeks) since the contract was created. And I think the _periods variable is the number of periods a contributor would like to donate for (2 days, 3 days, etc). However, if the contract is 50 days old and the contributor wants to donate for 5 days, then this loop doesn't run and the creator doesn't get any money. So it might be worth a pull request, or I've misunderstood what this contract is doing.
-
 ### Getting Expected Payments in Batch
 
 Currently, the app forces creators to withdraw all their money at once. Sergei had plans to let the creator withdraw funds in batches instead of all at once.
@@ -123,6 +134,10 @@ function getExpectedPayment(uint period) constant returns (uint expectedPayment)
 ## Features & Ideas
 
 These are ideas for features that I thought about adding.
+
+### Tests look awful
+
+I think I can make my tests look a lot better by breaking them into functions. I'll have to look into this sometime.
 
 ### Unipledge?
 

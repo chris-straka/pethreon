@@ -41,6 +41,7 @@ describe("Pethreon", () => {
     it("Should create a pledge", async () => {
       await Pethreon.deposit({ value: oneEther })
       await Pethreon.createPledge(fooAddress, 1, 3)
+
       const pledges = await Pethreon.getContributorPledges()
       const pledge = pledges[0] as PledgeType
 
@@ -52,30 +53,41 @@ describe("Pethreon", () => {
       expect(expirationDate - currentPeriod).to.equal(3)
     })
 
-    it("The creator should be receiving pledge money in period increments", async () => {
+    it("The creator should be receiving money in the correct increments", async () => {
       expect(await Pethreon.connect(foo).getCreatorBalance()).to.equal(0)
       await Pethreon.deposit({ value: oneEther })
       await Pethreon.createPledge(fooAddress, 1, 3)
-      expect(await Pethreon.connect(foo).getCreatorBalance()).to.equal(1)
+
+      expect(await Pethreon.connect(foo).getCreatorBalance()).to.equal(0)
       expect(await (await Pethreon.currentPeriod()).toNumber()).to.equal(0) // hasn't been a day yet
+
+      await network.provider.send("evm_increaseTime", [86400])
+      await network.provider.send("evm_mine")
+      expect(await Pethreon.connect(foo).getCreatorBalance()).to.equal(1)
+      expect(await (await Pethreon.currentPeriod()).toNumber()).to.equal(1)
+
       await network.provider.send("evm_increaseTime", [86400])
       await network.provider.send("evm_mine")
       expect(await Pethreon.connect(foo).getCreatorBalance()).to.equal(2)
-      expect(await (await Pethreon.currentPeriod()).toNumber()).to.equal(1)
+      expect(await (await Pethreon.currentPeriod()).toNumber()).to.equal(2)
+
       await network.provider.send("evm_increaseTime", [86400])
       await network.provider.send("evm_mine")
       expect(await Pethreon.connect(foo).getCreatorBalance()).to.equal(3)
-      expect(await (await Pethreon.currentPeriod()).toNumber()).to.equal(2)
+      expect(await (await Pethreon.currentPeriod()).toNumber()).to.equal(3)
     })
 
-    it("The creator should be able to withdraw money sent from two contributors", async () => {
+    it("The creator should be able to withdraw money sent in from two contributors", async () => {
       await Pethreon.deposit({ value: oneEther })
       await Pethreon.createPledge(barAddress, 1, 3)
       await Pethreon.connect(foo).deposit({ value: oneEther })
       await Pethreon.connect(foo).createPledge(barAddress, 1, 3)
 
-      expect(await Pethreon.connect(bar).getCreatorBalance()).to.equal(2)
-      await network.provider.send("evm_increaseTime", [86400 * 2])
+      const pledges = await Pethreon.connect(bar).getCreatorPledges()
+      expect(pledges.length).to.equal(2) 
+      expect(await Pethreon.connect(bar).getCreatorBalance()).to.equal(0)
+
+      await network.provider.send("evm_increaseTime", [86400 * 3])
       await network.provider.send("evm_mine")
 
       expect(await Pethreon.connect(bar).getCreatorBalance()).to.equal(6)

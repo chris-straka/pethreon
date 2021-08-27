@@ -59,6 +59,7 @@ contract Pethreon {
     mapping(address => mapping(uint256 => uint256)) expectedPayments; // creatorAddress => (periodNumber => payment)
 
     function currentPeriod() public view returns (uint256 periodNumber) {
+        // it rounds DOWN 9 / 10 -> 0!
         return (block.timestamp - startOfEpoch) / period; // how many periods (days) has it been since the beginning?
     }
 
@@ -70,7 +71,7 @@ contract Pethreon {
         uint256 amount = 0;
         for (
             uint256 _period = lastWithdrawalPeriod[msg.sender]; // when was the last time they withdrew?
-            _period <= currentPeriod(); // keep going until you reach the currentPeriod
+            _period < currentPeriod(); // keep going until you reach the currentPeriod
             _period++
         ) {
             amount += expectedPayments[msg.sender][_period]; // add up all the payments from every period since their lastWithdrawal
@@ -79,13 +80,13 @@ contract Pethreon {
     }
 
     function creatorWithdraw() public returns (uint256 newBalance) {
-        uint256 amount = getCreatorBalance(); // add up all their pledges SINCE their last withdrawal
+        uint256 amount = getCreatorBalance(); // add up all their pledges SINCE their last withdrawal period
         lastWithdrawalPeriod[msg.sender] = currentPeriod(); // set a new withdrawal period (re-entrancy?)
         require(amount > 0, "Nothing to withdraw");
         (bool success, ) = payable(msg.sender).call{value: amount}(""); // send them money
         require(success, "withdrawal failed");
         emit CreatorWithdrew(currentPeriod(), msg.sender, amount);
-        return getCreatorBalance();
+        return amount;
     }
 
     function deposit() public payable returns (uint256 newBalance) {
@@ -107,9 +108,9 @@ contract Pethreon {
             amount <= contributorBalances[msg.sender],
             "Insufficient funds"
         );
-        contributorBalances[msg.sender] -= amount; // withdraw first to prevent re-entrancy
+        contributorBalances[msg.sender] -= amount; // subtract their balance first to prevent re-entrancy
         (bool success, ) = payable(msg.sender).call{value: amount}("");
-        require(success, "withdrawal failed");
+        require(success, "Withdrawal failed");
         emit ContributorWithdrew(currentPeriod(), msg.sender, amount);
         return contributorBalances[msg.sender];
     }
@@ -120,6 +121,14 @@ contract Pethreon {
         returns (Pledge[] memory allPledges)
     {
         return contributorPledges[msg.sender];
+    }
+
+    function getCreatorPledges()
+        public
+        view
+        returns (Pledge[] memory allPledges)
+    {
+        return creatorPledges[msg.sender];
     }
 
     function createPledge(
