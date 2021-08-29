@@ -5,18 +5,18 @@ import { CurrencyDenomination } from "../../../../components/CurrencyDenominatio
 import { PledgeField } from "./PledgeField/PledgeField"
 import { SubmitButton } from "../../../../components/SubmitButton/Submit"
 import { Spacer } from "../../../../components/Spacer/Spacer"
+import { BigNumberish, utils } from "ethers"
+import styles from "./Pledge.module.css"
+
+import {
+  getContributorBalance, createPledge, getContributorPledges,
+  EtherDenomination, EthereumWindow, MetamaskError, PledgeType
+} from "../../../../myEthers"
 
 import { ReactComponent as CashSVG } from "../../../../assets/cash.svg"
 import { ReactComponent as PersonSVG } from "../../../../assets/person.svg"
 import { ReactComponent as DateSVG } from "../../../../assets/date.svg"
 
-import { EtherDenomination, EthereumWindow, MetamaskError, PledgeType } from "../../../../ethers/utility"
-import { BigNumberish, utils } from "ethers"
-import { getContributorBalance } from "../../../../ethers/getContributorBalance"
-import { createPledge } from "../../../../ethers/createPledge"
-import { getContributorPledges } from "../../../../ethers/getContributorPledges"
-
-import styles from "./Pledge.module.css"
 
 interface PledgeModalProps {
   closeModal: () => void,

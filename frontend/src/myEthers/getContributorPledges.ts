@@ -1,7 +1,7 @@
 import { providers, Contract } from "ethers"
 import { abi } from "../artifacts/localhost/Pethreon.json"
 import { Pethreon } from "../types"
-import { PETHREON_CONTRACT_ADDRESS, EthereumWindow } from "./utility"
+import { PETHREON_CONTRACT_ADDRESS, EthereumWindow } from "./index"
 
 export async function getContributorPledges() {
   const { ethereum } = window as EthereumWindow

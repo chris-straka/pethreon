@@ -1,5 +1,5 @@
 import { utils } from "ethers"
-import { PledgeType } from "../../ethers/utility"
+import { PledgeType } from "../../myEthers/utility"
 import { ReactComponent as TrashSVG } from "../../assets/trash.svg"
 import styles from "./Pledge.module.css"
 

@@ -6,13 +6,15 @@ import { CurrencyDenomination } from "../../../../components/CurrencyDenominatio
 import { SubmitButton } from "../../../../components/SubmitButton/Submit"
 import { Disclaimer } from "../../../../components/Disclaimer/Disclaimer"
 import { Spacer } from "../../../../components/Spacer/Spacer"
-import { ReactComponent as DepositSVG } from "../../../../assets/deposit.svg"
-
-import { deposit } from "../../../../ethers/deposit"
 import { BigNumberish, utils } from "ethers"
-import { getContributorBalance } from "../../../../ethers/getContributorBalance"
-import { EtherDenomination, EthereumWindow, MetamaskError } from "../../../../ethers/utility"
 import styles from "./Deposit.module.css"
+
+import {
+  deposit, getContributorBalance, EtherDenomination,
+  EthereumWindow, MetamaskError
+} from "../../../../myEthers"
+
+import { ReactComponent as DepositSVG } from "../../../../assets/deposit.svg"
 
 interface DepositModalProps {
   closeModal: () => void,

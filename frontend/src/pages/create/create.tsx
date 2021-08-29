@@ -1,16 +1,15 @@
 import { useState, useEffect, FormEvent } from "react"
 import { useHistory } from "react-router"
 import { ActionButton } from "../../components/ActionButton/ActionButton"
-import { EthereumWindow, PledgeType } from "../../ethers/utility"
 import { Loading } from "../../components/Loading/Loading"
 import { Balance } from "../../components/Balance/Balance"
 import { Pledge } from "../../components/Pledge/Pledge"
 import styles from "./create.module.css"
 
-import { creatorWithdraw } from "../../ethers/creatorWithdraw"
-import { getCreatorBalance } from "../../ethers/getCreatorBalance"
-import { getCreatorPledges } from "../../ethers/getCreatorPledges"
-import { MetamaskError } from "../../ethers/utility"
+import {
+  MetamaskError, EthereumWindow, PledgeType,
+  creatorWithdraw, getCreatorBalance, getCreatorPledges
+} from "../../myEthers"
 
 import { ReactComponent as WithdrawSVG } from "../../assets/withdraw.svg"
 import { ReactComponent as CsvSVG } from "../../assets/csv.svg"

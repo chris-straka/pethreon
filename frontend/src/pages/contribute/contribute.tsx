@@ -10,9 +10,7 @@ import { ActionButton } from "../../components/ActionButton/ActionButton"
 import { Modal } from "../../components/ModalOutline/ModalOutline"
 import styles from "./contribute.module.css"
 
-import { EthereumWindow, PledgeType } from "../../ethers/utility"
-import { getContributorBalance } from "../../ethers/getContributorBalance"
-import { getContributorPledges } from "../../ethers/getContributorPledges"
+import { EthereumWindow, PledgeType, getContributorBalance, getContributorPledges } from "../../myEthers"
 
 import { ReactComponent as WithdrawSVG } from "../../assets/withdraw.svg"
 import { ReactComponent as DepositSVG } from "../../assets/deposit.svg"

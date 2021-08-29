@@ -7,13 +7,14 @@ import { Spacer } from "../../../../components/Spacer/Spacer"
 import { Disclaimer } from "../../../../components/Disclaimer/Disclaimer"
 import { ConsentCheckbox } from "../../../../components/ConsentCheckbox/ConsentCheckbox"
 import { SubmitButton } from "../../../../components/SubmitButton/Submit"
-import { ReactComponent as WithdrawSVG } from "../../../../assets/withdraw.svg"
-
-import { MetamaskError, EthereumWindow, EtherDenomination } from "../../../../ethers/utility"
-import { contributorWithdraw } from "../../../../ethers/contributorWithdraw"
-import { getContributorBalance } from "../../../../ethers/getContributorBalance"
-
 import styles from "./Withdraw.module.css"
+
+import {
+  contributorWithdraw, getContributorBalance, MetamaskError,
+  EthereumWindow, EtherDenomination
+} from "../../../../myEthers"
+
+import { ReactComponent as WithdrawSVG } from "../../../../assets/withdraw.svg"
 
 interface WithdrawModalProps {
   closeModal: () => void,

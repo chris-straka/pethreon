@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { GithubSVG } from './githubSVG/GithubSVG';
 import { MetamaskAnimation } from './metamask/MetamaskAnimation';
-import { EthereumWindow } from "../../ethers/utility"
-import { MetamaskError } from "../../ethers/utility"
 import styles from "./login.module.css"
+
+import { EthereumWindow, MetamaskError } from "../../myEthers"
 
 import mp4 from "../../assets/money.mp4"
 import webm from "../../assets/money.webm"
