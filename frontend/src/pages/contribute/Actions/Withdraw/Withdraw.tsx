@@ -1,11 +1,12 @@
 import { useState, Dispatch, SetStateAction, ChangeEvent, FormEvent } from "react"
 import { useHistory } from "react-router"
+import { BigNumberish, utils } from "ethers"
 import { CurrencyField } from "../../../../components/CurrencyField/CurrrencyField"
 import { CurrencyDenomination } from "../../../../components/CurrencyDenomination/CurrencyDenomination"
 import { Spacer } from "../../../../components/Spacer/Spacer"
 import { Disclaimer } from "../../../../components/Disclaimer/Disclaimer"
 import { ConsentCheckbox } from "../../../../components/ConsentCheckbox/ConsentCheckbox"
-import { Submit } from "../../../../components/Submit/Submit"
+import { SubmitButton } from "../../../../components/SubmitButton/Submit"
 import { ReactComponent as WithdrawSVG } from "../../../../assets/withdraw.svg"
 
 import { MetamaskError, EthereumWindow, EtherDenomination } from "../../../../ethers/utility"
@@ -39,9 +40,15 @@ export const WithdrawModal = ({ closeModal, setLoading, setBalance }: WithdrawMo
       return
     }
     closeModal()
+    let amountInWei: BigNumberish = amount
+    if (currency === "Ether") amountInWei = utils.parseEther(amount)
+    if (currency === "All") {
+      const fullBalance = await getContributorBalance()
+      amountInWei = utils.parseEther(fullBalance)
+    }
     try {
       setLoading(true)
-      await contributorWithdraw(amount, currency)
+      await contributorWithdraw(amountInWei)
       const newBalance = await getContributorBalance()
       setBalance(newBalance)
       setLoading(false)
@@ -53,7 +60,6 @@ export const WithdrawModal = ({ closeModal, setLoading, setBalance }: WithdrawMo
 
   return (
     <form className={styles.withdrawFormLayout}>
-
       <h3 className={styles.withdrawHeading}>How much to withdraw?</h3>
       <CurrencyField
         amount={amount}
@@ -73,7 +79,7 @@ export const WithdrawModal = ({ closeModal, setLoading, setBalance }: WithdrawMo
       <Spacer marginBottom="18px" />
       <ConsentCheckbox getConsent={(event: ChangeEvent<HTMLInputElement>) => setDisabled(!event.target.checked)} />
       <Spacer marginBottom="32px" />
-      <Submit handler={submitWithdraw} disabled={disabled}>Withdraw <WithdrawSVG className={styles.withdrawSVG} /></Submit>
+      <SubmitButton handler={submitWithdraw} disabled={disabled}>Withdraw <WithdrawSVG className={styles.withdrawSVG} /></SubmitButton>
     </form>
   )
 }

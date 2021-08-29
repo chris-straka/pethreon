@@ -3,7 +3,7 @@ import { useHistory } from "react-router"
 import { ReactComponent as PledgeSVG } from "../../../../assets/pledge.svg"
 import { CurrencyDenomination } from "../../../../components/CurrencyDenomination/CurrencyDenomination"
 import { PledgeField } from "./PledgeField/PledgeField"
-import { Submit } from "../../../../components/Submit/Submit"
+import { SubmitButton } from "../../../../components/SubmitButton/Submit"
 import { Spacer } from "../../../../components/Spacer/Spacer"
 
 import { ReactComponent as CashSVG } from "../../../../assets/cash.svg"
@@ -11,9 +11,10 @@ import { ReactComponent as PersonSVG } from "../../../../assets/person.svg"
 import { ReactComponent as DateSVG } from "../../../../assets/date.svg"
 
 import { EtherDenomination, EthereumWindow, MetamaskError, PledgeType } from "../../../../ethers/utility"
+import { BigNumberish, utils } from "ethers"
 import { getContributorBalance } from "../../../../ethers/getContributorBalance"
 import { createPledge } from "../../../../ethers/createPledge"
-import { getPledges } from "../../../../ethers/getPledges"
+import { getContributorPledges } from "../../../../ethers/getContributorPledges"
 
 import styles from "./Pledge.module.css"
 
@@ -52,12 +53,19 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
     window.confirm(`The total comes to ${amountPerPeriod} per day, over ${period} day(s). Do you accept?`)
 
     closeModal()
+    let amountPerPeriodInWei: BigNumberish = amountPerPeriod
+    if (currency === EtherDenomination.ETHER) amountPerPeriodInWei = utils.parseEther(amountPerPeriod)
+    if (currency === EtherDenomination.WEI) amountPerPeriodInWei = utils.parseUnits(amountPerPeriod, "gwei")
+    if (currency === EtherDenomination.ALL) {
+      const fullBalance = await getContributorBalance()
+      amountPerPeriodInWei = utils.parseEther(fullBalance)
+    }
 
     try {
       setLoading(true)
-      await createPledge({ address, amountPerPeriod, days, currency })
+      await createPledge(address, period, amountPerPeriodInWei)
       const newBalance = await getContributorBalance()
-      const newPledges = await getPledges()
+      const newPledges = await getContributorPledges()
       setBalance(newBalance)
       setPledges(newPledges)
       setLoading(false)
@@ -80,7 +88,8 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
       onChange={(event: ChangeEvent<HTMLInputElement>) => setPledgeAmount(event.target.value)}
     ><CashSVG className={styles.pledgeSVG} /></PledgeField>
     <Spacer marginBottom="13px" />
-    <div className={styles.currencyButtons} onChange={(event: ChangeEvent<HTMLInputElement>) => setCurrency((event.target.value) as EtherDenomination)}>
+    <div className={styles.currencyButtons}
+      onChange={(event: ChangeEvent<HTMLInputElement>) => setCurrency((event.target.value) as EtherDenomination)}>
       <CurrencyDenomination defaultChecked={true} denomination={EtherDenomination.ETHER} />
       <CurrencyDenomination defaultChecked={false} denomination={EtherDenomination.GWEI} />
       <CurrencyDenomination defaultChecked={false} denomination={EtherDenomination.WEI} />
@@ -105,6 +114,6 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
       onChange={(event: ChangeEvent<HTMLInputElement>) => setAddress(event.target.value)}
     ><PersonSVG className={styles.pledgeSVG} /></PledgeField>
     <Spacer marginBottom="22px" />
-    <Submit handler={submitPledge}>Pledge <PledgeSVG className={styles.submitSVG} /></Submit>
+    <SubmitButton handler={submitPledge}>Pledge <PledgeSVG className={styles.submitSVG} /></SubmitButton>
   </form>
 }

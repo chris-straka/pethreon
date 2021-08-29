@@ -22,7 +22,6 @@ import { TypedEventFilter, TypedEvent, TypedListener } from "./commons";
 
 interface PethreonInterface extends ethers.utils.Interface {
   functions: {
-    "blockTimestamp()": FunctionFragment;
     "cancelPledge(address)": FunctionFragment;
     "contributorWithdraw(uint256)": FunctionFragment;
     "createPledge(address,uint256,uint256)": FunctionFragment;
@@ -36,10 +35,6 @@ interface PethreonInterface extends ethers.utils.Interface {
     "startOfEpoch()": FunctionFragment;
   };
 
-  encodeFunctionData(
-    functionFragment: "blockTimestamp",
-    values?: undefined
-  ): string;
   encodeFunctionData(
     functionFragment: "cancelPledge",
     values: [string]
@@ -82,10 +77,6 @@ interface PethreonInterface extends ethers.utils.Interface {
     values?: undefined
   ): string;
 
-  decodeFunctionResult(
-    functionFragment: "blockTimestamp",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(
     functionFragment: "cancelPledge",
     data: BytesLike
@@ -187,14 +178,6 @@ export class Pethreon extends Contract {
   interface: PethreonInterface;
 
   functions: {
-    blockTimestamp(
-      overrides?: CallOverrides
-    ): Promise<[BigNumber] & { currentTimestamp: BigNumber }>;
-
-    "blockTimestamp()"(
-      overrides?: CallOverrides
-    ): Promise<[BigNumber] & { currentTimestamp: BigNumber }>;
-
     cancelPledge(
       _creatorAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -354,10 +337,6 @@ export class Pethreon extends Contract {
     "startOfEpoch()"(overrides?: CallOverrides): Promise<[BigNumber]>;
   };
 
-  blockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
-
-  "blockTimestamp()"(overrides?: CallOverrides): Promise<BigNumber>;
-
   cancelPledge(
     _creatorAddress: string,
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -473,10 +452,6 @@ export class Pethreon extends Contract {
   "startOfEpoch()"(overrides?: CallOverrides): Promise<BigNumber>;
 
   callStatic: {
-    blockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "blockTimestamp()"(overrides?: CallOverrides): Promise<BigNumber>;
-
     cancelPledge(
       _creatorAddress: string,
       overrides?: CallOverrides
@@ -640,10 +615,6 @@ export class Pethreon extends Contract {
   };
 
   estimateGas: {
-    blockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
-
-    "blockTimestamp()"(overrides?: CallOverrides): Promise<BigNumber>;
-
     cancelPledge(
       _creatorAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -720,12 +691,6 @@ export class Pethreon extends Contract {
   };
 
   populateTransaction: {
-    blockTimestamp(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    "blockTimestamp()"(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     cancelPledge(
       _creatorAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> }

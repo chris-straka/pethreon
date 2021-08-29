@@ -1,0 +1,40 @@
+.actionButton {
+  cursor: pointer;
+  padding: 11px;
+  background-color: var(--primary);
+  outline: none;
+  font-size: 1rem;
+  font-weight: 600;
+
+  border-right: 2px solid var(--white-text);
+}
+
+.actionButton:focus {
+  outline-offset: 3px;
+  outline: 3px dotted var(--primary);
+}
+
+.actionButton > svg {
+  width: 2ch;
+  vertical-align: text-bottom;
+}
+
+/* Needs to be at the bottom to overwrite the background color */
+.creatorStyles {
+  background-color: var(--secondary);
+}
+
+@media (prefers-color-scheme: dark) {
+  .actionButton {
+    border-color: var(--darktheme-black-text);
+    background-color: var(--darktheme-secondary);
+  }
+
+  .actionButton:focus {
+    outline-color: var(--darktheme-secondary);
+  }
+
+  .creatorStyles {
+    background-color: var(--darktheme-primary-light);
+  }
+}

@@ -1,22 +1,15 @@
-import { BigNumberish, utils, providers, Contract } from "ethers"
-import { EtherDenomination, EthereumWindow, PETHREON_CONTRACT_ADDRESS } from "./utility"
+import { BigNumberish, providers, Contract } from "ethers"
+import { EthereumWindow, PETHREON_CONTRACT_ADDRESS } from "./utility"
 import { abi } from "../artifacts/localhost/Pethreon.json"
-import { getContributorBalance } from "./getContributorBalance"
+import { Pethreon } from "../types"
 
-export async function contributorWithdraw(amount: string, currency: EtherDenomination) {
+export async function contributorWithdraw(amount: BigNumberish) {
   const { ethereum } = window as EthereumWindow
-
-  let amountInWei: BigNumberish = amount
-  if (currency === "Ether") amountInWei = utils.parseEther(amount)
-  if (currency === "All") {
-    const fullBalance = await getContributorBalance()
-    amountInWei = utils.parseEther(fullBalance)
-  }
 
   const provider = new providers.Web3Provider(ethereum)
   const signer = provider.getSigner()
-  const contract = new Contract(PETHREON_CONTRACT_ADDRESS, abi, signer)
+  const contract = new Contract(PETHREON_CONTRACT_ADDRESS, abi, signer) as Pethreon
 
-  const transaction = await contract.withdrawAsContributor(amountInWei)
+  const transaction = await contract.contributorWithdraw(amount)
   await transaction.wait()
 }

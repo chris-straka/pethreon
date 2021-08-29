@@ -1,6 +1,6 @@
 import { utils } from "ethers"
-import { PledgeType } from "../../../ethers/utility"
-import { ReactComponent as TrashSVG } from "../../../assets/trash.svg"
+import { PledgeType } from "../../ethers/utility"
+import { ReactComponent as TrashSVG } from "../../assets/trash.svg"
 import styles from "./Pledge.module.css"
 
 interface PledgeProps {
@@ -16,7 +16,7 @@ export const Pledge = ({ pledge }: PledgeProps) => (
       Ether: {utils.formatEther(pledge.weiPerPeriod)} per day
     </span>
     <span className={styles.afterLastPeriod}>
-      Duration: {pledge.afterLastPeriod.toString()} days
+      Duration: {pledge.expirationDate.toString()} days
     </span>
     <span className={styles.dateCreated}>
       Starting from: {new Date(+pledge.dateCreated.toString()).toDateString()}

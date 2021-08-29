@@ -54,10 +54,6 @@
     background-color: var(--darktheme-primary);
   }
 
-  .circleC_contribute {
-    background-color: var(--darktheme-primary-light);
-  }
-
   .circleB_contribute {
     background-color: var(--darktheme-secondary);
   }
@@ -65,5 +61,9 @@
   .circleB_contribute:focus {
     background-color: var(--darktheme-secondary);
     outline-color: var(--darktheme-secondary);
+  }
+
+  .circleC_contribute {
+    background-color: var(--darktheme-primary-light);
   }
 }
