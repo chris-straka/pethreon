@@ -4,6 +4,7 @@ import { ActionButton } from "../../components/ActionButton/ActionButton"
 import { Loading } from "../../components/Loading/Loading"
 import { Balance } from "../../components/Balance/Balance"
 import { Pledge } from "../../components/Pledge/Pledge"
+import { extractPledgesToCSV } from "./extractPledgesToCSV"
 import styles from "./create.module.css"
 
 import {
@@ -61,8 +62,10 @@ export const CreatePage = () => {
     <div className={styles.createLayout}>
       <Balance balance={balance} />
       <div className={styles.actionBar}>
-        <ActionButton onClick={withdrawBalance}>Withdraw <WithdrawSVG /></ActionButton>
-        <ActionButton>Extract to CSV <CsvSVG /></ActionButton>
+        <ActionButton creatorButton={true}
+          onClick={() => withdrawBalance}>Withdraw <WithdrawSVG /></ActionButton>
+        <ActionButton creatorButton={true}
+          onClick={() => extractPledgesToCSV(pledges)}>Extract to CSV <CsvSVG /></ActionButton>
       </div>
       <ul className={styles.transactionHistory}>
         {pledges.map((pledge: PledgeType) => <Pledge pledge={pledge} key={pledge.creatorAddress} />)}

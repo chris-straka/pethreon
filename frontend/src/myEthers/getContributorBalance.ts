@@ -1,7 +1,7 @@
 import { BigNumber, providers, Contract, utils } from "ethers"
+import { PETHREON_CONTRACT_ADDRESS, EthereumWindow } from "./index"
 import { abi } from "../artifacts/localhost/Pethreon.json"
 import { Pethreon } from "../types"
-import { PETHREON_CONTRACT_ADDRESS, EthereumWindow } from "./utility"
 
 export async function getContributorBalance() {
   const { ethereum } = window as EthereumWindow

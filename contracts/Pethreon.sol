@@ -63,10 +63,6 @@ contract Pethreon {
         return (block.timestamp - startOfEpoch) / period; // how many periods (days) has it been since the beginning?
     }
 
-    function blockTimestamp() public view returns (uint256 currentTimestamp) {
-        return block.timestamp;
-    }
-
     function getCreatorBalance() public view returns (uint256) {
         uint256 amount = 0;
         for (

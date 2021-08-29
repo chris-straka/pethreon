@@ -1,5 +1,5 @@
 import { providers, Contract } from "ethers"
-import { EthereumWindow, PETHREON_CONTRACT_ADDRESS } from "./utility"
+import { EthereumWindow, PETHREON_CONTRACT_ADDRESS } from "./index"
 import { abi } from "../artifacts/localhost/Pethreon.json"
 import { Pethreon } from "../types"
 

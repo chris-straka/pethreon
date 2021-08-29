@@ -1,10 +1,10 @@
 import { utils } from "ethers"
-import { PledgeType } from "../../myEthers/utility"
+import { PledgeType } from "../../myEthers/"
 import { ReactComponent as TrashSVG } from "../../assets/trash.svg"
 import styles from "./Pledge.module.css"
 
 interface PledgeProps {
-  pledge: PledgeType 
+  pledge: PledgeType
 }
 
 export const Pledge = ({ pledge }: PledgeProps) => (
