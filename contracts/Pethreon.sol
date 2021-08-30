@@ -46,9 +46,18 @@ contract Pethreon {
         address creatorAddress;
         address contributorAddress;
         uint256 weiPerPeriod;
+        uint256 duration;
         uint256 dateCreated;
-        uint256 expirationDate;
+        uint256 periodCreated;
+        uint256 periodExpires;
     }
+    // creatorAddress: _creatorAddress,
+    // contributorAddress: msg.sender,
+    // weiPerPeriod: _weiPerPeriod,
+    // duration: _periods,
+    // dateCreated: block.timestamp,
+    // periodCreated: currentPeriod(),
+    // periodExpires: currentPeriod() + _periods
 
     mapping(address => uint256) contributorBalances;
     mapping(address => Pledge[]) contributorPledges;
@@ -154,8 +163,10 @@ contract Pethreon {
             creatorAddress: _creatorAddress,
             contributorAddress: msg.sender,
             weiPerPeriod: _weiPerPeriod,
-            dateCreated: currentPeriod(),
-            expirationDate: currentPeriod() + _periods
+            duration: _periods,
+            dateCreated: block.timestamp,
+            periodCreated: currentPeriod(),
+            periodExpires: currentPeriod() + _periods
         });
 
         contributorPledges[msg.sender].push(pledge);
@@ -183,13 +194,13 @@ contract Pethreon {
         }
 
         require(
-            currentPeriod() <= pledge.expirationDate,
+            currentPeriod() <= pledge.periodExpires,
             "It's too late to cancel this pledge"
         );
 
         for (
             uint256 _period = currentPeriod();
-            _period < pledge.expirationDate;
+            _period < pledge.periodExpires;
             _period++
         ) {
             expectedPayments[_creatorAddress][_period] -= pledge.weiPerPeriod;
@@ -197,7 +208,7 @@ contract Pethreon {
 
         contributorBalances[msg.sender] +=
             pledge.weiPerPeriod *
-            (pledge.expirationDate - currentPeriod());
+            (pledge.periodExpires - currentPeriod());
 
         emit PledgeCancelled(currentPeriod(), _creatorAddress, msg.sender);
     }

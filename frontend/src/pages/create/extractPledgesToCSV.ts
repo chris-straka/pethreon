@@ -1,4 +1,4 @@
-import { PledgeType } from "../../myEthers"
+import { PledgeType } from "../../pethreon"
 
 export const extractPledgesToCSV = (pledges: PledgeType[]) => {
   

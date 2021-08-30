@@ -4,7 +4,7 @@ import { GithubSVG } from './githubSVG/GithubSVG';
 import { MetamaskAnimation } from './metamask/MetamaskAnimation';
 import styles from "./login.module.css"
 
-import { EthereumWindow, MetamaskError } from "../../myEthers"
+import { EthereumWindow, MetamaskError } from "../../pethreon"
 
 import mp4 from "../../assets/money.mp4"
 import webm from "../../assets/money.webm"

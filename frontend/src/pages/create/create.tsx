@@ -10,7 +10,7 @@ import styles from "./create.module.css"
 import {
   MetamaskError, EthereumWindow, PledgeType,
   creatorWithdraw, getCreatorBalance, getCreatorPledges
-} from "../../myEthers"
+} from "../../pethreon"
 
 import { ReactComponent as WithdrawSVG } from "../../assets/withdraw.svg"
 import { ReactComponent as CsvSVG } from "../../assets/csv.svg"
@@ -63,7 +63,7 @@ export const CreatePage = () => {
       <Balance balance={balance} />
       <div className={styles.actionBar}>
         <ActionButton creatorButton={true}
-          onClick={() => withdrawBalance}>Withdraw <WithdrawSVG /></ActionButton>
+          onClick={withdrawBalance}>Withdraw <WithdrawSVG /></ActionButton>
         <ActionButton creatorButton={true}
           onClick={() => extractPledgesToCSV(pledges)}>Extract to CSV <CsvSVG /></ActionButton>
       </div>

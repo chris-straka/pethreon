@@ -1,4 +1,4 @@
-import { EtherDenomination } from "../../myEthers"
+import { EtherDenomination } from "../../pethreon"
 import styles from "./CurrencyDenomination.module.css"
 
 interface CurrencyDenominationProps {

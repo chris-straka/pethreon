@@ -1,5 +1,4 @@
 import { useState, Dispatch, SetStateAction, ChangeEvent, FormEvent } from "react"
-import { useHistory } from "react-router"
 import { BigNumberish, utils } from "ethers"
 import { CurrencyField } from "../../../../components/CurrencyField/CurrrencyField"
 import { CurrencyDenomination } from "../../../../components/CurrencyDenomination/CurrencyDenomination"
@@ -7,12 +6,12 @@ import { Spacer } from "../../../../components/Spacer/Spacer"
 import { Disclaimer } from "../../../../components/Disclaimer/Disclaimer"
 import { ConsentCheckbox } from "../../../../components/ConsentCheckbox/ConsentCheckbox"
 import { SubmitButton } from "../../../../components/SubmitButton/Submit"
-import styles from "./Withdraw.module.css"
+import styles from "./WithdrawModal.module.css"
 
 import {
   contributorWithdraw, getContributorBalance, MetamaskError,
-  EthereumWindow, EtherDenomination
-} from "../../../../myEthers"
+  EtherDenomination
+} from "../../../../pethreon"
 
 import { ReactComponent as WithdrawSVG } from "../../../../assets/withdraw.svg"
 
@@ -26,24 +25,14 @@ export const WithdrawModal = ({ closeModal, setLoading, setBalance }: WithdrawMo
   const [disabled, setDisabled] = useState(true)
   const [amount, setAmount] = useState("")
   const [currency, setCurrency] = useState<EtherDenomination>(EtherDenomination.ETHER)
-  const history = useHistory()
-  const { ethereum } = window as EthereumWindow
 
   const submitWithdraw = async (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
-    if (typeof ethereum === undefined) {
-      window.alert("You're not signed in")
-      history.push('/')
-      return null
-    }
-    if (!amount && currency !== "All") {
-      window.alert("Please insert an amount")
-      return
-    }
+    if (!amount && currency !== EtherDenomination.ALL) return window.alert("Please insert an amount")
     closeModal()
     let amountInWei: BigNumberish = amount
-    if (currency === "Ether") amountInWei = utils.parseEther(amount)
-    if (currency === "All") {
+    if (currency === EtherDenomination.ETHER) amountInWei = utils.parseEther(amount)
+    if (currency === EtherDenomination.ALL) {
       const fullBalance = await getContributorBalance()
       amountInWei = utils.parseEther(fullBalance)
     }

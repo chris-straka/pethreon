@@ -13,7 +13,7 @@
     "address delete"
     "weiPerPeriod delete"
     "duration delete"
-    "date delete";
+    "dates delete";
 }
 
 .creatorAddress {
@@ -25,23 +25,34 @@
 
 .weiPerPeriod {
   grid-area: weiPerPeriod;
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
 }
 
-.dateCreated {
-  grid-area: date;
+.duration {
+  grid-area: duration;
 }
 
-.cancelButton {
-  grid-area: delete;
-  place-self: stretch;
-  background-color: transparent;
-  font-size: 0.8rem;
+.dates {
+  grid-area: dates;
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
 }
 
 .trashSVG {
   width: 2ch;
   margin-right: 4px;
   vertical-align: text-bottom;
+}
+
+.cancelButton {
+  cursor: pointer;
+  grid-area: delete;
+  place-self: stretch;
+  background-color: transparent;
+  font-size: 0.8rem;
 }
 
 @media (prefers-color-scheme: dark) {

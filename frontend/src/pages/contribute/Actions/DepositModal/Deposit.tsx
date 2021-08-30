@@ -1,5 +1,4 @@
 import { useState, ChangeEvent, FormEvent, Dispatch, SetStateAction } from "react"
-import { useHistory } from "react-router"
 import { ConsentCheckbox } from "../../../../components/ConsentCheckbox/ConsentCheckbox"
 import { CurrencyField } from "../../../../components/CurrencyField/CurrrencyField"
 import { CurrencyDenomination } from "../../../../components/CurrencyDenomination/CurrencyDenomination"
@@ -7,14 +6,13 @@ import { SubmitButton } from "../../../../components/SubmitButton/Submit"
 import { Disclaimer } from "../../../../components/Disclaimer/Disclaimer"
 import { Spacer } from "../../../../components/Spacer/Spacer"
 import { BigNumberish, utils } from "ethers"
+import { ReactComponent as DepositSVG } from "../../../../assets/deposit.svg"
 import styles from "./Deposit.module.css"
 
 import {
   deposit, getContributorBalance, EtherDenomination,
-  EthereumWindow, MetamaskError
-} from "../../../../myEthers"
-
-import { ReactComponent as DepositSVG } from "../../../../assets/deposit.svg"
+  MetamaskError
+} from "../../../../pethreon"
 
 interface DepositModalProps {
   closeModal: () => void,
@@ -26,24 +24,20 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositModa
   const [disabled, setDisabled] = useState(true)
   const [amount, setAmount] = useState("")
   const [currency, setCurrency] = useState<EtherDenomination>(EtherDenomination.ETHER)
-  const history = useHistory()
-  const { ethereum } = window as EthereumWindow
+  const [invalid, setInvalid] = useState(false)
 
   const submitDeposit = async (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
-    if (typeof ethereum === undefined) {
-      window.alert("You're not signed in")
-      history.push('/')
-      return null
+    if (+amount <= 0) {
+      setInvalid(true)
+      return window.alert("Please insert an amount")
     }
-
-    if (!amount || +amount <= 0) return window.alert("Please insert an amount")
 
     closeModal()
 
     let amountInWei: BigNumberish = amount
-    if (currency === "Ether") amountInWei = utils.parseEther(amount)
-    if (currency === "Gwei") amountInWei = utils.parseUnits(amount, "gwei")
+    if (currency === EtherDenomination.ETHER) amountInWei = utils.parseEther(amount)
+    if (currency === EtherDenomination.GWEI) amountInWei = utils.parseUnits(amount, "gwei")
 
     try {
       setLoading(true)
@@ -60,7 +54,7 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositModa
   return (
     <form className={styles.depositFormLayout}>
       <h3 className={styles.depositHeading}>How much to deposit?</h3>
-      <CurrencyField amount={amount} getAmount={(event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)} />
+      <CurrencyField invalid={invalid} amount={amount} getAmount={(event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)} />
       <Spacer marginBottom="16px" />
       <div className={styles.currencyButtons}
         onChange={(event: ChangeEvent<HTMLInputElement>) => setCurrency((event.target.value) as EtherDenomination)}>

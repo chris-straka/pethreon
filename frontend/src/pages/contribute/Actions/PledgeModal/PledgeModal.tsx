@@ -1,17 +1,16 @@
 import { useState, Dispatch, ChangeEvent, SetStateAction, FormEvent } from "react"
-import { useHistory } from "react-router"
 import { ReactComponent as PledgeSVG } from "../../../../assets/pledge.svg"
 import { CurrencyDenomination } from "../../../../components/CurrencyDenomination/CurrencyDenomination"
-import { PledgeField } from "./PledgeField/PledgeField"
+import { PledgeField } from "./PledgeModalField/PledgeModalField"
 import { SubmitButton } from "../../../../components/SubmitButton/Submit"
 import { Spacer } from "../../../../components/Spacer/Spacer"
 import { BigNumberish, utils } from "ethers"
-import styles from "./Pledge.module.css"
+import styles from "./PledgeModal.module.css"
 
 import {
   getContributorBalance, createPledge, getContributorPledges,
-  EtherDenomination, EthereumWindow, MetamaskError, PledgeType
-} from "../../../../myEthers"
+  EtherDenomination, MetamaskError, PledgeType
+} from "../../../../pethreon"
 
 import { ReactComponent as CashSVG } from "../../../../assets/cash.svg"
 import { ReactComponent as PersonSVG } from "../../../../assets/person.svg"
@@ -30,17 +29,11 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
   const [address, setAddress] = useState("")
   const [currency, setCurrency] = useState<EtherDenomination>(EtherDenomination.ETHER)
   const [period, setPeriod] = useState("")
-  const history = useHistory()
-  const { ethereum } = window as EthereumWindow
 
   const submitPledge = async (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
-    if (typeof ethereum === undefined) {
-      window.alert("Ethereum wallet not detected")
-      history.push('/')
-      return null
-    }
-    if (!pledgeAmount && currency !== "All") return window.alert("Please enter a pledge amount")
+
+    if (!pledgeAmount && currency !== EtherDenomination.ALL) return window.alert("Please enter a pledge amount")
     if (!address) return window.alert("Please enter a destination address")
     if (!period) return window.alert("Please set a pledge duration")
 
@@ -53,6 +46,7 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
     window.confirm(`The total comes to ${amountPerPeriod} per day, over ${period} day(s). Do you accept?`)
 
     closeModal()
+
     let amountPerPeriodInWei: BigNumberish = amountPerPeriod
     if (currency === EtherDenomination.ETHER) amountPerPeriodInWei = utils.parseEther(amountPerPeriod)
     if (currency === EtherDenomination.WEI) amountPerPeriodInWei = utils.parseUnits(amountPerPeriod, "gwei")
@@ -76,44 +70,46 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
     }
   }
 
-  return <form className={styles.pledgeFormLayout}>
-    <h3 className={styles.pledgeHeading}>How much to pledge?</h3>
-    <PledgeField
-      autofocus={true}
-      type="number"
-      placeholder="0"
-      min="0"
-      disabled={currency === "All" ? true : false}
-      value={pledgeAmount}
-      onChange={(event: ChangeEvent<HTMLInputElement>) => setPledgeAmount(event.target.value)}
-    ><CashSVG className={styles.pledgeSVG} /></PledgeField>
-    <Spacer marginBottom="13px" />
-    <div className={styles.currencyButtons}
-      onChange={(event: ChangeEvent<HTMLInputElement>) => setCurrency((event.target.value) as EtherDenomination)}>
-      <CurrencyDenomination defaultChecked={true} denomination={EtherDenomination.ETHER} />
-      <CurrencyDenomination defaultChecked={false} denomination={EtherDenomination.GWEI} />
-      <CurrencyDenomination defaultChecked={false} denomination={EtherDenomination.WEI} />
-      <CurrencyDenomination defaultChecked={false} denomination={EtherDenomination.ALL} />
-    </div>
-    <Spacer marginBottom="16px" />
-    <h3 className={styles.pledgeHeading}>Across how many days?</h3>
-    <PledgeField
-      type="number"
-      placeholder="0"
-      min="0"
-      value={period}
-      onChange={(event: ChangeEvent<HTMLInputElement>) => setPeriod(event.target.value)}
-    ><DateSVG className={styles.pledgeSVG} /></PledgeField>
-    <Spacer marginBottom="14px" />
-    <h3 className={styles.pledgeHeading}>To which ethereum address?</h3>
-    <PledgeField
-      type="text"
-      placeholder="0x"
-      spellCheck={false}
-      value={address}
-      onChange={(event: ChangeEvent<HTMLInputElement>) => setAddress(event.target.value)}
-    ><PersonSVG className={styles.pledgeSVG} /></PledgeField>
-    <Spacer marginBottom="22px" />
-    <SubmitButton handler={submitPledge}>Pledge <PledgeSVG className={styles.submitSVG} /></SubmitButton>
-  </form>
+  return (
+    <form className={styles.pledgeFormLayout}>
+      <h3 className={styles.pledgeHeading}>How much to pledge?</h3>
+      <PledgeField
+        autofocus={true}
+        type="number"
+        placeholder="0"
+        min="0"
+        disabled={currency === "All" ? true : false}
+        value={pledgeAmount}
+        onChange={(event: ChangeEvent<HTMLInputElement>) => setPledgeAmount(event.target.value)}
+      ><CashSVG className={styles.pledgeSVG} /></PledgeField>
+      <Spacer marginBottom="13px" />
+      <div className={styles.currencyButtons}
+        onChange={(event: ChangeEvent<HTMLInputElement>) => setCurrency((event.target.value) as EtherDenomination)}>
+        <CurrencyDenomination defaultChecked={true} denomination={EtherDenomination.ETHER} />
+        <CurrencyDenomination defaultChecked={false} denomination={EtherDenomination.GWEI} />
+        <CurrencyDenomination defaultChecked={false} denomination={EtherDenomination.WEI} />
+        <CurrencyDenomination defaultChecked={false} denomination={EtherDenomination.ALL} />
+      </div>
+      <Spacer marginBottom="16px" />
+      <h3 className={styles.pledgeHeading}>Across how many days?</h3>
+      <PledgeField
+        type="number"
+        placeholder="0"
+        min="0"
+        value={period}
+        onChange={(event: ChangeEvent<HTMLInputElement>) => setPeriod(event.target.value)}
+      ><DateSVG className={styles.pledgeSVG} /></PledgeField>
+      <Spacer marginBottom="14px" />
+      <h3 className={styles.pledgeHeading}>To which ethereum address?</h3>
+      <PledgeField
+        type="text"
+        placeholder="0x"
+        spellCheck={false}
+        value={address}
+        onChange={(event: ChangeEvent<HTMLInputElement>) => setAddress(event.target.value)}
+      ><PersonSVG className={styles.pledgeSVG} /></PledgeField>
+      <Spacer marginBottom="22px" />
+      <SubmitButton handler={submitPledge}>Pledge <PledgeSVG className={styles.submitSVG} /></SubmitButton>
+    </form>
+  )
 }

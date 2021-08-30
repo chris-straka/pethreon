@@ -244,20 +244,40 @@ export class Pethreon extends Contract {
       overrides?: CallOverrides
     ): Promise<
       [
-        ([string, string, BigNumber, BigNumber, BigNumber] & {
+        ([
+          string,
+          string,
+          BigNumber,
+          BigNumber,
+          BigNumber,
+          BigNumber,
+          BigNumber
+        ] & {
           creatorAddress: string;
           contributorAddress: string;
           weiPerPeriod: BigNumber;
+          duration: BigNumber;
           dateCreated: BigNumber;
-          expirationDate: BigNumber;
+          periodCreated: BigNumber;
+          periodExpires: BigNumber;
         })[]
       ] & {
-        allPledges: ([string, string, BigNumber, BigNumber, BigNumber] & {
+        allPledges: ([
+          string,
+          string,
+          BigNumber,
+          BigNumber,
+          BigNumber,
+          BigNumber,
+          BigNumber
+        ] & {
           creatorAddress: string;
           contributorAddress: string;
           weiPerPeriod: BigNumber;
+          duration: BigNumber;
           dateCreated: BigNumber;
-          expirationDate: BigNumber;
+          periodCreated: BigNumber;
+          periodExpires: BigNumber;
         })[];
       }
     >;
@@ -266,20 +286,40 @@ export class Pethreon extends Contract {
       overrides?: CallOverrides
     ): Promise<
       [
-        ([string, string, BigNumber, BigNumber, BigNumber] & {
+        ([
+          string,
+          string,
+          BigNumber,
+          BigNumber,
+          BigNumber,
+          BigNumber,
+          BigNumber
+        ] & {
           creatorAddress: string;
           contributorAddress: string;
           weiPerPeriod: BigNumber;
+          duration: BigNumber;
           dateCreated: BigNumber;
-          expirationDate: BigNumber;
+          periodCreated: BigNumber;
+          periodExpires: BigNumber;
         })[]
       ] & {
-        allPledges: ([string, string, BigNumber, BigNumber, BigNumber] & {
+        allPledges: ([
+          string,
+          string,
+          BigNumber,
+          BigNumber,
+          BigNumber,
+          BigNumber,
+          BigNumber
+        ] & {
           creatorAddress: string;
           contributorAddress: string;
           weiPerPeriod: BigNumber;
+          duration: BigNumber;
           dateCreated: BigNumber;
-          expirationDate: BigNumber;
+          periodCreated: BigNumber;
+          periodExpires: BigNumber;
         })[];
       }
     >;
@@ -292,20 +332,40 @@ export class Pethreon extends Contract {
       overrides?: CallOverrides
     ): Promise<
       [
-        ([string, string, BigNumber, BigNumber, BigNumber] & {
+        ([
+          string,
+          string,
+          BigNumber,
+          BigNumber,
+          BigNumber,
+          BigNumber,
+          BigNumber
+        ] & {
           creatorAddress: string;
           contributorAddress: string;
           weiPerPeriod: BigNumber;
+          duration: BigNumber;
           dateCreated: BigNumber;
-          expirationDate: BigNumber;
+          periodCreated: BigNumber;
+          periodExpires: BigNumber;
         })[]
       ] & {
-        allPledges: ([string, string, BigNumber, BigNumber, BigNumber] & {
+        allPledges: ([
+          string,
+          string,
+          BigNumber,
+          BigNumber,
+          BigNumber,
+          BigNumber,
+          BigNumber
+        ] & {
           creatorAddress: string;
           contributorAddress: string;
           weiPerPeriod: BigNumber;
+          duration: BigNumber;
           dateCreated: BigNumber;
-          expirationDate: BigNumber;
+          periodCreated: BigNumber;
+          periodExpires: BigNumber;
         })[];
       }
     >;
@@ -314,20 +374,40 @@ export class Pethreon extends Contract {
       overrides?: CallOverrides
     ): Promise<
       [
-        ([string, string, BigNumber, BigNumber, BigNumber] & {
+        ([
+          string,
+          string,
+          BigNumber,
+          BigNumber,
+          BigNumber,
+          BigNumber,
+          BigNumber
+        ] & {
           creatorAddress: string;
           contributorAddress: string;
           weiPerPeriod: BigNumber;
+          duration: BigNumber;
           dateCreated: BigNumber;
-          expirationDate: BigNumber;
+          periodCreated: BigNumber;
+          periodExpires: BigNumber;
         })[]
       ] & {
-        allPledges: ([string, string, BigNumber, BigNumber, BigNumber] & {
+        allPledges: ([
+          string,
+          string,
+          BigNumber,
+          BigNumber,
+          BigNumber,
+          BigNumber,
+          BigNumber
+        ] & {
           creatorAddress: string;
           contributorAddress: string;
           weiPerPeriod: BigNumber;
+          duration: BigNumber;
           dateCreated: BigNumber;
-          expirationDate: BigNumber;
+          periodCreated: BigNumber;
+          periodExpires: BigNumber;
         })[];
       }
     >;
@@ -398,24 +478,28 @@ export class Pethreon extends Contract {
   getContributorPledges(
     overrides?: CallOverrides
   ): Promise<
-    ([string, string, BigNumber, BigNumber, BigNumber] & {
+    ([string, string, BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
       creatorAddress: string;
       contributorAddress: string;
       weiPerPeriod: BigNumber;
+      duration: BigNumber;
       dateCreated: BigNumber;
-      expirationDate: BigNumber;
+      periodCreated: BigNumber;
+      periodExpires: BigNumber;
     })[]
   >;
 
   "getContributorPledges()"(
     overrides?: CallOverrides
   ): Promise<
-    ([string, string, BigNumber, BigNumber, BigNumber] & {
+    ([string, string, BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
       creatorAddress: string;
       contributorAddress: string;
       weiPerPeriod: BigNumber;
+      duration: BigNumber;
       dateCreated: BigNumber;
-      expirationDate: BigNumber;
+      periodCreated: BigNumber;
+      periodExpires: BigNumber;
     })[]
   >;
 
@@ -426,24 +510,28 @@ export class Pethreon extends Contract {
   getCreatorPledges(
     overrides?: CallOverrides
   ): Promise<
-    ([string, string, BigNumber, BigNumber, BigNumber] & {
+    ([string, string, BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
       creatorAddress: string;
       contributorAddress: string;
       weiPerPeriod: BigNumber;
+      duration: BigNumber;
       dateCreated: BigNumber;
-      expirationDate: BigNumber;
+      periodCreated: BigNumber;
+      periodExpires: BigNumber;
     })[]
   >;
 
   "getCreatorPledges()"(
     overrides?: CallOverrides
   ): Promise<
-    ([string, string, BigNumber, BigNumber, BigNumber] & {
+    ([string, string, BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
       creatorAddress: string;
       contributorAddress: string;
       weiPerPeriod: BigNumber;
+      duration: BigNumber;
       dateCreated: BigNumber;
-      expirationDate: BigNumber;
+      periodCreated: BigNumber;
+      periodExpires: BigNumber;
     })[]
   >;
 
@@ -505,24 +593,44 @@ export class Pethreon extends Contract {
     getContributorPledges(
       overrides?: CallOverrides
     ): Promise<
-      ([string, string, BigNumber, BigNumber, BigNumber] & {
+      ([
+        string,
+        string,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber
+      ] & {
         creatorAddress: string;
         contributorAddress: string;
         weiPerPeriod: BigNumber;
+        duration: BigNumber;
         dateCreated: BigNumber;
-        expirationDate: BigNumber;
+        periodCreated: BigNumber;
+        periodExpires: BigNumber;
       })[]
     >;
 
     "getContributorPledges()"(
       overrides?: CallOverrides
     ): Promise<
-      ([string, string, BigNumber, BigNumber, BigNumber] & {
+      ([
+        string,
+        string,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber
+      ] & {
         creatorAddress: string;
         contributorAddress: string;
         weiPerPeriod: BigNumber;
+        duration: BigNumber;
         dateCreated: BigNumber;
-        expirationDate: BigNumber;
+        periodCreated: BigNumber;
+        periodExpires: BigNumber;
       })[]
     >;
 
@@ -533,24 +641,44 @@ export class Pethreon extends Contract {
     getCreatorPledges(
       overrides?: CallOverrides
     ): Promise<
-      ([string, string, BigNumber, BigNumber, BigNumber] & {
+      ([
+        string,
+        string,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber
+      ] & {
         creatorAddress: string;
         contributorAddress: string;
         weiPerPeriod: BigNumber;
+        duration: BigNumber;
         dateCreated: BigNumber;
-        expirationDate: BigNumber;
+        periodCreated: BigNumber;
+        periodExpires: BigNumber;
       })[]
     >;
 
     "getCreatorPledges()"(
       overrides?: CallOverrides
     ): Promise<
-      ([string, string, BigNumber, BigNumber, BigNumber] & {
+      ([
+        string,
+        string,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber
+      ] & {
         creatorAddress: string;
         contributorAddress: string;
         weiPerPeriod: BigNumber;
+        duration: BigNumber;
         dateCreated: BigNumber;
-        expirationDate: BigNumber;
+        periodCreated: BigNumber;
+        periodExpires: BigNumber;
       })[]
     >;
 
