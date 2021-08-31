@@ -55,6 +55,14 @@
   font-size: 0.8rem;
 }
 
+.creatorStyles {
+    grid-template-areas:
+    "address address"
+    "weiPerPeriod weiPerPeriod"
+    "duration duration"
+    "dates dates";
+}
+
 @media (prefers-color-scheme: dark) {
   .cancelButton {
     color: var(--darktheme-text-white);

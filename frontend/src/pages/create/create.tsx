@@ -68,7 +68,7 @@ export const CreatePage = () => {
           onClick={() => extractPledgesToCSV(pledges)}>Extract to CSV <CsvSVG /></ActionButton>
       </div>
       <ul className={styles.transactionHistory}>
-        {pledges.map((pledge: PledgeType) => <Pledge pledge={pledge} key={pledge.creatorAddress} />)}
+        {pledges.map((pledge: PledgeType) => <Pledge pledge={pledge} creator={true} key={pledge.contributorAddress} />)}
       </ul>
     </div>
   </>

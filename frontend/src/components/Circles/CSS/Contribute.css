@@ -1,6 +1,6 @@
 .circleA_contribute {
   position: fixed;
-  top: 76vh;
+  top: 80vh;
   left: 17vw;
   width: 10vh;
   height: 10vh;
@@ -20,20 +20,29 @@
   height: 13vh;
 
   background-color: var(--secondary);
-  border-radius: 0 0 0 2rem;
+  color: var(--darktheme-black-text);
+  border-radius: 0 0 0 32px;
   cursor: pointer;
 
-  font-size: 1.5rem;
+  font-size: 24px;
   font-weight: bold;
 
-  transition: all 0.5s linear;
-  transition-property: top, left, width, height, border-radius, background-color,
-    font-size, font-weight;
+  transition: top 0.7s, left 0.7s, width 0.5s, height 0.5s,
+    border-top-left-radius 1.2s, border-top-right-radius 1s,
+    border-bottom-left-radius 1.2s, border-bottom-right-radius 1.1s,
+    background-color 0.7s 0.2s, color 0.8s 0.8s;
 }
 
 .circleB_contribute:focus {
   outline-offset: 3px;
   outline: 3px dotted var(--secondary);
+}
+
+.circleB_arrowSVG_contribute {
+  fill: var(--darktheme-black-text);
+  width: 2ch;
+  vertical-align: text-bottom;
+  transition: fill 0.8s linear 0.8s;
 }
 
 .circleC_contribute {

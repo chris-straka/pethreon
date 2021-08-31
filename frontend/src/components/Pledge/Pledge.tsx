@@ -3,27 +3,26 @@ import { PledgeType } from "../../pethreon"
 import { ReactComponent as TrashSVG } from "../../assets/trash.svg"
 import styles from "./Pledge.module.css"
 
-// creatorAddress, contributorAddress
-// weiPerPeriod, dateCreated
-// expirationDate
 interface PledgeProps {
-  pledge: PledgeType
+  pledge: PledgeType,
+  creator?: boolean
 }
 
-export const Pledge = ({ pledge }: PledgeProps) => {
+export const Pledge = ({ pledge, creator = false }: PledgeProps) => {
   const creatorAddress = pledge.creatorAddress
-  const weiPerPeriod = utils.formatEther(pledge.weiPerPeriod)
+  const contributorAddress = pledge.contributorAddress
+  const etherPerPeriod = utils.formatEther(pledge.weiPerPeriod)
   const duration = pledge.duration.toNumber()
   const startDate = new Date(+pledge.dateCreated * 1000).toDateString()
   const endDate = new Date((+pledge.dateCreated + (duration * 86400)) * 1000).toDateString()
 
   return (
-    <li className={styles.pledgeContainer}>
+    <li className={`${styles.pledgeContainer} ${creator && styles.creatorStyles}`}>
       <span className={styles.creatorAddress}>
-        Creator: {creatorAddress}
+        {creator ? `Contributor: ${contributorAddress}` : `Creator ${creatorAddress}`}
       </span>
       <span className={styles.weiPerPeriod}>
-        Ether: {weiPerPeriod} per day 
+        Ether: {etherPerPeriod} per day
       </span>
       <span className={styles.duration}>
         Duration: {duration} days
@@ -31,7 +30,7 @@ export const Pledge = ({ pledge }: PledgeProps) => {
       <span className={styles.dates}>
         Dates: {startDate} - {endDate}
       </span>
-      <button className={styles.cancelButton}><TrashSVG className={styles.trashSVG}></TrashSVG>Delete</button>
+      {!creator && <button className={styles.cancelButton}><TrashSVG className={styles.trashSVG}></TrashSVG>Delete</button>}
     </li>
   )
 }

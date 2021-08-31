@@ -181,15 +181,32 @@ contract Pethreon {
         );
     }
 
-    // This can get expensive but I doubt it will happen often
-    // I also doubt that the contributor will be iterating over lots of pledges
+    // This can get expensive but I doubt it will happen very often
+    // I also doubt the contributor will be iterating over lots of pledges
+    // I should come up with a better way to do this
+    // There's also security concerns here if I'm not careful
+
+    // 1. I want to remove the pledge from the contributor's mapping and give them the rest of their money
+    // 2. I want to give the contributor the money he pledged for those two periods
+    // 3. I want to edit the pledge from the creator's mappings so that it ends today
     function cancelPledge(address _creatorAddress) public {
-        Pledge[] memory pledges = contributorPledges[msg.sender];
+        Pledge[] storage pledges = contributorPledges[msg.sender];
         Pledge memory pledge;
 
         for (uint256 i = 0; i < pledges.length; i++) {
             if (pledges[i].creatorAddress == _creatorAddress) {
+                pledge = pledges[i]; // save the deleted pledge to a variable
+                pledges[i] = pledges[pledges.length - 1]; // overwrite the current pledge with the last pledge
+                pledges[pledges.length - 1] = pledge; // overwrite the last pledge with the current pledge
+            }
+        }
+
+        pledges.pop(); // remove the pledge we want to cancel (done before payment to prevent re-entrancy)
+
+        for (uint256 i = 0; i < pledges.length; i++) {
+            if (pledges[i].creatorAddress == _creatorAddress) {
                 pledge = pledges[i];
+                delete pledges[i];
             }
         }
 
@@ -211,5 +228,24 @@ contract Pethreon {
             (pledge.periodExpires - currentPeriod());
 
         emit PledgeCancelled(currentPeriod(), _creatorAddress, msg.sender);
+    }
+
+    function deletePledge(address _creatorAddress) public {
+        Pledge[] storage pledges = contributorPledges[msg.sender];
+        Pledge memory pledge;
+
+        if (pledges.length <= 1) {
+            pledge = pledges[0];
+        } else {
+            for (uint256 i = 0; i < pledges.length; i++) {
+                if (pledges[i].creatorAddress == _creatorAddress) {
+                    pledge = pledges[i]; // save the deleted pledge to a variable
+                    pledges[i] = pledges[pledges.length - 1]; // overwrite the current pledge with the last pledge
+                    pledges[pledges.length - 1] = pledge; // overwrite the last pledge with the current pledge
+                }
+            }
+        }
+
+        pledges.pop(); // remove the last pledge
     }
 }

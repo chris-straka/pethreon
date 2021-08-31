@@ -3,7 +3,7 @@ import { ethers, network } from 'hardhat';
 import { expect } from 'chai';
 import { ContractFactory, Signer } from 'ethers';
 import { Pethreon } from "../frontend/src/types/Pethreon";
-import { PledgeType } from "../frontend/src/ethers/utility"
+import { PledgeType } from "../frontend/src/pethreon"
 
 describe("Pethreon", () => {
   let PethreonFactory: ContractFactory
@@ -42,11 +42,11 @@ describe("Pethreon", () => {
       await Pethreon.deposit({ value: oneEther })
       await Pethreon.createPledge(fooAddress, 1, 3)
 
-      const pledges = await Pethreon.getContributorPledges()
-      const pledge = pledges[0] as PledgeType
+      const pledges = await Pethreon.getContributorPledges() as PledgeType[]
+      const pledge = pledges[0]
 
       const weiPerPeriod = await pledge.weiPerPeriod.toNumber()
-      const expirationDate = await pledge.expirationDate.toNumber()
+      const expirationDate = await pledge.periodExpires.toNumber()
       const currentPeriod = await (await Pethreon.currentPeriod()).toNumber()
 
       expect(weiPerPeriod).to.equal(oneWei)
@@ -84,7 +84,7 @@ describe("Pethreon", () => {
       await Pethreon.connect(foo).createPledge(barAddress, 1, 3)
 
       const pledges = await Pethreon.connect(bar).getCreatorPledges()
-      expect(pledges.length).to.equal(2) 
+      expect(pledges.length).to.equal(2)
       expect(await Pethreon.connect(bar).getCreatorBalance()).to.equal(0)
 
       await network.provider.send("evm_increaseTime", [86400 * 3])
@@ -93,6 +93,25 @@ describe("Pethreon", () => {
       expect(await Pethreon.connect(bar).getCreatorBalance()).to.equal(6)
       await Pethreon.connect(bar).creatorWithdraw()
       expect(await Pethreon.connect(bar).getCreatorBalance()).to.equal(0)
+    })
+
+    it("Should remove the pledge from the list", async () => {
+      await Pethreon.deposit({ value: oneEther })
+      await Pethreon.createPledge(fooAddress, 1, 3)
+      await Pethreon.createPledge(barAddress, 1, 3)
+
+      const pledgesBefore = await Pethreon.getContributorPledges() as PledgeType[]
+
+      await Pethreon.deletePledge(fooAddress)
+
+      const pledgesAfter = await Pethreon.getContributorPledges() as PledgeType[]
+
+      await Pethreon.deletePledge(fooAddress)
+
+      const pledgesAfterAfter = await Pethreon.getContributorPledges() as PledgeType[]
+
+      console.log(pledgesAfterAfter.length)
+
     })
   })
 });

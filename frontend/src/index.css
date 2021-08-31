@@ -26,7 +26,7 @@
   --secondary-light: hsl(252, 51%, 85%);
   --secondary-dark: hsl(245, 50%, 50%);
 
-  --modal-background: #FFFFFF;
+  --modal-background: #ffffff;
   --background: hsl(0, 0%, 47%);
   --white-text: hsl(36, 10%, 90%);
   --black-text: hsl(0, 0%, 15%);
@@ -50,7 +50,6 @@
   --darktheme-modal-background: hsl(200, 7%, 18%);
 }
 
-
 /* Remove the default margin and padding */
 *,
 *::after,
@@ -61,11 +60,10 @@
   box-sizing: inherit;
 }
 
-
 /* 16px * 0.625 = 10px */
 body {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 62.5%; /* doesn't work, should've put this in the HTML element */
+  font-size: 62.5%; /* doesn't work, should've put this in the HTML element not the body */
   color: var(--black-text);
 }
 

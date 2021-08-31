@@ -3,7 +3,7 @@
   font-weight: 200;
   width: 2ch;
   font-size: 2.9rem;
-  margin-right: .9rem;
+  margin-right: 14px;
 }
 
 .balance {
@@ -11,7 +11,7 @@
   font-weight: 400;
   font-size: 2.9rem;
   width: calc(100vw - 48px);
-  overflow-x: auto;
+  overflow-x: scroll;
 }
 
 @media (prefers-color-scheme: dark) {

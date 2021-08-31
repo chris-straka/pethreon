@@ -11,14 +11,11 @@
   border-top: 2px solid transparent;
   border-bottom: 2px solid transparent;
   transition: border-bottom 0.3s;
+  width: 74%;
 }
 
 .pledgeFieldInput:focus {
   border-bottom: 2px solid var(--secondary);
-}
-
-.pledgeFieldInput::selection {
-  background-color: var(--secondary);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -29,10 +26,5 @@
 
   .pledgeFieldInput:focus {
     border-bottom: 2px solid var(--darktheme-secondary);
-  }
-
-  .pledgeFieldInput::selection {
-    background-color: var(--darktheme-secondary);
-    color: var(--darktheme-black-text);
   }
 }

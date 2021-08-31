@@ -2,8 +2,8 @@
   position: fixed;
   top: -5vh;
   left: -5vw;
-  width: 7rem;
-  height: 7rem;
+  width: 112px;
+  height: 112px;
   background-color: var(--primary-light);
   border-radius: 50%;
   z-index: -1000;
@@ -16,22 +16,31 @@
   position: fixed;
   top: 40vh;
   left: 92vw;
-  width: 8rem;
-  height: 8rem;
+  width: 128px;
+  height: 128px;
   background-color: var(--primary-light);
+  color: transparent;
   border-radius: 50%;
   outline: none;
+  z-index: -1000;
 
   animation: 6s linear 1s infinite alternate none running circleB_animation;
-  transition: all 0.5s linear;
+  transition: top 0.5s linear, left 0.5s linear, background-color 0.5s linear,
+    color 0.5s linear;
+}
+
+.circleB_arrowSVG_login {
+  fill: transparent;
+  width: 2ch;
+  vertical-align: text-bottom;
 }
 
 .circleC_login {
   position: fixed;
   top: 92vh;
   left: 30vw;
-  width: 10rem;
-  height: 10rem;
+  width: 160px;
+  height: 160px;
   background-color: var(--primary-light);
   border-radius: 50%;
   z-index: -1000;
@@ -43,8 +52,8 @@
 @media only screen and (min-height: 736px) {
   .circleC_login {
     top: 80vh;
-    width: 19rem;
-    height: 19rem;
+    width: 304px;
+    height: 304px;
   }
 }
 

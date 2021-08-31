@@ -51,9 +51,7 @@ If you get an error that says "Nonce too high. Expected nonce to be X but got Y"
 
 ### Original Pethreon contract from Sergei et al doesn't work?
 
-One of the cool things from Sergei's contract is you can choose over what time "period" the payments should be made in, i.e. should payments be made daily, weekly or monthly? You do this by passing in how many seconds a period should be into Pethreon's constructor (hourly (3600), daily (86400), weekly (604800)).
-
-When looking at lines 152-155 inside createPledge() from the original Pethreon contract...
+One of the cool things from Sergei's contract is you can choose over what time "period" the payments should be made in, i.e. daily, weekly or monthly? You do this by passing in how many seconds a period should last for into the smart contract's constructor (hourly (3600), daily (86400), weekly (604800)). I'm pretty sure this is how it works, but I ran into some confusion on lines 152-155...
 
 ```cpp
   // update creator's mapping of future payments
@@ -62,7 +60,7 @@ When looking at lines 152-155 inside createPledge() from the original Pethreon c
   }
 ```
 
-The currentPeriod() will grab the number of periods (days/seconds/weeks) it's been since the contract was created. And the _periods variable is the number of periods a contributor would like to donate for (2 days, 3 days, etc). However, if the contract is 50 days old and the contributor wants to donate for 5 days, then this loop never runs and the creator doesn't get any money? So it might be worth a pull request, or I've misunderstood something.
+currentPeriod() grabs the number of periods (days/seconds/weeks) it's been since the contract was created. And `_periods` represents the number of periods a contributor would like to donate for (2 days, 3 days, etc). However, if the contract is 50 days old and the contributor wants to donate for 5 days, then this loop never runs and the creator doesn't get any money? I think it should be `_periods + currentPeriod()`. It might be worth a pull request, or I've fundamentally misunderstood something.
 
 ### Recurring payments
 
@@ -83,6 +81,14 @@ I originally wanted creators to create their own unique landing page so that con
 - There was no way to take down anyone (spammers, repeat creators, etc)
 
 I could take a hybrid approach and introduce a server to validate input, but I've decided to compromise and stick to a decentralized approach. It's much easier to do this, and I think there would be very little point to using my application over Patreon if I decided to centralize it.
+
+### Do contributors even need to lock in their money into the contract?
+
+It only hit me until really late in the project, but I'm wondering if contributors even need to lock their money into the smart contract? Also creator is confusing because the contributor "creates" pledges, maybe I should come up with a different name.
+
+### Can the creator get locked out of their money?
+
+After reading (and contributing to) [this answer on stack exchange](https://ethereum.stackexchange.com/questions/42207), there's an interesting possibility where the withdraw() function might take up so much gas that user can no longer withdraw. I think in my case, this would only happen if the creator takes a really long time to withdraw their funds (i.e. the withdraw function had to iterate over too many periods). If I chose a smaller period I would be much more concerned (like if payments were processed every 15 seconds), because then there'd be more periods to iterate over.
 
 ### Multiple testing frameworks?
 
@@ -217,6 +223,16 @@ JS functions can't return multiple values, but solidity functions can. In JS, th
 ### Using other people's stuff
 
 I've been bit twice already using other people's stuff (despite not having that many dependencies imo).
+
+## Lessons
+
+### I should've been more thoughtful about relative units in CSS (mobile layout)
+
+My vertical layout isn't designed for scrolling because it's split into different view heights (top ~15vh, middle ~60vh, bottom ~25v) and the bottom part is occupied by circles positioned relative to the screen (instead of the content). This meant my circles couldnt move down to accommadate for any size increases above it. I used rem for all my font-sizes which meant any sizes above the default would mess with my circles.
+
+### A wireframe AND a prototype is probably a good idea
+
+I put a lot of grey boxes in my mockups and ignored a lot of detail (modals) in the short term because I didn't fully understand Sergei's contract. I decided to make stuff up as I went a long, but I think this made my modals look a bit more "tacked on". My pledge modal is totally alien from the other two because I had different space requirements that I didn't take into account. I also had a hard time figuring out what to do sometimes, so it would be easier if I at least an attempt at what something should look like (i.e. less grey boxes). In the end I'm pretty happy with what I came up with though (like the "Extract to CSV").
 
 ## Attribution
 

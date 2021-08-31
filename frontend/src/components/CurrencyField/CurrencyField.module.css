@@ -39,18 +39,10 @@
   margin-left: 10px;
 }
 
-.currencyField::selection {
-  background-color: var(--secondary);
-}
-
 @media (prefers-color-scheme: dark) {
   .currencyField {
     color: var(--darktheme-white-text);
     caret-color: var(--darktheme-secondary);
-  }
-
-  .currencyField::selection {
-    background-color: var(--darktheme-secondary);
   }
 
   .currencyField:focus,

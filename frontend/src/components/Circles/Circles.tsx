@@ -1,5 +1,5 @@
 import { useLocation, useHistory } from "react-router";
-import { ReactComponent as Arrow } from "../../assets/arrow.svg";
+import { ArrowSVG } from "./ArrowSVG/ArrowSVG"
 import "./CSS/Animations.css"
 import "./CSS/Login.css"
 import "./CSS/Create.css"
@@ -28,7 +28,7 @@ export const Circles = () => {
     <button className={circleCSS("B")} onClick={switchPortals} disabled={loginPage ? true : false} >
       {contributePage && "Create "}
       {createPage && "Donate "}
-      {!loginPage && <Arrow style={{ width: "2ch", verticalAlign: "bottom" }} />}
+      <ArrowSVG styles={circleCSS("B_arrowSVG")!} />
     </button>
     <div className={circleCSS("C")} />
   </>

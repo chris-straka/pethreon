@@ -27,6 +27,7 @@ interface PethreonInterface extends ethers.utils.Interface {
     "createPledge(address,uint256,uint256)": FunctionFragment;
     "creatorWithdraw()": FunctionFragment;
     "currentPeriod()": FunctionFragment;
+    "deletePledge(address)": FunctionFragment;
     "deposit()": FunctionFragment;
     "getContributorBalance()": FunctionFragment;
     "getContributorPledges()": FunctionFragment;
@@ -54,6 +55,10 @@ interface PethreonInterface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "currentPeriod",
     values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "deletePledge",
+    values: [string]
   ): string;
   encodeFunctionData(functionFragment: "deposit", values?: undefined): string;
   encodeFunctionData(
@@ -95,6 +100,10 @@ interface PethreonInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "currentPeriod",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "deletePledge",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
@@ -227,6 +236,16 @@ export class Pethreon extends Contract {
     "currentPeriod()"(
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { periodNumber: BigNumber }>;
+
+    deletePledge(
+      _creatorAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "deletePledge(address)"(
+      _creatorAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
 
     deposit(
       overrides?: PayableOverrides & { from?: string | Promise<string> }
@@ -463,6 +482,16 @@ export class Pethreon extends Contract {
 
   "currentPeriod()"(overrides?: CallOverrides): Promise<BigNumber>;
 
+  deletePledge(
+    _creatorAddress: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "deletePledge(address)"(
+    _creatorAddress: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   deposit(
     overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
@@ -581,6 +610,16 @@ export class Pethreon extends Contract {
     currentPeriod(overrides?: CallOverrides): Promise<BigNumber>;
 
     "currentPeriod()"(overrides?: CallOverrides): Promise<BigNumber>;
+
+    deletePledge(
+      _creatorAddress: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "deletePledge(address)"(
+      _creatorAddress: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     deposit(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -789,6 +828,16 @@ export class Pethreon extends Contract {
 
     "currentPeriod()"(overrides?: CallOverrides): Promise<BigNumber>;
 
+    deletePledge(
+      _creatorAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "deletePledge(address)"(
+      _creatorAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     deposit(
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -864,6 +913,16 @@ export class Pethreon extends Contract {
     currentPeriod(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     "currentPeriod()"(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    deletePledge(
+      _creatorAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "deletePledge(address)"(
+      _creatorAddress: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
 
     deposit(
       overrides?: PayableOverrides & { from?: string | Promise<string> }
