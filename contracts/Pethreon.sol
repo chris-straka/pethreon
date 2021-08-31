@@ -41,6 +41,12 @@ contract Pethreon {
         period = _period; // hourly (3600), daily (86400), or weekly (604800)? (seconds)
     }
 
+    enum Status {
+        ACTIVE,
+        CANCELLED,
+        EXPIRED
+    }
+
     /***** DATA STRUCTURES *****/
     struct Pledge {
         address creatorAddress;
@@ -48,21 +54,15 @@ contract Pethreon {
         uint256 weiPerPeriod;
         uint256 duration;
         uint256 dateCreated;
-        uint256 periodCreated;
         uint256 periodExpires;
+        Status status;
     }
-    // creatorAddress: _creatorAddress,
-    // contributorAddress: msg.sender,
-    // weiPerPeriod: _weiPerPeriod,
-    // duration: _periods,
-    // dateCreated: block.timestamp,
-    // periodCreated: currentPeriod(),
-    // periodExpires: currentPeriod() + _periods
 
     mapping(address => uint256) contributorBalances;
     mapping(address => Pledge[]) contributorPledges;
 
-    mapping(address => Pledge[]) creatorPledges;
+    mapping(address => Pledge[]) creatorActivePledges;
+    mapping(address => Pledge[]) creatorExpiredPledges;
     mapping(address => uint256) lastWithdrawalPeriod;
 
     mapping(address => mapping(uint256 => uint256)) expectedPayments; // creatorAddress => (periodNumber => payment)
@@ -133,7 +133,7 @@ contract Pethreon {
         view
         returns (Pledge[] memory allPledges)
     {
-        return creatorPledges[msg.sender];
+        return creatorActivePledges[msg.sender];
     }
 
     function createPledge(
@@ -143,8 +143,24 @@ contract Pethreon {
     ) public {
         require(
             contributorBalances[msg.sender] >= _weiPerPeriod * _periods,
-            "insufficient funds"
+            "Insufficient funds"
         );
+
+        Pledge[] memory pledges = contributorPledges[msg.sender];
+
+        for (uint256 i = 0; i < pledges.length; i++) {
+            if (pledges[i].creatorAddress == _creatorAddress) {
+                require(
+                    currentPeriod() >= pledges[i].periodExpires,
+                    "You're only allowed to have one active pledge at at time, cancel your existing one first or wait until it expires"
+                );
+                Pledge memory expiredPledge = pledges[i];
+                expiredPledge.status = Status.EXPIRED;
+                creatorExpiredPledges[_creatorAddress].push(expiredPledge);
+                deletePledge(_creatorAddress);
+                (_creatorAddress, true);
+            }
+        }
 
         contributorBalances[msg.sender] -= _weiPerPeriod * _periods; // subtract first to prevent re-entrancy
 
@@ -165,12 +181,12 @@ contract Pethreon {
             weiPerPeriod: _weiPerPeriod,
             duration: _periods,
             dateCreated: block.timestamp,
-            periodCreated: currentPeriod(),
-            periodExpires: currentPeriod() + _periods
+            periodExpires: currentPeriod() + _periods,
+            status: Status.ACTIVE
         });
 
         contributorPledges[msg.sender].push(pledge);
-        creatorPledges[_creatorAddress].push(pledge);
+        creatorActivePledges[_creatorAddress].push(pledge);
 
         emit PledgeCreated(
             currentPeriod(),
@@ -182,45 +198,27 @@ contract Pethreon {
     }
 
     // This can get expensive but I doubt it will happen very often
-    // I also doubt the contributor will be iterating over lots of pledges
     // I should come up with a better way to do this
-    // There's also security concerns here if I'm not careful
-
-    // 1. I want to remove the pledge from the contributor's mapping and give them the rest of their money
-    // 2. I want to give the contributor the money he pledged for those two periods
-    // 3. I want to edit the pledge from the creator's mappings so that it ends today
     function cancelPledge(address _creatorAddress) public {
-        Pledge[] storage pledges = contributorPledges[msg.sender];
-        Pledge memory pledge;
-
-        for (uint256 i = 0; i < pledges.length; i++) {
-            if (pledges[i].creatorAddress == _creatorAddress) {
-                pledge = pledges[i]; // save the deleted pledge to a variable
-                pledges[i] = pledges[pledges.length - 1]; // overwrite the current pledge with the last pledge
-                pledges[pledges.length - 1] = pledge; // overwrite the last pledge with the current pledge
-            }
-        }
-
-        pledges.pop(); // remove the pledge we want to cancel (done before payment to prevent re-entrancy)
-
-        for (uint256 i = 0; i < pledges.length; i++) {
-            if (pledges[i].creatorAddress == _creatorAddress) {
-                pledge = pledges[i];
-                delete pledges[i];
-            }
-        }
-
-        require(
-            currentPeriod() <= pledge.periodExpires,
-            "It's too late to cancel this pledge"
-        );
+        Pledge memory pledge = deletePledge(_creatorAddress);
 
         for (
-            uint256 _period = currentPeriod();
-            _period < pledge.periodExpires;
-            _period++
+            uint256 _period = currentPeriod(); // grab the current period
+            _period < pledge.periodExpires; // grab the period when it's supposed to expire
+            _period++ // keep going until we reached the period when it's supposed to expire
         ) {
             expectedPayments[_creatorAddress][_period] -= pledge.weiPerPeriod;
+        }
+
+        Pledge[] storage creatorPledgesBefore = creatorActivePledges[
+            _creatorAddress
+        ];
+
+        for (uint256 i = 0; i < creatorPledgesBefore.length; i++) {
+            if (creatorPledgesBefore[i].contributorAddress == msg.sender) {
+                creatorPledgesBefore[i].periodExpires = currentPeriod();
+                creatorPledgesBefore[i].status = Status.CANCELLED;
+            }
         }
 
         contributorBalances[msg.sender] +=
@@ -230,22 +228,22 @@ contract Pethreon {
         emit PledgeCancelled(currentPeriod(), _creatorAddress, msg.sender);
     }
 
-    function deletePledge(address _creatorAddress) public {
+    function deletePledge(address _creatorAddress)
+        internal
+        returns (Pledge memory)
+    {
         Pledge[] storage pledges = contributorPledges[msg.sender];
         Pledge memory pledge;
 
-        if (pledges.length <= 1) {
-            pledge = pledges[0];
-        } else {
-            for (uint256 i = 0; i < pledges.length; i++) {
-                if (pledges[i].creatorAddress == _creatorAddress) {
-                    pledge = pledges[i]; // save the deleted pledge to a variable
-                    pledges[i] = pledges[pledges.length - 1]; // overwrite the current pledge with the last pledge
-                    pledges[pledges.length - 1] = pledge; // overwrite the last pledge with the current pledge
-                }
+        for (uint256 i = 0; i < pledges.length; i++) {
+            if (pledges[i].creatorAddress == _creatorAddress) {
+                pledge = pledges[i];
+                pledges[i] = pledges[pledges.length - 1];
+                pledges[pledges.length - 1] = pledge;
             }
         }
 
-        pledges.pop(); // remove the last pledge
+        pledges.pop(); // remove the pledge we want to cancel from the contributor's mapping (early removal prevents re-entrancy)
+        return pledge;
     }
 }

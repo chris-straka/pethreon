@@ -1,4 +1,5 @@
 import { PledgeType } from "../../pethreon"
+import { PledgeStatus } from "../../pethreon"
 import { utils } from "ethers"
 
 export const extractPledgesToCSV = async (pledges: PledgeType[]) => {
@@ -10,12 +11,13 @@ export const extractPledgesToCSV = async (pledges: PledgeType[]) => {
     const duration = pledge.duration.toString()
     const startDate = new Date(+pledge.dateCreated * 1000).toDateString()
     const endDate = new Date((+pledge.dateCreated + (+duration * 86400)) * 1000).toDateString()
+    const cancelled = pledge.status === PledgeStatus.CANCELLED ? true : false
 
-    return [contributorAddress, startDate, endDate, duration, etherPerPeriod];
+    return [contributorAddress, startDate, endDate, duration, etherPerPeriod, cancelled];
   })
 
   const rows = [
-    [`Addresses that Pledged to ${creatorAddress}`, "Start date", "End date", "Duration (days)", "Ether per day"],
+    [`Addresses that Pledged to ${creatorAddress}`, "Start date", "End date", "Duration (days)", "Ether per day", "Cancelled"],
     ...pledgesForCSV
   ]
 

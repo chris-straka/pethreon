@@ -104,7 +104,7 @@ I ended up switching away from Truffle because I wasn't happy with their typescr
 
 ### Can't iterate over any of the pledges
 
-In Sergei's original contract, it wasn't possible for a contributor/creator to see _all_ their pledges. I think that would make for a much better UX so I added that in. I have to be careful how I do it because it can get really expensive (maps aren't iterable in solidity and iteration can get very costly in calls that require validation from other ethereum nodes). I still need to be able to cancel them too.
+In Sergei's original contract, it wasn't possible for a contributor/creator to see _all_ their pledges. I think that would make for a much better UX so I added that in. I have to be careful how I do this because it can get really expensive (maps aren't iterable in solidity and iteration can get costly). I need to store be able to cancel them somehow too.
 
 ```cpp
 contract Pethreon {
@@ -141,10 +141,6 @@ function getExpectedPayment(uint period) constant returns (uint expectedPayment)
 
 These are ideas for features that I thought about adding.
 
-### Tests look awful
-
-I think I can make my tests look a lot better by breaking them into functions. I'll have to look into this sometime.
-
 ### Unipledge?
 
 It'd be cool to make a pledge that would donate to all creators on the platform. It might create an influx of fake creators though (and repeat creators) but maybe I'll play around with it.
@@ -173,7 +169,9 @@ As a bonus, I could allow contributors to make donations offline using service w
 
 Pethreon relies on contributions being locked up inside the smart contract. I'm not a fan of this because I think that money can be put to better uses (DeFi). So I thought about another idea for my next project. I was thinking users could donate money into different charity pools. The money in the pool could then be locked into a DeFi protocol like [Aave](https://aave.com/), the accrued interest could then go towards a charity address like [0x54a465610d119ad28deafd4bce555834c38beeb9](https://thewaterproject.org/donate-ethereum). Users could withdraw donations from the pool, but ~25% will remain in the pool so that it can continue to grow.
 
-### Allow the creator to create a CSV with all the pledge data
+### Tests look awful
+
+I think I can make my tests look a lot better by breaking them into functions.
 
 ## Notes
 
@@ -233,6 +231,10 @@ My vertical layout isn't designed for scrolling because it's split into differen
 ### A wireframe AND a prototype is probably a good idea
 
 I put a lot of grey boxes in my mockups and ignored a lot of detail (modals) in the short term because I didn't fully understand Sergei's contract. I decided to make stuff up as I went a long, but I think this made my modals look a bit more "tacked on". My pledge modal is totally alien from the other two because I had different space requirements that I didn't take into account. I also had a hard time figuring out what to do sometimes, so it would be easier if I at least an attempt at what something should look like (i.e. less grey boxes). In the end I'm pretty happy with what I came up with though (like the "Extract to CSV").
+
+### Tests were invaluable
+
+A lot of my contract behaviour depends on what time it is, and how many days it's been. I don't want to wait a couple of days just to see if something worked as I intended.
 
 ## Attribution
 

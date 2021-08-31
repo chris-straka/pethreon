@@ -40,8 +40,8 @@ export const ContributePage = () => {
     async function init() {
       if (window.location.pathname === "/") return
       try {
-        let balance = await getContributorBalance()
-        let pledges = await getContributorPledges()
+        const balance = await getContributorBalance()
+        const pledges = await getContributorPledges()
         setBalance(balance)
         setPledges(pledges)
       } catch (error) {
@@ -51,7 +51,6 @@ export const ContributePage = () => {
     }
     init()
   }, [history])
-
 
   useEffect(() => {
     if (currentModal === "") {
@@ -76,7 +75,7 @@ export const ContributePage = () => {
         <ActionButton onClick={() => setCurrentModal("pledge")}>Pledge <PledgeSVG /></ActionButton>
       </div>
       <ul className={styles.transactionHistory}>
-        {pledges.map((pledge: PledgeType) => <Pledge pledge={pledge} key={pledge.creatorAddress} />)}
+        {pledges.map((pledge: PledgeType) => <Pledge pledge={pledge} setLoading={setLoading} setPledges={setPledges} key={pledge.creatorAddress} />)}
       </ul>
     </div>
     <Modal open={currentModal === "" ? false : true} onClose={() => setCurrentModal("")}>{modalBody}</Modal>

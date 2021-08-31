@@ -79,19 +79,19 @@ export enum EtherDenomination {
   ALL = "All",
 }
 
+export enum PledgeStatus {
+  NOT_CANCELLED,
+  CANCELLED
+}
+
 export type PledgeType = {
-  0: string,
-  1: string,
-  2: BigNumber,
-  3: BigNumber,
-  4: BigNumber,
-  creatorAddress: string,
   contributorAddress: string,
-  weiPerPeriod: BigNumber,
-  duration: BigNumber,
+  creatorAddress: string,
   dateCreated: BigNumber,
-  periodCreated: BigNumber,
+  duration: BigNumber,
   periodExpires: BigNumber,
+  status: PledgeStatus,
+  weiPerPeriod: BigNumber,
 }
 
 // const PETHREON_DEVELOPMENT_PRIVATE_KEY = "test test test test test test test test test test test junk"

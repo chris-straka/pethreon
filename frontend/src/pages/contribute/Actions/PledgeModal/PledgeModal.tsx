@@ -59,7 +59,7 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
       setLoading(true)
       await createPledge(address, period, amountPerPeriodInWei)
       const newBalance = await getContributorBalance()
-      const newPledges = await getContributorPledges()
+      const newPledges = await getContributorPledges() 
       setBalance(newBalance)
       setPledges(newPledges)
       setLoading(false)
