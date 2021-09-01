@@ -146,6 +146,8 @@ contract Pethreon {
             "Insufficient funds"
         );
 
+        contributorBalances[msg.sender] -= _weiPerPeriod * _periods; // subtract first to prevent re-entrancy
+
         Pledge[] memory pledges = contributorPledges[msg.sender];
 
         for (uint256 i = 0; i < pledges.length; i++) {
@@ -158,13 +160,10 @@ contract Pethreon {
                 expiredPledge.status = Status.EXPIRED;
                 creatorExpiredPledges[_creatorAddress].push(expiredPledge);
                 deletePledge(_creatorAddress);
-                (_creatorAddress, true);
             }
         }
 
-        contributorBalances[msg.sender] -= _weiPerPeriod * _periods; // subtract first to prevent re-entrancy
-
-        uint256 _currentPeriod = currentPeriod(); // grab the # of periods its been since contract creation
+        uint256 _currentPeriod = currentPeriod();
 
         // Update the CREATOR'S list of future payments
         for (
@@ -200,7 +199,7 @@ contract Pethreon {
     // This can get expensive but I doubt it will happen very often
     // I should come up with a better way to do this
     function cancelPledge(address _creatorAddress) public {
-        Pledge memory pledge = deletePledge(_creatorAddress);
+        Pledge memory pledge = deletePledge(_creatorAddress); // (re-entrancy)
 
         for (
             uint256 _period = currentPeriod(); // grab the current period

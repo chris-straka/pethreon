@@ -80,8 +80,9 @@ export enum EtherDenomination {
 }
 
 export enum PledgeStatus {
-  NOT_CANCELLED,
-  CANCELLED
+  ACTIVE,
+  CANCELLED,
+  EXPIRED
 }
 
 export type PledgeType = {

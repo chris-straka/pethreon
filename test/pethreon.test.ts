@@ -1,11 +1,24 @@
-import "@nomiclabs/hardhat-ethers" // stops the error
+import { ContractFactory, Signer, BigNumber } from 'ethers';
+import { Pethreon } from "../frontend/src/types/Pethreon";
 import { ethers, network } from 'hardhat';
 import { expect } from 'chai';
-import { ContractFactory, Signer } from 'ethers';
-import { Pethreon } from "../frontend/src/types/Pethreon";
-import { PledgeType } from "../frontend/src/pethreon"
+import "@nomiclabs/hardhat-ethers" // stops the error until I figure it out
 
-// ugly and DRY, I'll fix later
+enum PledgeStatus {
+  ACTIVE,
+  CANCELLED,
+  EXPIRED
+}
+
+type PledgeType = {
+  contributorAddress: string,
+  creatorAddress: string,
+  dateCreated: BigNumber,
+  duration: BigNumber,
+  periodExpires: BigNumber,
+  status: PledgeStatus,
+  weiPerPeriod: BigNumber,
+}
 
 describe("Pethreon", () => {
   let PethreonFactory: ContractFactory
@@ -41,49 +54,69 @@ describe("Pethreon", () => {
 
   describe("Pledge creation", async () => {
     beforeEach(async () => {
-      await Pethreon.deposit({ value: oneEther })
+      await Pethreon.deposit({ value: 100 })
       await Pethreon.createPledge(fooAddress, 1, 3)
     })
 
-    it("Should successfully create a pledge", async () => {
+    it("The pledge should look correct", async () => {
       const pledges = await Pethreon.getContributorPledges() as PledgeType[]
       const pledge = pledges[0]
 
+      const duration = await pledge.duration.toNumber()
       const weiPerPeriod = await pledge.weiPerPeriod.toNumber()
       const expirationDate = await pledge.periodExpires.toNumber()
       const currentPeriod = await (await Pethreon.currentPeriod()).toNumber()
 
       expect(weiPerPeriod).to.equal(oneWei)
-      expect(expirationDate - currentPeriod).to.equal(3)
-    })
-
-    it('Should only have one active pledge at a time', async function () {
-      await network.provider.send("evm_increaseTime", [86400 * 8])
-      await network.provider.send("evm_mine")
-
-      await Pethreon.createPledge(fooAddress, 1, 3)
-      // const pledges = await Pethreon.connect(foo).getCreatorPledges()
-      // console.log(pledges.length)
+      expect(expirationDate - currentPeriod).to.equal(duration)
     })
 
     it("The creator should be receiving money in the correct increments", async () => {
       expect(await Pethreon.connect(foo).getCreatorBalance()).to.equal(0)
-      expect(await (await Pethreon.currentPeriod()).toNumber()).to.equal(0) // hasn't been a day yet
+      expect(await Pethreon.getContributorBalance()).to.equal(97)
 
       await network.provider.send("evm_increaseTime", [86400])
       await network.provider.send("evm_mine")
       expect(await Pethreon.connect(foo).getCreatorBalance()).to.equal(1)
-      expect(await (await Pethreon.currentPeriod()).toNumber()).to.equal(1)
 
       await network.provider.send("evm_increaseTime", [86400])
       await network.provider.send("evm_mine")
       expect(await Pethreon.connect(foo).getCreatorBalance()).to.equal(2)
-      expect(await (await Pethreon.currentPeriod()).toNumber()).to.equal(2)
 
       await network.provider.send("evm_increaseTime", [86400])
       await network.provider.send("evm_mine")
       expect(await Pethreon.connect(foo).getCreatorBalance()).to.equal(3)
-      expect(await (await Pethreon.currentPeriod()).toNumber()).to.equal(3)
+
+      await network.provider.send("evm_increaseTime", [86400])
+      await network.provider.send("evm_mine")
+      expect(await Pethreon.getContributorBalance()).to.equal(97)
+      expect(await Pethreon.connect(foo).getCreatorBalance()).to.equal(3)
+      expect(await (await Pethreon.connect(foo).getCreatorBalance())).to.equal(3)
+
+      const pledges = await Pethreon.connect(foo).getCreatorPledges()
+      expect(pledges.length).to.equal(1)
+    })
+
+    it('Contributors should only have one active pledge per creator at a time', async function () {
+      // Currently doesn't work in hardhat yet (to my knowledge)
+      // expect(await Pethreon.createPledge(fooAddress, 1, 3)).to.be.reverted
+
+      await network.provider.send("evm_increaseTime", [86400 * 3]) // jump from period 0 -> 3
+      await network.provider.send("evm_mine")
+      await Pethreon.createPledge(fooAddress, 1, 3)
+
+      expect(await Pethreon.connect(foo).getCreatorBalance()).to.equal(3)       // hasn't been a day yet on the 2nd pledge
+      expect(await (await Pethreon.getContributorPledges()).length).to.equal(1) // the contributor should only have one active pledge
+    })
+
+    it('Creators should have old pledges show up as expired', async function () {
+      await network.provider.send("evm_increaseTime", [86400 * 3]) // jump from period 0 -> 3
+      await network.provider.send("evm_mine")
+      await Pethreon.createPledge(fooAddress, 1, 3)
+      const pledges = await Pethreon.connect(foo).getCreatorPledges()
+      console.log(pledges)
+
+      expect(pledges.length).to.equal(2)
     })
 
     it("The creator should be able to withdraw money sent in from two contributors", async () => {
