@@ -17,12 +17,17 @@ In my app, every user is both a "contributor" AND a "creator". They can donate (
 
 ## How to develop
 
-For this to work you need to [download metamask](https://metamask.io/). You might also want to use a different [browser profile](https://youtu.be/Ik8-xn4DyCo?t=15) for development so that you can keep your personal metamask account separate from your development account. Once metamask is installed, you need to import a new metamask wallet via "private key" and use "test test test test test test test test test test test junk". This is a unique key used by hardhat for development, in which every account in that wallet is given 1000 (fake) ether for use in the development network/blockchain. You might also need to add the development network configuration to metamask as well (if it's not on there already). Click on networks (mainnet), then on custom RPC and add the following network...
+For this to work you need to [download the metamask extension](https://metamask.io/). You might also want to use a different [browser profile](https://youtu.be/Ik8-xn4DyCo?t=15) for development so that you can keep your development metamask account separate from your real one. Once metamask is installed, you need to go to the login screen and click on "import using Secret Recovery Phrase". The secret recovery phrase you need to use is "test test test test test test test test test test test junk". This is a unique key used by hardhat for development, in which every account (in that wallet) is given 1000 (fake) ether for use in the development network/blockchain on port 8545. If metamask doesn't have that network, you will need to add it by clicking on networks, -> custom RPC...
 
-```text
+```bash
+# You might need to run this first in a terminal...
+yarn                      # install backend dependencies (or npm install)
+npx hardhat node --watch  # bootup a development blockchain on port 8545
+
+# Then add this as a custom RPC to metamask...
 Network Name: Localhost 8545
 New RPC URL:  http://localhost:8545
-Chain ID:     1337
+Chain ID:     1337  # if it doesn't work try 31337
 Currency:     ETH
 ```
 
@@ -30,7 +35,7 @@ You should then be able to run these commands and get started. If you need anoth
 
 ```bash
 yarn                      # install backend dependencies (or npm install)
-npx hardhat node --watch  # bootup a development blockchain on port 8585
+npx hardhat node --watch  # bootup a development blockchain on port 8545
 hh node --watch           # (shorthand for the above)[https://hardhat.org/guides/shorthand.html]
 hh test                   # you need to run hh node first to compile the types for my tests
 

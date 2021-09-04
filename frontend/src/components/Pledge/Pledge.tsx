@@ -1,7 +1,6 @@
+import { getContributorPledges, getContributorBalance, cancelPledge, MetamaskError, PledgeType } from "../../pethreon"
 import { utils } from "ethers"
-import { getContributorPledges, PledgeType } from "../../pethreon"
 import { ReactComponent as TrashSVG } from "../../assets/trash.svg"
-import { cancelPledge } from "../../pethreon"
 import styles from "./Pledge.module.css"
 
 interface PledgeProps {
@@ -9,9 +8,10 @@ interface PledgeProps {
   creator?: boolean,
   setLoading?: any
   setPledges?: any
+  setBalance?: any
 }
 
-export const Pledge = ({ pledge, creator = false, setLoading, setPledges }: PledgeProps) => {
+export const Pledge = ({ pledge, creator = false, setLoading, setBalance, setPledges }: PledgeProps) => {
   const creatorAddress = pledge.creatorAddress
   const contributorAddress = pledge.contributorAddress
   const etherPerPeriod = utils.formatEther(pledge.weiPerPeriod)
@@ -23,14 +23,17 @@ export const Pledge = ({ pledge, creator = false, setLoading, setPledges }: Pled
     setLoading(true)
     try {
       await cancelPledge(creatorAddress)
-      const newPledges = await getContributorPledges
+      setTimeout(() => { console.log("test") }, 1000 * 10);
+      const balance = await getContributorBalance()
+      const newPledges = await getContributorPledges()
+      setBalance(balance)
       setPledges(newPledges)
       setLoading(false)
     }
     catch (error) {
       setLoading(false)
-      console.log(error)
-      window.alert(error)
+      console.log((error as MetamaskError).message)
+      window.alert((error as MetamaskError).message)
     }
   }
 

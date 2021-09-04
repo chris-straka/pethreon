@@ -1,30 +1,47 @@
-import { PledgeType } from "../../pethreon"
-import { PledgeStatus } from "../../pethreon"
+import { PledgeType, PledgeStatus, getExpiredPledges } from "../../pethreon"
 import { utils } from "ethers"
 
-export const extractPledgesToCSV = async (pledges: PledgeType[]) => {
-  const creatorAddress = pledges[0].creatorAddress
+export const extractPledgesToCSV = async (active?: PledgeType[]) => {
+  let csv: string = "data:text/csv;charset=utf-8,";
+  let creatorAddress: string = ""
+  let activePledges: string[][] = []
+  let expiredPledges: string[][] = []
 
-  const pledgesForCSV = pledges.map(pledge => {
+  const expired = await getExpiredPledges()
+
+  if (active !== undefined && active !== []) {
+    activePledges = processForCSV(active)
+  }
+
+  if (expired === undefined && expired !== []) {
+    expiredPledges = processForCSV(expired)
+  }
+
+  const rows = [
+    [`Creator Address: ${creatorAddress}`, "Start date", "End date", "Duration (days)", "Ether per day", "Status"],
+    ...activePledges,
+    ...expiredPledges
+  ]
+
+  csv += rows.map(e => e.join(",")).join("\n")
+
+  let encodedUri = encodeURI(csv)
+  window.open(encodedUri)
+}
+
+const processForCSV = (pledges: PledgeType[]): string[][] => {
+  return pledges.map(pledge => {
     const contributorAddress = pledge.contributorAddress
     const etherPerPeriod = utils.formatEther(pledge.weiPerPeriod)
     const duration = pledge.duration.toString()
     const startDate = new Date(+pledge.dateCreated * 1000).toDateString()
     const endDate = new Date((+pledge.dateCreated + (+duration * 86400)) * 1000).toDateString()
-    const cancelled = pledge.status === PledgeStatus.CANCELLED ? true : false
 
-    return [contributorAddress, startDate, endDate, duration, etherPerPeriod, cancelled];
+    let status: string;
+    if (pledge.status === PledgeStatus.ACTIVE) status = "ACTIVE"
+    else if (pledge.status === PledgeStatus.CANCELLED) status = "CANCELLED"
+    else status = "EXPIRED"
+
+    return [contributorAddress, etherPerPeriod, duration, startDate, endDate, status]
   })
-
-  const rows = [
-    [`Addresses that Pledged to ${creatorAddress}`, "Start date", "End date", "Duration (days)", "Ether per day", "Cancelled"],
-    ...pledgesForCSV
-  ]
-
-  let csvContent = "data:text/csv;charset=utf-8,"
-    + rows.map(e => e.join(",")).join("\n")
-
-  let encodedUri = encodeURI(csvContent)
-
-  window.open(encodedUri)
 }

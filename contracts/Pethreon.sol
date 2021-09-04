@@ -136,6 +136,15 @@ contract Pethreon {
         return creatorActivePledges[msg.sender];
     }
 
+    function getExpiredPledges()
+        public
+        view
+        returns (Pledge[] memory allPledges)
+    {
+        return creatorExpiredPledges[msg.sender];
+    }
+
+    // This isn't going to scale well if the creator has a lot of people pledging to them
     function createPledge(
         address _creatorAddress,
         uint256 _weiPerPeriod,
@@ -148,20 +157,23 @@ contract Pethreon {
 
         contributorBalances[msg.sender] -= _weiPerPeriod * _periods; // subtract first to prevent re-entrancy
 
-        Pledge[] memory pledges = contributorPledges[msg.sender];
+        Pledge[] memory _contributorPledges = contributorPledges[msg.sender];
 
-        for (uint256 i = 0; i < pledges.length; i++) {
-            if (pledges[i].creatorAddress == _creatorAddress) {
+        for (uint256 i = 0; i < _contributorPledges.length; i++) {
+            if (_contributorPledges[i].creatorAddress == _creatorAddress) {
                 require(
-                    currentPeriod() >= pledges[i].periodExpires,
+                    currentPeriod() >= _contributorPledges[i].periodExpires,
                     "You're only allowed to have one active pledge at at time, cancel your existing one first or wait until it expires"
                 );
-                Pledge memory expiredPledge = pledges[i];
+                Pledge memory expiredPledge = _contributorPledges[i];
                 expiredPledge.status = Status.EXPIRED;
                 creatorExpiredPledges[_creatorAddress].push(expiredPledge);
-                deletePledge(_creatorAddress);
+                deletePledgeForContributor(_creatorAddress);
+                deletePledgeForCreator(_creatorAddress);
             }
         }
+
+        // Pledge[] memory _creatorPledges = creatorActivePledges[_creatorAddress];
 
         uint256 _currentPeriod = currentPeriod();
 
@@ -199,7 +211,7 @@ contract Pethreon {
     // This can get expensive but I doubt it will happen very often
     // I should come up with a better way to do this
     function cancelPledge(address _creatorAddress) public {
-        Pledge memory pledge = deletePledge(_creatorAddress); // (re-entrancy)
+        Pledge memory pledge = deletePledgeForContributor(_creatorAddress); // (re-entrancy)
 
         for (
             uint256 _period = currentPeriod(); // grab the current period
@@ -209,16 +221,11 @@ contract Pethreon {
             expectedPayments[_creatorAddress][_period] -= pledge.weiPerPeriod;
         }
 
-        Pledge[] storage creatorPledgesBefore = creatorActivePledges[
-            _creatorAddress
-        ];
+        Pledge memory cancelledPledge = deletePledgeForCreator(_creatorAddress);
+        cancelledPledge.periodExpires = currentPeriod();
+        cancelledPledge.status = Status.CANCELLED;
 
-        for (uint256 i = 0; i < creatorPledgesBefore.length; i++) {
-            if (creatorPledgesBefore[i].contributorAddress == msg.sender) {
-                creatorPledgesBefore[i].periodExpires = currentPeriod();
-                creatorPledgesBefore[i].status = Status.CANCELLED;
-            }
-        }
+        creatorExpiredPledges[_creatorAddress].push(cancelledPledge);
 
         contributorBalances[msg.sender] +=
             pledge.weiPerPeriod *
@@ -227,7 +234,7 @@ contract Pethreon {
         emit PledgeCancelled(currentPeriod(), _creatorAddress, msg.sender);
     }
 
-    function deletePledge(address _creatorAddress)
+    function deletePledgeForContributor(address _creatorAddress)
         internal
         returns (Pledge memory)
     {
@@ -243,6 +250,25 @@ contract Pethreon {
         }
 
         pledges.pop(); // remove the pledge we want to cancel from the contributor's mapping (early removal prevents re-entrancy)
+        return pledge;
+    }
+
+    function deletePledgeForCreator(address _creatorAddress)
+        internal
+        returns (Pledge memory deletedPledge)
+    {
+        Pledge[] storage pledges = creatorActivePledges[_creatorAddress];
+        Pledge memory pledge;
+
+        for (uint256 i = 0; i < pledges.length; i++) {
+            if (pledges[i].contributorAddress == msg.sender) {
+                pledge = pledges[i];
+                pledges[i] = pledges[pledges.length - 1];
+                pledges[pledges.length - 1] = pledge;
+            }
+        }
+
+        pledges.pop();
         return pledge;
     }
 }

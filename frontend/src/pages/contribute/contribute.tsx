@@ -75,7 +75,7 @@ export const ContributePage = () => {
         <ActionButton onClick={() => setCurrentModal("pledge")}>Pledge <PledgeSVG /></ActionButton>
       </div>
       <ul className={styles.transactionHistory}>
-        {pledges.map((pledge: PledgeType) => <Pledge pledge={pledge} setLoading={setLoading} setPledges={setPledges} key={pledge.creatorAddress} />)}
+        {pledges.map((pledge: PledgeType) => <Pledge pledge={pledge} setLoading={setLoading} setBalance={setBalance} setPledges={setPledges} key={pledge.creatorAddress} />)}
       </ul>
     </div>
     <Modal open={currentModal === "" ? false : true} onClose={() => setCurrentModal("")}>{modalBody}</Modal>
