@@ -25,13 +25,12 @@
 
 /* LOGIN */
 .metamessage {
-  overflow-y: auto;
+  overflow-y: scroll;
   font-family: cute;
   font-size: 2rem;
-  font-weight: 400;
-  margin: 0 2.3rem 1.5rem 2.3rem;
+  margin: 0 37px 24px 37px;
   text-align: center;
-  height: 5.625rem;
+  height: 100px;
 }
 
 .metacontainer {
@@ -43,3 +42,56 @@
 .metacontainer svg {
   width: 30vw;
 }
+
+@media only screen and (width: 280px) {
+  .metamessage {
+    margin-left: 9px;
+    margin-right: 9px;
+  }
+}
+
+@media only screen and (height: 812px) {
+  .metamessage {
+    margin-top: 6px;
+    font-size: 34px;
+  }
+}
+
+@media only screen and (min-width: 412px) {
+  .metamessage {
+    font-size: 2.2rem;
+    margin-top: 5px;
+  }
+}
+
+@media only screen and (min-width: 480px) {
+  .metamessage {
+    height: 80px;
+    font-size: clamp(2.2rem, 8vw, 15vw);
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  /* clamp(lower, preferred, upper) */
+  .metamessage {
+    height: 120px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .metamessage {
+    font-size: clamp(2vw, 8vw, 15vw);
+    margin-right: 65px;
+    margin-left: 65px;
+    height: 190px;
+  }
+}
+
+
+
+
+
+
+
+
+

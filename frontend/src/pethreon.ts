@@ -8,7 +8,7 @@ const PETHREON_CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
 
 export interface EthereumWindow extends Window { ethereum?: any, }
 
-export interface MetamaskError extends Error { code: number, message: string }
+export interface MetamaskError extends Error { data: any, code: number, message: string }
 
 export enum EtherDenomination {
   ETHER = "Ether",
@@ -42,8 +42,13 @@ function init() {
 
 export async function deposit(amount: BigNumberish) {
   const contract = init()
+  console.log(contract)
   const transaction = await contract.deposit({ value: amount })
   await transaction.wait()
+  console.log(contract)
+  setTimeout(() => {
+    console.log(contract)
+  }, 10000);
 }
 
 export async function getContributorBalance() {

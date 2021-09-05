@@ -122,23 +122,38 @@ declare const expect: jest.Expect;         // this
 
 I think the issue was I was using one package.json file for the whole project, when I should've been using two? I think I needed my frontend to use its own set of dependencies? Not sure. I was thinking of using docker but I ended up copying a boilerplate project from [this plugin](https://hardhat.org/plugins/hardhat-react.html). The plugin ended up being outdated for my version of solidity so I ended up removing it, but the hardhat framework was a huge win. Unlike Truffle, hardhat has console logging and stack traces for solidity which was a big help.
 
-## Features & Ideas
-
-These are ideas for features that I thought about adding.
+## Ideas
 
 ### Unipledge? Charity Application?
 
 I thought it'd be pretty cool to have a "unipledge" feature that would donate to every creator on the platform (this might create an influx of fake/repeat creators though). I was also thinking it'd be cool to create a charity project. In which users would pool money into different charity pools, and the money would then be locked into a DeFi protocol like [Aave](https://aave.com/), the accrued interest could then go towards a charity address like [the water project @ 0x54a465610d119ad28deafd4bce555834c38beeb9](https://thewaterproject.org/donate-ethereum). I could have users withdraw their donations from the pool to put it towards another pool, but force them to leave ~25% in the pool so that it can continue to grow forever. Pretty terrifying if that address is compromised though.
 
+## Todo
+
 ### PWA features?
 
 So far, I was thinking of caching the last page users visited (localstorage) so that creators could jump straight into the creator portal instead of forcing them to the contributor page. I was also thinking it'd be cool if contributors could make donations offline using service workers and then synchronizing them in the background once they come back online again. It'd also be cool if I could use IndexedDB for the pledges on the creator side, because there will be a lot of arrays (large data).
 
+### Scroll animation popup
+
+My metamask text animation is set to overflow: auto; so the user can scroll through the text if it overflows. However, there's no indication on screen telling the user that they can scroll the text. I think I have to trigger a second animation letting them know whether or not they can [scroll](https://stackoverflow.com/questions/9333379). I haven't decided how I want to do this yet though, maybe like this?
+
+```tsx
+75 * message.length + 1 // to run the animation at the end of the typing
+const isOverflown = (clientHeight, scrollHeight) => {
+  return scrollHeight > clientHeight 
+}
+```
+
+### UX
+
+My circles animate slowly but my content loads instantly which is jarring. I should use framer-motion or react-transition-group to transition into content more naturally. I also use a lot of window.alert() for my form validation when I should use text popups instead.
+
+### A11y
+
+On my contributor/creator page, the keyboard navigation is messed up. Hitting tab skips over Circle_B. I think it's because Circle_B starts off in the middle of the screen and gets brought over to the top of the screen via an animation. I tried messing with the tabIndex but it didn't seem to work.  Hitting ESC on the keyboard should also close any modal.
+
 ## Notes
-
-### SafeMath
-
-SafeMath is no longer needed for solidity 0.8.0+ (integer variable types can't overflow anymore). If you're using an older version of solidity, make sure you also use an older version of SafeMath too [@openzepplin/contracts](https://github.com/OpenZeppelin/openzeppelin-contracts).
 
 ### Passing ether around
 
@@ -147,7 +162,7 @@ There are a couple [exceptions](https://ethereum.stackexchange.com/questions/639
 ```solidity
 // Pre solidity v0.6.0
 contract foo {
-  // You can only have ONE of the following, they can each run 2300 gas worth of computation, and are usually used to emit an event 
+  // You can only have ONE of the following, they can each run 2300 gas worth of computation, and are usually used to emit an event
   function() external {}         // runs, throws an exception, and reverts the entire transaction
   function() external payable {} // runs, and then deposits all the ether into the smart contract
 }
@@ -155,7 +170,7 @@ contract foo {
 // Solidity v0.6.0+
 contract foo {
   // You can have one OR both
-  fallback() external {}         // fallback works EXACTLY like before (just like function() external or function() external payable {}) 
+  fallback() external {}         // fallback works EXACTLY like before (just like function() external or function() external payable {})
   fallback() external payable {} // however, receive() will always prevail over fallback() if receive() is defined
   receive() external payable {}  // called whenever there's no input data, puts all ether into the smart contract
 }
@@ -165,15 +180,27 @@ In order to send a transaction with input data, you need to use a library like w
 
 If you want the smart contract to send ether to someone else, then you need to use send(), transfer() or call() functions. These days however, only [call()](https://ethereum.stackexchange.com/questions/78124/) is recommended. The address that you're sending money to must also be marked payable in the smart contract code i.e. payable(address). Every contract starts off at 0 balance, and your contract can see its own balance using address(this).balance. Sites like [Remix](https://remix.ethereum.org/) will also show you I think. A provider is a connection to Ethereum, a signer is an account.
 
+### My Choice of React
+
+I originally chose React so I could use [this plugin](https://hardhat.org/plugins/hardhat-react.html) to turn my smart contract abi into a react context. I was much more familiar with react context than ethers.js, so I thought it was a good choice. I ended up scrapping the plugin altogether though because it wasn't compatibile with my version of solidity and I didn't feel like downgrading (I would've had to downgrade my other dependencies too like typechain/hardhat and bring in an older version of SafeMath from [@openzepplin/contracts](https://github.com/OpenZeppelin/openzeppelin-contracts) to prevent under/over flow since that can happen in < 0.8.0). I think it ended up being a good choice though because I learned some bare essentials about ethers.js that I really should know.
+
+Instead of creating my own react context, I decided to use a single ts file instead. The only state that is worth storing in react context is the contract instance, which never changes unless you're using a different smart contract entirely. Or maybe there's other advantages that I don't know about yet (deployment?).
+
 ## Lessons
 
-### I should've been more thoughtful about relative units in CSS (mobile layout)
+### Component Reusability
 
-My vertical layout isn't designed for scrolling because it's split into different view heights (top ~15vh, middle ~60vh, bottom ~25v) and the bottom part is occupied by circles positioned relative to the screen (instead of the content). This meant my circles couldnt move down to accommadate for any size increases above it. I used rem for all my font-sizes which meant any sizes above the default would mess with my circles.
+I was fortunate enough to be able to reuse a lot of components, but there were things that crept up on me that I didn't expect. For components to be reusable, I had to make sure they didn't have margin because then they would be much harder to reuse. Adding the correct margin later on sucked too because spacers would bloat my HTML, and className/styles (passed down as props) would make my components look uglier. My components would get even uglier whenever I tried to make them do more than one thing so that they were more reusable. It almost felt like having dry-ish components was worth it sometimes so that I could have something more readable.
+
+### CSS Relative Units
+
+I found that the more I compartmentalized my app into components, the more media queries I needed to write. I couldn't just write media queries for each page (login, contribute, create), I also had to write media queries for each component in that page. Part of the reason why, is I didn't think there was an easy way to select React components in CSS and I avoided stuff like nth-of-child because I was subconsciously worried about its performance. I think next time I'm going to use more of these kinds of selectors from my parent component to try and grab child components, and scale them from there using media queries while making sure stuff in the child component is also scaling correctly using ems or % (which I woefully under-utilized this project).
+
+I used a lot of pixel units, because I didn't want the UI to "scale up" with font-size and create scrollbars for the entire screen. My decorative circles are positioned relative to the screen and I thought it would look janky if the circles moved in the same direction that the user scrolled in. For this reason, I might even drop rem completely (despite its mass recommendation online for use in font-sizes). Maybe this design decision was a bad choice altogether though and I should have the circles slide together with the scrollbar, hard to say.
 
 ### A wireframe AND a prototype is probably a good idea
 
-I put a lot of grey boxes in my mockups and ignored a lot of detail (modal mockups) in the short term because I didn't fully understand Sergei's contract. I decided to make stuff up as I went a long. The result is I think it made my pledge modal look a bit "tacked on" since it doesn't fit in with the other two (due to different space requirements).
+I put a lot of grey boxes in my mockups and ignored a lot of detail (including the modals) in the short term mostly because I didn't fully understand Sergei's contract and decided to figure it out as I went a long. The result is I think it made my pledge modal look a bit "tacked on" since it doesn't fit in with the other two (due to different space requirements). I also think I would've saved more time if I made a half-hazard guess at what stuff should look like.
 
 ### Tests were invaluable
 

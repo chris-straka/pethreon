@@ -66,7 +66,7 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
     } catch (error) {
       setLoading(false)
       console.log(error)
-      window.alert(`Error: ${(error as MetamaskError).message}`)
+      window.alert(`${(error as MetamaskError).data.message}`)
     }
   }
 

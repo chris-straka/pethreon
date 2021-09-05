@@ -12,34 +12,7 @@ yarn test  # run tests (jest)
 yarn build  
 ```
 
-## Cool Ideas
-
-My metamask text animation is set to overflow: auto; so the user can scroll through the text if it gets too long (previously it just wrote over my login button). However, there's no indication on screen telling the user that they can scroll the text. I think I have to trigger a second animation letting them know whether or not they can [scroll](https://stackoverflow.com/questions/9333379). I haven't decided how I want it to look like yet but it'd go something like this.
-
-```tsx
-75 * message.length + 1 // to run the animation at the end of the typing
-const isOverflown = (clientHeight, scrollHeight) => {
-  return scrollHeight > clientHeight 
-}
-```
-
-### TODO
-
-My circles animate slowly but my content loads instantly. I need to use framer-motion or react-transition-group.
-
-Keyboard navigation on my contributor/creator page is messed up. I tried changing the tabIndex but it didn't work.
-
-My modal and circleB are not keyboard a11y
-
-I use a lot of window.alert() for my form validation when I should use text popups instead
-
-### Useful Links
-
-- [Ethers.js Display Logic](https://docs.ethers.io/v5/api/utils/display-logic/#display-logic)
-- [Ethers.js Conversion Logic](https://docs.ethers.io/v5/api/utils/display-logic/#unit-conversion)
-- [cool styles](https://codepen.io/havardob/pen/dyYXBBr)
-
-### Notes
+### Frontend Blabbering (Notes)
 
 I want my circle animations to run infinitely, but do I really have to specify eight properties in the css `animation: ;` just to get infinite playback? [>_<](https://youtu.be/AbnWq7F9o20?t=11)
 
@@ -47,7 +20,7 @@ There are [accessibility concerns](https://developer.mozilla.org/en-US/docs/Web/
 
 I remember seeing rel="noreferrer noopener" in the wild, and wondered if rel="noreferrer" was sufficient? This [post](https://stackoverflow.com/questions/57628890) shed some light. TODO -> look into window.opener().
 
-Some people recommend using the main tag on [every page](https://stackoverflow.com/questions/44308760). This probably doesn't apply to SPAs though eh? If I'm only serving one HTML page, there might be SEO issues if it sees "main" multiple times on the "same page".
+Some people recommend using the main tag on [every page](https://stackoverflow.com/questions/44308760). This probably doesn't apply to SPAs though I'm assuming? If I'm only serving one HTML page, there might be SEO issues if it sees "main" multiple times on the "same page".
 
 I was wondering what color to use for my login button. [UX stack exchange](https://ux.stackexchange.com/questions/104224) says it should be my primary color, however this doesn't look good because my animated circles are the same color, and they float behind the login button occasionally. I'm wondering if I should use my secondary color or if it's "too pink" or if it should be the same color as my text.
 
@@ -73,6 +46,6 @@ I was worried about the performance of my circle animations and found out that t
 
 I found out that window.alerts are very annoying for UX which is good to know. I'm going to use it for now so I don't have to make a third modal or a text-tooltip component
 
-It's funny that Pledge is a verb and a noun and I've used both meanings when referencing stuff -> Y I K E S
+It's funny that Pledge is a verb and a noun and I've used both meanings when referencing stuff (Y I K E S).
 
 I think the frontend is going to end up looking a lot better on mobile (because it was designed for mobile first), even though I'm not sure how smooth the metamask app experience is going to be.

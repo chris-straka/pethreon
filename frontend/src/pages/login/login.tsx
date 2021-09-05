@@ -47,10 +47,10 @@ export const Login = () => {
     }
   }
 
-  return <main>
+  return <main className={styles.layout}>
     <h1 className={styles.pethreon}>P<span className={styles.Ξ}>Ξ</span>threon</h1>
     <ul className={styles.features}>
-      <li>Contribute monthly to your favourite creators in a trustless, privacy respecting manner</li>
+      <li>Contribute monthly to your favourite creators in a trustless and privacy respecting manner</li>
       <li>Only pay transaction fees,&nbsp;
         <a href="https://github.com/Chris56974/Pethreon/blob/main/contracts/Pethreon.sol"
           target="_blank"
