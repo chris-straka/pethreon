@@ -45,10 +45,6 @@ export async function deposit(amount: BigNumberish) {
   console.log(contract)
   const transaction = await contract.deposit({ value: amount })
   await transaction.wait()
-  console.log(contract)
-  setTimeout(() => {
-    console.log(contract)
-  }, 10000);
 }
 
 export async function getContributorBalance() {

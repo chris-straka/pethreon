@@ -1,5 +1,7 @@
-export const MetamaskSVG = ({ isTalking }: { isTalking: boolean }) => (
-  <svg className={!isTalking ? "floating" : ""} id="metamaskFox" viewBox="0 0 154 154" fill="none" xmlns="http://www.w3.org/2000/svg">
+import "./MetamaskSVG.css"
+
+export const MetamaskSVG = ({ talking }: { talking: boolean }) => (
+  <svg className={talking ? "" : "floating"} id="metamaskFox" viewBox="0 0 154 154" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path id="rightEarMuff" d="M132.49 17.1594L84.3955 52.8801L93.2894 31.8054L132.49 17.1594Z" fill="#E2761B" stroke="#E2761B" strokeLinecap="round" strokeLinejoin="round" />
     <path id="leftEarMuff" d="M21.4614 17.1594L69.1695 53.2184L60.7106 31.8054L21.4614 17.1594Z" fill="#E4761B" stroke="#E4761B" strokeLinecap="round" strokeLinejoin="round" />
     <path id="rightEar" d="M134.52 55.2002L138.629 35.4789L132.49 17.1594L85.9906 51.6717L103.875 66.801L129.155 74.1965L134.762 67.671L132.345 65.9309L136.212 62.4024L133.215 60.0822L137.082 57.1337L134.52 55.2002Z" fill="#763D16" stroke="#763D16" strokeLinecap="round" strokeLinejoin="round" />
@@ -25,7 +27,7 @@ export const MetamaskSVG = ({ isTalking }: { isTalking: boolean }) => (
     <path id="leftCheek" d="M50.0766 66.801L24.7966 74.1965L16.3861 100.395H38.8142L53.8468 100.588L42.4394 78.3534L50.0766 66.801Z" fill="#F6851B" stroke="#F6851B" strokeLinecap="round" strokeLinejoin="round" />
     <path id="innerLeftCheek" d="M51.6234 119.584L67.9611 111.609L53.8468 100.588L51.6234 119.584Z" fill="#E4761B" stroke="#E4761B" strokeLinecap="round" strokeLinejoin="round" />
     <path id="innerRightCheek" d="M85.9906 111.609L102.377 119.584L100.105 100.588L85.9906 111.609Z" fill="#E4761B" stroke="#E4761B" strokeLinecap="round" strokeLinejoin="round" />
-    <g id="metamaskMouth" className={isTalking ? "talking" : ""}>
+    <g id="metamaskMouth" className={talking ? "talking" : ""}>
       <path id="nose" d="M85.9906 111.609L83.6705 110.014H70.2812L67.9611 111.609L66.7527 122.291L67.8644 121.228H86.0873L87.2957 122.291L85.9906 111.609Z" fill="#161616" stroke="#161616" strokeLinecap="round" strokeLinejoin="round" />
       <path id="chin" d="M87.1507 126.787L87.2957 122.291L86.0873 121.228H67.8644L66.7527 122.291L66.8493 126.787L51.6234 119.584L56.9404 123.935L67.7194 131.427H86.2323L97.0596 123.935L102.377 119.584L87.1507 126.787Z" fill="#C0AD9E" stroke="#C0AD9E" strokeLinecap="round" strokeLinejoin="round" />
       <path id="rightChin" d="M102.377 119.584L85.9906 111.609L87.2957 122.291L87.1507 126.787L102.377 119.584Z" fill="#D7C1B3" stroke="#D7C1B3" strokeLinecap="round" strokeLinejoin="round" />

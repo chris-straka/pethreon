@@ -9,7 +9,11 @@
 
 ## How it works (high level)
 
-[Hardhat](https://hardhat.org/getting-started/) is a development environment/blockchain for ethereum, [Waffle](https://ethereum-waffle.readthedocs.io/en/latest/index.html) is a testing library for smart contracts (programs that run on the blockchain) and [ethers.js](https://docs.ethers.io/v5/getting-started/) is a frontend JS library for communicating with the ethereum network. Basically, I'm creating a react app that talks to an ethereum node that I have running at [infura](https://infura.io/) (the ~AWS for Ethereum).
+[Hardhat](https://hardhat.org/getting-started/) is a development environment/blockchain for ethereum, [Waffle](https://ethereum-waffle.readthedocs.io/en/latest/index.html) is a testing library for smart contracts (programs that run on the blockchain) and [ethers.js](https://docs.ethers.io/v5/getting-started/) is a frontend JS library for communicating with the ethereum network. Basically, I'm creating a [react app](https://reactjs.org/) that talks to an ethereum node that I have running at [infura](https://infura.io/) (the ~AWS for Ethereum).
+
+[This App](https://github.com/Chris56974/Pethreon)
+
+[Create React App Docs](https://facebook.github.io/create-react-app/docs/getting-started)
 
 To create a smart contract, you have to write a solidity file (Pethreon.sol) and compile it to JSON (Pethreon.json). The JSON file will then have "bytecode" that you can deploy to Ethereum, as well as an "ABI" that describes what that bytecode (smart contract) can do. My React application (or any other frontend application) can then use this ABI together with a library (like ethersJS/Web3) to make calls to it after it's been deployed. The calls have to be carried out by an ethereum node (like the one I have running at Infura). Some of these calls require real money (like creating a pledge) because they require verification from every other node in the ethereum network ([~5,000 nodes](https://www.ethernodes.org/history)). Other calls are free (subject to my agreement @ infura -> [100,000 free calls a day](https://infura.io/pricing)) because they don't require any verification from other nodes (reading data from the blockchain).
 
@@ -90,7 +94,7 @@ According to this [post](https://ethereum.stackexchange.com/questions/39723), it
 
 ### Can the creator get locked out of their money?
 
-After reading (and contributing to) [this answer on stack exchange](https://ethereum.stackexchange.com/questions/42207), there's an interesting possibility where the withdraw() function might take up so much gas that the creator can no longer withdraw. I think in my case, this would only happen if the creator takes a really long time to withdraw their funds (i.e. the withdraw function had to iterate over too many periods). I think this is only a problem if I chose something like 1 second for my period.
+After reading (and contributing to) [this answer on stack exchange](https://ethereum.stackexchange.com/questions/42207), it turns out there's a possibility that a user might not be able to call a function because it takes up so much gas to run. I think in my case, this would only happen if the creator takes a really long time to withdraw their funds (i.e. the withdraw function had to iterate over so many periods they couldn't withdraw). Or if so many contributors are pledging to a creator that they can't create a new pledge because they would have to iterate through too many pledges inside createPledge(). I tried to alleviate the second problem by doing a rewrite of the smart contract (on a branch called "alternative"), but it was flawed because I couldn't build a dynamic array in memory. I needed to build a dynamic array in memory because that was the easiest way to return all my pledges to the user. I could return a static array in memory, but this would result in much more calls to my node at infura. There might be something I'm missing and maybe this is still the best approach but I decided to stick with my contract for now.
 
 ### Recurring payments
 
@@ -122,6 +126,14 @@ declare const expect: jest.Expect;         // this
 
 I think the issue was I was using one package.json file for the whole project, when I should've been using two? I think I needed my frontend to use its own set of dependencies? Not sure. I was thinking of using docker but I ended up copying a boilerplate project from [this plugin](https://hardhat.org/plugins/hardhat-react.html). The plugin ended up being outdated for my version of solidity so I ended up removing it, but the hardhat framework was a huge win. Unlike Truffle, hardhat has console logging and stack traces for solidity which was a big help.
 
+### Typewriter Effect Problems
+
+I probably could've done my typewriter animation in the login screen using CSS only, but it might be tricky because I've only seen this done with single lines of static text (not dynamic wrapping lines of text). So I did it through JS instead but there was a couple issues. I wanted to interrupt effect but JS is only single threaded so I had to check a boolean everytime it printed a character. I also had issues printing a hyperlink char-by-char (either that or I'm dumb?) because it kept printing the HTML markup as well `<a href="" rel="" etc="">download<a>`. So my current implementation recreates the link ~17 times, by incrementally building it on each iteration. I should look into this later in case I'm missing something obvious. The hyperlink was needed for people who don't have an ethereum wallet installed and need to download metamask.
+
+### Metamask Problems
+
+When the user clicks my login button, they're prompted with a "sign-in" modal from metamask (and not me). If the user closes that modal without signing in, metamask will NOT error out. Instead, my code behaves as if the user is STILL logging in which is not a great UX. It looks like other popular sites like Aave and Uniswap behave the same though. Also, when an error is thrown metamask will give back an object but sometimes the error is tricky to find. It might be in error.message or it might be in error.data.message which is frustating.
+
 ## Ideas
 
 ### Unipledge? Charity Application?
@@ -147,7 +159,7 @@ const isOverflown = (clientHeight, scrollHeight) => {
 
 ### UX
 
-My circles animate slowly but my content loads instantly which is jarring. I should use framer-motion or react-transition-group to transition into content more naturally. I also use a lot of window.alert() for my form validation when I should use text popups instead.
+My circles animate slowly but my content loads instantly which is jarring. I should use framer-motion or react-transition-group to transition content more smoothly. I also use a lot of window.alert() for my form validation when I should use my own toasts that don't create an additional step for the user.
 
 ### A11y
 
@@ -186,25 +198,46 @@ I originally chose React so I could use [this plugin](https://hardhat.org/plugin
 
 Instead of creating my own react context, I decided to use a single ts file instead. The only state that is worth storing in react context is the contract instance, which never changes unless you're using a different smart contract entirely. Or maybe there's other advantages that I don't know about yet (deployment?).
 
+### Frontend Stuff
+
+- I designed everything around the iPhone 6/7/8 because iPhone 4 seems obsolete.
+- Mobile first made my desktop UX kind of sparse I think.
+- For a11y, motion can also be [problematic](https://developer.mozilla.org/en-US/docs/Web/CSS/animation#accessibility_concerns)
+- I need to look into window.opener() and this interesting [post](https://stackoverflow.com/questions/57628890)
+- Main tag should only show up once in SPA's
+- The login button should have the same color as [your primary color](https://ux.stackexchange.com/questions/104224)
+- I could be wrong, but innerHTML only gets scary once other users are adding the markup
+- In ethers you get lower denominations by parsing and higher denominations by formatting
+- [Opacity slows down rendering](https://stackoverflow.com/questions/38523826) so use RGBA instead
+- 🙅 onClick={function(arg)} 🙅 -> onClick(() => function(arg))
+- [React.FC<>](https://github.com/typescript-cheatsheets/react#function-components) is discouraged, use interfaces instead.
+- The type of useState()'s setState handler is `Dispatch<SetStateAction<type>>` where type is the type of the state you're setting
+- The type of an event handler is `(event: ChangeEvent<HTMLElement>) => type`
+- Pledge is a verb and a noun and I've used both meanings when naming stuff which could get bothersome.
+
 ## Lessons
 
-### Component Reusability
+### Tests were invaluable
 
-I was fortunate enough to be able to reuse a lot of components, but there were things that crept up on me that I didn't expect. For components to be reusable, I had to make sure they didn't have margin because then they would be much harder to reuse. Adding the correct margin later on sucked too because spacers would bloat my HTML, and className/styles (passed down as props) would make my components look uglier. My components would get even uglier whenever I tried to make them do more than one thing so that they were more reusable. It almost felt like having dry-ish components was worth it sometimes so that I could have something more readable.
+A lot of my contract behaviour depends on what time it is, and how many days it's been. I don't want to wait a couple of days just to see if something works as intended, so [being able to set the time](https://ethereum.stackexchange.com/questions/86633) was a big help. The tests also made it a lot easier to understand my contract.
+
+### Responsive Design Tips
+
+Before this project I didn't use the flex-grow/flex-shrink properties as much (if at all) and I now realize that the better my layout is, the less media queries I'll have to write. When flex-grow is set to 0 (the default), the space between stuff gets bigger and nothing fills that space. I also now see a stronger resemblance between flex-grow and the fractional units used in CSS grid.
+
+### Component Reuse is not as "free" as I thought
+
+I was fortunate enough to be able to reuse a lot of components, but there were side-effects that crept up that I wasn't expecting. For components to be reusable, I had to make sure they didn't have any margin. Adding in the margin later would bloat the JSX in some way, like littering it with Spacer components or passing in extra props (className/style props). The more reusable I tried to make my components, the less readable they started to get.
+
+I also found myself at a point where the more components I wrote, the more media queries I needed to write. I couldn't just write media queries for each page anymore (login, contribute, create), I also had to write media queries for each component IN that page. I think this was mostly my fault, but one of the things I learned was that spreading media queries across files sucks (even for stuff like dark theme). At the time I didn't think there was an easy way to select React components in CSS unless you used stuff like "nth-of-child" which I avoided because I was cautious about its performance (perhaps irrationally so) and also make it harder to swap things in and out. I think next time I'm going to try and use more of these selectors to control the styles of nested components all the way from a parent component.
 
 ### CSS Relative Units
-
-I found that the more I compartmentalized my app into components, the more media queries I needed to write. I couldn't just write media queries for each page (login, contribute, create), I also had to write media queries for each component in that page. Part of the reason why, is I didn't think there was an easy way to select React components in CSS and I avoided stuff like nth-of-child because I was subconsciously worried about its performance. I think next time I'm going to use more of these kinds of selectors from my parent component to try and grab child components, and scale them from there using media queries while making sure stuff in the child component is also scaling correctly using ems or % (which I woefully under-utilized this project).
 
 I used a lot of pixel units, because I didn't want the UI to "scale up" with font-size and create scrollbars for the entire screen. My decorative circles are positioned relative to the screen and I thought it would look janky if the circles moved in the same direction that the user scrolled in. For this reason, I might even drop rem completely (despite its mass recommendation online for use in font-sizes). Maybe this design decision was a bad choice altogether though and I should have the circles slide together with the scrollbar, hard to say.
 
 ### A wireframe AND a prototype is probably a good idea
 
 I put a lot of grey boxes in my mockups and ignored a lot of detail (including the modals) in the short term mostly because I didn't fully understand Sergei's contract and decided to figure it out as I went a long. The result is I think it made my pledge modal look a bit "tacked on" since it doesn't fit in with the other two (due to different space requirements). I also think I would've saved more time if I made a half-hazard guess at what stuff should look like.
-
-### Tests were invaluable
-
-A lot of my contract behaviour depends on what time it is, and how many days it's been. I don't want to wait a couple of days just to see if something works as intended, so [being able to set the time](https://ethereum.stackexchange.com/questions/86633) was a big help. The tests also made it a lot easier to understand my contract. They look kind of awful though, I should learn to refactor them.
 
 ## Attribution
 

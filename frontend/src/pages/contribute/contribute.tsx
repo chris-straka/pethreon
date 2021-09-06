@@ -10,7 +10,7 @@ import { ActionButton } from "../../components/ActionButton/ActionButton"
 import { Modal } from "../../components/ModalOutline/ModalOutline"
 import styles from "./contribute.module.css"
 
-import { EthereumWindow, PledgeType, getContributorBalance, getContributorPledges } from "../../pethreon"
+import { EthereumWindow, PledgeType, getContributorBalance, getContributorPledges, MetamaskError } from "../../pethreon"
 
 import { ReactComponent as WithdrawSVG } from "../../assets/withdraw.svg"
 import { ReactComponent as DepositSVG } from "../../assets/deposit.svg"
@@ -45,7 +45,7 @@ export const ContributePage = () => {
         setBalance(balance)
         setPledges(pledges)
       } catch (error) {
-        window.alert(`${error}`)
+        window.alert((error as MetamaskError).message)
         history.push("/")
       }
     }

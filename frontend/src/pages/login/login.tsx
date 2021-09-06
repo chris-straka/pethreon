@@ -1,35 +1,34 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
-import { GithubSVG } from './githubSVG/GithubSVG';
-import { MetamaskAnimation } from './metamask/MetamaskAnimation';
-import styles from "./login.module.css"
-
+import { TypewriterEffect } from "./TypewriterEffect/TypewriterEffect"
+import { LoginButton } from './LoginButton/LoginButton';
 import { EthereumWindow, MetamaskError } from "../../pethreon"
-
+import { MetamaskSVG } from '../../svgs/metamaskSVG/MetamaskSVG';
+import { GithubSVG } from '../../svgs/githubSVG/GithubSVG';
 import mp4 from "../../assets/money.mp4"
 import webm from "../../assets/money.webm"
-
-const pleaseRefresh = () => window.confirm("You might have to refresh the page if you just installed a cryptocurrency wallet")
+import styles from "./login.module.css"
 
 export const Login = () => {
   const history = useHistory()
   const { ethereum, location } = window as EthereumWindow
   const [message, setMessage] = useState("")
-  const [link, setLink] = useState(false)
+  const [talking, setTalking] = useState(false)
+  const [linkContent, setLinkContent] = useState("")
+  const [linkUrl, setLinkUrl] = useState("")
 
-  // OPENING ANIMATION
+  const WALLET_DETECTED = "This app uses your ethereum wallet to make subscriptions to creators"
+  const WALLET_NOT_FOUND = "This app requires a cryptocurrency wallet to work, "
+
   useEffect(() => {
-    if (typeof ethereum !== undefined) {
-      setTimeout(() => {
-        if (location.pathname === "/") setMessage("This app uses your ethereum wallet to make subscriptions to creators")
-      }, 1000)
-    } else {
-      setTimeout(() => {
-        if (location.pathname === "/") setMessage("This app requires a cryptocurrency wallet to work, ")
-      }, 1500);
-      setTimeout(() => {
-        if (location.pathname === "/") setLink(true)
-      }, 5500);
+    if (ethereum !== undefined && location.pathname === "/") {
+      setMessage(WALLET_DETECTED)
+    }
+
+    if (ethereum === undefined && location.pathname === "/") {
+      setMessage(WALLET_NOT_FOUND)
+      setLinkContent("download metamask!")
+      setLinkUrl("https://metamask.io/download")
     }
   }, [ethereum, location])
 
@@ -59,8 +58,17 @@ export const Login = () => {
         </a>
       </li>
     </ul>
-    <MetamaskAnimation message={message} link={link} login={ethereum ? login : pleaseRefresh} ethereum={ethereum} />
-    <video className={styles.vid} muted autoPlay loop>
+    <TypewriterEffect
+      message={message}
+      linkContent={linkContent}
+      linkUrl={linkUrl}
+      setTalking={setTalking}
+      cadence={75}
+      delay={1000}
+    />
+    <MetamaskSVG talking={talking} />
+    <LoginButton onClick={login} />
+    <video className={styles.video} muted autoPlay loop>
       <source src={mp4} type="video/mp4" />
       <source src={webm} type="video/webm" />
       Your browser does not support webm or mp4 videos.

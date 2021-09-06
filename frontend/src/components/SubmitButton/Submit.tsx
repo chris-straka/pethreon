@@ -4,7 +4,7 @@ import styles from "./Submit.module.css"
 interface SubmitButtonProps {
   children: ReactNode,
   disabled?: boolean,
-  handler: (event: FormEvent<HTMLButtonElement>) => any
+  handler: (event: FormEvent<HTMLButtonElement>) => void
 }
 
 export const SubmitButton = ({ children, handler, disabled = false }: SubmitButtonProps) => {

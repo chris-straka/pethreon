@@ -1,10 +1,10 @@
+import { MouseEvent } from "react"
 import styles from "./LoginButton.module.css"
 
 interface ButtonProps {
-  handler: any,
-  children: string,
+  onClick: (e: MouseEvent<HTMLButtonElement>) => void,
 }
 
-export const LoginButton = ({ handler, children }: ButtonProps) => (
-  <button className={styles.button} onClick={handler}>{children}</button>
+export const LoginButton = ({ onClick }: ButtonProps) => (
+  <button className={styles.button} onClick={onClick}>Login With Metamask</button>
 )
