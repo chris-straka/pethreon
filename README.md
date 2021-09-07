@@ -237,7 +237,7 @@ I put a lot of grey boxes in my mockups and ignored a lot of detail (including t
 
 ### Viewport Sized Typography
 
-It's common to use 62.5% for the root font size and rem for all the other font-sizes. This lets the user change their default font-size to something else, while your content still maintains the same proportions. However, I didn't do this because increasing the default font-size would force scrollbars in my application and I didn't want that. My decorative circles are positioned relative to the screen and I think it would look janky if they moved along with the scrollbar. I was even considering dropping rem completely for pixels but I ended up using viewport units instead (because I thought I would end up with less media queries which might not be true). sized typography because I think it can reduce the number of media queries. I learned that this actually breaks the user's ability to zoom (a staple in modern UX) but calc() can fix this.
+It's common to use 62.5% for the root font size and rem for all the other font-sizes. This lets the user change their default font-size to something else, while your content still maintains the same proportions. However, I didn't do this because increasing the default font-size would force scrollbars in my application and I didn't want that. My decorative circles are positioned relative to the screen and I think it would look janky if they moved along with the scrollbar. I was even considering dropping rem completely for pixels but I ended up using viewport units instead. I did this because I thought I would end up with less media queries, but I actually ended up with a ton of simple media queries to fit the specifications of my layout. I learned that viewport sized typography breaks the user's ability to zoom (a staple in modern UX) but luckily it looks like calc() can fix this.
 
 ## Attribution
 
@@ -247,12 +247,12 @@ It's common to use 62.5% for the root font size and rem for all the other font-s
 
 - [Metamask Logo](https://github.com/MetaMask/brand-resources)
 
+- [Github logo](https://github.com/logos)
+
 - [ionicons](https://ionic.io/ionicons)
 
-- [Github logo](https://github.com/logos)
+- [Sarah Fossheim's Loading Animation](https://fossheim.io/writing/posts/react-text-splitting-animations/)
 
 - [Artsy Cat's Cutesy Font](https://www.dafont.com/cutesy.font)
 
 - [Sora Sagano's Aileron Font](https://fontsarena.com/aileron-by-sora-sagano/)
-
-- [Sarah Fossheim's Loading Animation](https://fossheim.io/writing/posts/react-text-splitting-animations/)

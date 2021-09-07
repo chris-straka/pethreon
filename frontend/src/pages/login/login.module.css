@@ -87,7 +87,7 @@ main {
 
 .video {
   display: none;
-  border-radius: 10%;
+  border-radius: 0.6em;
   aspect-ratio: 256 / 135;
 }
 
@@ -143,9 +143,35 @@ main {
   }
 }
 
-/* Tablets */
-/* @media only screen and (min-width: 540px) {
+/* Desktop Design */
+@media only screen and (min-width: 1008px) {
   main {
-    font-size: calc(clamp(1vw, 2vw, 10vw) + 1em);
+    grid:
+      [Pethreon-row-start] "Pethreon Video" 0.5fr [Pethreon-row-end]
+      [Features-row-start] "Features Video" 0.8fr [Features-row-end]
+      [Message-row-start] "Message Video" 0.6fr [Message-row-end]
+      [Login-row-start] "Login Video" 0.6fr [Login-row-end]
+      [Circles-row-start] "none Video" 0.5fr [Circles-row-end];
+    font-size: calc(1vw + 1em);
   }
-} */
+
+  .features {
+    width: 50vw;
+  }
+
+  .layout > p {
+    width: 50vw;
+  }
+
+  .video {
+    grid-area: Video;
+    display: block;
+    width: 85%;
+    align-self: center;
+    justify-self: center;
+  }
+
+  .loginContainer > svg {
+    width: 26%;
+  }
+}

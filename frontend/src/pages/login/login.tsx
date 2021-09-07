@@ -74,5 +74,9 @@ export const Login = () => {
       <source src={webm} type="video/webm" />
       Your browser does not support webm or mp4 videos.
     </video>
+    <footer>
+      <a href="https://github.com/Chris56974/Pethreon#attribution">Attribution</a>
+      <a href="">License</a>
+    </footer>
   </main>
 }
