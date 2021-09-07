@@ -134,10 +134,6 @@ I probably could've done my typewriter animation in the login screen using CSS o
 
 When the user clicks my login button, they're prompted with a "sign-in" modal from metamask (and not me). If the user closes that modal without signing in, metamask will NOT error out. Instead, my code behaves as if the user is STILL logging in which is not a great UX. It looks like other popular sites like Aave and Uniswap behave the same though. Also, when an error is thrown metamask will give back an object but sometimes the error is tricky to find. It might be in error.message or it might be in error.data.message which is frustating.
 
-### ARIA Stuff
-
-I'm wondering if my application should use the main tag for HTML or if it should use a div/section marked with the [ARIA: application role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Application_Role).
-
 ## Todo
 
 ### PWA features?
@@ -161,7 +157,7 @@ My circles animate slowly but my content loads instantly which is jarring. I sho
 
 ### A11y
 
-On my contributor/creator page, the keyboard navigation is messed up. Hitting tab skips over Circle_B. I think it's because Circle_B starts off in the middle of the screen and gets brought over to the top of the screen via an animation. I tried messing with the tabIndex but it didn't seem to work. Hitting ESC on the keyboard should also close any modal.
+On my contributor/creator page, the keyboard navigation is messed up. Hitting tab skips over Circle_B. I think it's because Circle_B starts off in the middle of the screen and gets brought over to the top of the screen via an animation. I tried messing with the tabIndex but it didn't seem to work. Hitting ESC on the keyboard should also close any modal. I'm wondering if my application should use the main tag for HTML or if it should use a div/section marked with the [ARIA: application role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Application_Role).
 
 ## Notes
 
@@ -190,19 +186,19 @@ In order to send a transaction with input data, you need to use a library like w
 
 If you want the smart contract to send ether to someone else, then you need to use send(), transfer() or call() functions. These days however, only [call()](https://ethereum.stackexchange.com/questions/78124/) is recommended. The address that you're sending money to must also be marked payable in the smart contract code i.e. payable(address). Every contract starts off at 0 balance, and your contract can see its own balance using address(this).balance. Sites like [Remix](https://remix.ethereum.org/) will also show you I think. A provider is a connection to Ethereum, a signer is an account.
 
-### Unipledge? Charity Application?
+### Idea for a Charity Application? Unipledge?
 
-I thought it'd be pretty cool to have a "unipledge" feature that would donate to every creator on the platform (this might create an influx of fake/repeat creators though). I was also thinking it'd be cool to create a charity project. In which users would pool money into different charity pools, and the money would then be locked into a DeFi protocol like [Aave](https://aave.com/), the accrued interest could then go towards a charity address like [the water project @ 0x54a465610d119ad28deafd4bce555834c38beeb9](https://thewaterproject.org/donate-ethereum). I could have users withdraw their donations from the pool to put it towards another pool, but force them to leave ~25% in the pool so that it can continue to grow forever. Pretty terrifying if that address is compromised though.
+I thought it'd be pretty cool to have a "unipledge" feature that would donate to every creator on the platform (this might create an influx of fake/repeat creators though). I also came up with a DeFi charity application, in which users could pool their money into different charity pools and have that money locked in a DeFi protocol like [Aave](https://aave.com/), the accrued interest could then go towards a charity address like [the water project @ 0x54a465610d119ad28deafd4bce555834c38beeb9](https://thewaterproject.org/donate-ethereum). Users could then switch their funds to different pools whenever they felt like it, except some of their original contribution would stay in the pool so that it would continue to grow forever.
+
+### Using AI to find the right responsive design
+
+I spent a lot of time playing around with font-sizes. I was tweaking the same stuff over and over again passing in different numbers each time. It almost felt like I could train a model to pass in the numbers for me until it finds the right allocation.
 
 ### My Choice of React
 
 I originally chose React so I could use [this plugin](https://hardhat.org/plugins/hardhat-react.html) to turn my smart contract abi into a react context. I was much more familiar with react context than ethers.js, so I thought it was a good choice. I ended up scrapping the plugin altogether though because it wasn't compatibile with my version of solidity and I didn't feel like downgrading (I would've had to downgrade my other dependencies too like typechain/hardhat and bring in an older version of SafeMath from [@openzepplin/contracts](https://github.com/OpenZeppelin/openzeppelin-contracts) to prevent under/over flow since that can happen in < 0.8.0). I think it ended up being a good choice though because I learned some bare essentials about ethers.js that I really should know.
 
 Instead of creating my own react context, I decided to use a single ts file instead. The only state that is worth storing in react context is the contract instance, which never changes unless you're using a different smart contract entirely. Or maybe there's other advantages that I don't know about yet (deployment?).
-
-### What relative units to use for font size
-
-I was thinking it might be more appropriate to use vh for mobile devices and vw for desktop screens?
 
 ### Frontend Stuff
 
@@ -221,6 +217,7 @@ I was thinking it might be more appropriate to use vh for mobile devices and vw 
 - The type of an event handler is `(event: ChangeEvent<HTMLElement>) => type`
 - Pledge is a verb and a noun and I've used both meanings when naming stuff which could get bothersome.
 - [Responsive screen sizes](https://www.browserstack.com/guide/ideal-screen-sizes-for-responsive-design)
+- [All the new iphone size](https://stackoverflow.com/questions/58087446)
 
 ## Lessons
 
@@ -240,7 +237,7 @@ I put a lot of grey boxes in my mockups and ignored a lot of detail (including t
 
 ### Viewport Sized Typography
 
-It's common to use 62.5% for the root font size and then rem units for all the other font-sizes. This lets the user change their default font-size to something else, while still maintaining the same proportions between all your content. However, I didn't want to do this because an increase in font-size meant something in my layout had to give. This usually ends up in more scrolling (vertically or horizontally), but I didn't want to add ANY scrolling because my decorative circles are positioned relative to the screen and I didn't want them to move along with the scrollbar (looks kinda janky?). For this reason, I was even considering dropping rem completely and going for pixels but I ended up using viewport sized typography because I think it can reduce the number of media queries. I learned that this actually breaks the user's ability to zoom (a staple in modern UX) but calc() can fix this.
+It's common to use 62.5% for the root font size and rem for all the other font-sizes. This lets the user change their default font-size to something else, while your content still maintains the same proportions. However, I didn't do this because increasing the default font-size would force scrollbars in my application and I didn't want that. My decorative circles are positioned relative to the screen and I think it would look janky if they moved along with the scrollbar. I was even considering dropping rem completely for pixels but I ended up using viewport units instead (because I thought I would end up with less media queries which might not be true). sized typography because I think it can reduce the number of media queries. I learned that this actually breaks the user's ability to zoom (a staple in modern UX) but calc() can fix this.
 
 ## Attribution
 
