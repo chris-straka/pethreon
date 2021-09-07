@@ -134,11 +134,9 @@ I probably could've done my typewriter animation in the login screen using CSS o
 
 When the user clicks my login button, they're prompted with a "sign-in" modal from metamask (and not me). If the user closes that modal without signing in, metamask will NOT error out. Instead, my code behaves as if the user is STILL logging in which is not a great UX. It looks like other popular sites like Aave and Uniswap behave the same though. Also, when an error is thrown metamask will give back an object but sometimes the error is tricky to find. It might be in error.message or it might be in error.data.message which is frustating.
 
-## Ideas
+### ARIA Stuff
 
-### Unipledge? Charity Application?
-
-I thought it'd be pretty cool to have a "unipledge" feature that would donate to every creator on the platform (this might create an influx of fake/repeat creators though). I was also thinking it'd be cool to create a charity project. In which users would pool money into different charity pools, and the money would then be locked into a DeFi protocol like [Aave](https://aave.com/), the accrued interest could then go towards a charity address like [the water project @ 0x54a465610d119ad28deafd4bce555834c38beeb9](https://thewaterproject.org/donate-ethereum). I could have users withdraw their donations from the pool to put it towards another pool, but force them to leave ~25% in the pool so that it can continue to grow forever. Pretty terrifying if that address is compromised though.
+I'm wondering if my application should use the main tag for HTML or if it should use a div/section marked with the [ARIA: application role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Application_Role).
 
 ## Todo
 
@@ -151,10 +149,10 @@ So far, I was thinking of caching the last page users visited (localstorage) so 
 My metamask text animation is set to overflow: auto; so the user can scroll through the text if it overflows. However, there's no indication on screen telling the user that they can scroll the text. I think I have to trigger a second animation letting them know whether or not they can [scroll](https://stackoverflow.com/questions/9333379). I haven't decided how I want to do this yet though, maybe like this?
 
 ```tsx
-75 * message.length + 1 // to run the animation at the end of the typing
+75 * message.length + 1; // to run the animation at the end of the typing
 const isOverflown = (clientHeight, scrollHeight) => {
-  return scrollHeight > clientHeight 
-}
+  return scrollHeight > clientHeight;
+};
 ```
 
 ### UX
@@ -163,7 +161,7 @@ My circles animate slowly but my content loads instantly which is jarring. I sho
 
 ### A11y
 
-On my contributor/creator page, the keyboard navigation is messed up. Hitting tab skips over Circle_B. I think it's because Circle_B starts off in the middle of the screen and gets brought over to the top of the screen via an animation. I tried messing with the tabIndex but it didn't seem to work.  Hitting ESC on the keyboard should also close any modal.
+On my contributor/creator page, the keyboard navigation is messed up. Hitting tab skips over Circle_B. I think it's because Circle_B starts off in the middle of the screen and gets brought over to the top of the screen via an animation. I tried messing with the tabIndex but it didn't seem to work. Hitting ESC on the keyboard should also close any modal.
 
 ## Notes
 
@@ -192,11 +190,19 @@ In order to send a transaction with input data, you need to use a library like w
 
 If you want the smart contract to send ether to someone else, then you need to use send(), transfer() or call() functions. These days however, only [call()](https://ethereum.stackexchange.com/questions/78124/) is recommended. The address that you're sending money to must also be marked payable in the smart contract code i.e. payable(address). Every contract starts off at 0 balance, and your contract can see its own balance using address(this).balance. Sites like [Remix](https://remix.ethereum.org/) will also show you I think. A provider is a connection to Ethereum, a signer is an account.
 
+### Unipledge? Charity Application?
+
+I thought it'd be pretty cool to have a "unipledge" feature that would donate to every creator on the platform (this might create an influx of fake/repeat creators though). I was also thinking it'd be cool to create a charity project. In which users would pool money into different charity pools, and the money would then be locked into a DeFi protocol like [Aave](https://aave.com/), the accrued interest could then go towards a charity address like [the water project @ 0x54a465610d119ad28deafd4bce555834c38beeb9](https://thewaterproject.org/donate-ethereum). I could have users withdraw their donations from the pool to put it towards another pool, but force them to leave ~25% in the pool so that it can continue to grow forever. Pretty terrifying if that address is compromised though.
+
 ### My Choice of React
 
 I originally chose React so I could use [this plugin](https://hardhat.org/plugins/hardhat-react.html) to turn my smart contract abi into a react context. I was much more familiar with react context than ethers.js, so I thought it was a good choice. I ended up scrapping the plugin altogether though because it wasn't compatibile with my version of solidity and I didn't feel like downgrading (I would've had to downgrade my other dependencies too like typechain/hardhat and bring in an older version of SafeMath from [@openzepplin/contracts](https://github.com/OpenZeppelin/openzeppelin-contracts) to prevent under/over flow since that can happen in < 0.8.0). I think it ended up being a good choice though because I learned some bare essentials about ethers.js that I really should know.
 
 Instead of creating my own react context, I decided to use a single ts file instead. The only state that is worth storing in react context is the contract instance, which never changes unless you're using a different smart contract entirely. Or maybe there's other advantages that I don't know about yet (deployment?).
+
+### What relative units to use for font size
+
+I was thinking it might be more appropriate to use vh for mobile devices and vw for desktop screens?
 
 ### Frontend Stuff
 
@@ -214,6 +220,7 @@ Instead of creating my own react context, I decided to use a single ts file inst
 - The type of useState()'s setState handler is `Dispatch<SetStateAction<type>>` where type is the type of the state you're setting
 - The type of an event handler is `(event: ChangeEvent<HTMLElement>) => type`
 - Pledge is a verb and a noun and I've used both meanings when naming stuff which could get bothersome.
+- [Responsive screen sizes](https://www.browserstack.com/guide/ideal-screen-sizes-for-responsive-design)
 
 ## Lessons
 
@@ -221,23 +228,19 @@ Instead of creating my own react context, I decided to use a single ts file inst
 
 A lot of my contract behaviour depends on what time it is, and how many days it's been. I don't want to wait a couple of days just to see if something works as intended, so [being able to set the time](https://ethereum.stackexchange.com/questions/86633) was a big help. The tests also made it a lot easier to understand my contract.
 
-### Responsive Design Tips
-
-Before this project I didn't use the flex-grow/flex-shrink properties as much (if at all) and I now realize that the better my layout is, the less media queries I'll have to write. When flex-grow is set to 0 (the default), the space between stuff gets bigger and nothing fills that space. I also now see a stronger resemblance between flex-grow and the fractional units used in CSS grid.
-
 ### Component Reuse is not as "free" as I thought
 
-I was fortunate enough to be able to reuse a lot of components, but there were side-effects that crept up that I wasn't expecting. For components to be reusable, I had to make sure they didn't have any margin. Adding in the margin later would bloat the JSX in some way, like littering it with Spacer components or passing in extra props (className/style props). The more reusable I tried to make my components, the less readable they started to get.
+I was able to reuse a lot of components, but there were some downsides I didn't see coming. For components to be reusable, I had to make sure they didn't have any default margin because that would make them harder to use. So I had to add margin in later which would bloat the JSX in some way, like litter it with Spacers, or add more props (className/style). The more reusable I tried to make my components, the less readable they became.
 
-I also found myself at a point where the more components I wrote, the more media queries I needed to write. I couldn't just write media queries for each page anymore (login, contribute, create), I also had to write media queries for each component IN that page. I think this was mostly my fault, but one of the things I learned was that spreading media queries across files sucks (even for stuff like dark theme). At the time I didn't think there was an easy way to select React components in CSS unless you used stuff like "nth-of-child" which I avoided because I was cautious about its performance (perhaps irrationally so) and also make it harder to swap things in and out. I think next time I'm going to try and use more of these selectors to control the styles of nested components all the way from a parent component.
-
-### CSS Relative Units
-
-I used a lot of pixel units, because I didn't want the UI to "scale up" with font-size and create scrollbars for the entire screen. My decorative circles are positioned relative to the screen and I thought it would look janky if the circles moved in the same direction that the user scrolled in. For this reason, I might even drop rem completely (despite its mass recommendation online for use in font-sizes). Maybe this design decision was a bad choice altogether though and I should have the circles slide together with the scrollbar, hard to say.
+There also wasn't a nice way to manipulate React components using CSS either in my opinion. CSS Modules would isolate styles to each component, but I didn't want to write media queries inside my component files (they're too spread out). So I had to manipulate their styles by wrapping them in a container that had the desired styles OR I had to select that component's underlying HTMLElement in the parent component (like I did with my typewriter effect).
 
 ### A wireframe AND a prototype is probably a good idea
 
 I put a lot of grey boxes in my mockups and ignored a lot of detail (including the modals) in the short term mostly because I didn't fully understand Sergei's contract and decided to figure it out as I went a long. The result is I think it made my pledge modal look a bit "tacked on" since it doesn't fit in with the other two (due to different space requirements). I also think I would've saved more time if I made a half-hazard guess at what stuff should look like.
+
+### Viewport Sized Typography
+
+It's common to use 62.5% for the root font size and then rem units for all the other font-sizes. This lets the user change their default font-size to something else, while still maintaining the same proportions between all your content. However, I didn't want to do this because an increase in font-size meant something in my layout had to give. This usually ends up in more scrolling (vertically or horizontally), but I didn't want to add ANY scrolling because my decorative circles are positioned relative to the screen and I didn't want them to move along with the scrollbar (looks kinda janky?). For this reason, I was even considering dropping rem completely and going for pixels but I ended up using viewport sized typography because I think it can reduce the number of media queries. I learned that this actually breaks the user's ability to zoom (a staple in modern UX) but calc() can fix this.
 
 ## Attribution
 

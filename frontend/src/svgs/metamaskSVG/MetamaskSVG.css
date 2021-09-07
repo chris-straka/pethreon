@@ -6,7 +6,7 @@
 
 @keyframes moveHead {
   50% {
-    transform: translateY(-5px);
+    transform: translateY(-6px);
   }
 }
 
@@ -16,8 +16,4 @@
 
 .floating {
   animation: 4s ease-in-out 1s infinite alternate none running moveHead;
-}
-
-svg {
-  width: 20%;
 }

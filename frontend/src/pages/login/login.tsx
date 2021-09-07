@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { TypewriterEffect } from "./TypewriterEffect/TypewriterEffect"
-import { LoginButton } from './LoginButton/LoginButton';
 import { EthereumWindow, MetamaskError } from "../../pethreon"
 import { MetamaskSVG } from '../../svgs/metamaskSVG/MetamaskSVG';
 import { GithubSVG } from '../../svgs/githubSVG/GithubSVG';
@@ -49,8 +48,8 @@ export const Login = () => {
   return <main className={styles.layout}>
     <h1 className={styles.pethreon}>P<span className={styles.Ξ}>Ξ</span>threon</h1>
     <ul className={styles.features}>
-      <li>Contribute monthly to your favourite creators in a trustless and privacy respecting manner</li>
-      <li>Only pay transaction fees,&nbsp;
+      <li>Make daily payments to your favourite creators in a trustless and privacy respecting manner</li>
+      <li>Only pay ethereum transaction fees,&nbsp;
         <a href="https://github.com/Chris56974/Pethreon/blob/main/contracts/Pethreon.sol"
           target="_blank"
           rel="noreferrer">
@@ -66,8 +65,10 @@ export const Login = () => {
       cadence={75}
       delay={1000}
     />
-    <MetamaskSVG talking={talking} />
-    <LoginButton onClick={login} />
+    <div className={styles.loginContainer}>
+      <MetamaskSVG talking={talking} />
+      <button className={styles.loginButton} onClick={login}>Login With Metamask</button>
+    </div>
     <video className={styles.video} muted autoPlay loop>
       <source src={mp4} type="video/mp4" />
       <source src={webm} type="video/webm" />
