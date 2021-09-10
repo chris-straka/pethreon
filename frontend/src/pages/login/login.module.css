@@ -13,7 +13,7 @@ main {
     [Features-row-start] "Features" 0.8fr [Features-row-end]
     [Message-row-start] "Message" 0.6fr [Message-row-end]
     [Login-row-start] "Login" 0.6fr [Login-row-end]
-    [Circles-row-start] "none" 0.4fr [Circles-row-end];
+    [Footer-row-start] "Footer" 0.4fr [Footer-row-end];
 }
 
 /* TITLE */
@@ -44,12 +44,13 @@ main {
   margin-bottom: 1em;
 }
 
-.layout > p {
+.typewriter {
   grid-area: Message;
   overflow-y: scroll;
   font-family: cute;
   font-size: 1.7em;
   text-align: center;
+  scrollbar-width: thin;
 }
 
 .loginContainer {
@@ -58,10 +59,11 @@ main {
   justify-content: space-evenly;
   align-items: center;
   font-size: 1em;
+  width: 100%;
 }
 
 .loginContainer > svg {
-  width: 30%;
+  width: 5em;
 }
 
 .loginButton {
@@ -89,6 +91,27 @@ main {
   display: none;
   border-radius: 0.6em;
   aspect-ratio: 256 / 135;
+  width: 90%;
+  align-self: center;
+  justify-self: center;
+}
+
+footer {
+  font-size: 0.8em;
+  grid-area: Footer;
+  justify-self: end;
+  align-self: end;
+  margin-bottom: 2vh;
+  margin-right: 2.5vw;
+}
+
+footer > a {
+  color: var(--darktheme-white-text);
+  opacity: 0.8;
+}
+
+footer > a:first-child {
+  margin-right: 3vw;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -144,34 +167,47 @@ main {
 }
 
 /* Desktop Design */
-@media only screen and (min-width: 1008px) {
+@media only screen and (min-width: 1008px) and (min-height: 500px) and (orientation: landscape) {
   main {
     grid:
       [Pethreon-row-start] "Pethreon Video" 0.5fr [Pethreon-row-end]
       [Features-row-start] "Features Video" 0.8fr [Features-row-end]
-      [Message-row-start] "Message Video" 0.6fr [Message-row-end]
+      [Message-row-start] "Message Video" 0.8fr [Message-row-end]
       [Login-row-start] "Login Video" 0.6fr [Login-row-end]
-      [Circles-row-start] "none Video" 0.5fr [Circles-row-end];
-    font-size: calc(1vw + 1em);
+      [Circles-row-start] "None Footer" [Circles-row-end];
+    font-size: calc(0.5vw + 1em);
+    margin-right: 0;
+  }
+
+  .pethreon,
+  .features,
+  .loginContainer,
+  .typewriter {
+    width: 50vw;
   }
 
   .features {
-    width: 50vw;
-  }
-
-  .layout > p {
-    width: 50vw;
+    margin-bottom: 1em;
   }
 
   .video {
     grid-area: Video;
     display: block;
-    width: 85%;
-    align-self: center;
-    justify-self: center;
   }
 
-  .loginContainer > svg {
-    width: 26%;
+  .loginContainer {
+    font-size: 0.9em;
+  }
+}
+
+@media only screen and (min-width: 1008px) and (min-height: 630px) and (orientation: landscape) {
+  main {
+    font-size: calc(1vw + 1em);
+  }
+}
+
+@media only screen and (min-width: 1008px) and (min-height: 900px) and (orientation: landscape) {
+  main {
+    font-size: calc(1.3vw + 1em);
   }
 }

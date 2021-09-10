@@ -1,17 +1,16 @@
-.eth {
-  font-family: aileron;
-  font-weight: 200;
-  width: 2ch;
-  font-size: 2.9rem;
-  margin-right: 14px;
-}
-
 .balance {
   font-family: aileron;
   font-weight: 400;
-  font-size: 2.9rem;
-  width: calc(100vw - 48px);
+  font-size: 2.9em;
+  width: 100%;
   overflow-x: scroll;
+}
+
+.eth {
+  font-size: inherit;
+  font-family: aileron;
+  font-weight: 200;
+  margin-right: 14px;
 }
 
 @media (prefers-color-scheme: dark) {

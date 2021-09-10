@@ -2,20 +2,118 @@
   display: flex;
   flex-direction: column;
   align-content: space-around;
-  margin: 15vh 24px 0 24px;
+  margin: 15vh 1.5em 0 1.5em;
   height: 60vh;
+  font-size: 1em;
 }
 
 .actionBar {
   display: flex;
   justify-content: center;
-  align-content: space-evenly;
-  margin-top: 16px;
+  font-size: 1em;
+  margin-top: 1em;
 }
 
 .transactionHistory {
   overflow: auto;
   list-style: none;
-  margin-top: 1.7rem;
+  margin-top: 1.7em;
   height: 33vh;
+}
+
+.noPledgesBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  height: 33vh;
+  margin-top: 1.7em;
+  border: 0.3em solid var(--darktheme-modal-background);
+  border-radius: 2em;
+  font-family: cute;
+}
+
+.noPledgeText {
+  font-size: 2.3em;
+  width: 13ch;
+}
+
+.userAccountName {
+  display: none;
+}
+
+@media only screen and (min-width: 600px) {
+  .contributeLayout {
+    font-size: calc(1.2vw + 1em);
+    margin: 15vh 3em 0 3em;
+  }
+
+  .actionBar {
+    justify-content: space-evenly;
+    font-size: 1.2em;
+  }
+
+  .noPledgeText {
+    font-size: 2.5em;
+  }
+}
+
+@media only screen and (min-width: 1080px) and (orientation: landscape) {
+  .contributeLayout {
+    display: grid;
+    grid:
+      [CircleB-row-start] ". ." 14vh [CircleB-row-start]
+      [Account-row-start] "Account Account" 13vh [Action-row-end]
+      [Balance-row-start] ". Actions" 6vh [Balance-row-end]
+      [Pledge-row-start] "Balance Pledges" 50vh [Pledge-row-end];
+    font-size: calc(1.2vw + 1em);
+    height: 100vh;
+    margin: 0;
+  }
+
+  .userAccountName {
+    grid-area: Account;
+    font-size: 1em;
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    align-self: center;
+  }
+
+  /* Balance */
+  .contributeLayout > h1:first-child {
+    grid-area: Balance;
+    font-size: 1.5em;
+    width: 45vw;
+    align-self: center;
+    margin-bottom: 7em;
+    text-align: center;
+  }
+
+  .actionBar {
+    grid-area: Actions;
+    font-size: 0.5em;
+    width: 55vw;
+    justify-self: center;
+    align-self: center;
+    border-radius: 15px;
+  }
+
+  .actionBar > button {
+    padding: 2em;
+    font-size: 1.6em;
+  }
+
+  .transactionHistory,
+  .noPledgesBox {
+    grid-area: Pledges;
+    font-size: 1em;
+    width: 45vw;
+    height: 80%;
+    border: 0.2em solid var(--darktheme-modal-background);
+    justify-self: center;
+    align-self: start;
+    margin-top: 0;
+  }
 }

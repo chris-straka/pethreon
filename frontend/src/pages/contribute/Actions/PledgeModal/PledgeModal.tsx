@@ -59,14 +59,14 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
       setLoading(true)
       await createPledge(address, period, amountPerPeriodInWei)
       const newBalance = await getContributorBalance()
-      const newPledges = await getContributorPledges() 
+      const newPledges = await getContributorPledges()
       setBalance(newBalance)
       setPledges(newPledges)
       setLoading(false)
     } catch (error) {
       setLoading(false)
       console.log(error)
-      window.alert(`${(error as MetamaskError).data.message}`)
+      window.alert(`${(error as MetamaskError).message}`)
     }
   }
 

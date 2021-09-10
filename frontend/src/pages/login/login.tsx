@@ -45,7 +45,7 @@ export const Login = () => {
     }
   }
 
-  return <main className={styles.layout}>
+  return <main>
     <h1 className={styles.pethreon}>P<span className={styles.Ξ}>Ξ</span>threon</h1>
     <ul className={styles.features}>
       <li>Make daily payments to your favourite creators in a trustless and privacy respecting manner</li>
@@ -57,26 +57,28 @@ export const Login = () => {
         </a>
       </li>
     </ul>
-    <TypewriterEffect
-      message={message}
-      linkContent={linkContent}
-      linkUrl={linkUrl}
-      setTalking={setTalking}
-      cadence={75}
-      delay={1000}
-    />
+    <div className={styles.typewriter}>
+      <TypewriterEffect
+        message={message}
+        linkContent={linkContent}
+        linkUrl={linkUrl}
+        setTalking={setTalking}
+        cadence={75}
+        delay={1000}
+      />
+    </div>
     <div className={styles.loginContainer}>
       <MetamaskSVG talking={talking} />
       <button className={styles.loginButton} onClick={login}>Login With Metamask</button>
     </div>
-    <video className={styles.video} muted autoPlay loop>
+    <video className={styles.video} muted autoPlay loop preload="true">
       <source src={mp4} type="video/mp4" />
       <source src={webm} type="video/webm" />
       Your browser does not support webm or mp4 videos.
     </video>
     <footer>
-      <a href="https://github.com/Chris56974/Pethreon#attribution">Attribution</a>
-      <a href="">License</a>
+      <a href="https://github.com/Chris56974/Pethreon#attribution" target="_blank" rel="noreferrer">Attribution</a>
+      <a href="https://github.com/Chris56974/Pethreon/blob/main/LICENSE" target="_blank" rel="noreferrer">License</a>
     </footer>
   </main>
 }

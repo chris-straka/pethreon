@@ -6,9 +6,9 @@ import styles from "./Pledge.module.css"
 interface PledgeProps {
   pledge: PledgeType,
   creator?: boolean,
-  setLoading?: any
-  setPledges?: any
-  setBalance?: any
+  setLoading?: any, // not sure how to handle these
+  setPledges?: any,
+  setBalance?: any,
 }
 
 export const Pledge = ({ pledge, creator = false, setLoading, setBalance, setPledges }: PledgeProps) => {
@@ -23,7 +23,6 @@ export const Pledge = ({ pledge, creator = false, setLoading, setBalance, setPle
     setLoading(true)
     try {
       await cancelPledge(creatorAddress)
-      setTimeout(() => { console.log("test") }, 1000 * 10);
       const balance = await getContributorBalance()
       const newPledges = await getContributorPledges()
       setBalance(balance)

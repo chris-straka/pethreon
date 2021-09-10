@@ -59,7 +59,7 @@ export const CreatePage = () => {
 
   return <>
     {loading && <Loading />}
-    <div className={styles.createLayout} role="region">
+    <div role="region" className={styles.createLayout} >
       <Balance balance={balance} />
       <div className={styles.actionBar}>
         <ActionButton creatorButton={true}

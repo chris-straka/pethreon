@@ -1,27 +1,23 @@
 # Design Doc
 
-[This dapp](https://github.com/Chris56974/WeiBuddies) (decentralized application) is a modified version of [Sergei Tikhomirov et al's "Pethreon" Smart Contract](https://github.com/s-tikhomirov/pethreon/blob/master/pethreon.sol). It's a crowd funding platform, where users (contributors & creators) can sign in through their cryptowallet to contribute funds to each other in regular intervals. It's made under a mobile first approach using these mockups (Figma).
+[This dapp](https://github.com/Chris56974/WeiBuddies) (decentralized application) is a modified version of Sergei Tikhomirov et al's ["Pethreon" Smart Contract](https://github.com/s-tikhomirov/pethreon/blob/master/pethreon.sol). It's a crowd funding platform, where users (contributors & creators) can sign in through their cryptowallet to contribute funds to each other in regular intervals. It's made under a mobile first approach using these mockups (Figma).
 
 ![Pethreon Mobile Mockup](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_mobile.png)
 ![Pethreon Desktoe 1](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_desktop_1.png)
 ![Pethreon Desktop 2](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_desktop_2.png)
 ![Pethreon Desktop 3](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_desktop_3.png)
 
-## How it works (high level)
+## How it works (High Level)
 
-[Hardhat](https://hardhat.org/getting-started/) is a development environment/blockchain for ethereum, [Waffle](https://ethereum-waffle.readthedocs.io/en/latest/index.html) is a testing library for smart contracts (programs that run on the blockchain) and [ethers.js](https://docs.ethers.io/v5/getting-started/) is a frontend JS library for communicating with the ethereum network. Basically, I'm creating a [react app](https://reactjs.org/) that talks to an ethereum node that I have running at [infura](https://infura.io/) (the ~AWS for Ethereum).
+[Hardhat](https://hardhat.org/getting-started/) is a development blockchain for ethereum that runs locally, [Waffle](https://ethereum-waffle.readthedocs.io/en/latest/index.html) is a testing library for ethereum smart contracts (programs that run on the blockchain) and [ethers.js](https://docs.ethers.io/v5/getting-started/) is a frontend JS library for communicating with the ethereum network. Basically, I'm creating a [react app](https://reactjs.org/) that talks to an ethereum node that I have running at [infura](https://infura.io/) (the ~AWS for Ethereum).
 
-[This App](https://github.com/Chris56974/Pethreon)
+To create a smart contract, you have to write a solidity file (Pethreon.sol) and then compile it to a JSON file (Pethreon.json) using a compiler (solc which is baked into hardhat). The JSON file will then have some "bytecode" that you can deploy to Ethereum, as well as an "ABI" that describes what that bytecode (smart contract) can do. My React application (or any other frontend application) can then use this ABI together with a library (like ethersJS/Web3) to make calls to it after it's been deployed. The calls have to be carried out by an ethereum node (like the one I have running at Infura). Some of these calls require real money (like creating a pledge) because they require verification from every other node in the ethereum network ([~5,000 nodes](https://www.ethernodes.org/history)). Other calls are free (subject to my agreement @ infura -> [I get 100,000 free calls a day](https://infura.io/pricing)) because they don't require any verification from any other node (like reading data from the blockchain).
 
-[Create React App Docs](https://facebook.github.io/create-react-app/docs/getting-started)
-
-To create a smart contract, you have to write a solidity file (Pethreon.sol) and compile it to JSON (Pethreon.json). The JSON file will then have "bytecode" that you can deploy to Ethereum, as well as an "ABI" that describes what that bytecode (smart contract) can do. My React application (or any other frontend application) can then use this ABI together with a library (like ethersJS/Web3) to make calls to it after it's been deployed. The calls have to be carried out by an ethereum node (like the one I have running at Infura). Some of these calls require real money (like creating a pledge) because they require verification from every other node in the ethereum network ([~5,000 nodes](https://www.ethernodes.org/history)). Other calls are free (subject to my agreement @ infura -> [100,000 free calls a day](https://infura.io/pricing)) because they don't require any verification from other nodes (reading data from the blockchain).
-
-In my app, every user is both a "contributor" AND a "creator". They can donate (or "pledge") money to other creators as a _contributor_, OR receive money as a _creator_. The contributor can choose how many days they want their pledge to last.
+In my app, every user is both a "contributor" AND a "creator". A user can donate (or "pledge") money to other someone else as a _contributor_, OR receive money from someone else as a _creator_. The contributor can then choose how many days they want their pledge to last.
 
 ## How to develop
 
-For this to work you need to [download the metamask extension](https://metamask.io/). You might also want to use a different [browser profile](https://youtu.be/Ik8-xn4DyCo?t=15) for development so that you can keep your development metamask account separate from your real one. Once metamask is installed, you need to go to the login screen and click on "import using Secret Recovery Phrase". The secret recovery phrase you need to use is "test test test test test test test test test test test junk". This is a unique key used by hardhat for development, in which every account (in that wallet) is given 1000 (fake) ether for use in the development network/blockchain on port 8545. If metamask doesn't have that network, you will need to add it by clicking on networks, -> custom RPC...
+For this to work you need to [download the metamask extension](https://metamask.io/). You might also want to use a different [browser profile](https://youtu.be/Ik8-xn4DyCo?t=15) for development so that you can keep your development metamask account separate from your personal metamask account. Once metamask is installed, you need to go to the login screen (in metamask) and click on "import using Secret Recovery Phrase". The secret recovery phrase you need to use is "test test test test test test test test test test test junk". This is a unique key used by hardhat for development, in which every account (in that wallet) is given 1000 (fake) ether for use in the development network/blockchain (which I set to run on port 8545). If metamask doesn't have that network available, you will need to add it by clicking on networks, -> custom RPC...
 
 ```bash
 # You might need to run this first in a terminal...
@@ -53,7 +49,7 @@ hh run scripts/Pethreon.ts                # deploy the contract to the ethereum 
 hh run --network <network> scripts/Pethreon.ts # deploy to a network specified in hardhat.config.ts
 ```
 
-If you get an error that says "Nonce too high. Expected nonce to be X but got Y". Chances are you restarted the hardhat node, but your Metamask is still using the old transaction data. I'm not sure how to _automatically_ refresh the transaction data in metamask everytime a new node kicks up in your terminal, but you can do one of these two things manually.
+If you get an error that says "Nonce too high. Expected nonce to be X but got Y". Chances are you restarted the hardhat node, but your Metamask account is still using the old transaction data. I'm not sure how to _automatically_ refresh the transaction data in metamask everytime a new node kicks up in your terminal, but you can do one of these two things manually.
 
 1. Go to your metamask accounts page and click on settings -> advanced -> customized transaction nonce and switch it ON. Then on your next transaction, insert the nonce that it's expecting.
 
@@ -192,13 +188,29 @@ I thought it'd be pretty cool to have a "unipledge" feature that would donate to
 
 ### Using AI to find the right responsive design
 
-I spent a lot of time playing around with font-sizes. I was tweaking the same stuff over and over again passing in different numbers each time. It almost felt like I could train a model to pass in the numbers for me until it finds the right allocation.
+I spent a lot of time playing around with font-sizes. I was tweaking the same stuff over and over again passing in different numbers each time. It almost felt like I could train a model to pass in the numbers for me until it finds the right allocation. I seen some examples online use this...
+
+```scss
+/* Uses vh and vm with calc */
+@media screen and (min-width: 25em){
+  html { font-size: calc( 16px + (24 - 16) * (100vw - 400px) / (800 - 400) ); }
+}
+
+/* Safari <8 and IE <11 */
+@media screen and (min-width: 25em){
+  html { font-size: calc( 16px + (24 - 16) * (100vw - 400px) / (800 - 400) ); }
+}
+
+@media screen and (min-width: 50em){
+html { font-size: calc( 16px + (24 - 16) * (100vw - 400px) / (800 - 400) ); }
+}
+```
 
 ### My Choice of React
 
-I originally chose React so I could use [this plugin](https://hardhat.org/plugins/hardhat-react.html) to turn my smart contract abi into a react context. I was much more familiar with react context than ethers.js, so I thought it was a good choice. I ended up scrapping the plugin altogether though because it wasn't compatibile with my version of solidity and I didn't feel like downgrading (I would've had to downgrade my other dependencies too like typechain/hardhat and bring in an older version of SafeMath from [@openzepplin/contracts](https://github.com/OpenZeppelin/openzeppelin-contracts) to prevent under/over flow since that can happen in < 0.8.0). I think it ended up being a good choice though because I learned some bare essentials about ethers.js that I really should know.
+I originally chose React so I could use [this plugin](https://hardhat.org/plugins/hardhat-react.html) which turns my smart contract abi into a react context. I was much more familiar with using react context than ethers.js, so I thought it was a good choice. I ended up scrapping the plugin altogether though because it wasn't compatibile with my version of solidity and I didn't feel like downgrading (I would've had to downgrade several other dependencies too like typechain/hardhat and bring in an older version of SafeMath from [@openzepplin/contracts](https://github.com/OpenZeppelin/openzeppelin-contracts) to prevent under/over flow since that can happen in < 0.8.0). I think it ended up being a good choice in the end because I learned the bare essentials of ethers.js which I really should know about.
 
-Instead of creating my own react context, I decided to use a single ts file instead. The only state that is worth storing in react context is the contract instance, which never changes unless you're using a different smart contract entirely. Or maybe there's other advantages that I don't know about yet (deployment?).
+Instead of creating my own react context file, I decided to use an ordinary TS file instead. The only state that is worth storing in react context is the contract instance, which I think never changes unless you're using a different smart contracts throughout your application? Or maybe there's other advantages that I don't know about yet (easier deployment?).
 
 ### Frontend Stuff
 
@@ -225,19 +237,19 @@ Instead of creating my own react context, I decided to use a single ts file inst
 
 A lot of my contract behaviour depends on what time it is, and how many days it's been. I don't want to wait a couple of days just to see if something works as intended, so [being able to set the time](https://ethereum.stackexchange.com/questions/86633) was a big help. The tests also made it a lot easier to understand my contract.
 
-### Component Reuse is not as "free" as I thought
+### Component reuse needs some thought behind it
 
-I was able to reuse a lot of components, but there were some downsides I didn't see coming. For components to be reusable, I had to make sure they didn't have any default margin because that would make them harder to use. So I had to add margin in later which would bloat the JSX in some way, like litter it with Spacers, or add more props (className/style). The more reusable I tried to make my components, the less readable they became.
-
-There also wasn't a nice way to manipulate React components using CSS either in my opinion. CSS Modules would isolate styles to each component, but I didn't want to write media queries inside my component files (they're too spread out). So I had to manipulate their styles by wrapping them in a container that had the desired styles OR I had to select that component's underlying HTMLElement in the parent component (like I did with my typewriter effect).
+I was able to reuse a lot of components, but there were side-effects that I didn't see coming. For components to be reusable, I had to make sure they didn't have any default margins because that would make them harder to reuse. So I had to add in margins later, but I didn't like of my options for doing so. One option was to bloat up JSX in some way, like littering it with Spacer components, or passing in additional style props, or wrapped components in a wrapper element that had all the styles. Another option, was I could grab React components using a CSS selector that targeted its underlying root HTML element, but then it would break things the moment I moved stuff around or if I decided to change the underlying HTML element.
 
 ### A wireframe AND a prototype is probably a good idea
 
 I put a lot of grey boxes in my mockups and ignored a lot of detail (including the modals) in the short term mostly because I didn't fully understand Sergei's contract and decided to figure it out as I went a long. The result is I think it made my pledge modal look a bit "tacked on" since it doesn't fit in with the other two (due to different space requirements). I also think I would've saved more time if I made a half-hazard guess at what stuff should look like.
 
-### Viewport Sized Typography
+### Lessons on Responsive Typography
 
-It's common to use 62.5% for the root font size and rem for all the other font-sizes. This lets the user change their default font-size to something else, while your content still maintains the same proportions. However, I didn't do this because increasing the default font-size would force scrollbars in my application and I didn't want that. My decorative circles are positioned relative to the screen and I think it would look janky if they moved along with the scrollbar. I was even considering dropping rem completely for pixels but I ended up using viewport units instead. I did this because I thought I would end up with less media queries, but I actually ended up with a ton of simple media queries to fit the specifications of my layout. I learned that viewport sized typography breaks the user's ability to zoom (a staple in modern UX) but luckily it looks like calc() can fix this.
+It's common to use 62.5% for the root font size and then rem for all the other font-sizes. This allows the user to pick a font-size, while still keeping the same proportions in your layout. However, I didn't do this because increasing the default font-size would force scrollbars in my application and I don't want that. My decorative circles are positioned relative to the screen and I think it would look janky if they moved together with the scrollbar. I was even considering dropping rem completely for pixels but I ended up using viewport units instead. I did this because I thought it would make my text more responsive and I would end up with less media queries. In the end however, I ended up with a ton of very simple media queries on my login page. I learned a few tricks from [this](https://www.youtube.com/watch?v=wARbgs5Fmuw) and I think I'm going to try something similar for my other two pages.
+
+An important note, is that viewport sized typography breaks the user's ability to zoom (a staple in modern UX) but luckily it looks like calc() and clamp() can fix this as long as you add 1em/rem to your viewport unit.
 
 ## Attribution
 

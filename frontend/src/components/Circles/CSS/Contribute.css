@@ -6,6 +6,7 @@
   height: 10vh;
   background-color: var(--primary-light);
   border-radius: 50%;
+  z-index: -1;
 
   animation: 5s linear 0s infinite alternate none running leftBall_animation;
   transition: all 0.5s linear;
@@ -26,6 +27,7 @@
 
   font-size: 24px;
   font-weight: bold;
+  z-index: -1;
 
   transition: top 0.7s, left 0.7s, width 0.5s, height 0.5s,
     border-top-left-radius 1.2s, border-top-right-radius 1s,
@@ -53,6 +55,7 @@
   height: 18vh;
   background-color: var(--primary);
   border-radius: 50%;
+  z-index: -1;
 
   animation: 5s linear 0s infinite alternate none running rightBall_animation;
   transition: all 0.5s linear;

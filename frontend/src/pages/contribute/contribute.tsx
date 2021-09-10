@@ -67,15 +67,23 @@ export const ContributePage = () => {
 
   return <>
     {loading && <Loading />}
-    <div className={styles.contributeLayout}>
+    <div role="region" className={styles.contributeLayout}>
       <Balance balance={balance} />
+      <h1 className={styles.userAccountName}>{ethereum.selectedAddress}</h1>
       <div className={styles.actionBar}>
         <ActionButton onClick={() => setCurrentModal("deposit")}>Deposit <DepositSVG /></ActionButton>
         <ActionButton onClick={() => setCurrentModal("withdraw")}>Withdraw <WithdrawSVG /></ActionButton>
         <ActionButton onClick={() => setCurrentModal("pledge")}>Pledge <PledgeSVG /></ActionButton>
       </div>
-      <ul className={styles.transactionHistory}>
-        {pledges.map((pledge: PledgeType) => <Pledge pledge={pledge} setLoading={setLoading} setBalance={setBalance} setPledges={setPledges} key={pledge.creatorAddress} />)}
+      <ul className={pledges.length === 0 ? styles.noPledgesBox : styles.transactionHistory}>
+        {pledges.map((pledge: PledgeType) => <Pledge
+          pledge={pledge}
+          setLoading={setLoading}
+          setBalance={setBalance}
+          setPledges={setPledges}
+          key={pledge.creatorAddress}
+        />)}
+        {pledges.length === 0 ? <li className={styles.noPledgeText}>You need to make a pledge first...</li> : null}
       </ul>
     </div>
     <Modal open={currentModal === "" ? false : true} onClose={() => setCurrentModal("")}>{modalBody}</Modal>

@@ -1,9 +1,10 @@
 .actionButton {
   cursor: pointer;
-  padding: 11px;
+  border-radius: inherit;
+  padding: 0.7em;
   background-color: var(--primary);
   outline: none;
-  font-size: 1rem;
+  font-size: 1em;
   font-weight: 600;
 
   border-right: 2px solid var(--white-text);
