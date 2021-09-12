@@ -245,11 +245,11 @@ I was able to reuse a lot of components, but there were side-effects that I didn
 
 I put a lot of grey boxes in my mockups and ignored a lot of detail (including the modals) in the short term mostly because I didn't fully understand Sergei's contract and decided to figure it out as I went a long. The result is I think it made my pledge modal look a bit "tacked on" since it doesn't fit in with the other two (due to different space requirements). I also think I would've saved more time if I made a half-hazard guess at what stuff should look like.
 
-### Lessons on Responsive Typography
+### I fought the scrollbar and the scrollbar won
 
-It's common to use 62.5% for the root font size and then rem for all the other font-sizes. This allows the user to pick a font-size, while still keeping the same proportions in your layout. However, I didn't do this because increasing the default font-size would force scrollbars in my application and I don't want that. My decorative circles are positioned relative to the screen and I think it would look janky if they moved together with the scrollbar. I was even considering dropping rem completely for pixels but I ended up using viewport units instead. I did this because I thought it would make my text more responsive and I would end up with less media queries. In the end however, I ended up with a ton of very simple media queries on my login page. I learned a few tricks from [this](https://www.youtube.com/watch?v=wARbgs5Fmuw) and I think I'm going to try something similar for my other two pages.
+It's common to use 62.5% for the root font size and then rem for all the other font-sizes. This lets the user choose their own preferred font-size, while still keeping the same proportions in the overall layout. However, I didn't want to use rem because I didn't want the user to scroll the page (increasing the font-size past its default size can create scrollbars). I did this because I thought it would look janky if my decorative circles (which are positioned relative to the screen) moved together with the scrollbar. However, I ultimately decided to give up on this. It was easy to set my content (and my font-size) equal to different viewport heights, but my text would break whenever the width increased. I would have a similar problem if I sized my text using viewport width units. 
 
-An important note, is that viewport sized typography breaks the user's ability to zoom (a staple in modern UX) but luckily it looks like calc() and clamp() can fix this as long as you add 1em/rem to your viewport unit.
+One other thing I learned, was that you can't zoom in on any text that has been sized with viewport units. Thankfully, [calc(vw + 1em) or clamp(vw + 1em) fixes this issue](https://www.youtube.com/watch?v=wARbgs5Fmuw).
 
 ## Attribution
 

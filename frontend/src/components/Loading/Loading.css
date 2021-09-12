@@ -13,10 +13,6 @@
   }
 }
 
-@font-face {
-  font-family: Cute;
-  src: url(../../assets/Cutesy.woff2);
-}
 
 .loading {
   position: fixed;
