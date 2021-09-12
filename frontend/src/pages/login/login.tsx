@@ -17,6 +17,7 @@ export const Login = () => {
   const [linkUrl, setLinkUrl] = useState("")
 
   const WALLET_DETECTED = "This app uses your ethereum wallet to make subscriptions to creators"
+  // const WALLET_DETECTED = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eum placeat pariatur architecto earum est delectus, porro hic. Esse harum hic ad, sapiente fugit ipsam quaerat, consequuntur a odio inventore sunt!  Unde iure possimus, ipsam dicta eligendi eveniet quia exercitationem nulla! Veniam, nulla soluta. Iusto itaque incidunt hic reiciendis molestias nesciunt quasi autem, doloremque vero repellendus. Molestias amet rerum minus reprehenderit."
   const WALLET_NOT_FOUND = "This app requires a cryptocurrency wallet to work, "
 
   useEffect(() => {

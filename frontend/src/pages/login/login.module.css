@@ -6,8 +6,8 @@
   --fs-footer: 1em;
 
   --Pethreon-margin-block: max(16px, 2vh);
-  --features-margin-bottom: max(29px, 6vh);
-  --typewriter-height: 98px;
+  --features-margin-bottom: min(29px, 6vh);
+  --typewriter-min-height: clamp(98px, 4vh, 120px);
   --metamask-svg-width: clamp(5em, 30vw, 16em);
 }
 
@@ -20,24 +20,20 @@
   }
 }
 
-/* TypewriterEffect is usually 3 lines up until this point so the height should be 3 lines tall*/
-@media only screen and (min-width: 679px) {
-  :root {
-    --typewriter-height: 116px;
-  }
-}
-
 @media only screen and (min-width: 1280px) and (orientation: landscape) {
   :root {
-    --fs-Pethreon: 5em;
-    --fs-features: 1.5em;
+    --fs-Pethreon: clamp(5em, 7vw, 15em);
+    --fs-features: clamp(1.5em, 2vw, 10em);
+    --fs-typewriter: 3em;
+    --fs-login-button: 1em;
+    --metamask-svg-width: clamp(1em, 15vw, 16em);
   }
 }
 
 main {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   margin-inline: max(1.5em, 6vw);
 }
 
@@ -54,10 +50,10 @@ main {
 
 .features {
   font-size: var(--fs-features);
+  margin-bottom: var(--features-margin-bottom);
+  line-height: 1.5;
   list-style-type: none;
   z-index: 1;
-  line-height: 1.5;
-  margin-bottom: var(--features-margin-bottom);
 }
 
 .features > li:first-child {
@@ -67,8 +63,7 @@ main {
 main > p {
   font-family: cute;
   font-size: var(--fs-typewriter);
-  min-height: var(--typewriter-height);
-  overflow-y: scroll;
+  min-height: var(--typewriter-min-height);
   text-align: center;
   scrollbar-width: thin;
   margin-bottom: 1em;
@@ -108,17 +103,13 @@ main > p {
 
 .video {
   display: none;
-  border-radius: 0.6em;
-  aspect-ratio: 256 / 135;
-  width: 90%;
-  align-self: center;
-  justify-self: center;
 }
 
 footer {
   font-size: var(--fs-footer);
   align-self: flex-end;
   margin-top: auto;
+  padding-top: 4vh;
 }
 
 footer > a {
@@ -161,18 +152,18 @@ footer > a:first-child {
       [Message-row-start] "Message Video" [Message-row-end]
       [Login-row-start] "Login Video" [Login-row-end]
       [Circles-row-start] "None Footer" [Circles-row-end];
-    margin-inline-start: max(2em, 2vw);
-    margin-inline-end: 0;
+    margin-inline: 0;
   }
 
-  .pethreon,
+  .Pethreon,
   .features,
   .loginContainer,
-  .typewriter {
+  main > p {
+    margin-inline-start: max(32px, 2vw);
     width: 50vw;
   }
 
-  .pethreon {
+  .Pethreon {
     grid-area: Pethreon;
   }
 
@@ -180,7 +171,7 @@ footer > a:first-child {
     grid-area: Features;
   }
 
-  .typewriter {
+  main > p {
     grid-area: Message;
   }
 
@@ -191,9 +182,17 @@ footer > a:first-child {
   .video {
     grid-area: Video;
     display: block;
+    border-radius: 0.6em;
+    aspect-ratio: 256 / 135;
+    width: 90%;
+    align-self: center;
+    justify-self: center;
   }
 
   footer {
     grid-area: Footer;
+    place-self: end;
+    margin-right: 5%;
+    padding: unset;
   }
 }
