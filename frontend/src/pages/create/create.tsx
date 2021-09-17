@@ -62,12 +62,12 @@ export const CreatePage = () => {
     <div role="region" className={styles.createLayout} >
       <Balance balance={balance} />
       <div className={styles.actionBar}>
-        <ActionButton creatorButton={true}
+        <ActionButton creator={true}
           onClick={withdrawBalance}>Withdraw <WithdrawSVG /></ActionButton>
-        <ActionButton creatorButton={true}
+        <ActionButton creator={true}
           onClick={() => extractPledgesToCSV(pledges)}>Extract to CSV <CsvSVG /></ActionButton>
       </div>
-      <ul className={styles.transactionHistory}>
+      <ul className={pledges.length === 0 ? styles.emptyPledgeBox : styles.pledgeBox}>
         {pledges.map((pledge: PledgeType) => <Pledge pledge={pledge} creator={true} key={pledge.contributorAddress} />)}
       </ul>
     </div>

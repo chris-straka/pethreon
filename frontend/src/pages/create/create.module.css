@@ -1,3 +1,14 @@
+:root {
+  --fs-user-account-name: 1rem; /* account name is desktop only */
+  --fs-user-balance: clamp(2rem, 8vw + 1rem, 5rem);
+  --fs-action-bar-button: clamp(0.5rem, 4.5vw, 3rem);
+  --fs-emptyPledgeText: clamp(0.5rem, 10vw, 5rem);
+
+  --pledge-box-height: ;
+  --pledge-box-width: ;
+}
+
+
 .actionBar {
   display: flex;
   justify-content: space-evenly;
@@ -12,9 +23,28 @@
   height: 70vh;
 }
 
-.transactionHistory {
+.pledgeBox,
+.emptyPledgeBox {
+  height: var(--pledge-box-height);
+  width: var(--pledge-box-width);
+}
+
+.pledgeBox {
   overflow: auto;
   list-style: none;
-  margin-top: 1.7rem;
-  height: 33vh;
+}
+
+.emptyPledgeBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: cute;
+  list-style: none;
+  border: 0.3em solid var(--darktheme-modal-background);
+  border-radius: 2em;
+}
+
+.emptyPledgeText {
+  font-size: var(--fs-emptyPledgeText);
+  width: 13ch;
 }

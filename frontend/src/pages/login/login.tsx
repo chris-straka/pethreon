@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, MutableRefObject } from 'react';
 import { useHistory } from 'react-router';
 import { TypewriterEffect } from "./TypewriterEffect/TypewriterEffect"
 import { EthereumWindow, MetamaskError } from "../../pethreon"
@@ -10,6 +10,7 @@ import styles from "./login.module.css"
 
 export const Login = () => {
   const history = useHistory()
+  const videoRef = useRef() as MutableRefObject<HTMLVideoElement>
   const { ethereum, location } = window as EthereumWindow
   const [message, setMessage] = useState("")
   const [talking, setTalking] = useState(false)
@@ -17,13 +18,12 @@ export const Login = () => {
   const [linkUrl, setLinkUrl] = useState("")
 
   const WALLET_DETECTED = "This app uses your ethereum wallet to make subscriptions to creators"
-  // const WALLET_DETECTED = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eum placeat pariatur architecto earum est delectus, porro hic. Esse harum hic ad, sapiente fugit ipsam quaerat, consequuntur a odio inventore sunt!  Unde iure possimus, ipsam dicta eligendi eveniet quia exercitationem nulla! Veniam, nulla soluta. Iusto itaque incidunt hic reiciendis molestias nesciunt quasi autem, doloremque vero repellendus. Molestias amet rerum minus reprehenderit."
   const WALLET_NOT_FOUND = "This app requires a cryptocurrency wallet to work, "
+  const ANIMATION_DELAY = 1000
+  const ANIMATION_CADENCE = 75
 
   useEffect(() => {
-    if (ethereum !== undefined && location.pathname === "/") {
-      setMessage(WALLET_DETECTED)
-    }
+    if (ethereum !== undefined && location.pathname === "/") setMessage(WALLET_DETECTED)
 
     if (ethereum === undefined && location.pathname === "/") {
       setMessage(WALLET_NOT_FOUND)
@@ -64,14 +64,14 @@ export const Login = () => {
         linkContent={linkContent}
         linkUrl={linkUrl}
         setTalking={setTalking}
-        cadence={75}
-        delay={1000}
+        cadence={ANIMATION_CADENCE}
+        delay={ANIMATION_DELAY}
       />
       <div className={styles.loginContainer}>
         <MetamaskSVG talking={talking} />
         <button className={styles.loginButton} onClick={login}>Login With Metamask</button>
       </div>
-      <video className={styles.video} muted autoPlay loop preload="true">
+      <video className={styles.video} ref={videoRef} muted autoPlay preload="true">
         <source src={mp4} type="video/mp4" />
         <source src={webm} type="video/webm" />
         Your browser does not support webm or mp4 videos.

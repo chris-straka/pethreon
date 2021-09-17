@@ -1,119 +1,142 @@
+:root {
+  --fs-user-account-name: 1rem; /* account name is desktop only */
+  --fs-user-balance: clamp(2rem, 8vw + 1rem, 5rem);
+  --fs-action-bar-button: clamp(0.5rem, 4.5vw, 3rem);
+  --fs-emptyPledgeText: clamp(0.5rem, 10vw, 5rem);
+
+  --contribute-layout-margin-inline: clamp(1.5em, 9vw, 5rem);
+  --contribute-layout-height: 60vh;
+  --contribute-layout-margin-top: 15vh;
+  --user-balance-width: 100%;
+  --action-bar-margin-top: 2vh;
+  --action-bar-margin-bottom: 3vh;
+  --action-bar-button-width: 8ch;
+  --action-bar-width: auto;
+  --pledge-box-height: 30vh;
+}
+
+@media only screen and (min-width: 600px) {
+  :root {
+    --contribute-layout-margin-inline: clamp(3rem, 9vw, 9rem);
+  }
+}
+
+@media only screen and (min-width: 1280px) and (orientation: landscape) {
+  :root {
+    --fs-user-account: 1rem; /* account name is desktop only */
+    --fs-user-balance: clamp(2rem, 8vw + 1rem, 5rem);
+    --fs-action-bar-button: clamp(0.5rem, 2vw, 2rem);
+    --fs-emptyPledgeText: clamp(0.5rem, 4vw, 5rem);
+
+    --contribute-layout-height: 85vh;
+    --contribute-layout-margin-top: 15vh;
+    --contribute-layout-margin-inline: 0;
+
+    --user-account-margin-left: clamp(30px, 3vw, 3rem);
+    --user-balance-margin-left: clamp(30px, 3vw, 3rem);
+
+    --action-bar-button-width: unset;
+    --action-bar-width: 45vw;
+    --action-bar-margin-top: 0;
+
+    --pledge-box-height: 40vh;
+    --pledge-box-width: 45vw;
+  }
+}
+
 .contributeLayout {
-  display: flex;
-  flex-direction: column;
-  align-content: space-around;
-  margin: 15vh 1.5em 0 1.5em;
-  height: 60vh;
-  font-size: 1em;
+  height: var(--contribute-layout-height);
+  margin-top: var(--contribute-layout-margin-top);
+  margin-inline: var(--contribute-layout-margin-inline);
+}
+
+.userAccountName {
+  display: none;
+  font-size: var(--fs-user-account);
+  margin-left: var(--user-account-margin-left);
+}
+
+/* ETH 0.0 */
+.contributeLayout > h1:first-child {
+  width: var(--user-balance-width);
+  font-size: var(--fs-user-balance);
+  margin-left: var(--user-balance-margin-left);
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .actionBar {
   display: flex;
   justify-content: center;
-  font-size: 1em;
-  margin-top: 1em;
+  width: var(--action-bar-width);
+  margin-top: var(--action-bar-margin-top);
+  margin-bottom: var(--action-bar-margin-bottom);
 }
 
-.transactionHistory {
+.actionBar > button {
+  font-size: var(--fs-action-bar-button);
+  width: var(--action-bar-button-width);
+}
+
+.pledgeBox,
+.emptyPledgeBox {
+  height: var(--pledge-box-height);
+  width: var(--pledge-box-width);
+}
+
+.pledgeBox {
   overflow: auto;
   list-style: none;
-  margin-top: 1.7em;
-  height: 33vh;
 }
 
-.noPledgesBox {
+.emptyPledgeBox {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+  font-family: cute;
   list-style: none;
-  height: 33vh;
-  margin-top: 1.7em;
   border: 0.3em solid var(--darktheme-modal-background);
   border-radius: 2em;
-  font-family: cute;
 }
 
-.noPledgeText {
-  font-size: 2.3em;
+.emptyPledgeText {
+  font-size: var(--fs-emptyPledgeText);
   width: 13ch;
 }
 
-.userAccountName {
-  display: none;
-}
-
-@media only screen and (min-width: 600px) {
-  .contributeLayout {
-    font-size: calc(1.2vw + 1em);
-    margin: 15vh 3em 0 3em;
-  }
-
-  .actionBar {
-    justify-content: space-evenly;
-    font-size: 1.2em;
-  }
-
-  .noPledgeText {
-    font-size: 2.5em;
-  }
-}
-
-@media only screen and (min-width: 1080px) and (orientation: landscape) {
+@media only screen and (min-width: 1280px) and (orientation: landscape) {
   .contributeLayout {
     display: grid;
     grid:
-      [CircleB-row-start] ". ." 14vh [CircleB-row-start]
-      [Account-row-start] "Account Account" 13vh [Action-row-end]
-      [Balance-row-start] ". Actions" 6vh [Balance-row-end]
-      [Pledge-row-start] "Balance Pledges" 50vh [Pledge-row-end];
-    font-size: calc(1.2vw + 1em);
-    height: 100vh;
-    margin: 0;
+      [Account-row-start] "EthBalance Actions" [Action-row-end]
+      [Balance-row-start] "Account Pledges" [Balance-row-end]
+      [Pledge-row-start] ". Pledges" [Pledge-row-end];
   }
 
   .userAccountName {
     grid-area: Account;
-    font-size: 1em;
     display: block;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    align-self: center;
+    overflow: scroll;
   }
 
   /* Balance */
   .contributeLayout > h1:first-child {
-    grid-area: Balance;
-    font-size: 1.5em;
-    width: 45vw;
-    align-self: center;
-    margin-bottom: 7em;
-    text-align: center;
+    grid-area: EthBalance;
+    align-self: end;
   }
 
   .actionBar {
     grid-area: Actions;
-    font-size: 0.5em;
-    width: 55vw;
     justify-self: center;
-    align-self: center;
-    border-radius: 15px;
+    justify-content: space-evenly;
+    align-self: end;
   }
 
-  .actionBar > button {
-    padding: 2em;
-    font-size: 1.6em;
-  }
-
-  .transactionHistory,
-  .noPledgesBox {
+  .pledgeBox,
+  .emptyPledgeBox {
     grid-area: Pledges;
-    font-size: 1em;
-    width: 45vw;
-    height: 80%;
     border: 0.2em solid var(--darktheme-modal-background);
     justify-self: center;
     align-self: start;
-    margin-top: 0;
   }
 }

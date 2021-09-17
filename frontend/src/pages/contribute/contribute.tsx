@@ -53,14 +53,18 @@ export const ContributePage = () => {
   }, [history])
 
   useEffect(() => {
+    const depositModal = <DepositModal closeModal={() => setCurrentModal("")} setLoading={setLoading} setBalance={setBalance} />;
+    const withdrawModal = <WithdrawModal closeModal={() => setCurrentModal("")} setLoading={setLoading} setBalance={setBalance} />;
+    const pledgeModal = <PledgeModal closeModal={() => setCurrentModal("")} setLoading={setLoading} setBalance={setBalance} setPledges={setPledges} />;
+
     if (currentModal === "") {
       return
     } else if (currentModal === "deposit") {
-      setModalBody(<DepositModal closeModal={() => setCurrentModal("")} setLoading={setLoading} setBalance={setBalance} />)
+      setModalBody(depositModal)
     } else if (currentModal === "withdraw") {
-      setModalBody(<WithdrawModal closeModal={() => setCurrentModal("")} setLoading={setLoading} setBalance={setBalance} />)
+      setModalBody(withdrawModal)
     } else if (currentModal === "pledge") {
-      setModalBody(<PledgeModal closeModal={() => setCurrentModal("")} setLoading={setLoading} setBalance={setBalance} setPledges={setPledges} />)
+      setModalBody(pledgeModal)
     }
     return () => { setModalBody(null) }
   }, [currentModal, setLoading, setBalance, setPledges])
@@ -75,7 +79,7 @@ export const ContributePage = () => {
         <ActionButton onClick={() => setCurrentModal("withdraw")}>Withdraw <WithdrawSVG /></ActionButton>
         <ActionButton onClick={() => setCurrentModal("pledge")}>Pledge <PledgeSVG /></ActionButton>
       </div>
-      <ul className={pledges.length === 0 ? styles.noPledgesBox : styles.transactionHistory}>
+      <ul className={pledges.length === 0 ? styles.emptyPledgeBox : styles.pledgeBox}>
         {pledges.map((pledge: PledgeType) => <Pledge
           pledge={pledge}
           setLoading={setLoading}
@@ -83,7 +87,7 @@ export const ContributePage = () => {
           setPledges={setPledges}
           key={pledge.creatorAddress}
         />)}
-        {pledges.length === 0 ? <li className={styles.noPledgeText}>You need to make a pledge first...</li> : null}
+        {pledges.length === 0 ? <li className={styles.emptyPledgeText}>You need to make a pledge first...</li> : null}
       </ul>
     </div>
     <Modal open={currentModal === "" ? false : true} onClose={() => setCurrentModal("")}>{modalBody}</Modal>

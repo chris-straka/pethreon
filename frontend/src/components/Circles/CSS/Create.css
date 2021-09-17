@@ -1,30 +1,49 @@
-.circleA_create {
+:root {
+  --circleA-create-top: 64vh;
+  --circleA-create-left: 80vw;
+  --circleA-create-size: 30vw;
+
+  --circleB-create-top: 0vh;
+  --circleB-create-left: 80vw;
+  --circleB-create-width: 20vw;
+  --circleB-create-height: 13vh;
+  --circleB-create-fs: 24px;
+
+  --circleC-create-top: 82vh;
+  --circleC-create-left: 63vw;
+  --circleC-create-size: 13vh;
+}
+
+.circleA_create,
+.circleB_create,
+.circleC_create {
   position: fixed;
-  top: 78vh;
-  left: 55vw;
-  width: 30vw;
-  height: 30vw;
+  z-index: -1;
+}
+
+.circleA_create {
+  top: var(--circleA-create-top);
+  left: var(--circleA-create-left);
+  width: var(--circleA-create-size);
+  height: var(--circleA-create-size);
   background-color: var(--secondary-light);
   border-radius: 50%;
-  z-index: -1000;
 
   animation: 5s linear 0s infinite alternate none running rightBall_animation;
   transition: all 0.5s linear;
 }
 
 .circleB_create {
-  position: fixed;
-  top: 0vh;
-  left: 60vw;
-  width: 40vw;
-  height: 13vh;
-  z-index: -1000;
+  top: var(--circleB-create-top);
+  left: var(--circleB-create-left);
+  width: var(--circleB-create-width);
+  height: var(--circleB-create-height);
 
   background-color: var(--primary-light);
   border-radius: 0 0 0 32px;
   cursor: pointer;
 
-  font-size: 24px;
+  font-size: var(--circleB-create-fs);
   font-weight: bold;
 
   transition: top 0.7s, left 0.7s, width 0.5s, height 0.5s,
@@ -46,14 +65,12 @@
 }
 
 .circleC_create {
-  position: fixed;
-  top: 76vh;
-  left: 13vw;
-  width: 20vw;
-  height: 20vw;
+  top: var(--circleC-create-top);
+  left: var(--circleC-create-left);
+  width: var(--circleC-create-size);
+  height: var(--circleC-create-size);
   background-color: var(--secondary);
   border-radius: 50%;
-  z-index: -1000;
 
   animation: 5s linear 0s infinite alternate none running leftBall_animation;
   transition: all 0.5s linear;

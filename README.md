@@ -229,7 +229,11 @@ Instead of creating my own react context file, I decided to use an ordinary TS f
 - The type of an event handler is `(event: ChangeEvent<HTMLElement>) => type`
 - Pledge is a verb and a noun and I've used both meanings when naming stuff which could get bothersome.
 - [Responsive screen sizes](https://www.browserstack.com/guide/ideal-screen-sizes-for-responsive-design)
-- [All the new iphone size](https://stackoverflow.com/questions/58087446)
+- [All the new iphone sizes](https://stackoverflow.com/questions/58087446)
+
+### Different ways to scale things for responsive design
+
+I had two options to scale things up or down. I could've set everything to em/px units and have them inherit their size from the parent's font-size (which I could change in a media query). Or I could've set everything to rem/px and then use clamps to make sure stuff doesn't grow to big or small.
 
 ## Lessons
 
@@ -247,9 +251,13 @@ I put a lot of grey boxes in my mockups and ignored a lot of detail (including t
 
 ### I fought the scrollbar and the scrollbar won
 
-It's common to use 62.5% for the root font size and then rem for all the other font-sizes. This lets the user choose their own preferred font-size, while still keeping the same proportions in the overall layout. However, I didn't want to use rem because I didn't want the user to scroll the page (increasing the font-size past its default size can create scrollbars). I did this because I thought it would look janky if my decorative circles (which are positioned relative to the screen) moved together with the scrollbar. However, I ultimately decided to give up on this. It was easy to set my content (and my font-size) equal to different viewport heights, but my text would break whenever the width increased. I would have a similar problem if I sized my text using viewport width units. 
+It's common to use 62.5% for the root font size and then rem for all the other font-sizes. This lets the user choose their own preferred font-size, while still keeping the same proportions. However, I didn't want to use rem because I didn't want the user to be able to scroll through the entire page (because increasing the default font-size can create scrollbars for the entire page). I didn't want them to do this because I thought it would look janky if my decorative circles (which are positioned relative to the screen) moved together with the scrollbar. However, I ultimately decided to give up on this. It was easy to set my content (and my font-size) equal to different viewport heights, but my text would break whenever the width changed (text would wrap differently).
 
-One other thing I learned, was that you can't zoom in on any text that has been sized with viewport units. Thankfully, [calc(vw + 1em) or clamp(vw + 1em) fixes this issue](https://www.youtube.com/watch?v=wARbgs5Fmuw).
+One other thing I learned, was that you can't zoom in/out on any text that has been sized with viewport units. Thankfully, [calc(vw + 1em) or clamp(vw + 1em) fixes this issue](https://www.youtube.com/watch?v=wARbgs5Fmuw).
+
+### CSS variables are so helpful for responsive design
+
+I used to put all my media queries at the bottom of my CSS but now I put them at the top. Combining that with CSS variables and I don't have to scroll that much when adjusting things. It creates a nice separation of concerns.
 
 ## Attribution
 

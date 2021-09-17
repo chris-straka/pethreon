@@ -1,32 +1,41 @@
 :root {
-  --fs-Pethreon: clamp(1em, 10vw + 1em, 10em);
-  --fs-features: clamp(1em, 1vw + 1em, 2em);
-  --fs-typewriter: clamp(1em, 5vw + 1em, 10em);
-  --fs-login-button: clamp(1em, 1.1vw + 1em, 10em);
-  --fs-footer: 1em;
+  --fs-Pethreon: clamp(1rem, 10vw + 1rem, 10rem);
+  --fs-features: clamp(1rem, 1vw + 1rem, 2rem);
+  --fs-typewriter: clamp(1rem, 5vw + 1rem, 10rem);
+  --fs-login-button: clamp(1rem, 1.1vw + 1rem, 10rem);
+  --fs-footer: clamp(1rem, 1vw + 1rem, 10rem);
 
   --Pethreon-margin-block: max(16px, 2vh);
   --features-margin-bottom: min(29px, 6vh);
   --typewriter-min-height: clamp(98px, 4vh, 120px);
+  --typewriter-margin-bottom: 1em;
   --metamask-svg-width: clamp(5em, 30vw, 16em);
+  --footer-padding-top: 4vh;
 }
 
 @media only screen and (min-width: 390px) {
   :root {
-    --fs-features: clamp(1em, 2vw + 1em, 7em);
-    --fs-typewriter: clamp(1em, 6vw + 1em, 10em);
-    --fs-login-button: clamp(1em, 2.5vw + 1em, 10em);
-    --fs-footer: 1.5em;
+    --fs-features: clamp(1rem, 2vw + 1rem, 7rem);
+    --fs-typewriter: clamp(1rem, 6vw + 1rem, 10rem);
+    --fs-login-button: clamp(1rem, 2.5vw + 1rem, 10rem);
+    --fs-footer: clamp(1rem, 1vw + 1rem, 10rem);
+
+    --features-margin-bottom: max(50px, 6vh);
+    --typewriter-min-height: clamp(100px, 17vh, 250px);
   }
 }
 
 @media only screen and (min-width: 1280px) and (orientation: landscape) {
   :root {
-    --fs-Pethreon: clamp(5em, 7vw, 15em);
-    --fs-features: clamp(1.5em, 2vw, 10em);
-    --fs-typewriter: 3em;
-    --fs-login-button: 1em;
-    --metamask-svg-width: clamp(1em, 15vw, 16em);
+    --fs-Pethreon: clamp(5rem, 5vw + 1rem, 15rem);
+    --fs-features: clamp(1.5rem, 0.8vw + 1rem, 10rem);
+    --fs-typewriter: clamp(3rem, 2vw + 1rem, 10rem);
+    --fs-login-button: clamp(1rem, 1vw + 1rem, 10rem);
+
+    --features-margin-bottom: min(35px, 6vh);
+    --typewriter-min-height: clamp(100px, 6vh, 150px);
+    --typewriter-margin-bottom: 0;
+    --metamask-svg-width: clamp(1em, 13vw, 16em);
   }
 }
 
@@ -41,7 +50,6 @@ main {
   font-size: var(--fs-Pethreon);
   margin-block: var(--Pethreon-margin-block);
   font-weight: 300;
-  z-index: 1;
 }
 
 .Ξ {
@@ -53,7 +61,6 @@ main {
   margin-bottom: var(--features-margin-bottom);
   line-height: 1.5;
   list-style-type: none;
-  z-index: 1;
 }
 
 .features > li:first-child {
@@ -66,7 +73,7 @@ main > p {
   min-height: var(--typewriter-min-height);
   text-align: center;
   scrollbar-width: thin;
-  margin-bottom: 1em;
+  margin-bottom: var(--typewriter-margin-bottom);
 }
 
 .loginContainer {
@@ -109,7 +116,7 @@ footer {
   font-size: var(--fs-footer);
   align-self: flex-end;
   margin-top: auto;
-  padding-top: 4vh;
+  padding-top: var(--footer-padding-top);
 }
 
 footer > a {
@@ -143,6 +150,7 @@ footer > a:first-child {
   }
 }
 
+/* DESKTOP DESIGN */
 @media only screen and (min-width: 1280px) and (orientation: landscape) {
   main {
     display: grid;
@@ -159,8 +167,8 @@ footer > a:first-child {
   .features,
   .loginContainer,
   main > p {
-    margin-inline-start: max(32px, 2vw);
-    width: 50vw;
+    margin-inline-start: max(32px, 3vw);
+    width: 40vw;
   }
 
   .Pethreon {
@@ -177,6 +185,11 @@ footer > a:first-child {
 
   .loginContainer {
     grid-area: Login;
+  }
+
+  .loginButton {
+    width: unset;
+    padding: 0.6em;
   }
 
   .video {

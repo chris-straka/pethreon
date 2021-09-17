@@ -1,13 +1,11 @@
 .actionButton {
-  cursor: pointer;
-  border-radius: inherit;
-  padding: 0.7em;
-  background-color: var(--primary);
-  outline: none;
   font-size: 1em;
   font-weight: 600;
-
+  padding: 0.7em;
   border-right: 2px solid var(--white-text);
+  border-radius: inherit;
+  outline: none;
+  cursor: pointer;
 }
 
 .actionButton:focus {
@@ -20,7 +18,10 @@
   vertical-align: text-bottom;
 }
 
-/* Needs to be at the bottom to overwrite the background color */
+.contributorStyles {
+  background-color: var(--primary);
+}
+
 .creatorStyles {
   background-color: var(--secondary);
 }
@@ -28,11 +29,14 @@
 @media (prefers-color-scheme: dark) {
   .actionButton {
     border-color: var(--darktheme-black-text);
-    background-color: var(--darktheme-secondary);
   }
 
   .actionButton:focus {
     outline-color: var(--darktheme-secondary);
+  }
+
+  .contributorStyles {
+    background-color: var(--darktheme-secondary);
   }
 
   .creatorStyles {

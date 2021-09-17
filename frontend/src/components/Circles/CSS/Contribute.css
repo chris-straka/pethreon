@@ -1,33 +1,62 @@
-.circleA_contribute {
+:root {
+  --circleA-contribute-top: 80vh;
+  --circleA-contribute-left: 17vw;
+  --circleA-contribute-size: 10vh;
+
+  --circleB-contribute-top: 0vh;
+  --circleB-contribute-left: 60vw;
+  --circleB-contribute-width: 40vw;
+  --circleB-contribute-height: 13vh;
+  --circleB-contribute-fs: 24px;
+
+  --circleC-contribute-top: 77vh;
+  --circleC-contribute-left: 55vw;
+  --circleC-contribute-size: 18vh;
+}
+
+@media only screen and (min-width: 1280px) and (orientation: landscape) {
+  :root {
+    --circleA-contribute-left: 12vw;
+    --circleB-contribute-width: 20vw;
+    --circleB-contribute-left: 80vw;
+    --circleB-contribute-fs: 2.5vw;
+    --circleC-contribute-top: 69vh;
+    --circleC-contribute-left: 30vw;
+  }
+}
+
+.circleA_contribute,
+.circleB_contribute,
+.circleC_contribute {
   position: fixed;
-  top: 80vh;
-  left: 17vw;
-  width: 10vh;
-  height: 10vh;
+  z-index: -1;
+}
+
+.circleA_contribute {
+  top: var(--circleA-contribute-top);
+  left: var(--circleA-contribute-left);
+  width: var(--circleA-contribute-size);
+  height: var(--circleA-contribute-size);
   background-color: var(--primary-light);
   border-radius: 50%;
-  z-index: -1;
 
   animation: 5s linear 0s infinite alternate none running leftBall_animation;
   transition: all 0.5s linear;
 }
 
-/* button */
 .circleB_contribute {
-  position: fixed;
-  top: 0vh;
-  left: 60vw;
-  width: 40vw;
-  height: 13vh;
+  top: var(--circleB-contribute-top);
+  left: var(--circleB-contribute-left);
+  width: var(--circleB-contribute-width);
+  height: var(--circleB-contribute-height);
 
   background-color: var(--secondary);
   color: var(--darktheme-black-text);
   border-radius: 0 0 0 32px;
   cursor: pointer;
 
-  font-size: 24px;
+  font-size: var(--circleB-contribute-fs);
   font-weight: bold;
-  z-index: -1;
 
   transition: top 0.7s, left 0.7s, width 0.5s, height 0.5s,
     border-top-left-radius 1.2s, border-top-right-radius 1s,
@@ -48,14 +77,12 @@
 }
 
 .circleC_contribute {
-  position: fixed;
-  top: 77vh;
-  left: 55vw;
-  width: 18vh;
-  height: 18vh;
+  top: var(--circleC-contribute-top);
+  left: var(--circleC-contribute-left);
+  width: var(--circleC-contribute-size);
+  height: var(--circleC-contribute-size);
   background-color: var(--primary);
   border-radius: 50%;
-  z-index: -1;
 
   animation: 5s linear 0s infinite alternate none running rightBall_animation;
   transition: all 0.5s linear;
