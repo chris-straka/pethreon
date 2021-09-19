@@ -1,4 +1,6 @@
-:root {
+.circleA_login,
+.circleB_login,
+.circleC_login {
   --circleA-login-top: -5vh;
   --circleA-login-left: -5vw;
   --circleA-login-size: 112px;
@@ -13,7 +15,9 @@
 }
 
 @media only screen and (min-height: 736px) {
-  :root {
+  .circleA_login,
+  .circleB_login,
+  .circleC_login {
     --circleC-login-top: 80vh;
     --circleC-login-size: 304px;
   }

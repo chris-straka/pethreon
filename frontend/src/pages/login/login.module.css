@@ -1,4 +1,4 @@
-:root {
+main {
   --fs-Pethreon: clamp(1rem, 10vw + 1rem, 10rem);
   --fs-features: clamp(1rem, 1vw + 1rem, 2rem);
   --fs-typewriter: clamp(1rem, 5vw + 1rem, 10rem);
@@ -14,7 +14,7 @@
 }
 
 @media only screen and (min-width: 390px) {
-  :root {
+  main {
     --fs-features: clamp(1rem, 2vw + 1rem, 7rem);
     --fs-typewriter: clamp(1rem, 6vw + 1rem, 10rem);
     --fs-login-button: clamp(1rem, 2.5vw + 1rem, 10rem);
@@ -26,7 +26,7 @@
 }
 
 @media only screen and (min-width: 1280px) and (orientation: landscape) {
-  :root {
+  main {
     --fs-Pethreon: clamp(5rem, 5vw + 1rem, 15rem);
     --fs-features: clamp(1.5rem, 0.8vw + 1rem, 10rem);
     --fs-typewriter: clamp(3rem, 2vw + 1rem, 10rem);
@@ -117,37 +117,15 @@ footer {
   align-self: flex-end;
   margin-top: auto;
   padding-top: var(--footer-padding-top);
+  opacity: 1;
 }
 
 footer > a {
-  color: var(--darktheme-white-text);
-  opacity: 0.8;
+  color: var(--primary-dark);
 }
 
 footer > a:first-child {
   margin-right: 3vw;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    background-color: var(--darktheme-background);
-    color: var(--darktheme-text);
-  }
-
-  a {
-    color: var(--darktheme-anchor-tag);
-  }
-
-  .loginButton {
-    border-color: var(--darktheme-white-text);
-    color: var(--darktheme-white-text);
-  }
-
-  .loginButton:focus,
-  .loginButton:hover {
-    background-color: var(--darktheme-white-text);
-    color: var(--darktheme-background);
-  }
 }
 
 /* DESKTOP DESIGN */
@@ -207,5 +185,35 @@ footer > a:first-child {
     place-self: end;
     margin-right: 5%;
     padding: unset;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    background-color: var(--darktheme-background);
+    color: var(--darktheme-text);
+  }
+
+  a {
+    color: var(--darktheme-anchor-tag);
+  }
+
+  footer {
+    opacity: 0.8;
+  }
+
+  footer > a {
+    color: var(--darktheme-white-text);
+  }
+
+  .loginButton {
+    border-color: var(--darktheme-white-text);
+    color: var(--darktheme-white-text);
+  }
+
+  .loginButton:focus,
+  .loginButton:hover {
+    background-color: var(--darktheme-white-text);
+    color: var(--darktheme-background);
   }
 }

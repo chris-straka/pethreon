@@ -1,4 +1,5 @@
 import { useState, useEffect, FormEvent } from "react"
+import { motion } from "framer-motion"
 import { useHistory } from "react-router"
 import { ActionButton } from "../../components/ActionButton/ActionButton"
 import { Loading } from "../../components/Loading/Loading"
@@ -59,17 +60,24 @@ export const CreatePage = () => {
 
   return <>
     {loading && <Loading />}
-    <div role="region" className={styles.createLayout} >
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: .5 }}
+      role="region"
+      className={styles.createLayout}
+    >
       <Balance balance={balance} />
+      <h2 className={styles.userAccountName}>{ethereum.selectedAddress}</h2>
       <div className={styles.actionBar}>
-        <ActionButton creator={true}
-          onClick={withdrawBalance}>Withdraw <WithdrawSVG /></ActionButton>
-        <ActionButton creator={true}
-          onClick={() => extractPledgesToCSV(pledges)}>Extract to CSV <CsvSVG /></ActionButton>
+        <ActionButton onClick={withdrawBalance}>Withdraw <WithdrawSVG /></ActionButton>
+        <ActionButton onClick={() => extractPledgesToCSV(pledges)}>Extract to CSV <CsvSVG /></ActionButton>
       </div>
       <ul className={pledges.length === 0 ? styles.emptyPledgeBox : styles.pledgeBox}>
         {pledges.map((pledge: PledgeType) => <Pledge pledge={pledge} creator={true} key={pledge.contributorAddress} />)}
+        {pledges.length === 0 ? <li className={styles.emptyPledgeText}>Nobody has pledged to you yet...</li> : null}
       </ul>
-    </div>
+    </motion.div>
   </>
 }

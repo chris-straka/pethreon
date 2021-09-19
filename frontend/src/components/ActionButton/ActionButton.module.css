@@ -1,3 +1,4 @@
+
 .actionButton {
   font-size: 1em;
   font-weight: 600;
@@ -16,14 +17,6 @@
 .actionButton > svg {
   width: 2ch;
   vertical-align: text-bottom;
-}
-
-.contributorStyles {
-  background-color: var(--primary);
-}
-
-.creatorStyles {
-  background-color: var(--secondary);
 }
 
 @media (prefers-color-scheme: dark) {

@@ -276,3 +276,5 @@ I used to put all my media queries at the bottom of my CSS but now I put them at
 - [Artsy Cat's Cutesy Font](https://www.dafont.com/cutesy.font)
 
 - [Sora Sagano's Aileron Font](https://fontsarena.com/aileron-by-sora-sagano/)
+
+- [Sarah Fossheim](https://fossheim.io/writing/posts/react-text-splitting-animations/)

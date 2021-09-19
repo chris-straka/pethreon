@@ -1,4 +1,6 @@
-:root {
+.circleA_contribute,
+.circleB_contribute,
+.circleC_contribute {
   --circleA-contribute-top: 80vh;
   --circleA-contribute-left: 17vw;
   --circleA-contribute-size: 10vh;
@@ -15,7 +17,9 @@
 }
 
 @media only screen and (min-width: 1280px) and (orientation: landscape) {
-  :root {
+  .circleA_contribute,
+  .circleB_contribute,
+  .circleC_contribute {
     --circleA-contribute-left: 12vw;
     --circleB-contribute-width: 20vw;
     --circleB-contribute-left: 80vw;

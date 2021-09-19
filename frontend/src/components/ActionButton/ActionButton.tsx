@@ -3,13 +3,9 @@ import styles from "./ActionButton.module.css"
 
 interface ActionButtonProps {
   children: ReactNode;
-  creator?: boolean;
-  onClick?: any;
+  onClick: any;
 }
 
-export const ActionButton = ({ children, onClick, creator }: ActionButtonProps) => (
-  <button
-    className={`${styles.actionButton} ${creator ? styles.creatorStyles : styles.contributorStyles}`}
-    onClick={onClick}
-  >{children}</button>
+export const ActionButton = ({ children, onClick }: ActionButtonProps) => (
+  <button className={styles.actionButton} onClick={onClick}>{children}</button>
 )

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, MutableRefObject } from 'react';
+import { motion } from "framer-motion"
 import { useHistory } from 'react-router';
 import { TypewriterEffect } from "./TypewriterEffect/TypewriterEffect"
 import { EthereumWindow, MetamaskError } from "../../pethreon"
@@ -47,7 +48,11 @@ export const Login = () => {
   }
 
   return (
-    <main>
+    <motion.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <h1 className={styles.Pethreon}>P<span className={styles.Ξ}>Ξ</span>threon</h1>
       <ul className={styles.features}>
         <li>Make daily payments to your favourite creators in a trustless and privacy respecting manner</li>
@@ -80,6 +85,6 @@ export const Login = () => {
         <a href="https://github.com/Chris56974/Pethreon#attribution" target="_blank" rel="noreferrer">Attribution</a>
         <a href="https://github.com/Chris56974/Pethreon/blob/main/LICENSE" target="_blank" rel="noreferrer">License</a>
       </footer>
-    </main>
+    </motion.main>
   );
 }

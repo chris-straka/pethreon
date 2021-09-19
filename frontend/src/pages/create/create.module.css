@@ -1,35 +1,95 @@
-:root {
-  --fs-user-account-name: 1rem; /* account name is desktop only */
+.createLayout {
   --fs-user-balance: clamp(2rem, 8vw + 1rem, 5rem);
   --fs-action-bar-button: clamp(0.5rem, 4.5vw, 3rem);
-  --fs-emptyPledgeText: clamp(0.5rem, 10vw, 5rem);
+  --fs-empty-pledge-text: clamp(0.5rem, 10vw, 5rem);
 
-  --pledge-box-height: ;
-  --pledge-box-width: ;
+  --create-layout-margin-inline: clamp(1.5em, 9vw, 5rem);
+  --create-layout-height: 60vh;
+  --create-layout-margin-top: 15vh;
+
+  --action-bar-margin-top: 2vh;
+  --action-bar-margin-bottom: 0;
+
+  --pledge-box-margin-top: 3vh;
+  --pledge-box-height: 30vh;
+
+  --empty-pledge-text-width: 15ch;
 }
 
+@media only screen and (min-width: 600px) {
+  .createLayout {
+    --create-layout-margin-inline: clamp(3rem, 9vw, 9rem);
+  }
+}
 
-.actionBar {
-  display: flex;
-  justify-content: space-evenly;
-  margin-top: 16px;
+@media only screen and (min-width: 1280px) and (orientation: landscape) {
+  .createLayout {
+    --fs-user-account: clamp(0.2rem, 0.4vw + 1rem, 5rem);
+    --fs-user-balance: clamp(1.5rem, 3vw + 1rem, 9rem);
+    --fs-action-bar-button: clamp(0.5rem, 2vw, 2rem);
+    --fs-empty-pledge-text: clamp(0.5rem, 4vw, 5rem);
+
+    --create-layout-height: 85vh;
+    --create-layout-margin-top: 15vh;
+    --create-layout-margin-inline: 0;
+
+    --user-account-margin-left: 0;
+    --user-account-width: 35vw;
+
+    --user-balance-width: 35vw;
+    --user-balance-margin-left: 0;
+
+    --action-bar-button-width: unset;
+    --action-bar-width: 55vw;
+    --action-bar-margin-top: 0;
+    --action-bar-margin-bottom: 8px;
+
+    --pledge-box-height: 40vh;
+    --pledge-box-width: 50vw;
+  }
 }
 
 .createLayout {
+  height: var(--create-layout-height);
+  margin-top: var(--create-layout-margin-top);
+  margin-inline: var(--create-layout-margin-inline);
+}
+
+.userAccountName {
+  display: none;
+  font-size: var(--fs-user-account);
+  margin-left: var(--user-account-margin-left);
+  width: var(--user-account-width);
+}
+
+/* ETH 0.0 */
+.createLayout > h1:first-child {
+  font-size: var(--fs-user-balance);
+  margin-left: var(--user-balance-margin-left);
+  width: var(--user-balance-width);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.actionBar {
   display: flex;
-  flex-direction: column;
-  align-content: space-around;
-  margin: 15vh 24px 0 24px;
-  height: 70vh;
+  justify-content: center;
+  width: var(--action-bar-width);
+  margin-top: var(--action-bar-margin-top);
+  margin-bottom: var(--action-bar-margin-bottom);
+}
+
+.actionBar > button {
+  font-size: var(--fs-action-bar-button);
+  width: var(--action-bar-button-width);
+  background-color: var(--secondary);
 }
 
 .pledgeBox,
 .emptyPledgeBox {
-  height: var(--pledge-box-height);
   width: var(--pledge-box-width);
-}
-
-.pledgeBox {
+  height: var(--pledge-box-height);
+  margin-top: var(--pledge-box-margin-top);
   overflow: auto;
   list-style: none;
 }
@@ -45,6 +105,50 @@
 }
 
 .emptyPledgeText {
-  font-size: var(--fs-emptyPledgeText);
-  width: 13ch;
+  font-size: var(--fs-empty-pledge-text);
+  width: var(--empty-pledge-text-width);
+}
+
+@media only screen and (min-width: 1280px) and (orientation: landscape) {
+  .createLayout {
+    display: grid;
+    grid:
+      [Account-row-start] "Actions EthBalance" [Action-row-end]
+      [Balance-row-start] "Pledges Account" [Balance-row-end]
+      [Pledge-row-start] "Pledges ." [Pledge-row-end];
+  }
+
+  .userAccountName {
+    grid-area: Account;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Balance */
+  .createLayout > h1:first-child {
+    grid-area: EthBalance;
+    align-self: end;
+  }
+
+  .actionBar {
+    grid-area: Actions;
+    justify-self: center;
+    justify-content: space-evenly;
+    align-self: end;
+  }
+
+  .pledgeBox,
+  .emptyPledgeBox {
+    grid-area: Pledges;
+    border: 0.2em solid var(--darktheme-modal-background);
+    justify-self: center;
+    align-self: start;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .actionBar > button {
+    background-color: var(--darktheme-primary-light);
+  }
 }

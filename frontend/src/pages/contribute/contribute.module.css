@@ -1,5 +1,4 @@
-:root {
-  --fs-user-account-name: 1rem; /* account name is desktop only */
+.contributeLayout {
   --fs-user-balance: clamp(2rem, 8vw + 1rem, 5rem);
   --fs-action-bar-button: clamp(0.5rem, 4.5vw, 3rem);
   --fs-emptyPledgeText: clamp(0.5rem, 10vw, 5rem);
@@ -7,24 +6,25 @@
   --contribute-layout-margin-inline: clamp(1.5em, 9vw, 5rem);
   --contribute-layout-height: 60vh;
   --contribute-layout-margin-top: 15vh;
-  --user-balance-width: 100%;
+
   --action-bar-margin-top: 2vh;
-  --action-bar-margin-bottom: 3vh;
+  --action-bar-margin-bottom: 0;
   --action-bar-button-width: 8ch;
-  --action-bar-width: auto;
+
+  --pledge-box-margin-top: 3vh;
   --pledge-box-height: 30vh;
 }
 
 @media only screen and (min-width: 600px) {
-  :root {
+  .contributeLayout {
     --contribute-layout-margin-inline: clamp(3rem, 9vw, 9rem);
   }
 }
 
 @media only screen and (min-width: 1280px) and (orientation: landscape) {
-  :root {
-    --fs-user-account: 1rem; /* account name is desktop only */
-    --fs-user-balance: clamp(2rem, 8vw + 1rem, 5rem);
+  .contributeLayout {
+    --fs-user-account: clamp(0.2rem, 0.4vw + 1rem, 5rem);
+    --fs-user-balance: clamp(1.5rem, 3vw + 1rem, 9rem);
     --fs-action-bar-button: clamp(0.5rem, 2vw, 2rem);
     --fs-emptyPledgeText: clamp(0.5rem, 4vw, 5rem);
 
@@ -32,17 +32,28 @@
     --contribute-layout-margin-top: 15vh;
     --contribute-layout-margin-inline: 0;
 
-    --user-account-margin-left: clamp(30px, 3vw, 3rem);
-    --user-balance-margin-left: clamp(30px, 3vw, 3rem);
+    --user-account-margin-left: clamp(30px, 4vw, 4rem);
+    --user-account-margin-top: 20px;
+    --user-account-width: 37vw;
+
+    --user-balance-width: 37vw;
+    --user-balance-margin-left: clamp(30px, 4vw, 4rem);
 
     --action-bar-button-width: unset;
-    --action-bar-width: 45vw;
+    --action-bar-width: 55vw;
     --action-bar-margin-top: 0;
+    --action-bar-margin-bottom: 8px;
 
     --pledge-box-height: 40vh;
-    --pledge-box-width: 45vw;
+    --pledge-box-width: 50vw;
   }
 }
+
+/**
+|--------------------------------------------------
+|  
+|--------------------------------------------------
+*/
 
 .contributeLayout {
   height: var(--contribute-layout-height);
@@ -54,15 +65,19 @@
   display: none;
   font-size: var(--fs-user-account);
   margin-left: var(--user-account-margin-left);
+  margin-top: var(--user-account-margin-top);
+  width: var(--user-account-width);
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* ETH 0.0 */
 .contributeLayout > h1:first-child {
-  width: var(--user-balance-width);
   font-size: var(--fs-user-balance);
+  width: var(--user-balance-width);
   margin-left: var(--user-balance-margin-left);
-  overflow: hidden;
-  text-overflow: ellipsis;
+  margin-bottom: var(--user-balance-margin-bottom);
+  overflow: scroll;
 }
 
 .actionBar {
@@ -73,18 +88,35 @@
   margin-bottom: var(--action-bar-margin-bottom);
 }
 
-.actionBar > button {
+.actionButton {
   font-size: var(--fs-action-bar-button);
+  font-weight: 600;
+  cursor: pointer;
   width: var(--action-bar-button-width);
+  padding: 0.7em;
+  border-right: 3px solid white;
+  background-color: var(--primary);
+  color: var(--black-text);
+
+  /* background-color: white;
+  border-bottom: 2px solid black;  */
+}
+
+.actionButton:focus {
+  outline-offset: 3px;
+  outline: 3px dotted var(--primary);
+}
+
+.actionButton > svg {
+  width: 2ch;
+  vertical-align: text-bottom;
 }
 
 .pledgeBox,
 .emptyPledgeBox {
-  height: var(--pledge-box-height);
   width: var(--pledge-box-width);
-}
-
-.pledgeBox {
+  height: var(--pledge-box-height);
+  margin-top: var(--pledge-box-margin-top);
   overflow: auto;
   list-style: none;
 }
@@ -95,7 +127,7 @@
   justify-content: center;
   font-family: cute;
   list-style: none;
-  border: 0.3em solid var(--darktheme-modal-background);
+  border: 0.3em solid var(--primary-light);
   border-radius: 2em;
 }
 
@@ -116,13 +148,14 @@
   .userAccountName {
     grid-area: Account;
     display: block;
-    overflow: scroll;
   }
 
   /* Balance */
   .contributeLayout > h1:first-child {
     grid-area: EthBalance;
     align-self: end;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .actionBar {
@@ -132,11 +165,44 @@
     align-self: end;
   }
 
+  .actionButton {
+    background-color: white;
+  }
+
+  .actionButton:focus {
+    outline-offset: 3px;
+    outline: 5px dotted var(--primary);
+  }
+
+  .actionButton > svg {
+    width: 2ch;
+    vertical-align: text-bottom;
+  }
+
   .pledgeBox,
   .emptyPledgeBox {
     grid-area: Pledges;
-    border: 0.2em solid var(--darktheme-modal-background);
     justify-self: center;
     align-self: start;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .pledgeBox,
+  .emptyPledgeBox {
+    border-color: var(--darktheme-modal-background);
+  }
+
+  .actionButton {
+    color: var(--black-text);
+    background-color: var(--darktheme-secondary);
+    font-size: var(--fs-action-bar-button);
+    font-weight: 600;
+    cursor: pointer;
+    width: var(--action-bar-button-width);
+    padding: 0.7em;
+    border-right: 3px solid white;
+    background-color: var(--primary);
+    color: var(--black-text);
   }
 }

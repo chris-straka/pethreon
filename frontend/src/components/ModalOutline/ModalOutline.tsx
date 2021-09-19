@@ -12,13 +12,12 @@ export const Modal = ({ open, onClose, children }: ModalProps) => {
   if (!open) return null
 
   return createPortal(
-    <>
-      <div className={styles.modalOverlay} onClick={onClose} />
+    <div className={styles.modalOverlay} onClick={onClose} >
       <div className={styles.modal}>
-        <button className={styles.X} id="ttt" onClick={onClose}>X</button>
+        <button className={styles.X} onClick={onClose}>X</button>
         {children}
       </div>
-    </>,
+    </div>,
     document.getElementById('portal') as HTMLElement
   )
 }

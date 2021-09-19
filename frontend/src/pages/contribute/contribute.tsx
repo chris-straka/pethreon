@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { motion } from "framer-motion"
 import { useHistory } from "react-router"
 import { Pledge } from "../../components/Pledge/Pledge"
 import { Balance } from "../../components/Balance/Balance"
@@ -71,13 +72,20 @@ export const ContributePage = () => {
 
   return <>
     {loading && <Loading />}
-    <div role="region" className={styles.contributeLayout}>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: .5 }}
+      role="region"
+      className={styles.contributeLayout}
+    >
       <Balance balance={balance} />
       <h1 className={styles.userAccountName}>{ethereum.selectedAddress}</h1>
       <div className={styles.actionBar}>
-        <ActionButton onClick={() => setCurrentModal("deposit")}>Deposit <DepositSVG /></ActionButton>
-        <ActionButton onClick={() => setCurrentModal("withdraw")}>Withdraw <WithdrawSVG /></ActionButton>
-        <ActionButton onClick={() => setCurrentModal("pledge")}>Pledge <PledgeSVG /></ActionButton>
+        <button className={styles.actionButton} onClick={() => setCurrentModal("deposit")}>Deposit <DepositSVG /></button>
+        <button className={styles.actionButton} onClick={() => setCurrentModal("withdraw")}>Withdraw <WithdrawSVG /></button>
+        <button className={styles.actionButton} onClick={() => setCurrentModal("withdraw")}>Pledge <PledgeSVG /></button>
       </div>
       <ul className={pledges.length === 0 ? styles.emptyPledgeBox : styles.pledgeBox}>
         {pledges.map((pledge: PledgeType) => <Pledge
@@ -89,7 +97,7 @@ export const ContributePage = () => {
         />)}
         {pledges.length === 0 ? <li className={styles.emptyPledgeText}>You need to make a pledge first...</li> : null}
       </ul>
-    </div>
+    </motion.div>
     <Modal open={currentModal === "" ? false : true} onClose={() => setCurrentModal("")}>{modalBody}</Modal>
   </>
 }

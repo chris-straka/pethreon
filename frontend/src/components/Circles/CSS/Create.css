@@ -1,17 +1,29 @@
-:root {
+.circleA_create,
+.circleB_create,
+.circleC_create {
   --circleA-create-top: 64vh;
   --circleA-create-left: 80vw;
   --circleA-create-size: 30vw;
 
   --circleB-create-top: 0vh;
-  --circleB-create-left: 80vw;
-  --circleB-create-width: 20vw;
+  --circleB-create-left: 60vw;
+  --circleB-create-width: 40vw;
   --circleB-create-height: 13vh;
   --circleB-create-fs: 24px;
 
   --circleC-create-top: 82vh;
   --circleC-create-left: 63vw;
   --circleC-create-size: 13vh;
+}
+
+@media only screen and (min-width: 1280px) and (orientation: landscape) {
+  .circleA_create,
+  .circleB_create,
+  .circleC_create {
+    --circleB-create-width: 20vw;
+    --circleB-create-left: 80vw;
+    --circleB-create-fs: 2.5vw;
+  }
 }
 
 .circleA_create,
