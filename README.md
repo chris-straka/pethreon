@@ -239,25 +239,23 @@ I had two options to scale things up or down. I could've set everything to em/px
 
 ### Tests were invaluable
 
-A lot of my contract behaviour depends on what time it is, and how many days it's been. I don't want to wait a couple of days just to see if something works as intended, so [being able to set the time](https://ethereum.stackexchange.com/questions/86633) was a big help. The tests also made it a lot easier to understand my contract.
+A lot of my smart contract behaviour depends on what time it is, and how many days it's been. I don't want to wait days just to see if something works in my contract, so [being able to set the time programatically](https://ethereum.stackexchange.com/questions/86633) was a big help. The tests also made it a lot easier to understand the smart contract code.
 
-### Component reuse needs some thought behind it
+### I fought the scrollbar and the scrollbar won
 
-I was able to reuse a lot of components, but there were side-effects that I didn't see coming. For components to be reusable, I had to make sure they didn't have any default margins because that would make them harder to reuse. So I had to add in margins later, but I didn't like of my options for doing so. One option was to bloat up JSX in some way, like littering it with Spacer components, or passing in additional style props, or wrapped components in a wrapper element that had all the styles. Another option, was I could grab React components using a CSS selector that targeted its underlying root HTML element, but then it would break things the moment I moved stuff around or if I decided to change the underlying HTML element.
+It's common to use 62.5% for the root font size and then rem for all the other font-sizes. This lets the user choose their own preferred font-size, while still keeping the same proportions in the overall layout. However, I didn't want to do this because I didn't want the user to be able to scroll the page. If they preferred a really large default font-size, that could push my content outside of the screen and create scrollbars. I didn't want this to happen because I thought it would look janky if my decorative circles (which are positioned relative to the screen) moved together with the scrollbar. I also wanted my website to look like a mobile app and not like a website (PWA). However, I found it too cumbersome to not include scrollbars at certain screen sizes. It found that it would take too many media queries that would make my CSS less readable/maintainable. It was easy to set my content equal to viewport units, but my text would break everytime the text wrapped around when the viewport width increased/decreased. 
+
+I think I could've handled my decorative circles differently to make things easier too. One cool thing I learned along the way, is that you can't zoom in/out on any text that's been sized with viewport units. Thankfully, [calc(vw + 1em) or clamp(vw + 1em) fixes this issue](https://www.youtube.com/watch?v=wARbgs5Fmuw). I also learned how nice it is to use CSS variables for responsive design.
+
+### I'm learning a lot about components
+
+When I started this project, I used to think components were mostly for reuse (and for getting rid of DRY code). But I think I underestimated how effective they are at making code more readable. I looked at other projects, and it seems like they would break things down into components even if they never intended to reuse them. I think the advantage here is that it's easy to swap things out and change functionality. I also noticed that a lot of projects will define media queries inside the components themselves. I wasn't a fan of this originally, because I thought it would make them less reusable (different pages could have different breakpoints/requirements) and I didn't like clicking between multiple different files to make tweaks for the same responsive layout. But I think I'm overestimating the difficulties here, so for my next project I'm going to try this instead.
+
+Some of the other things I ran into when developing, was that CSS doesn't mesh quite as nicely with components as I'd like. If I wanted to make a component reusable, I would have to make sure it didn't have any default margins because then the component would look out of place wherever I placed it. So I had to add margins later, but I didn't like my options for doing so. One option was to bloat my JSX in some way, either by littering it with Spacer components (which is not semantic) or by passing in additional style props. Passing in additional style props is alright, but for smaller components that don't have many styles it feels like it defeats the whole purpose. If I'm passing in my own styles into a component then it feels like I could've just used an element instead. Another option, which is probably not a good idea, was to select the React component in CSS by selecting its _underlying_ root element (using something like "first-child"), but it would break whenever I moved the component somewhere else or changed its underlying HTML element.
 
 ### A wireframe AND a prototype is probably a good idea
 
 I put a lot of grey boxes in my mockups and ignored a lot of detail (including the modals) in the short term mostly because I didn't fully understand Sergei's contract and decided to figure it out as I went a long. The result is I think it made my pledge modal look a bit "tacked on" since it doesn't fit in with the other two (due to different space requirements). I also think I would've saved more time if I made a half-hazard guess at what stuff should look like.
-
-### I fought the scrollbar and the scrollbar won
-
-It's common to use 62.5% for the root font size and then rem for all the other font-sizes. This lets the user choose their own preferred font-size, while still keeping the same proportions. However, I didn't want to use rem because I didn't want the user to be able to scroll through the entire page (because increasing the default font-size can create scrollbars for the entire page). I didn't want them to do this because I thought it would look janky if my decorative circles (which are positioned relative to the screen) moved together with the scrollbar. However, I ultimately decided to give up on this. It was easy to set my content (and my font-size) equal to different viewport heights, but my text would break whenever the width changed (text would wrap differently).
-
-One other thing I learned, was that you can't zoom in/out on any text that has been sized with viewport units. Thankfully, [calc(vw + 1em) or clamp(vw + 1em) fixes this issue](https://www.youtube.com/watch?v=wARbgs5Fmuw).
-
-### CSS variables are so helpful for responsive design
-
-I used to put all my media queries at the bottom of my CSS but now I put them at the top. Combining that with CSS variables and I don't have to scroll that much when adjusting things. It creates a nice separation of concerns.
 
 ## Attribution
 

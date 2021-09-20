@@ -34,10 +34,7 @@
     --create-layout-margin-inline: 0;
 
     --user-account-margin-left: 0;
-    --user-account-width: 35vw;
-
-    --user-balance-width: 35vw;
-    --user-balance-margin-left: 0;
+    --user-balance-margin-left: clamp(30px, 4vw, 4rem);
 
     --action-bar-button-width: unset;
     --action-bar-width: 55vw;
@@ -56,10 +53,12 @@
 }
 
 .userAccountName {
-  display: none;
   font-size: var(--fs-user-account);
   margin-left: var(--user-account-margin-left);
   width: var(--user-account-width);
+  display: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* ETH 0.0 */
@@ -72,17 +71,32 @@
 }
 
 .actionBar {
-  display: flex;
-  justify-content: center;
   width: var(--action-bar-width);
   margin-top: var(--action-bar-margin-top);
   margin-bottom: var(--action-bar-margin-bottom);
+  display: flex;
+  justify-content: center;
 }
 
-.actionBar > button {
+.actionButton {
   font-size: var(--fs-action-bar-button);
   width: var(--action-bar-button-width);
+  color: var(--black-text);
   background-color: var(--secondary);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.7em;
+  border-right: 3px solid white;
+}
+
+.actionButton:focus {
+  outline-offset: var(--action-button-outline-offset);
+  outline: var(--action-button-outline-size) dotted var(--primary);
+}
+
+.actionButton > svg {
+  width: 2ch;
+  vertical-align: text-bottom;
 }
 
 .pledgeBox,
@@ -113,16 +127,16 @@
   .createLayout {
     display: grid;
     grid:
-      [Account-row-start] "Actions EthBalance" [Action-row-end]
-      [Balance-row-start] "Pledges Account" [Balance-row-end]
+      [Account-row-start] "EthBalance EthBalance" [Action-row-end]
+      [Account-row-start] "Actions Account" [Action-row-end]
+      [Balance-row-start] "Pledges ." [Balance-row-end]
       [Pledge-row-start] "Pledges ." [Pledge-row-end];
   }
 
   .userAccountName {
     grid-area: Account;
     display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    place-self: center start;
   }
 
   /* Balance */
@@ -133,17 +147,15 @@
 
   .actionBar {
     grid-area: Actions;
-    justify-self: center;
-    justify-content: space-evenly;
-    align-self: end;
+    justify-content: space-around;
+    place-self: end center;
   }
 
   .pledgeBox,
   .emptyPledgeBox {
     grid-area: Pledges;
     border: 0.2em solid var(--darktheme-modal-background);
-    justify-self: center;
-    align-self: start;
+    place-self: start center;
   }
 }
 

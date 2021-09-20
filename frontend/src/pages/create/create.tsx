@@ -1,7 +1,6 @@
 import { useState, useEffect, FormEvent } from "react"
 import { motion } from "framer-motion"
 import { useHistory } from "react-router"
-import { ActionButton } from "../../components/ActionButton/ActionButton"
 import { Loading } from "../../components/Loading/Loading"
 import { Balance } from "../../components/Balance/Balance"
 import { Pledge } from "../../components/Pledge/Pledge"
@@ -71,8 +70,8 @@ export const CreatePage = () => {
       <Balance balance={balance} />
       <h2 className={styles.userAccountName}>{ethereum.selectedAddress}</h2>
       <div className={styles.actionBar}>
-        <ActionButton onClick={withdrawBalance}>Withdraw <WithdrawSVG /></ActionButton>
-        <ActionButton onClick={() => extractPledgesToCSV(pledges)}>Extract to CSV <CsvSVG /></ActionButton>
+        <button className={styles.actionButton} onClick={() => withdrawBalance}>Withdraw <WithdrawSVG /></button>
+        <button className={styles.actionButton} onClick={() => extractPledgesToCSV(pledges)}>Extract to CSV <CsvSVG /></button>
       </div>
       <ul className={pledges.length === 0 ? styles.emptyPledgeBox : styles.pledgeBox}>
         {pledges.map((pledge: PledgeType) => <Pledge pledge={pledge} creator={true} key={pledge.contributorAddress} />)}

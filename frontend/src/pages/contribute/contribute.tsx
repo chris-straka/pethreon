@@ -7,7 +7,6 @@ import { Loading } from "../../components/Loading/Loading"
 import { DepositModal } from "./Actions/DepositModal/Deposit"
 import { PledgeModal } from "./Actions/PledgeModal/PledgeModal"
 import { WithdrawModal } from "./Actions/WithdrawModal/WithdrawModal"
-import { ActionButton } from "../../components/ActionButton/ActionButton"
 import { Modal } from "../../components/ModalOutline/ModalOutline"
 import styles from "./contribute.module.css"
 

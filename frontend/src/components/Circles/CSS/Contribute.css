@@ -11,6 +11,10 @@
   --circleB-contribute-height: 13vh;
   --circleB-contribute-fs: 24px;
 
+  --circleB-contribute-outline-offset: 3px;
+  --circleB-contribute-outline-size: 3px;
+  --circleB-contribute-outline-color: var(--secondary);
+
   --circleC-contribute-top: 77vh;
   --circleC-contribute-left: 55vw;
   --circleC-contribute-size: 18vh;
@@ -21,9 +25,13 @@
   .circleB_contribute,
   .circleC_contribute {
     --circleA-contribute-left: 12vw;
+
     --circleB-contribute-width: 20vw;
     --circleB-contribute-left: 80vw;
     --circleB-contribute-fs: 2.5vw;
+    --circleB-contribute-outline-offset: 4px;
+    --circleB-contribute-outline-size: 10px;
+
     --circleC-contribute-top: 69vh;
     --circleC-contribute-left: 30vw;
   }
@@ -69,8 +77,9 @@
 }
 
 .circleB_contribute:focus {
-  outline-offset: 3px;
-  outline: 3px dotted var(--secondary);
+  outline-offset: var(--circleB-contribute-outline-offset);
+  outline: var(--circleB-contribute-outline-size) dotted
+    var(--circleB-contribute-outline-color);
 }
 
 .circleB_arrowSVG_contribute {

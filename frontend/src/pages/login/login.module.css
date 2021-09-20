@@ -10,6 +10,7 @@ main {
   --typewriter-min-height: clamp(98px, 4vh, 120px);
   --typewriter-margin-bottom: 1em;
   --metamask-svg-width: clamp(5em, 30vw, 16em);
+  --login-button-padding-block: 0.4em;
   --footer-padding-top: 4vh;
 }
 
@@ -30,7 +31,11 @@ main {
     --fs-Pethreon: clamp(5rem, 5vw + 1rem, 15rem);
     --fs-features: clamp(1.5rem, 0.8vw + 1rem, 10rem);
     --fs-typewriter: clamp(3rem, 2vw + 1rem, 10rem);
-    --fs-login-button: clamp(1rem, 1vw + 1rem, 10rem);
+
+    --fs-login-button: clamp(1rem, 1.3vw + 1rem, 10rem);
+    --login-button-font-weight: 600;
+    --login-button-padding-block: 0;
+    --login-button-padding: 0.4em 0.1em 0.4em 0.1em;
 
     --features-margin-bottom: min(35px, 6vh);
     --typewriter-min-height: clamp(100px, 6vh, 150px);
@@ -89,10 +94,12 @@ main > p {
 
 .loginButton {
   font-size: var(--fs-login-button);
-  border: 0.145em solid var(--primary-dark);
+  font-weight: var(--login-button-font-weight);
+  border: 0.145em solid blueviolet;
+  color: blueviolet;
   background: none;
-  padding-block: 0.4em;
-  color: var(--primary-dark);
+  padding-block: var(--login-button-padding-block);
+  padding: var(--login-button-padding);
   border-radius: 1em;
   cursor: pointer;
   outline: none;
@@ -167,7 +174,6 @@ footer > a:first-child {
 
   .loginButton {
     width: unset;
-    padding: 0.6em;
   }
 
   .video {
