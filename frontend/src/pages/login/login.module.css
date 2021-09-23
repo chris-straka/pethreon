@@ -5,13 +5,24 @@ main {
   --fs-login-button: clamp(1rem, 1.1vw + 1rem, 10rem);
   --fs-footer: clamp(1rem, 1vw + 1rem, 10rem);
 
-  --Pethreon-margin-block: max(16px, 2vh);
-  --features-margin-bottom: min(29px, 6vh);
-  --typewriter-min-height: clamp(98px, 4vh, 120px);
-  --typewriter-margin-bottom: 1em;
+  --main-margin-inline: max(1.5em, 6vw);
+  --Pethreon-margin-top: max(16px, 2vh);
+  --Pethreon-margin-bottom: max(16px, 2vh);
+  --features-margin-bottom: min(30px, 5vh);
+  --typewriter-min-height: clamp(120px, 6vh, 120px);
+  --typewriter-margin-bottom: min(29px, 4vh);
   --metamask-svg-width: clamp(5em, 30vw, 16em);
-  --login-button-padding-block: 0.4em;
-  --footer-padding-top: 4vh;
+
+  --login-button-padding-block: 16px;
+  --login-button-border: 0.145em solid var(--login-button-color);
+  --login-button-border-radius: 1em;
+  --login-button-width: 14ch;
+}
+
+@media only screen and (max-height: 600px) {
+  footer {
+    --footer-padding-top: 10vh;
+  }
 }
 
 @media only screen and (min-width: 390px) {
@@ -29,18 +40,27 @@ main {
 @media only screen and (min-width: 1280px) and (orientation: landscape) {
   main {
     --fs-Pethreon: clamp(5rem, 5vw + 1rem, 15rem);
-    --fs-features: clamp(1.5rem, 0.8vw + 1rem, 10rem);
-    --fs-typewriter: clamp(3rem, 2vw + 1rem, 10rem);
-
+    --fs-features: clamp(1.5rem, .9vw + 1rem, 10rem);
+    --fs-typewriter: clamp(3rem, 2.6vw + 1rem, 11rem);
     --fs-login-button: clamp(1rem, 1.3vw + 1rem, 10rem);
-    --login-button-font-weight: 600;
-    --login-button-padding-block: 0;
-    --login-button-padding: 0.4em 0.1em 0.4em 0.1em;
 
-    --features-margin-bottom: min(35px, 6vh);
-    --typewriter-min-height: clamp(100px, 6vh, 150px);
+    --Petheon-margin-bottom: 0;
+    --features-margin-bottom: 15px;
     --typewriter-margin-bottom: 0;
+    --typewriter-min-height: 179px;
     --metamask-svg-width: clamp(1em, 13vw, 16em);
+  }
+}
+
+@media only screen and (min-width: 3840px) and (orientation: landscape) {
+  main {
+    --fs-Pethreon: clamp(9rem, 8vw + 1rem, 20rem);
+    --fs-features: clamp(1.5rem, 1.4vw + 1rem, 10rem);
+    --fs-typewriter: clamp(3rem, 3vw + 1rem, 10rem);
+    --fs-login-button: clamp(1rem, 1.8vw + 1rem, 10rem);
+
+    --typewriter-min-height: clamp(360px, 9vh, 450px);
+    --metamask-svg-width: clamp(1em, 13vw, 29em);
   }
 }
 
@@ -48,12 +68,13 @@ main {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  margin-inline: max(1.5em, 6vw);
+  margin-inline: var(--main-margin-inline);
 }
 
 .Pethreon {
   font-size: var(--fs-Pethreon);
-  margin-block: var(--Pethreon-margin-block);
+  margin-top: var(--Pethreon-margin-top);
+  margin-bottom: var(--Pethreon-margin-bottom);
   font-weight: 300;
 }
 
@@ -72,20 +93,20 @@ main {
   margin-bottom: 1em;
 }
 
-main > p {
+.typewriter {
   font-family: cute;
   font-size: var(--fs-typewriter);
   min-height: var(--typewriter-min-height);
+  height: var(--typewriter-height);
+  margin-bottom: var(--typewriter-margin-bottom);
   text-align: center;
   scrollbar-width: thin;
-  margin-bottom: var(--typewriter-margin-bottom);
 }
 
 .loginContainer {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 100%;
 }
 
 .loginContainer > svg {
@@ -95,24 +116,20 @@ main > p {
 .loginButton {
   font-size: var(--fs-login-button);
   font-weight: var(--login-button-font-weight);
-  border: 0.145em solid blueviolet;
-  color: blueviolet;
-  background: none;
   padding-block: var(--login-button-padding-block);
-  padding: var(--login-button-padding);
-  border-radius: 1em;
+  border: var(--login-button-border);
+  color: var(--login-button-color);
+  border-radius: var(--login-button-border-radius);
+  width: var(--login-button-width);
+  background: none;
   cursor: pointer;
   outline: none;
-  transition: all 0.2s;
-  width: 14ch;
+  transition: transform 0.1s;
 }
 
-.loginButton:focus {
+.loginButton:focus,
+.loginButton:hover {
   transform: rotate(2deg);
-}
-
-.loginButton:active {
-  transform: none;
 }
 
 .video {
@@ -121,9 +138,9 @@ main > p {
 
 footer {
   font-size: var(--fs-footer);
+  padding-top: var(--footer-padding-top);
   align-self: flex-end;
   margin-top: auto;
-  padding-top: var(--footer-padding-top);
   opacity: 1;
 }
 
@@ -142,7 +159,7 @@ footer > a:first-child {
     grid:
       [Pethreon-row-start] "Pethreon Video" [Pethreon-row-end]
       [Features-row-start] "Features Video" [Features-row-end]
-      [Message-row-start] "Message Video" [Message-row-end]
+      [Message-row-start] "Typewriter Video" [Message-row-end]
       [Login-row-start] "Login Video" [Login-row-end]
       [Circles-row-start] "None Footer" [Circles-row-end];
     margin-inline: 0;
@@ -150,9 +167,9 @@ footer > a:first-child {
 
   .Pethreon,
   .features,
-  .loginContainer,
-  main > p {
-    margin-inline-start: max(32px, 3vw);
+  .typewriter,
+  .loginContainer {
+    margin-left: max(32px, 3vw);
     width: 40vw;
   }
 
@@ -164,16 +181,12 @@ footer > a:first-child {
     grid-area: Features;
   }
 
-  main > p {
-    grid-area: Message;
+  .typewriter {
+    grid-area: Typewriter;
   }
 
   .loginContainer {
     grid-area: Login;
-  }
-
-  .loginButton {
-    width: unset;
   }
 
   .video {
@@ -189,8 +202,8 @@ footer > a:first-child {
   footer {
     grid-area: Footer;
     place-self: end;
-    margin-right: 5%;
     padding: unset;
+    margin-right: 5%;
   }
 }
 
@@ -213,13 +226,13 @@ footer > a:first-child {
   }
 
   .loginButton {
-    border-color: var(--darktheme-white-text);
-    color: var(--darktheme-white-text);
+    border-color: var(--darktheme-login-button-color);
+    color: var(--darktheme-login-button-color);
   }
 
   .loginButton:focus,
   .loginButton:hover {
-    background-color: var(--darktheme-white-text);
+    background-color: var(--darktheme-login-button-color);
     color: var(--darktheme-background);
   }
 }

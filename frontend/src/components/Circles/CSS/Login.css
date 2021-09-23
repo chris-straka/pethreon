@@ -14,20 +14,29 @@
   --circleC-login-size: 160px;
 }
 
-@media only screen and (min-height: 736px) {
+@media only screen and (min-width: 600px) and (orientation: portrait) {
   .circleA_login,
   .circleB_login,
   .circleC_login {
-    --circleC-login-top: 80vh;
-    --circleC-login-size: 304px;
+    --circleA-login-size: clamp(224px, 6vw, 650px);
+    --circleB-login-size: 200px;
+    --circleC-login-top: 82vh;
+    --circleC-login-size: 440px;
   }
 }
 
-@media (prefers-color-scheme: dark) {
+@media only screen and (min-width: 1280px) and (orientation: landscape) {
   .circleA_login,
   .circleB_login,
   .circleC_login {
-    background-color: var(--darktheme-primary);
+    --circleA-login-size: 240px;
+    --circleB-login-top: 3vh;
+    --circleB-login-left: 80vw;
+    --circleB-login-size: 490px;
+
+    --circleC-login-left: 50vw;
+    --circleC-login-top: 85vh;
+    --circleC-login-size: 300px;
   }
 }
 

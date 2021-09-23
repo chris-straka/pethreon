@@ -3,8 +3,8 @@ import { motion } from "framer-motion"
 import { useHistory } from 'react-router';
 import { TypewriterEffect } from "./TypewriterEffect/TypewriterEffect"
 import { EthereumWindow, MetamaskError } from "../../pethreon"
-import { MetamaskSVG } from '../../svgs/metamaskSVG/MetamaskSVG';
-import { GithubSVG } from '../../svgs/githubSVG/GithubSVG';
+import { MetamaskSVG } from './svgs/metamaskSVG/MetamaskSVG';
+import { GithubSVG } from './svgs/githubSVG/GithubSVG';
 import mp4 from "../../assets/money.mp4"
 import webm from "../../assets/money.webm"
 import styles from "./login.module.css"
@@ -65,18 +65,19 @@ export const Login = () => {
         </li>
       </ul>
       <TypewriterEffect
+        className={styles.typewriter}
+        cadence={ANIMATION_CADENCE}
+        delay={ANIMATION_DELAY}
         message={message}
         linkContent={linkContent}
         linkUrl={linkUrl}
         setTalking={setTalking}
-        cadence={ANIMATION_CADENCE}
-        delay={ANIMATION_DELAY}
       />
       <div className={styles.loginContainer}>
         <MetamaskSVG talking={talking} />
         <button className={styles.loginButton} onClick={login}>Login With Metamask</button>
       </div>
-      <video className={styles.video} ref={videoRef} muted autoPlay preload="true">
+      <video className={styles.video} ref={videoRef} muted autoPlay preload="true" tabIndex={-1}>
         <source src={mp4} type="video/mp4" />
         <source src={webm} type="video/webm" />
         Your browser does not support webm or mp4 videos.

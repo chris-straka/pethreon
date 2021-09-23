@@ -3,14 +3,15 @@ import { EthereumWindow } from "../../../pethreon";
 
 interface MetamaskAnimationProps {
   message: string,
+  className: string,
   linkContent: string,
   linkUrl: string,
   cadence: number,
   delay: number,
-  setTalking: Dispatch<SetStateAction<boolean>>,
+  setTalking: Dispatch<SetStateAction<boolean>>
 }
 
-export const TypewriterEffect = ({ message, linkUrl, linkContent, cadence, delay, setTalking }: MetamaskAnimationProps) => {
+export const TypewriterEffect = ({ message, className, linkUrl, linkContent, cadence, delay, setTalking }: MetamaskAnimationProps) => {
   const [animatedMessage, setAnimatedMessage] = useState("")
   const [animatedLink, setAnimatedLink] = useState("")
   const [init, setInit] = useState(false)
@@ -69,6 +70,6 @@ export const TypewriterEffect = ({ message, linkUrl, linkContent, cadence, delay
   }, [init, linkContent, delay, message, cadence, setTalking])
 
   return (
-    <p>{animatedMessage} {linkContent !== "" ? (<a href={linkUrl} target="_blank" rel="noreferrer">{animatedLink}</a>) : null} </p>
+    <p className={className}>{animatedMessage} {linkContent !== "" ? (<a href={linkUrl} target="_blank" rel="noreferrer">{animatedLink}</a>) : null} </p>
   )
 }

@@ -3,11 +3,12 @@
   margin-left: 3px;
   margin-bottom: 3px;
   vertical-align: text-bottom;
+  background-color: transparent;
+  fill: black;
 }
 
 @media (prefers-color-scheme: dark) {
   .github {
-    background-color: var(--darktheme-white-text);
-    border-radius: 50%;
+    fill: var(--darktheme-white-text);
   }
 }

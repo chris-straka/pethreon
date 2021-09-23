@@ -35,6 +35,8 @@
   --white-text: hsl(36, 10%, 90%);
   --black-text: hsl(0, 0%, 15%);
 
+  --login-button-color: var(--black-text);
+
   /* Dark Theme */
   /* 1f3858 */
   /* 2b4c7c */
@@ -52,6 +54,7 @@
 
   --darktheme-background: hsl(200, 7%, 8%);
   --darktheme-modal-background: hsl(200, 7%, 18%);
+  --darktheme-login-button-color: hsl(36, 10%, 90%);
 }
 
 /* Remove the default margin and padding */

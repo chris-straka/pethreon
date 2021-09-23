@@ -12,10 +12,20 @@
   --action-bar-button-width: 8ch;
 
   --action-button-outline-offset: 3px;
-  --action-button-outline-size: 3px;
+  --action-button-outline-size: 5px;
 
   --pledge-box-margin-top: 3vh;
   --pledge-box-height: 30vh;
+}
+
+@media only screen and (max-width: 1280px) and (orientation: landscape) {
+  .contributeLayout {
+    --contribute-layout-height: auto;
+    --contribute-layout-margin-top: 25vh;
+
+    --pledge-box-height: 90vh;
+    --pledge-box-margin-top: 8vh;
+  }
 }
 
 @media only screen and (min-width: 600px) {
@@ -173,8 +183,12 @@
   }
 
   .actionButton {
-    color: var(--black-text);
+    color: black;
     background-color: var(--darktheme-secondary);
     border-color: var(--darktheme-background);
+  }
+
+  .actionButton:focus {
+    outline-color: var(--darktheme-secondary);
   }
 }

@@ -6,6 +6,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { Circles } from './components/Circles/Circles';
 
 const App = () => <>
+  <Circles />
   <AnimatePresence>
     <Switch>
       <Route path="/" exact component={Login} />
@@ -14,7 +15,6 @@ const App = () => <>
       <Redirect to="/" />
     </Switch>
   </AnimatePresence>
-  <Circles />
 </>
 
 export default App;

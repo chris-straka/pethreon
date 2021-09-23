@@ -214,7 +214,7 @@ Instead of creating my own react context file, I decided to use an ordinary TS f
 
 ### Frontend Stuff
 
-- I designed everything around the iPhone 6/7/8 because iPhone 4 seems obsolete.
+- I designed everything around the iPhone 6/7/8 which I now call "my happy place" because other dimensions can look munk
 - Mobile first made my desktop UX kind of sparse I think.
 - For a11y, motion can also be [problematic](https://developer.mozilla.org/en-US/docs/Web/CSS/animation#accessibility_concerns)
 - I need to look into window.opener() and this interesting [post](https://stackoverflow.com/questions/57628890)
@@ -231,10 +231,6 @@ Instead of creating my own react context file, I decided to use an ordinary TS f
 - [Responsive screen sizes](https://www.browserstack.com/guide/ideal-screen-sizes-for-responsive-design)
 - [All the new iphone sizes](https://stackoverflow.com/questions/58087446)
 
-### Different ways to scale things for responsive design
-
-I had two options to scale things up or down. I could've set everything to em/px units and have them inherit their size from the parent's font-size (which I could change in a media query). Or I could've set everything to rem/px and then use clamps to make sure stuff doesn't grow to big or small.
-
 ## Lessons
 
 ### Tests were invaluable
@@ -243,7 +239,7 @@ A lot of my smart contract behaviour depends on what time it is, and how many da
 
 ### I fought the scrollbar and the scrollbar won
 
-It's common to use 62.5% for the root font size and then rem for all the other font-sizes. This lets the user choose their own preferred font-size, while still keeping the same proportions in the overall layout. However, I didn't want to do this because I didn't want the user to be able to scroll the page. If they preferred a really large default font-size, that could push my content outside of the screen and create scrollbars. I didn't want this to happen because I thought it would look janky if my decorative circles (which are positioned relative to the screen) moved together with the scrollbar. I also wanted my website to look like a mobile app and not like a website (PWA). However, I found it too cumbersome to not include scrollbars at certain screen sizes. It found that it would take too many media queries that would make my CSS less readable/maintainable. It was easy to set my content equal to viewport units, but my text would break everytime the text wrapped around when the viewport width increased/decreased. 
+It's common to use 62.5% for the root font size and then rem for all the other font-sizes. This lets the user choose their own preferred font-size, while still keeping the same proportions in the overall layout. However, I didn't want to do this because I didn't want the user to be able to scroll the page. If they preferred a really large default font-size, that could push my content outside of the screen and create scrollbars. I didn't want this to happen because I thought it would look janky if my decorative circles (which are positioned relative to the screen) moved together with the scrollbar. I also wanted my website to look like a mobile app and not like a website (PWA). However, I found it too cumbersome to not include scrollbars at certain screen sizes. It found that it would take too many media queries that would make my CSS less readable/maintainable. It was easy to set my content equal to viewport units, but my text would break everytime the text wrapped around when the viewport width increased/decreased.
 
 I think I could've handled my decorative circles differently to make things easier too. One cool thing I learned along the way, is that you can't zoom in/out on any text that's been sized with viewport units. Thankfully, [calc(vw + 1em) or clamp(vw + 1em) fixes this issue](https://www.youtube.com/watch?v=wARbgs5Fmuw). I also learned how nice it is to use CSS variables for responsive design.
 
@@ -261,7 +257,7 @@ I put a lot of grey boxes in my mockups and ignored a lot of detail (including t
 
 - [Sergei's Pethreon Smart Contract](https://github.com/s-tikhomirov/pethreon)
 
-- [Cottonbro's Money Video - Aspect Ratio 256:135](https://www.pexels.com/video/hands-rich-green-money-3943962/)
+- [Cottonbro's Money Video - Aspect Ratio 256:135](https://www.pexels.com/video/hands-hand-rich-green-3943965/)
 
 - [Metamask Logo](https://github.com/MetaMask/brand-resources)
 

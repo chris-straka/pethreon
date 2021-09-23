@@ -9,6 +9,8 @@
 
   --action-bar-margin-top: 2vh;
   --action-bar-margin-bottom: 0;
+  --action-button-outline-offset: 3px;
+  --action-button-outline-size: 5px;
 
   --pledge-box-margin-top: 3vh;
   --pledge-box-height: 30vh;
@@ -161,6 +163,9 @@
 
 @media (prefers-color-scheme: dark) {
   .actionBar > button {
+    outline-color: var(--darktheme-primary-light);
     background-color: var(--darktheme-primary-light);
+    border-color: var(--darktheme-background);
+    color: black;
   }
 }

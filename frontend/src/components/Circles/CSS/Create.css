@@ -66,13 +66,13 @@
 
 .circleB_create:focus {
   outline-offset: 3px;
-  outline: 3px dotted var(--primary);
+  outline: 5px dotted var(--primary);
 }
 
 .circleB_arrowSVG_create {
-  fill: var(--darktheme-black-text);
+  fill: black;
   width: 2ch;
-  vertical-align: text-bottom;
+  vertical-align: bottom;
   transition: fill 0.8s linear 0.8s;
 }
 
@@ -98,6 +98,7 @@
   }
 
   .circleB_create {
+    color: black;
     background-color: var(--darktheme-primary-light);
   }
   .circleB_create:focus {
