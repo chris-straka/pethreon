@@ -9,8 +9,9 @@
 
   --action-bar-margin-top: 2vh;
   --action-bar-margin-bottom: 0;
-  --action-button-outline-offset: 3px;
-  --action-button-outline-size: 5px;
+
+  --action-button-outline-offset: 4px;
+  --action-button-outline-size: 10px;
 
   --pledge-box-margin-top: 3vh;
   --pledge-box-height: 30vh;
@@ -18,13 +19,13 @@
   --empty-pledge-text-width: 15ch;
 }
 
-@media only screen and (min-width: 600px) {
+@media (min-width: 600px) {
   .createLayout {
     --create-layout-margin-inline: clamp(3rem, 9vw, 9rem);
   }
 }
 
-@media only screen and (min-width: 1280px) and (orientation: landscape) {
+@media (min-width: 1280px) and (orientation: landscape) {
   .createLayout {
     --fs-user-account: clamp(0.2rem, 0.4vw + 1rem, 5rem);
     --fs-user-balance: clamp(1.5rem, 3vw + 1rem, 9rem);
@@ -63,8 +64,7 @@
   text-overflow: ellipsis;
 }
 
-/* ETH 0.0 */
-.createLayout > h1:first-child {
+.balance {
   font-size: var(--fs-user-balance);
   margin-left: var(--user-balance-margin-left);
   width: var(--user-balance-width);
@@ -83,17 +83,26 @@
 .actionButton {
   font-size: var(--fs-action-bar-button);
   width: var(--action-bar-button-width);
-  color: var(--black-text);
-  background-color: var(--secondary);
   font-weight: 600;
   cursor: pointer;
   padding: 0.7em;
   border-right: 3px solid white;
+  color: var(--black-text);
+  background-color: var(--secondary);
+  
+  outline-offset: var(--action-button-outline-offset);
+  outline: var(--action-button-outline-size) dotted transparent;
+  transition: outline-color 0.2s, background-color 0.2s;
 }
 
 .actionButton:focus {
-  outline-offset: var(--action-button-outline-offset);
-  outline: var(--action-button-outline-size) dotted var(--primary);
+  outline-color: var(--secondary);
+  transition: outline-color 0.2s, background-color 0.2s;
+}
+
+.actionButton:hover {
+  background-color: var(--primary);
+  transition: outline-color 0.2s, background-color 0.2s;
 }
 
 .actionButton > svg {
@@ -125,7 +134,7 @@
   width: var(--empty-pledge-text-width);
 }
 
-@media only screen and (min-width: 1280px) and (orientation: landscape) {
+@media (min-width: 1280px) and (orientation: landscape) {
   .createLayout {
     display: grid;
     grid:
@@ -141,8 +150,7 @@
     place-self: center start;
   }
 
-  /* Balance */
-  .createLayout > h1:first-child {
+  .balance {
     grid-area: EthBalance;
     align-self: end;
   }
@@ -162,10 +170,18 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  .actionBar > button {
-    outline-color: var(--darktheme-primary-light);
-    background-color: var(--darktheme-primary-light);
+  .actionButton {
+    background-color: var(--darktheme-secondary);
     border-color: var(--darktheme-background);
     color: black;
+  }
+
+  .actionButton:focus {
+    outline-color: var(--darktheme-secondary);
+  }
+
+  .pledgeBox,
+  .emptyPledgeBox {
+    border-color: var(--darktheme-modal-background);
   }
 }

@@ -67,7 +67,7 @@ export const CreatePage = () => {
       role="region"
       className={styles.createLayout}
     >
-      <Balance balance={balance} />
+      <Balance className={styles.balance} balance={balance} />
       <h2 className={styles.userAccountName}>{ethereum.selectedAddress}</h2>
       <div className={styles.actionBar}>
         <button className={styles.actionButton} onClick={() => withdrawBalance}>Withdraw <WithdrawSVG /></button>

@@ -52,6 +52,8 @@ export const Login = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
+      transition={{ duration: .6 }}
+      role="region"
     >
       <h1 className={styles.Pethreon}>P<span className={styles.Ξ}>Ξ</span>threon</h1>
       <ul className={styles.features}>

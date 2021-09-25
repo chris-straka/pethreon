@@ -9,38 +9,75 @@
   --circleB-contribute-left: 60vw;
   --circleB-contribute-width: 40vw;
   --circleB-contribute-height: 13vh;
-  --circleB-contribute-fs: 24px;
+  --circleB-contribute-fs: clamp(10px, 6vw, 30px);
 
   --circleB-contribute-outline-offset: 3px;
   --circleB-contribute-outline-size: 5px;
-  --circleB-contribute-outline-color: var(--secondary);
+
+  --circleB-contribute-transition: top 0.7s, left 0.7s, width 0.5s, height 0.5s,
+    border-top-left-radius 1.2s, border-top-right-radius 1s,
+    border-bottom-left-radius 1.2s, border-bottom-right-radius 1.1s,
+    background-color 0.7s 0.2s, color 0.8s 0.8s, outline-color 0.2s;
+
+  --circleB-contribute-arrowSVG-transition: fill 0.8s linear 0.8s;
 
   --circleC-contribute-top: 77vh;
   --circleC-contribute-left: 55vw;
   --circleC-contribute-size: 18vh;
+
+  --circle-position: fixed;
 }
 
-@media only screen and (min-width: 1280px) and (orientation: landscape) {
+@media (max-width: 1279px) and (orientation: landscape) {
   .circleA_contribute,
   .circleB_contribute,
   .circleC_contribute {
-    --circleA-contribute-left: 12vw;
+    --circleA-contribute-size: 0;
+    --circleC-contribute-size: 0;
+    --circleB-contribute-height: 25vh;
+    --circle-position: absolute;
+  }
+}
 
+@media (min-width: 768px) {
+  .circleA_contribute,
+  .circleB_contribute,
+  .circleC_contribute {
+    --circleB-contribute-fs: clamp(10px, 5vw, 190px);
+  }
+}
+
+@media (min-width: 1280px) and (orientation: landscape) {
+  .circleA_contribute,
+  .circleB_contribute,
+  .circleC_contribute {
     --circleB-contribute-width: 20vw;
     --circleB-contribute-left: 80vw;
     --circleB-contribute-fs: 2.5vw;
     --circleB-contribute-outline-offset: 4px;
     --circleB-contribute-outline-size: 10px;
 
-    --circleC-contribute-top: 69vh;
-    --circleC-contribute-left: 30vw;
+    --circleB-contribute-transition: top 0.7s, left 0.7s, width 0.5s 0.4s,
+      height 0.8s, border-top-left-radius 0.7s 0.2s,
+      border-top-right-radius 0.7s 0.2s, border-bottom-left-radius 0.7s 0.2s,
+      border-bottom-right-radius 0.7s 0.2s, background-color 1.6s 1s,
+      color 1.6s 1s, outline-color 0.2s;
+
+    --circleB-contribute-arrowSVG-transition: fill 1.6s 1s;
+
+    --circleA-contribute-size: 12vh;
+    --circleC-contribute-size: 25vh;
+    --circleA-contribute-top: 75vh;
+    --circleC-contribute-top: 51vh;
+    --circleA-contribute-left: 12vw;
+    --circleC-contribute-left: 22vw;
   }
 }
 
 .circleA_contribute,
 .circleB_contribute,
 .circleC_contribute {
-  position: fixed;
+  position: var(--circle-position);
   z-index: -1;
 }
 
@@ -70,23 +107,23 @@
   font-size: var(--circleB-contribute-fs);
   font-weight: bold;
 
-  transition: top 0.7s, left 0.7s, width 0.5s, height 0.5s,
-    border-top-left-radius 1.2s, border-top-right-radius 1s,
-    border-bottom-left-radius 1.2s, border-bottom-right-radius 1.1s,
-    background-color 0.7s 0.2s, color 0.8s 0.8s;
+  outline-offset: var(--circleB-contribute-outline-offset);
+  outline: var(--circleB-contribute-outline-size) dotted transparent;
+
+  transition: var(--circleB-contribute-transition);
 }
 
-.circleB_contribute:focus {
-  outline-offset: var(--circleB-contribute-outline-offset);
-  outline: var(--circleB-contribute-outline-size) dotted
-    var(--circleB-contribute-outline-color);
+.circleB_contribute:focus,
+.circleB_contribute:hover {
+  outline-color: var(--secondary);
+  transition: outline-color 0.2s;
 }
 
 .circleB_arrowSVG_contribute {
   fill: var(--darktheme-black-text);
   width: 2ch;
   vertical-align: text-bottom;
-  transition: fill 0.8s linear 0.8s;
+  transition: var(--circleB-contribute-arrowSVG-transition);
 }
 
 .circleC_contribute {
@@ -108,11 +145,22 @@
 
   .circleB_contribute {
     background-color: var(--darktheme-secondary);
+    color: black;
   }
 
-  .circleB_contribute:focus {
+  .circleB_contribute:focus,
+  .circleB_contribute:hover {
     background-color: var(--darktheme-secondary);
     outline-color: var(--darktheme-secondary);
+  }
+
+  .circleB_contribute:active {
+    background-color: var(--darktheme-secondary);
+    outline-color: var(--darktheme-secondary);
+  }
+
+  .circleB_arrowSVG_contribute {
+    fill: black;
   }
 
   .circleC_contribute {

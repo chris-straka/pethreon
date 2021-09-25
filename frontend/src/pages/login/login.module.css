@@ -19,13 +19,13 @@ main {
   --login-button-width: 14ch;
 }
 
-@media only screen and (max-height: 600px) {
+@media (max-height: 600px) {
   footer {
     --footer-padding-top: 10vh;
   }
 }
 
-@media only screen and (min-width: 390px) {
+@media (min-width: 390px) {
   main {
     --fs-features: clamp(1rem, 2vw + 1rem, 7rem);
     --fs-typewriter: clamp(1rem, 6vw + 1rem, 10rem);
@@ -37,7 +37,7 @@ main {
   }
 }
 
-@media only screen and (min-width: 1280px) and (orientation: landscape) {
+@media (min-width: 1280px) and (orientation: landscape) {
   main {
     --fs-Pethreon: clamp(5rem, 5vw + 1rem, 15rem);
     --fs-features: clamp(1.5rem, .9vw + 1rem, 10rem);
@@ -45,14 +45,14 @@ main {
     --fs-login-button: clamp(1rem, 1.3vw + 1rem, 10rem);
 
     --Petheon-margin-bottom: 0;
-    --features-margin-bottom: 15px;
+    --features-margin-bottom: max(25px, 3vh);
     --typewriter-margin-bottom: 0;
     --typewriter-min-height: 179px;
     --metamask-svg-width: clamp(1em, 13vw, 16em);
   }
 }
 
-@media only screen and (min-width: 3840px) and (orientation: landscape) {
+@media (min-width: 3840px) and (orientation: landscape) {
   main {
     --fs-Pethreon: clamp(9rem, 8vw + 1rem, 20rem);
     --fs-features: clamp(1.5rem, 1.4vw + 1rem, 10rem);
@@ -153,7 +153,7 @@ footer > a:first-child {
 }
 
 /* DESKTOP DESIGN */
-@media only screen and (min-width: 1280px) and (orientation: landscape) {
+@media (min-width: 1280px) and (orientation: landscape) {
   main {
     display: grid;
     grid:

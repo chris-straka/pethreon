@@ -75,11 +75,11 @@ export const ContributePage = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: .5 }}
+      transition={{ duration: 2 }}
       role="region"
       className={styles.contributeLayout}
     >
-      <Balance balance={balance} />
+      <Balance className={styles.balance} balance={balance} />
       <h1 className={styles.userAccountName}>{ethereum.selectedAddress}</h1>
       <div className={styles.actionBar}>
         <button className={styles.actionButton} onClick={() => setCurrentModal("deposit")}>Deposit <DepositSVG /></button>

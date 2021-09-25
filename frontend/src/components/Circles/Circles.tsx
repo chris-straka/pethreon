@@ -25,7 +25,7 @@ export const Circles = () => {
 
   return <>
     <div className={circleCSS("A")} />
-    <button className={circleCSS("B")} onClick={switchPortals} disabled={loginPage ? true : false} >
+    <button className={circleCSS("B")} onMouseDown={switchPortals} disabled={loginPage ? true : false} >
       {contributePage && "Create "}
       {createPage && "Donate "}
       <ArrowSVG styles={circleCSS("B_arrowSVG")!} />

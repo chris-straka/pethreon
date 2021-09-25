@@ -15,6 +15,7 @@ export const TypewriterEffect = ({ message, className, linkUrl, linkContent, cad
   const [animatedMessage, setAnimatedMessage] = useState("")
   const [animatedLink, setAnimatedLink] = useState("")
   const [init, setInit] = useState(false)
+  const { location } = window
 
   useEffect(() => {
     let interrupt: boolean;
@@ -22,6 +23,7 @@ export const TypewriterEffect = ({ message, className, linkUrl, linkContent, cad
     let linkBuilder = ""
 
     setTimeout(() => {
+      if (location.pathname !== "/") return
       setInit(true)
       setTalking(true)
       message.split('').forEach((char, index) => {
@@ -67,7 +69,7 @@ export const TypewriterEffect = ({ message, className, linkUrl, linkContent, cad
       setAnimatedMessage("")
       setAnimatedLink("")
     }
-  }, [init, linkContent, delay, message, cadence, setTalking])
+  }, [init, linkContent, delay, message, cadence, setTalking, location])
 
   return (
     <p className={className}>{animatedMessage} {linkContent !== "" ? (<a href={linkUrl} target="_blank" rel="noreferrer">{animatedLink}</a>) : null} </p>
