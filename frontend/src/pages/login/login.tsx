@@ -9,6 +9,12 @@ import mp4 from "../../assets/money.mp4"
 import webm from "../../assets/money.webm"
 import styles from "./login.module.css"
 
+const WALLET_DETECTED = "This app uses your ethereum wallet to make subscriptions to creators"
+const WALLET_NOT_FOUND = "This app requires a cryptocurrency wallet to work, "
+const TEXT_ANIMATION_DELAY = 1000
+const TEXT_ANIMATION_CADENCE = 75
+const LOGIN_TRANSITION_DURATION = getComputedStyle(document.documentElement).getPropertyValue("--circle-animation-delay")
+
 export const Login = () => {
   const history = useHistory()
   const videoRef = useRef() as MutableRefObject<HTMLVideoElement>
@@ -18,14 +24,9 @@ export const Login = () => {
   const [linkContent, setLinkContent] = useState("")
   const [linkUrl, setLinkUrl] = useState("")
 
-  const WALLET_DETECTED = "This app uses your ethereum wallet to make subscriptions to creators"
-  const WALLET_NOT_FOUND = "This app requires a cryptocurrency wallet to work, "
-  const ANIMATION_DELAY = 1000
-  const ANIMATION_CADENCE = 75
 
   useEffect(() => {
     if (ethereum !== undefined && location.pathname === "/") setMessage(WALLET_DETECTED)
-
     if (ethereum === undefined && location.pathname === "/") {
       setMessage(WALLET_NOT_FOUND)
       setLinkContent("download metamask!")
@@ -48,12 +49,12 @@ export const Login = () => {
   }
 
   return (
-    <motion.main
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+    <motion.div
+      initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: .6 }}
+      transition={{ duration: LOGIN_TRANSITION_DURATION }}
       role="region"
+      className={styles.loginLayout}
     >
       <h1 className={styles.Pethreon}>P<span className={styles.Ξ}>Ξ</span>threon</h1>
       <ul className={styles.features}>
@@ -68,8 +69,8 @@ export const Login = () => {
       </ul>
       <TypewriterEffect
         className={styles.typewriter}
-        cadence={ANIMATION_CADENCE}
-        delay={ANIMATION_DELAY}
+        cadence={TEXT_ANIMATION_CADENCE}
+        delay={TEXT_ANIMATION_DELAY}
         message={message}
         linkContent={linkContent}
         linkUrl={linkUrl}
@@ -88,6 +89,6 @@ export const Login = () => {
         <a href="https://github.com/Chris56974/Pethreon#attribution" target="_blank" rel="noreferrer">Attribution</a>
         <a href="https://github.com/Chris56974/Pethreon/blob/main/LICENSE" target="_blank" rel="noreferrer">License</a>
       </footer>
-    </motion.main>
+    </motion.div>
   );
 }

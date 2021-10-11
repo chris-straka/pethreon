@@ -139,9 +139,9 @@
     display: grid;
     grid:
       [Account-row-start] "EthBalance EthBalance" [Action-row-end]
-      [Account-row-start] "Actions Account" [Action-row-end]
-      [Balance-row-start] "Pledges ." [Balance-row-end]
-      [Pledge-row-start] "Pledges ." [Pledge-row-end];
+      [Account-row-start] "Account Actions" [Action-row-end]
+      [Balance-row-start] ". Pledges" [Balance-row-end]
+      [Pledge-row-start] ". Pledges" [Pledge-row-end];
   }
 
   .userAccountName {
@@ -173,7 +173,7 @@
   .actionButton {
     background-color: var(--darktheme-secondary);
     border-color: var(--darktheme-background);
-    color: black;
+    color: var(--darktheme-action-button-color);
   }
 
   .actionButton:focus {

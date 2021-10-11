@@ -51,13 +51,16 @@
   --darktheme-white-text: hsl(36, 10%, 90%);
   --darktheme-black-text: hsl(0, 0%, 15%);
   --darktheme-anchor-tag: hsl(220, 50%, 70%);
+  --darktheme-action-button-color: hsl(200, 7%, 5%);
 
   --darktheme-background: hsl(200, 7%, 8%);
   --darktheme-modal-background: hsl(200, 7%, 18%);
   --darktheme-login-button-color: hsl(36, 10%, 90%);
+
+  /* ANIMATION */
+  --circle-animation-delay: 1;
 }
 
-/* Remove the default margin and padding */
 *,
 *::after,
 *::before {

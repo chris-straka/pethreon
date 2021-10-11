@@ -37,11 +37,12 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 600px) {
   .circleA_create,
   .circleB_create,
   .circleC_create {
     --circleB-create-fs: clamp(10px, 5vw, 190px);
+    --action-button-outline-size: 10px;
   }
 }
 
@@ -56,10 +57,13 @@
     --circleB-create-outline-offset: 4px;
     --circleB-create-outline-size: 10px;
 
-    --circleA-create-left: 73vw;
-    --circleA-create-top: 41vw;
-    --circleC-create-left: 66vw;
-    --circleC-create-top: 39vw;
+    --circleA-create-size: 25vh;
+    --circleA-create-top: 51vh;
+    --circleA-create-left: 22vw;
+
+    --circleC-create-size: 12vh;
+    --circleC-create-top: 75vh;
+    --circleC-create-left: 12vw;
   }
 }
 
@@ -129,11 +133,11 @@
 
 @media (prefers-color-scheme: dark) {
   .circleA_create {
-    background-color: var(--darktheme-secondary-light);
+    background-color: var(--darktheme-primary);
   }
 
   .circleB_create {
-    color: black;
+    color: var(--darktheme-action-button-color);
     background-color: var(--darktheme-primary-light);
   }
 
@@ -147,6 +151,6 @@
   }
 
   .circleC_create {
-    background-color: var(--darktheme-secondary-dark);
+    background-color: var(--darktheme-primary-light);
   }
 }

@@ -59,7 +59,7 @@
   height: var(--circleA-login-size);
 
   animation: 7s linear 0s infinite alternate none running circleA_animation;
-  transition: all 0.5s linear;
+  transition: all .5s linear;
 }
 
 .circleB_login {

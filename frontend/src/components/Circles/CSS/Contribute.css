@@ -39,11 +39,13 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 600px) {
   .circleA_contribute,
   .circleB_contribute,
   .circleC_contribute {
     --circleB-contribute-fs: clamp(10px, 5vw, 190px);
+    --circleB-contribute-outline-offset: 4px;
+    --circleB-contribute-outline-size: 10px;
   }
 }
 
@@ -66,10 +68,11 @@
     --circleB-contribute-arrowSVG-transition: fill 1.6s 1s;
 
     --circleA-contribute-size: 12vh;
-    --circleC-contribute-size: 25vh;
     --circleA-contribute-top: 75vh;
-    --circleC-contribute-top: 51vh;
     --circleA-contribute-left: 12vw;
+
+    --circleC-contribute-size: 25vh;
+    --circleC-contribute-top: 51vh;
     --circleC-contribute-left: 22vw;
   }
 }
@@ -113,8 +116,7 @@
   transition: var(--circleB-contribute-transition);
 }
 
-.circleB_contribute:focus,
-.circleB_contribute:hover {
+.circleB_contribute:focus {
   outline-color: var(--secondary);
   transition: outline-color 0.2s;
 }
@@ -140,30 +142,27 @@
 
 @media (prefers-color-scheme: dark) {
   .circleA_contribute {
-    background-color: var(--darktheme-primary);
+    background-color: var(--darktheme-secondary-light);
   }
 
   .circleB_contribute {
-    background-color: var(--darktheme-secondary);
-    color: black;
+    color: var(--darktheme-action-button-color);
+    background-color: var(--darktheme-secondary-light);
   }
 
-  .circleB_contribute:focus,
   .circleB_contribute:hover {
     background-color: var(--darktheme-secondary);
-    outline-color: var(--darktheme-secondary);
   }
 
-  .circleB_contribute:active {
-    background-color: var(--darktheme-secondary);
+  .circleB_contribute:focus {
     outline-color: var(--darktheme-secondary);
   }
 
   .circleB_arrowSVG_contribute {
-    fill: black;
+    fill: var(--darktheme-action-button-color);
   }
 
   .circleC_contribute {
-    background-color: var(--darktheme-primary-light);
+    background-color: var(--darktheme-secondary-dark);
   }
 }
