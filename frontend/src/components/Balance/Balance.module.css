@@ -1,4 +1,5 @@
 .balance {
+  color: var(--text);
   font-family: aileron;
   font-weight: 400;
   font-size: inherit;
@@ -11,10 +12,4 @@
   font-family: aileron;
   font-weight: 200;
   margin-right: 14px;
-}
-
-@media (prefers-color-scheme: dark) {
-  .balance {
-    color: var(--darktheme-white-text);
-  }
 }

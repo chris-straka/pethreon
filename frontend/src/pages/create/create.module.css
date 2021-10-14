@@ -168,20 +168,3 @@
     place-self: start center;
   }
 }
-
-@media (prefers-color-scheme: dark) {
-  .actionButton {
-    background-color: var(--darktheme-secondary);
-    border-color: var(--darktheme-background);
-    color: var(--darktheme-action-button-color);
-  }
-
-  .actionButton:focus {
-    outline-color: var(--darktheme-secondary);
-  }
-
-  .pledgeBox,
-  .emptyPledgeBox {
-    border-color: var(--darktheme-modal-background);
-  }
-}

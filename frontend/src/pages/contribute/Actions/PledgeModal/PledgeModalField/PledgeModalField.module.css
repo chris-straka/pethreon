@@ -17,14 +17,3 @@
 .pledgeFieldInput:focus {
   border-bottom: 2px solid var(--secondary);
 }
-
-@media (prefers-color-scheme: dark) {
-  .pledgeFieldInput {
-    caret-color: var(--darktheme-secondary);
-    color: var(--darktheme-white-text);
-  }
-
-  .pledgeFieldInput:focus {
-    border-bottom: 2px solid var(--darktheme-secondary);
-  }
-}

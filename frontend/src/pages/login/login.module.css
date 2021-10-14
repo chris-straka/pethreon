@@ -121,6 +121,8 @@
 
 .loginButton:focus,
 .loginButton:hover {
+  color: var(--background-color);
+  background-color: var(--login-button-color);
   transform: rotate(2deg);
 }
 
@@ -173,18 +175,5 @@
     width: 90%;
     align-self: center;
     justify-self: center;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .loginButton {
-    border-color: var(--darktheme-login-button-color);
-    color: var(--darktheme-login-button-color);
-  }
-
-  .loginButton:focus,
-  .loginButton:hover {
-    background-color: var(--darktheme-login-button-color);
-    color: var(--darktheme-background);
   }
 }

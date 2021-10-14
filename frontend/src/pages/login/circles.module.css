@@ -1,65 +1,71 @@
-.circleA,
-.circleB,
-.circleC {
-  --circleA-top: -5vh;
-  --circleA-left: -5vw;
+.circleA {
+  --circleA-X: -5vw;
+  --circleA-Y: -5vh;
   --circleA-size: 112px;
-
-  --circleB-top: 40vh;
-  --circleB-left: 92vw;
+}
+.circleB {
+  --circleB-X: 92vw;
+  --circleB-Y: 40vh;
   --circleB-size: 128px;
-
+}
+.circleC {
+  --circleC-X: 30vw;
   --circleC-top: 92vh;
-  --circleC-left: 30vw;
   --circleC-size: 160px;
-
-  position: fixed;
-  background-color: var(--primary-light);
-  border-radius: 50%;
-  outline: none;
-  z-index: -1;
 }
 
 @media (min-width: 600px) and (orientation: portrait) {
-  .circleA,
-  .circleB,
-  .circleC {
+  .circleA {
     --circleA-size: clamp(224px, 6vw, 650px);
+  }
+
+  .circleB {
     --circleB-size: 200px;
-    --circleC-top: 82vh;
+  }
+
+  .circleC {
+    --circleC-Y: 82vh;
     --circleC-size: 440px;
   }
 }
 
 @media (min-width: 1280px) and (orientation: landscape) {
-  .circleA,
-  .circleB,
-  .circleC {
+  .circleA {
     --circleA-size: 240px;
-
-    --circleB-left: 50vw;
-    --circleB-top: 85vh;
+  }
+  .circleB {
+    --circleB-X: 50vw;
+    --circleB-Y: 85vh;
     --circleB-size: 300px;
-
-    --circleC-top: 3vh;
-    --circleC-left: 80vw;
+  }
+  .circleC {
+    --circleC-X: 80vw;
+    --circleC-Y: 3vh;
     --circleC-size: 490px;
   }
 }
 
+.circleA,
+.circleB,
+.circleC {
+  position: fixed;
+  border-radius: 50%;
+  outline: none;
+  z-index: -1;
+}
+
 .circleA {
-  top: var(--circleA-top);
-  left: var(--circleA-left);
+  left: var(--circleA-X);
+  top: var(--circleA-Y);
   width: var(--circleA-size);
   height: var(--circleA-size);
 }
 
 .circleB {
-  top: var(--circleB-top);
-  left: var(--circleB-left);
+  left: var(--circleB-X);
+  top: var(--circleB-Y);
   width: var(--circleB-size);
   height: var(--circleB-size);
-  fill: var(--black-text);
 }
 
 .circleC {
@@ -69,12 +75,4 @@
   height: var(--circleC-size);
   color: transparent;
   fill: transparent;
-}
-
-@media (prefers-color-scheme: dark) {
-  .circleA,
-  .circleB,
-  .circleC {
-    background-color: var(--darktheme-primary);
-  }
 }

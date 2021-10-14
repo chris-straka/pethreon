@@ -18,18 +18,3 @@
   border-bottom: 5px dotted var(--secondary);
   color: var(--secondary);
 }
-
-@media (prefers-color-scheme: dark) {
-  .popup {
-    color: var(--darktheme-secondary);
-  }
-
-  .popup:focus {
-    color: var(--darktheme-secondary);
-    border-color: var(--darktheme-secondary);
-  }
-
-  .checkbox:focus {
-    outline-color: var(--darktheme-secondary);
-  }
-}

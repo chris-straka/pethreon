@@ -1,22 +1,21 @@
 import { useState, useEffect } from 'react';
 import { motion } from "framer-motion"
 import { useHistory } from 'react-router';
-import { TypewriterEffect } from "./TypewriterEffect/TypewriterEffect"
 import { EthereumWindow, MetamaskError } from "../../pethreon"
+import { TypewriterEffect } from "./TypewriterEffect/TypewriterEffect"
 import { Footer } from '../../components/Footer/Footer';
 import { Video } from '../../components/Video/Video';
 import { GithubSVG, MetamaskSVG } from './svgs';
-import { Circle } from '../../components/Circle/Circle';
-import { CircleButton } from '../../components/CircleButton/CircleButton';
-import styles from "./login.module.css"
+import { Circle } from '../../components/Circles';
+import { circleAnimationA } from './circles';
 import circleStyles from "./circles.module.css"
-import webm from "../../assets/money.webm"
-import mp4 from "../../assets/money.mp4"
+import styles from "./login.module.css"
 
 const WALLET_DETECTED = "This app uses your ethereum wallet to make subscriptions to creators"
 const WALLET_NOT_FOUND = "This app requires a cryptocurrency wallet to work, "
 const TEXT_ANIMATION_DELAY = 1000
 const TEXT_ANIMATION_CADENCE = 75
+export const LOGIN_FADEOUT_DURATION = 1
 
 export const Login = () => {
   const history = useHistory()
@@ -51,13 +50,11 @@ export const Login = () => {
 
   return (
     <>
-      <Circle className={circleStyles.circleA}></Circle>
-      <Circle className={circleStyles.circleB}></Circle>
-      <CircleButton className={circleStyles.circleC} disabled={true}></CircleButton>
+      <Circle className={circleStyles.circleA} circleAnimation={circleAnimationA} />
       <motion.div
         initial={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 3 }}
+        transition={{ duration: LOGIN_FADEOUT_DURATION }}
         role="region"
         className={styles.loginLayout}
       >
@@ -85,8 +82,8 @@ export const Login = () => {
           <MetamaskSVG talking={talking} />
           <button className={styles.loginButton} onClick={login}>Login With Metamask</button>
         </div>
-        <Video className={styles.video}></Video>
-        <Footer></Footer>
+        <Video className={styles.video} />
+        <Footer />
       </motion.div>
     </>
   );

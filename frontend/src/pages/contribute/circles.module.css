@@ -130,26 +130,3 @@
   animation: 5s linear 0s infinite alternate none running rightBall_animation;
   transition: all 0.5s linear;
 }
-
-@media (prefers-color-scheme: dark) {
-  .circleA_contribute {
-    background-color: var(--darktheme-secondary-light);
-  }
-
-  .circleB_contribute {
-    color: var(--darktheme-action-button-color);
-    background-color: var(--darktheme-secondary-light);
-  }
-
-  .circleB_contribute:hover {
-    background-color: var(--darktheme-secondary);
-  }
-
-  .circleB_contribute:focus {
-    outline-color: var(--darktheme-secondary);
-  }
-
-  .circleC_contribute {
-    background-color: var(--darktheme-secondary-dark);
-  }
-}

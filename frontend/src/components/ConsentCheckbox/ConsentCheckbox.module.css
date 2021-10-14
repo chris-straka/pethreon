@@ -20,9 +20,3 @@
 .checkbox:focus {
   outline-color: var(--secondary);
 }
-
-@media (prefers-color-scheme: dark) {
-  .checkbox:focus {
-    outline-color: var(--darktheme-secondary);
-  }
-}

@@ -38,20 +38,3 @@
   caret-color: var(--primary);
   margin-left: 10px;
 }
-
-@media (prefers-color-scheme: dark) {
-  .currencyField {
-    color: var(--darktheme-white-text);
-    caret-color: var(--darktheme-secondary);
-  }
-
-  .currencyField:focus,
-  .currencyField:active {
-    border-image: linear-gradient(
-        to right,
-        var(--darktheme-secondary),
-        transparent 80%
-      )
-      1;
-  }
-}

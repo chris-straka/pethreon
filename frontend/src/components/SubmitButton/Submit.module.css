@@ -24,14 +24,3 @@
   cursor: not-allowed;
   background-color: grey;
 }
-
-@media (prefers-color-scheme: dark) {
-  .button {
-    color: var(--darktheme-black-text);
-    background-color: var(--darktheme-secondary);
-  }
-
-  .button:focus {
-    box-shadow: 0 0.2em 0 0 var(--darktheme-primary-light);
-  }
-}

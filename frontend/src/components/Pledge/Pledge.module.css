@@ -62,9 +62,3 @@
     "duration duration"
     "dates dates";
 }
-
-@media (prefers-color-scheme: dark) {
-  .cancelButton {
-    color: var(--darktheme-text-white);
-  }
-}

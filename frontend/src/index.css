@@ -1,4 +1,4 @@
-/* I want these to be accessible everywhere, therefore I'm not making it a CSS module */
+/* I want this stuff to be accessible everywhere, therefore I'm not making it a CSS module */
 
 @font-face {
   font-family: Cute;
@@ -31,34 +31,12 @@
   --secondary-light: hsl(252, 51%, 85%);
   --secondary-dark: hsl(245, 50%, 50%);
 
-  --modal-background: #ffffff;
-  --white-text: hsl(36, 10%, 90%);
-  --black-text: hsl(0, 0%, 15%);
-
+  --anchor-tag: default;
+  --anchor-tag-hover: var(--secondary);
+  --background-color: hsl(0, 0%, 100%);
+  --modal-background: hsl(0, 0%, 100%);
+  --text: hsl(0, 0%, 15%);
   --login-button-color: var(--black-text);
-
-  /* Dark Theme */
-  /* 1f3858 */
-  /* 2b4c7c */
-  --darktheme-primary: hsl(216, 49%, 29%);
-  --darktheme-primary-light: hsl(216, 49%, 54%);
-  --darktheme-primary-dark: hsl(216, 49%, 24%);
-
-  --darktheme-secondary: hsl(267, 95%, 76%);
-  --darktheme-secondary-light: hsl(267, 95%, 80%);
-  --darktheme-secondary-dark: hsl(260, 95%, 70%);
-
-  --darktheme-white-text: hsl(36, 10%, 90%);
-  --darktheme-black-text: hsl(0, 0%, 15%);
-  --darktheme-anchor-tag: hsl(220, 50%, 70%);
-  --darktheme-action-button-color: hsl(200, 7%, 5%);
-
-  --darktheme-background: hsl(200, 7%, 8%);
-  --darktheme-modal-background: hsl(200, 7%, 18%);
-  --darktheme-login-button-color: hsl(36, 10%, 90%);
-
-  /* ANIMATION */
-  --circle-animation-delay: 1;
 }
 
 *,
@@ -70,22 +48,35 @@
   box-sizing: inherit;
 }
 
-body {
+html {
   font-family: Arial, Helvetica, sans-serif;
-  color: var(--black-text);
+  background-color: var(--background-color);
+  color: var(--text);
+}
+
+a {
+  color: var(--anchor-tag);
+}
+
+a:focus {
+  color: var(--anchor-tag-hover);
 }
 
 @media (prefers-color-scheme: dark) {
-  html {
-    background-color: var(--darktheme-background);
-    color: var(--darktheme-text);
-  }
+  :root {
+    --primary: hsl(216, 49%, 29%);
+    --primary-light: hsl(216, 49%, 54%);
+    --primary-dark: hsl(216, 49%, 24%);
 
-  a {
-    color: var(--darktheme-anchor-tag);
-  }
+    --secondary: hsl(267, 95%, 76%);
+    --secondary-light: hsl(267, 95%, 80%);
+    --secondary-dark: hsl(260, 95%, 70%);
 
-  body {
-    color: var(--darktheme-white-text);
+    --anchor-tag: hsl(220, 50%, 70%);
+    --background-color: hsl(200, 7%, 8%);
+    --modal-background: hsl(200, 7%, 18%);
+    --text: hsl(36, 10%, 90%);
+    --login-button-color: hsl(36, 10%, 90%);
+    --action-button-color: hsl(200, 7%, 5%);
   }
 }

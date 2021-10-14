@@ -54,21 +54,3 @@
   transform: translateY(-0.05em);
   box-shadow: 0 0.2em 0 0 var(--secondary);
 }
-
-@media (prefers-color-scheme: dark) {
-  .radioButtonInput:checked + .radioButtonTextSpan {
-    background-color: var(--darktheme-primary-light);
-  }
-
-  .radioButtonInput:checked + .radioButtonTextSpan::before {
-    box-shadow: inset 0 0 0 0.4375em var(--darktheme-primary-dark);
-  }
-
-  .radioButtonInput:focus + .radioButtonTextSpan {
-    box-shadow: 0 0.2em 0 0 var(--darktheme-secondary);
-  }
-
-  .radioButtonTextSpan::before {
-    box-shadow: inset 0 0 0 0.125em var(--darktheme-primary-dark);
-  }
-}

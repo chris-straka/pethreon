@@ -33,19 +33,9 @@
 }
 
 .footer > a {
-  color: var(--primary-dark);
+  color: var(--anchor-tag);
 }
 
 .footer > a:first-child {
   margin-right: 3vw;
-}
-
-@media (prefers-color-scheme: dark) {
-  .footer {
-    opacity: 0.8;
-  }
-
-  .footer > a {
-    color: var(--darktheme-white-text);
-  }
 }

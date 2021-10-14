@@ -35,17 +35,3 @@
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 1;
 }
-
-@media (prefers-color-scheme: dark) {
-  .modal {
-    background-color: var(--darktheme-modal-background);
-  }
-
-  .X {
-    color: var(--darktheme-white-text);
-  }
-
-  .X:hover {
-    border-color: var(--darktheme-white-text);
-  }
-}
