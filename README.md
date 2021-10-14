@@ -272,3 +272,5 @@ I put a lot of grey boxes in my mockups and ignored a lot of detail (including t
 - [Sora Sagano's Aileron Font](https://fontsarena.com/aileron-by-sora-sagano/)
 
 - [Sarah Fossheim](https://fossheim.io/writing/posts/react-text-splitting-animations/)
+
+- [Framer Motion](https://github.com/framer/motion)

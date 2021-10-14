@@ -76,6 +76,15 @@ body {
 }
 
 @media (prefers-color-scheme: dark) {
+  html {
+    background-color: var(--darktheme-background);
+    color: var(--darktheme-text);
+  }
+
+  a {
+    color: var(--darktheme-anchor-tag);
+  }
+
   body {
     color: var(--darktheme-white-text);
   }

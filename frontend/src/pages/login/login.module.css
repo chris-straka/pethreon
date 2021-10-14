@@ -3,7 +3,6 @@
   --fs-features: clamp(1rem, 1vw + 1rem, 2rem);
   --fs-typewriter: clamp(1rem, 5vw + 1rem, 10rem);
   --fs-login-button: clamp(1rem, 1.1vw + 1rem, 10rem);
-  --fs-footer: clamp(1rem, 1vw + 1rem, 10rem);
 
   --main-margin-inline: max(1.5em, 6vw);
   --Pethreon-margin-top: max(16px, 2vh);
@@ -19,18 +18,11 @@
   --login-button-width: 14ch;
 }
 
-@media (max-height: 600px) {
-  footer {
-    --footer-padding-top: 10vh;
-  }
-}
-
 @media (min-width: 390px) {
   .loginLayout {
     --fs-features: clamp(1rem, 2vw + 1rem, 7rem);
     --fs-typewriter: clamp(1rem, 6vw + 1rem, 10rem);
     --fs-login-button: clamp(1rem, 2.5vw + 1rem, 10rem);
-    --fs-footer: clamp(1rem, 1vw + 1rem, 10rem);
 
     --features-margin-bottom: max(50px, 6vh);
     --typewriter-min-height: clamp(100px, 17vh, 250px);
@@ -40,7 +32,7 @@
 @media (min-width: 1280px) and (orientation: landscape) {
   .loginLayout {
     --fs-Pethreon: clamp(5rem, 5vw + 1rem, 15rem);
-    --fs-features: clamp(1.5rem, .9vw + 1rem, 10rem);
+    --fs-features: clamp(1.5rem, 0.9vw + 1rem, 10rem);
     --fs-typewriter: clamp(3rem, 2.6vw + 1rem, 11rem);
     --fs-login-button: clamp(1rem, 1.3vw + 1rem, 10rem);
 
@@ -136,23 +128,6 @@
   display: none;
 }
 
-footer {
-  font-size: var(--fs-footer);
-  padding-top: var(--footer-padding-top);
-  margin-bottom: 10px;
-  align-self: flex-end;
-  margin-top: auto;
-  opacity: 1;
-}
-
-footer > a {
-  color: var(--primary-dark);
-}
-
-footer > a:first-child {
-  margin-right: 3vw;
-}
-
 /* DESKTOP DESIGN */
 @media (min-width: 1280px) and (orientation: landscape) {
   .loginLayout {
@@ -199,33 +174,9 @@ footer > a:first-child {
     align-self: center;
     justify-self: center;
   }
-
-  footer {
-    grid-area: Footer;
-    place-self: end;
-    padding: unset;
-    margin-right: 5%;
-  }
 }
 
 @media (prefers-color-scheme: dark) {
-  html {
-    background-color: var(--darktheme-background);
-    color: var(--darktheme-text);
-  }
-
-  a {
-    color: var(--darktheme-anchor-tag);
-  }
-
-  footer {
-    opacity: 0.8;
-  }
-
-  footer > a {
-    color: var(--darktheme-white-text);
-  }
-
   .loginButton {
     border-color: var(--darktheme-login-button-color);
     color: var(--darktheme-login-button-color);
