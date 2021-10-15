@@ -1,78 +1,78 @@
-.circleA {
-  --circleA-X: -5vw;
-  --circleA-Y: -5vh;
-  --circleA-size: 112px;
+.A {
+  --A-X: -5vw;
+  --A-Y: -5vh;
+  --A-size: 112px;
 }
-.circleB {
-  --circleB-X: 92vw;
-  --circleB-Y: 40vh;
-  --circleB-size: 128px;
+.B {
+  --B-X: 92vw;
+  --B-Y: 40vh;
+  --B-size: 128px;
 }
-.circleC {
-  --circleC-X: 30vw;
-  --circleC-top: 92vh;
-  --circleC-size: 160px;
+.C {
+  --C-X: 30vw;
+  --C-Y: 92vh;
+  --C-size: 160px;
 }
 
 @media (min-width: 600px) and (orientation: portrait) {
-  .circleA {
-    --circleA-size: clamp(224px, 6vw, 650px);
+  .A {
+    --A-size: clamp(224px, 6vw, 650px);
   }
 
-  .circleB {
-    --circleB-size: 200px;
+  .B {
+    --B-size: 200px;
   }
 
-  .circleC {
-    --circleC-Y: 82vh;
-    --circleC-size: 440px;
+  .C {
+    --C-Y: 82vh;
+    --C-size: 440px;
   }
 }
 
 @media (min-width: 1280px) and (orientation: landscape) {
-  .circleA {
-    --circleA-size: 240px;
+  .A {
+    --A-size: 240px;
   }
-  .circleB {
-    --circleB-X: 50vw;
-    --circleB-Y: 85vh;
-    --circleB-size: 300px;
+  .B {
+    --B-X: 50vw;
+    --B-Y: 85vh;
+    --B-size: 300px;
   }
-  .circleC {
-    --circleC-X: 80vw;
-    --circleC-Y: 3vh;
-    --circleC-size: 490px;
+  .C {
+    --C-X: 80vw;
+    --C-Y: 3vh;
+    --C-size: 490px;
   }
 }
 
-.circleA,
-.circleB,
-.circleC {
+.A,
+.B,
+.C {
   position: fixed;
   border-radius: 50%;
   outline: none;
   z-index: -1;
 }
 
-.circleA {
-  left: var(--circleA-X);
-  top: var(--circleA-Y);
-  width: var(--circleA-size);
-  height: var(--circleA-size);
+.A {
+  left: var(--A-X);
+  top: var(--A-Y);
+  width: var(--A-size);
+  height: var(--A-size);
 }
 
-.circleB {
-  left: var(--circleB-X);
-  top: var(--circleB-Y);
-  width: var(--circleB-size);
-  height: var(--circleB-size);
+.B {
+  left: var(--B-X);
+  top: var(--B-Y);
+  width: var(--B-size);
+  height: var(--B-size);
 }
 
-.circleC {
-  top: var(--circleC-top);
-  left: var(--circleC-left);
-  width: var(--circleC-size);
-  height: var(--circleC-size);
+.C {
+  left: var(--C-X);
+  top: var(--C-Y);
+  width: var(--C-size);
+  height: var(--C-size);
   color: transparent;
   fill: transparent;
 }

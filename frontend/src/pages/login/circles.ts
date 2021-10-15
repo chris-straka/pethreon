@@ -1,16 +1,17 @@
 import { CircleAnimationProps } from "../../components/Circles"
-import { LOGIN_FADEOUT_DURATION } from "./login"
+
+export const LOGIN_FADEOUT_DURATION = 1
 
 export const circleAnimationA: CircleAnimationProps = {
   initial: false,
   transition: { 
     delay: LOGIN_FADEOUT_DURATION,
-    duration: 3 
+    duration: 6 
   },
   animate: {
     backgroundColor: "var(--primary)",
-    x: "var(--circleA-X)",
-    y: "var(--circleA-Y)"
+    x: "var(--A-X)",
+    y: "var(--A-Y)"
   },
   exit: {
     backgroundColor: "var(--primary-light)",
