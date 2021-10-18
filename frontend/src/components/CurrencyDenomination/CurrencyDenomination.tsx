@@ -1,5 +1,5 @@
 import { EtherDenomination } from "../../pethreon"
-import styles from "./CurrencyDenomination.module.css"
+import styles from "./CurrencyDenomination.module.scss"
 
 interface CurrencyDenominationProps {
   defaultChecked: boolean,

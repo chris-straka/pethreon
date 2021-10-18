@@ -1,4 +1,4 @@
-import styles from "./Balance.module.css"
+import styles from "./Balance.module.scss"
 
 interface BalanceProps {
   balance: string, 

@@ -1,5 +1,5 @@
 import { ReactNode, FormEvent } from "react"
-import styles from "./Submit.module.css"
+import styles from "./Submit.module.scss"
 
 interface SubmitButtonProps {
   children: ReactNode,

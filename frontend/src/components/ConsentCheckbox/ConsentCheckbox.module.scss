@@ -15,8 +15,8 @@
   outline-offset: 3px;
   transition: outline-color 0.3s;
   cursor: pointer;
-}
 
-.checkbox:focus {
-  outline-color: var(--secondary);
+  &:focus {
+    outline-color: var(--secondary);
+  }
 }

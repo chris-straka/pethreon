@@ -1,4 +1,4 @@
-import "./MetamaskSVG.css"
+import "./MetamaskSVG.scss"
 
 export const MetamaskSVG = ({ talking }: { talking: boolean }) => (
   <svg className={talking ? "" : "floating"} id="metamaskFox" viewBox="0 0 154 154" fill="none" xmlns="http://www.w3.org/2000/svg">

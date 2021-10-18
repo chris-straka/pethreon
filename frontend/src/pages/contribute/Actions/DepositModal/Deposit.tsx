@@ -7,7 +7,7 @@ import { Disclaimer } from "../../../../components/Disclaimer/Disclaimer"
 import { Spacer } from "../../../../components/Spacer/Spacer"
 import { BigNumberish, utils } from "ethers"
 import { ReactComponent as DepositSVG } from "../../../../assets/deposit.svg"
-import styles from "./Deposit.module.css"
+import styles from "./Deposit.module.scss"
 
 import {
   deposit, getContributorBalance, EtherDenomination,

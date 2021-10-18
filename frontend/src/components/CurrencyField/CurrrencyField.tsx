@@ -1,5 +1,5 @@
 import { ChangeEvent } from 'react';
-import styles from "./CurrencyField.module.css"
+import styles from "./CurrencyField.module.scss"
 
 interface CurrencySelectProps {
   amount: string,

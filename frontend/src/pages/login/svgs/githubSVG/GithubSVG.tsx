@@ -1,4 +1,4 @@
-import styles from "./GithubSVG.module.css"
+import styles from "./GithubSVG.module.scss"
 
 export const GithubSVG = () => (
   <svg className={styles.github} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">

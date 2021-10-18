@@ -12,8 +12,8 @@
   border-bottom: 2px solid transparent;
   transition: border-bottom 0.3s;
   width: 74%;
-}
 
-.pledgeFieldInput:focus {
-  border-bottom: 2px solid var(--secondary);
+  &:focus {
+    border-bottom: 2px solid var(--secondary);
+  }
 }

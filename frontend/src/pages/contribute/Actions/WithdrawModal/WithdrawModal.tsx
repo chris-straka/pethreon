@@ -7,7 +7,7 @@ import { Disclaimer } from "../../../../components/Disclaimer/Disclaimer"
 import { ConsentCheckbox } from "../../../../components/ConsentCheckbox/ConsentCheckbox"
 import { SubmitButton } from "../../../../components/SubmitButton/Submit"
 import { ReactComponent as WithdrawSVG } from "../../../../assets/withdraw.svg"
-import styles from "./WithdrawModal.module.css"
+import styles from "./WithdrawModal.module.scss"
 
 import {
   contributorWithdraw, getContributorBalance, MetamaskError,

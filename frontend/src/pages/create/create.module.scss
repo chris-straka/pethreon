@@ -89,25 +89,25 @@
   border-right: 3px solid white;
   color: var(--black-text);
   background-color: var(--secondary);
-  
+
   outline-offset: var(--action-button-outline-offset);
   outline: var(--action-button-outline-size) dotted transparent;
   transition: outline-color 0.2s, background-color 0.2s;
-}
 
-.actionButton:focus {
-  outline-color: var(--secondary);
-  transition: outline-color 0.2s, background-color 0.2s;
-}
+  &:focus {
+    outline-color: var(--secondary);
+    transition: outline-color 0.2s, background-color 0.2s;
+  }
 
-.actionButton:hover {
-  background-color: var(--primary);
-  transition: outline-color 0.2s, background-color 0.2s;
-}
+  &:hover {
+    background-color: var(--primary);
+    transition: outline-color 0.2s, background-color 0.2s;
+  }
 
-.actionButton > svg {
-  width: 2ch;
-  vertical-align: text-bottom;
+  & > svg {
+    width: 2ch;
+    vertical-align: text-bottom;
+  }
 }
 
 .pledgeBox,

@@ -5,7 +5,7 @@ import { Loading } from "../../components/Loading/Loading"
 import { Balance } from "../../components/Balance/Balance"
 import { Pledge } from "../../components/Pledge/Pledge"
 import { extractPledgesToCSV } from "./extractPledgesToCSV"
-import styles from "./create.module.css"
+import styles from "./create.module.scss"
 
 import {
   MetamaskError, EthereumWindow, PledgeType,

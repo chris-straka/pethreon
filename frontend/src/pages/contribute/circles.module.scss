@@ -60,14 +60,14 @@
     --outline-offset: 4px;
     --outline-size: 10px;
 
-    --transition: top 0.7s, left 0.7s, width 0.5s 0.4s,
-      height 0.8s, border-top-left-radius 0.7s 0.2s,
-      border-top-right-radius 0.7s 0.2s, border-bottom-left-radius 0.7s 0.2s,
-      border-bottom-right-radius 0.7s 0.2s, background-color 1.6s 1s,
-      color 1.6s 1s, outline-color 0.2s;
+    --transition: top 0.7s, left 0.7s, width 0.5s 0.4s, height 0.8s,
+      border-top-left-radius 0.7s 0.2s, border-top-right-radius 0.7s 0.2s,
+      border-bottom-left-radius 0.7s 0.2s, border-bottom-right-radius 0.7s 0.2s,
+      background-color 1.6s 1s, color 1.6s 1s, outline-color 0.2s;
 
     --arrowSVG-transition: fill 1.6s 1s;
   }
+
   .circleA,
   .circleB,
   .circleC {
@@ -118,11 +118,11 @@
   outline: var(--circleB-contribute-outline-size) dotted transparent;
 
   transition: var(--circleB-contribute-transition);
-}
 
-.circleB_contribute:focus {
-  outline-color: var(--secondary);
-  transition: outline-color 0.2s;
+  &:focus {
+    outline-color: var(--secondary);
+    transition: outline-color 0.2s;
+  }
 }
 
 .circleC_contribute {

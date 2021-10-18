@@ -79,10 +79,10 @@
   margin-bottom: var(--features-margin-bottom);
   line-height: 1.5;
   list-style-type: none;
-}
 
-.features > li:first-child {
-  margin-bottom: 1em;
+  & > li:first-child {
+    margin-bottom: 1em;
+  }
 }
 
 .typewriter {
@@ -99,10 +99,10 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-}
 
-.loginContainer > svg {
-  width: var(--metamask-svg-width);
+  & > svg {
+    width: var(--metamask-svg-width);
+  }
 }
 
 .loginButton {
@@ -117,13 +117,13 @@
   cursor: pointer;
   outline: none;
   transition: transform 0.1s;
-}
 
-.loginButton:focus,
-.loginButton:hover {
-  color: var(--background-color);
-  background-color: var(--login-button-color);
-  transform: rotate(2deg);
+  &:focus,
+  &:hover {
+    color: var(--background-color);
+    background-color: var(--login-button-color);
+    transform: rotate(2deg);
+  }
 }
 
 .video {

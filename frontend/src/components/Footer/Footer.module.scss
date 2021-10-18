@@ -30,12 +30,12 @@
   align-self: flex-end;
   margin-top: auto;
   opacity: 1;
-}
 
-.footer > a {
-  color: var(--anchor-tag);
-}
+  & > a {
+    color: var(--anchor-tag);
 
-.footer > a:first-child {
-  margin-right: 3vw;
+    &:first-child {
+      margin-right: 3vw;
+    }
+  }
 }

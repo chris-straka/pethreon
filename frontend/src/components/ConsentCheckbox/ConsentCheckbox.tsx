@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react"
-import styles from "./ConsentCheckbox.module.css"
+import styles from "./ConsentCheckbox.module.scss"
 
 interface ConsentCheckboxProps {
   getConsent: (consent: ChangeEvent<HTMLInputElement>) => void

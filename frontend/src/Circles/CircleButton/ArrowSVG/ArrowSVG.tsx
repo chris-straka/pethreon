@@ -1,4 +1,4 @@
-import styles from "./ArrowSVG.module.css"
+import styles from "./ArrowSVG.module.scss"
 
 export const ArrowSVG = () => (
   <svg className={styles.arrowSVG} xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>

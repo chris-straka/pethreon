@@ -56,10 +56,10 @@ html {
 
 a {
   color: var(--anchor-tag);
-}
 
-a:focus {
-  color: var(--anchor-tag-hover);
+  &:focus {
+    color: var(--anchor-tag-hover);
+  }
 }
 
 @media (prefers-color-scheme: dark) {

@@ -9,8 +9,8 @@ import { GithubSVG, MetamaskSVG } from './svgs';
 import { Circle, CircleButton } from '../../Circles';
 import { circleAnimationA, circleAnimationB, circleAnimationC } from './circles';
 
-import styles from "./login.module.css"
-import circleStyles from "./circles.module.css"
+import styles from "./login.module.scss"
+import circleStyles from "./circles.module.scss"
 
 const WALLET_DETECTED = "This app uses your ethereum wallet to make subscriptions to creators"
 const WALLET_NOT_FOUND = "This app requires a cryptocurrency wallet to work, "

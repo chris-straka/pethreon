@@ -1,4 +1,4 @@
-import "./Loading.css"
+import "./Loading.scss"
 
 const LOADING_TEXT = "Loading..."
 

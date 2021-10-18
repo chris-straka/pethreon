@@ -13,14 +13,14 @@
   margin-right: auto;
   outline: none;
   transition: box-shadow 0.3s, background-color 0.3s, transform 0.3s;
-}
 
-.button:focus {
-  transform: translateY(-0.05em);
-  box-shadow: 0 0.2em 0 0 var(--primary);
-}
+  &:focus {
+    transform: translateY(-0.05em);
+    box-shadow: 0 0.2em 0 0 var(--primary);
+  }
 
-.button:disabled {
-  cursor: not-allowed;
-  background-color: grey;
+  &:disabled {
+    cursor: not-allowed;
+    background-color: grey;
+  }
 }

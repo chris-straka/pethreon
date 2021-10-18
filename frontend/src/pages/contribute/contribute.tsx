@@ -8,7 +8,7 @@ import { DepositModal } from "./Actions/DepositModal/Deposit"
 import { PledgeModal } from "./Actions/PledgeModal/PledgeModal"
 import { WithdrawModal } from "./Actions/WithdrawModal/WithdrawModal"
 import { Modal } from "../../components/ModalOutline/ModalOutline"
-import styles from "./contribute.module.css"
+import styles from "./contribute.module.scss"
 
 import { EthereumWindow, PledgeType, getContributorBalance, getContributorPledges, MetamaskError } from "../../pethreon"
 

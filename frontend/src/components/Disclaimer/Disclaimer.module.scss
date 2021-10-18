@@ -12,9 +12,8 @@
   color: var(--primary-dark);
   outline: none;
   transition: all 0.3s;
-}
-
-.popup:focus {
-  border-bottom: 5px dotted var(--secondary);
-  color: var(--secondary);
+  &:focus {
+    border-bottom: 5px dotted var(--secondary);
+    color: var(--secondary);
+  }
 }

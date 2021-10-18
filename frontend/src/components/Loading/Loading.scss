@@ -19,9 +19,8 @@
   font-family: cute;
   font-size: 3rem;
   margin: 1.4rem 0 0 1.5rem;
-}
-
-.loading span {
-  display: inline-block;
-  animation: 0.6s linear 0s infinite alternate none running loading_animation;
+  & span {
+    display: inline-block;
+    animation: 0.6s linear 0s infinite alternate none running loading_animation;
+  }
 }

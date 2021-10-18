@@ -8,10 +8,9 @@
 .depositHeading {
   font-size: 1rem;
   margin: 0.5rem 0 0.8rem 0;
-}
-
-.depositHeading + div {
-  font-size: 40px;
+  & + div {
+    font-size: 40px;
+  }
 }
 
 .depositSVG {
