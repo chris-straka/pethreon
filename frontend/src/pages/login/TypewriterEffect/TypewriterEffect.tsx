@@ -61,7 +61,6 @@ export const TypewriterEffect = ({ message, className, linkUrl, linkContent, cad
 
     }, init ? 0 : delay)
 
-
     return () => {
       messageBuilder = ""
       linkBuilder = ""
@@ -72,6 +71,11 @@ export const TypewriterEffect = ({ message, className, linkUrl, linkContent, cad
   }, [init, linkContent, delay, message, cadence, setTalking, location])
 
   return (
-    <p className={className}>{animatedMessage} {linkContent !== "" ? (<a href={linkUrl} target="_blank" rel="noreferrer">{animatedLink}</a>) : null} </p>
+    <p className={className}>{animatedMessage} {
+      linkContent !== ""
+        ? <a href={linkUrl} target="_blank" rel="noreferrer">{animatedLink}</a>
+        : null
+    }
+    </p>
   )
 }

@@ -1,78 +1,78 @@
-.A {
-  --A-X: -5vw;
-  --A-Y: -5vh;
-  --A-size: 112px;
+.circleA {
+  --X: -5vw;
+  --Y: -5vh;
+  --size: 112px;
 }
-.B {
-  --B-X: 92vw;
-  --B-Y: 40vh;
-  --B-size: 128px;
+.circleB {
+  --X: 92vw;
+  --Y: 40vh;
+  --size: 128px;
 }
-.C {
-  --C-X: 30vw;
-  --C-Y: 92vh;
-  --C-size: 160px;
+.circleC {
+  --X: 30vw;
+  --Y: 92vh;
+  --size: 160px;
 }
 
 @media (min-width: 600px) and (orientation: portrait) {
-  .A {
-    --A-size: clamp(224px, 6vw, 650px);
+  .circleA {
+    --size: clamp(224px, 6vw, 650px);
   }
 
-  .B {
-    --B-size: 200px;
+  .circleB {
+    --size: 200px;
   }
 
-  .C {
-    --C-Y: 82vh;
-    --C-size: 440px;
+  .circleC {
+    --Y: 82vh;
+    --size: 440px;
   }
 }
 
 @media (min-width: 1280px) and (orientation: landscape) {
-  .A {
-    --A-size: 240px;
+  .circleA {
+    --size: 240px;
   }
-  .B {
-    --B-X: 50vw;
-    --B-Y: 85vh;
-    --B-size: 300px;
+  .circleB {
+    --X: 50vw;
+    --Y: 85vh;
+    --size: 300px;
   }
-  .C {
-    --C-X: 80vw;
-    --C-Y: 3vh;
-    --C-size: 490px;
+  .circleC {
+    --X: 80vw;
+    --Y: 3vh;
+    --size: 490px;
   }
 }
 
-.A,
-.B,
-.C {
+.circleA,
+.circleB,
+.circleC {
   position: fixed;
   border-radius: 50%;
   outline: none;
   z-index: -1;
 }
 
-.A {
-  left: var(--A-X);
-  top: var(--A-Y);
-  width: var(--A-size);
-  height: var(--A-size);
+.circleA {
+  left: var(--X);
+  top: var(--Y);
+  width: var(--size);
+  height: var(--size);
 }
 
-.B {
-  left: var(--B-X);
-  top: var(--B-Y);
-  width: var(--B-size);
-  height: var(--B-size);
+.circleB {
+  left: var(--X);
+  top: var(--Y);
+  width: var(--size);
+  height: var(--size);
 }
 
-.C {
-  left: var(--C-X);
-  top: var(--C-Y);
-  width: var(--C-size);
-  height: var(--C-size);
+.circleC {
+  left: var(--X);
+  top: var(--Y);
+  width: var(--size);
+  height: var(--size);
   color: transparent;
   fill: transparent;
 }

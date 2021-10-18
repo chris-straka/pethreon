@@ -9,4 +9,4 @@ export interface CircleAnimationProps {
   transition?: any
 }
 
-export { Circle, CircleButton } 
+export { Circle, CircleButton }

@@ -1,83 +1,77 @@
-.circleA {
-  --Y: 80vh;
-  --X: 17vw;
-  --size: 10vh;
-}
+.circleA_contribute,
+.circleC_contribute {
+  --circleA-contribute-top: 80vh;
+  --circleA-contribute-left: 17vw;
+  --circleA-contribute-size: 10vh;
 
-.circleB {
-  --Y: 77vh;
-  --X: 55vw;
-  --size: 18vh;
-}
+  --circleB-contribute-top: 0vh;
+  --circleB-contribute-left: 60vw;
+  --circleB-contribute-width: 40vw;
+  --circleB-contribute-height: 13vh;
+  --circleB-contribute-fs: clamp(10px, 6vw, 30px);
 
-.circleC {
-  --Y: 0vh;
-  --X: 60vw;
-  --width: 40vw;
-  --height: 13vh;
+  --circleB-contribute-outline-offset: 3px;
+  --circleB-contribute-outline-size: 5px;
 
-  --fs: clamp(10px, 6vw, 30px);
-  --outline-offset: 3px;
-  --outline-size: 5px;
-
-  --transition: top 0.7s, left 0.7s, width 0.5s, height 0.5s,
+  --circleB-contribute-transition: top 0.7s, left 0.7s, width 0.5s, height 0.5s,
     border-top-left-radius 1.2s, border-top-right-radius 1s,
     border-bottom-left-radius 1.2s, border-bottom-right-radius 1.1s,
     background-color 0.7s 0.2s, color 0.8s 0.8s, outline-color 0.2s;
-}
 
-.circleA,
-.circleB,
-.circleC {
-  --position: fixed;
+  --circleC-contribute-top: 77vh;
+  --circleC-contribute-left: 55vw;
+  --circleC-contribute-size: 18vh;
+
+  --circle-position: fixed;
 }
 
 @media (min-width: 600px) {
-  .circleC {
-    --fs: clamp(10px, 5vw, 190px);
-    --outline-offset: 4px;
-    --outline-size: 10px;
+  .circleB_contribute {
+    --circleB-contribute-fs: clamp(10px, 5vw, 190px);
+    --circleB-contribute-outline-offset: 4px;
+    --circleB-contribute-outline-size: 10px;
   }
 }
 
 @media (max-width: 1279px) and (orientation: landscape) {
-  .circleA,
-  .circleB {
-    --size: 0;
-    --position: absolute;
+  .circleA_contribute,
+  .circleC_contribute {
+    --circleA-contribute-size: 0;
+    --circleC-contribute-size: 0;
+    --circle-position: absolute;
   }
 
-  .circleC {
-    --Y: 25vh;
+  .circleB {
+    --circleB-contribute-height: 25vh;
   }
 }
 
-@media (min-width: 1280px) and (orientation: landscape) {
-  .circleC {
-    --width: 20vw;
-    --X: 80vw;
-    --fs: 2.5vw;
-    --outline-offset: 4px;
-    --outline-size: 10px;
 
-    --transition: top 0.7s, left 0.7s, width 0.5s 0.4s,
+@media (min-width: 1280px) and (orientation: landscape) {
+  .circleA_contribute,
+  .circleB_contribute,
+  .circleC_contribute {
+    --circleB-contribute-width: 20vw;
+    --circleB-contribute-left: 80vw;
+    --circleB-contribute-fs: 2.5vw;
+    --circleB-contribute-outline-offset: 4px;
+    --circleB-contribute-outline-size: 10px;
+
+    --circleB-contribute-transition: top 0.7s, left 0.7s, width 0.5s 0.4s,
       height 0.8s, border-top-left-radius 0.7s 0.2s,
       border-top-right-radius 0.7s 0.2s, border-bottom-left-radius 0.7s 0.2s,
       border-bottom-right-radius 0.7s 0.2s, background-color 1.6s 1s,
       color 1.6s 1s, outline-color 0.2s;
 
-    --arrowSVG-transition: fill 1.6s 1s;
-  }
-  .circleA,
-  .circleB,
-  .circleC {
-    --size: 12vh;
-    --Y: 75vh;
-    --X: 12vw;
+    --circleB-contribute-arrowSVG-transition: fill 1.6s 1s;
 
-    --size: 25vh;
-    --Y: 51vh;
-    --X: 22vw;
+    --circleA-contribute-size: 12vh;
+    --circleA-contribute-top: 75vh;
+    --circleA-contribute-left: 12vw;
+
+    --circleC-contribute-size: 25vh;
+    --circleC-contribute-top: 51vh;
+    --circleC-contribute-left: 22vw;
   }
 }
 

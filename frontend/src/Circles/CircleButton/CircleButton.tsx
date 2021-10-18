@@ -22,8 +22,8 @@ export const CircleButton = ({ className, clickHandler, disabled, children, circ
       transition={circleAnimation.transition}
       exit={circleAnimation.exit}
     >
-      {children}
-      <ArrowSVG />
+      {disabled ? null : { children }}
+      {disabled ? null : <ArrowSVG />}
     </motion.button >
   )
 }
