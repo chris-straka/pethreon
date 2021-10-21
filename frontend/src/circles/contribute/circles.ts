@@ -1,12 +1,19 @@
-import { CircleAnimationProps } from "../../Circles"
-
+import { CircleAnimationProps } from "../components"
 export const LOGIN_FADEOUT_DURATION = 1
+
+// @keyframes leftBall_animation {
+//   to { transform: scale(115%) translate(20px, -20px); }
+// }
+
+// @keyframes rightBall_animation {
+//   to { transform: scale(80%) translate(-20px, 10px); }
+// }
 
 export const circleAnimationA: CircleAnimationProps = {
   initial: false,
-  transition: { 
+  transition: {
     delay: LOGIN_FADEOUT_DURATION,
-    duration: 6 
+    duration: 6
   },
   animate: {
     backgroundColor: "var(--primary)",

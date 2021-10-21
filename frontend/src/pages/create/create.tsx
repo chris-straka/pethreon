@@ -4,7 +4,7 @@ import { useHistory } from "react-router"
 import { Loading } from "../../components/Loading/Loading"
 import { Balance } from "../../components/Balance/Balance"
 import { Pledge } from "../../components/Pledge/Pledge"
-import { extractPledgesToCSV } from "./extractPledgesToCSV"
+import { extractPledgesToCSV } from "../../utils/extractPledgesToCSV"
 import { WithdrawSVG, CsvSVG } from "../../svgs"
 import styles from "./create.module.scss"
 

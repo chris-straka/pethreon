@@ -4,14 +4,15 @@ import { useHistory } from "react-router"
 import { Pledge } from "../../components/Pledge/Pledge"
 import { Balance } from "../../components/Balance/Balance"
 import { Loading } from "../../components/Loading/Loading"
-import { DepositModal } from "./Actions/DepositModal/Deposit"
-import { PledgeModal } from "./Actions/PledgeModal/PledgeModal"
-import { WithdrawModal } from "./Actions/WithdrawModal/WithdrawModal"
 import { Modal } from "../../components/ModalOutline/ModalOutline"
+import { DepositModal, PledgeModal, WithdrawModal } from "./components"
 import { WithdrawSVG, DepositSVG, PledgeSVG } from "../../svgs"
 import styles from "./contribute.module.scss"
 
-import { EthereumWindow, PledgeType, getContributorBalance, getContributorPledges, MetamaskError } from "../../pethreon"
+import {
+  EthereumWindow, PledgeType,
+  getContributorBalance, getContributorPledges, MetamaskError
+} from "../../pethreon"
 
 export const ContributePage = () => {
   const { ethereum } = window as EthereumWindow

@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { CircleAnimationProps } from '..';
 
 interface CircleProps {
-  className?: any,
+  className: string,
   circleAnimation: CircleAnimationProps
 }
 

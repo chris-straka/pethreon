@@ -2,15 +2,14 @@ import { useState, useEffect } from 'react';
 import { motion } from "framer-motion"
 import { useHistory } from 'react-router';
 import { EthereumWindow, MetamaskError } from "../../pethreon"
-import { TypewriterEffect } from "./TypewriterEffect/TypewriterEffect"
+import { TypewriterEffect } from "./components/TypewriterEffect/TypewriterEffect"
 import { Footer } from '../../components/Footer/Footer';
-import { Video } from '../../components/Video/Video';
-import { GithubSVG, MetamaskSVG } from '../../svgs';
-import { Circle } from '../../Circles';
-import { circleAnimationA } from './circles';
+import { Features, Video, Pethreon, LoginContainer } from './components';
+import { Circle } from '../../circles/components';
+import { circleAnimationA } from "../../circles/login/circles"
 
 import styles from "./login.module.scss"
-import circleStyles from "./circles.module.scss"
+import circleStyles from "../../circles/login/circles.module.scss"
 
 const WALLET_DETECTED = "This app uses your ethereum wallet to make subscriptions to creators"
 const WALLET_NOT_FOUND = "This app requires a cryptocurrency wallet to work, "
@@ -50,7 +49,7 @@ export const Login = () => {
 
   return (
     <>
-      <Circle className={circleStyles.circleA} circleAnimation={circleAnimationA} />
+      <Circle className={circleStyles.circleA_login} circleAnimation={circleAnimationA} />
       <motion.div
         initial={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -58,17 +57,8 @@ export const Login = () => {
         role="region"
         className={styles.loginLayout}
       >
-        <h1 className={styles.Pethreon}>P<span className={styles.Ξ}>Ξ</span>threon</h1>
-        <ul className={styles.features}>
-          <li>Make daily payments to your favourite creators in a trustless and privacy respecting manner</li>
-          <li>Only pay ethereum transaction fees,&nbsp;
-            <a href="https://github.com/Chris56974/Pethreon/blob/main/contracts/Pethreon.sol"
-              target="_blank"
-              rel="noreferrer">
-              view the smart contract on Github<GithubSVG />
-            </a>
-          </li>
-        </ul>
+        <Pethreon className={styles.pethreon} />
+        <Features className={styles.features} />
         <TypewriterEffect
           className={styles.typewriter}
           cadence={TEXT_ANIMATION_CADENCE}
@@ -78,10 +68,12 @@ export const Login = () => {
           linkUrl={linkUrl}
           setTalking={setTalking}
         />
-        <div className={styles.loginContainer}>
-          <MetamaskSVG talking={talking} />
-          <button className={styles.loginButton} onClick={login}>Login With Metamask</button>
-        </div>
+        <LoginContainer
+          containerStyles={styles.loginContainer}
+          buttonStyles={styles.loginButton}
+          talking={talking}
+          onClick={login}
+        />
         <Video className={styles.video} />
         <Footer />
       </motion.div>

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion"
-import { ArrowSVG } from "./ArrowSVG/ArrowSVG"
+import { ArrowSVG } from "../../../svgs/ArrowSVG/ArrowSVG"
 import { CircleAnimationProps } from "..";
 
 interface CircleButtonProps {

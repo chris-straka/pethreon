@@ -1,85 +1,25 @@
-@use "../contribute/circles.module.scss" as contribute;
-@use "../create/circles.module.scss" as create;
+@use "../contribute/circles.module" as hello;
 
-$Hello: 10vh;
-
-.circleA {
+.circleA_login {
   --X: -5vw;
   --Y: -5vh;
-  --size: 112px;
+  --size: 400px;
+
+  --X-contribute: ;
+  --Y-contribute: ;
+  --Z-contribute: ;
 }
 
-.circleB {
-  --X: 92vw;
-  --Y: 40vh;
-  --size: 128px;
-}
-
-.circleC {
-  --X: 30vw;
-  --Y: 92vh;
-  --size: 160px;
-}
-
-@media (min-width: 600px) and (orientation: portrait) {
-  .circleA {
-    --size: clamp(224px, 6vw, 650px);
-  }
-
-  .circleB {
-    --size: 200px;
-  }
-
-  .circleC {
-    --Y: 82vh;
-    --size: 440px;
-  }
-}
-
-@media (min-width: 1280px) and (orientation: landscape) {
-  .circleA {
-    --size: 240px;
-  }
-  .circleB {
-    --X: 50vw;
-    --Y: 85vh;
-    --size: 300px;
-  }
-  .circleC {
-    --X: 80vw;
-    --Y: 3vh;
-    --size: 490px;
-  }
-}
-
-.circleA,
-.circleB,
-.circleC {
+.circleA_login {
   position: fixed;
   border-radius: 50%;
   outline: none;
   z-index: -1;
 }
 
-.circleA {
+.circleA_login {
   left: var(--X);
   top: var(--Y);
   width: var(--size);
   height: var(--size);
-}
-
-.circleB {
-  left: var(--X);
-  top: var(--Y);
-  width: var(--size);
-  height: var(--size);
-}
-
-.circleC {
-  left: var(--X);
-  top: var(--Y);
-  width: var(--size);
-  height: var(--size);
-  color: transparent;
-  fill: transparent;
 }

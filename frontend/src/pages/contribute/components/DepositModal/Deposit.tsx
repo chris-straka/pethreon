@@ -1,3 +1,4 @@
+import { BigNumberish, utils } from "ethers"
 import { useState, ChangeEvent, FormEvent, Dispatch, SetStateAction } from "react"
 import { ConsentCheckbox } from "../../../../components/ConsentCheckbox/ConsentCheckbox"
 import { CurrencyField } from "../../../../components/CurrencyField/CurrrencyField"
@@ -6,7 +7,6 @@ import { SubmitButton } from "../../../../components/SubmitButton/Submit"
 import { Disclaimer } from "../../../../components/Disclaimer/Disclaimer"
 import { Spacer } from "../../../../components/Spacer/Spacer"
 import { DepositSVG } from "../../../../svgs"
-import { BigNumberish, utils } from "ethers"
 import styles from "./Deposit.module.scss"
 
 import {

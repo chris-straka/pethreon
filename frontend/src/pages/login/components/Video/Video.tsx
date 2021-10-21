@@ -1,5 +1,5 @@
-import mp4 from "../../assets/money.mp4"
-import webm from "../../assets/money.webm"
+import mp4 from "../../../../assets/money.mp4"
+import webm from "../../../../assets/money.webm"
 
 interface VideoProps {
   className: string

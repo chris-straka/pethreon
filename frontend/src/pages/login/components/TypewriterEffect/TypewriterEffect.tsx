@@ -1,9 +1,9 @@
 import { useEffect, useState, Dispatch, SetStateAction } from "react"
-import { EthereumWindow } from "../../../pethreon";
+import { EthereumWindow } from "../../../../pethreon";
 
 interface MetamaskAnimationProps {
-  message: string,
   className: string,
+  message: string,
   linkContent: string,
   linkUrl: string,
   cadence: number,
@@ -11,7 +11,7 @@ interface MetamaskAnimationProps {
   setTalking: Dispatch<SetStateAction<boolean>>
 }
 
-export const TypewriterEffect = ({ message, className, linkUrl, linkContent, cadence, delay, setTalking }: MetamaskAnimationProps) => {
+export const TypewriterEffect = ({ className, message, linkUrl, linkContent, cadence, delay, setTalking }: MetamaskAnimationProps) => {
   const [animatedMessage, setAnimatedMessage] = useState("")
   const [animatedLink, setAnimatedLink] = useState("")
   const [init, setInit] = useState(false)

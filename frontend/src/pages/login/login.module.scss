@@ -63,15 +63,16 @@
   margin-inline: var(--main-margin-inline);
 }
 
-.Pethreon {
+.pethreon {
   font-size: var(--fs-Pethreon);
   margin-top: var(--Pethreon-margin-top);
   margin-bottom: var(--Pethreon-margin-bottom);
   font-weight: 300;
-}
 
-.Ξ {
-  font-size: smaller;
+  // Ξ
+  & > span {
+    font-size: smaller;
+  }
 }
 
 .features {
@@ -143,7 +144,7 @@
     margin-inline: 0;
   }
 
-  .Pethreon,
+  .pethreon,
   .features,
   .typewriter,
   .loginContainer {
@@ -151,7 +152,7 @@
     width: 40vw;
   }
 
-  .Pethreon {
+  .pethreon {
     grid-area: Pethreon;
   }
 
