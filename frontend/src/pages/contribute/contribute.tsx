@@ -8,13 +8,10 @@ import { DepositModal } from "./Actions/DepositModal/Deposit"
 import { PledgeModal } from "./Actions/PledgeModal/PledgeModal"
 import { WithdrawModal } from "./Actions/WithdrawModal/WithdrawModal"
 import { Modal } from "../../components/ModalOutline/ModalOutline"
+import { WithdrawSVG, DepositSVG, PledgeSVG } from "../../svgs"
 import styles from "./contribute.module.scss"
 
 import { EthereumWindow, PledgeType, getContributorBalance, getContributorPledges, MetamaskError } from "../../pethreon"
-
-import { ReactComponent as WithdrawSVG } from "../../assets/withdraw.svg"
-import { ReactComponent as DepositSVG } from "../../assets/deposit.svg"
-import { ReactComponent as PledgeSVG } from "../../assets/pledge.svg"
 
 export const ContributePage = () => {
   const { ethereum } = window as EthereumWindow
@@ -73,11 +70,11 @@ export const ContributePage = () => {
     {loading && <Loading />}
     <motion.div
       className={styles.contributeLayout}
-      // initial={{ opacity: 0 }}
-      // animate={{ opacity: 1 }}
-      // exit={{ opacity: 0 }}
-      // transition={{ duration: 2 }}
-      // role="region"
+    // initial={{ opacity: 0 }}
+    // animate={{ opacity: 1 }}
+    // exit={{ opacity: 0 }}
+    // transition={{ duration: 2 }}
+    // role="region"
     >
       <Balance className={styles.balance} balance={balance} />
       <h1 className={styles.userAccountName}>{ethereum.selectedAddress}</h1>

@@ -1,6 +1,8 @@
+$Y: 80vh;
+
 .circleA {
   --Y: 80vh;
-  --X: 17vw;
+  --X: 50vw;
   --size: 10vh;
 }
 
@@ -55,7 +57,7 @@
 @media (min-width: 1280px) and (orientation: landscape) {
   .circleC {
     --width: 20vw;
-    --X: 80vw;
+    --height: 80vw;
     --fs: 2.5vw;
     --outline-offset: 4px;
     --outline-size: 10px;
@@ -84,15 +86,15 @@
 .circleA_contribute,
 .circleB_contribute,
 .circleC_contribute {
-  position: var(--circle-position);
+  position: var(--position);
   z-index: -1;
 }
 
-.circleA_contribute {
-  top: var(--circleA-contribute-top);
-  left: var(--circleA-contribute-left);
-  width: var(--circleA-contribute-size);
-  height: var(--circleA-contribute-size);
+.circleA {
+  top: var(--Y);
+  left: var(--X);
+  width: var(--size);
+  height: var(--size);
   background-color: var(--primary-light);
   border-radius: 50%;
 
@@ -100,39 +102,39 @@
   transition: all 0.5s linear;
 }
 
-.circleB_contribute {
-  top: var(--circleB-contribute-top);
-  left: var(--circleB-contribute-left);
-  width: var(--circleB-contribute-width);
-  height: var(--circleB-contribute-height);
+.circleB {
+  top: var(--Y);
+  left: var(--X);
+  width: var(--size);
+  height: var(--size);
+  background-color: var(--primary);
+  border-radius: 50%;
+
+  animation: 5s linear 0s infinite alternate none running rightBall_animation;
+  transition: all 0.5s linear;
+}
+
+.circleC {
+  top: var(--Y);
+  left: var(--X);
+  width: var(--width);
+  height: var(--height);
 
   background-color: var(--secondary);
   color: var(--darktheme-black-text);
   border-radius: 0 0 0 32px;
   cursor: pointer;
 
-  font-size: var(--circleB-contribute-fs);
+  font-size: var(--fs);
   font-weight: bold;
 
-  outline-offset: var(--circleB-contribute-outline-offset);
-  outline: var(--circleB-contribute-outline-size) dotted transparent;
+  outline-offset: var(--outline-offset);
+  outline: var(--outline-size) dotted transparent;
 
-  transition: var(--circleB-contribute-transition);
+  transition: var(--transition);
 
   &:focus {
     outline-color: var(--secondary);
     transition: outline-color 0.2s;
   }
-}
-
-.circleC_contribute {
-  top: var(--circleC-contribute-top);
-  left: var(--circleC-contribute-left);
-  width: var(--circleC-contribute-size);
-  height: var(--circleC-contribute-size);
-  background-color: var(--primary);
-  border-radius: 50%;
-
-  animation: 5s linear 0s infinite alternate none running rightBall_animation;
-  transition: all 0.5s linear;
 }

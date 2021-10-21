@@ -1,13 +1,20 @@
+@use "../contribute/circles.module.scss" as contribute;
+@use "../create/circles.module.scss" as create;
+
+$Hello: 10vh;
+
 .circleA {
   --X: -5vw;
   --Y: -5vh;
   --size: 112px;
 }
+
 .circleB {
   --X: 92vw;
   --Y: 40vh;
   --size: 128px;
 }
+
 .circleC {
   --X: 30vw;
   --Y: 92vh;

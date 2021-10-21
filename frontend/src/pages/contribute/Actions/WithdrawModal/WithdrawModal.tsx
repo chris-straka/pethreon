@@ -6,7 +6,7 @@ import { Spacer } from "../../../../components/Spacer/Spacer"
 import { Disclaimer } from "../../../../components/Disclaimer/Disclaimer"
 import { ConsentCheckbox } from "../../../../components/ConsentCheckbox/ConsentCheckbox"
 import { SubmitButton } from "../../../../components/SubmitButton/Submit"
-import { ReactComponent as WithdrawSVG } from "../../../../assets/withdraw.svg"
+import { WithdrawSVG } from "../../../../svgs"
 import styles from "./WithdrawModal.module.scss"
 
 import {

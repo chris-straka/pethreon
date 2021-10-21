@@ -1,6 +1,6 @@
 import { getContributorPledges, getContributorBalance, cancelPledge, MetamaskError, PledgeType } from "../../pethreon"
 import { utils } from "ethers"
-import { ReactComponent as TrashSVG } from "../../assets/trash.svg"
+import { TrashSVG } from "../../svgs"
 import styles from "./Pledge.module.scss"
 
 interface PledgeProps {

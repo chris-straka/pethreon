@@ -5,15 +5,13 @@ import { Loading } from "../../components/Loading/Loading"
 import { Balance } from "../../components/Balance/Balance"
 import { Pledge } from "../../components/Pledge/Pledge"
 import { extractPledgesToCSV } from "./extractPledgesToCSV"
+import { WithdrawSVG, CsvSVG } from "../../svgs"
 import styles from "./create.module.scss"
 
 import {
   MetamaskError, EthereumWindow, PledgeType,
   creatorWithdraw, getCreatorBalance, getCreatorPledges
 } from "../../pethreon"
-
-import { ReactComponent as WithdrawSVG } from "../../assets/withdraw.svg"
-import { ReactComponent as CsvSVG } from "../../assets/csv.svg"
 
 export const CreatePage = () => {
   const { ethereum } = window as EthereumWindow

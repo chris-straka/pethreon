@@ -15,8 +15,8 @@ export const circleAnimationA: CircleAnimationProps = {
   },
   exit: {
     backgroundColor: "var(--primary-light)",
-    x: "17vw",
-    y: "80vh"
+    x: "var(--X-contribute)",
+    y: "var(--Y-contribute)"
   }
 }
 

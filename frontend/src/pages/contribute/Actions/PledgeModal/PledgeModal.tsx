@@ -1,10 +1,10 @@
 import { useState, Dispatch, ChangeEvent, SetStateAction, FormEvent } from "react"
-import { ReactComponent as PledgeSVG } from "../../../../assets/pledge.svg"
 import { CurrencyDenomination } from "../../../../components/CurrencyDenomination/CurrencyDenomination"
 import { PledgeField } from "./PledgeModalField/PledgeModalField"
 import { SubmitButton } from "../../../../components/SubmitButton/Submit"
 import { Spacer } from "../../../../components/Spacer/Spacer"
 import { BigNumberish, utils } from "ethers"
+import { CashSVG, PersonSVG, DateSVG, PledgeSVG } from "../../../../svgs"
 import styles from "./PledgeModal.module.scss"
 
 import {
@@ -12,9 +12,6 @@ import {
   EtherDenomination, MetamaskError, PledgeType
 } from "../../../../pethreon"
 
-import { ReactComponent as CashSVG } from "../../../../assets/cash.svg"
-import { ReactComponent as PersonSVG } from "../../../../assets/person.svg"
-import { ReactComponent as DateSVG } from "../../../../assets/date.svg"
 
 interface PledgeModalProps {
   closeModal: () => void,

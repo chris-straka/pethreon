@@ -5,8 +5,8 @@ import { CurrencyDenomination } from "../../../../components/CurrencyDenominatio
 import { SubmitButton } from "../../../../components/SubmitButton/Submit"
 import { Disclaimer } from "../../../../components/Disclaimer/Disclaimer"
 import { Spacer } from "../../../../components/Spacer/Spacer"
+import { DepositSVG } from "../../../../svgs"
 import { BigNumberish, utils } from "ethers"
-import { ReactComponent as DepositSVG } from "../../../../assets/deposit.svg"
 import styles from "./Deposit.module.scss"
 
 import {

@@ -5,9 +5,9 @@ import { EthereumWindow, MetamaskError } from "../../pethreon"
 import { TypewriterEffect } from "./TypewriterEffect/TypewriterEffect"
 import { Footer } from '../../components/Footer/Footer';
 import { Video } from '../../components/Video/Video';
-import { GithubSVG, MetamaskSVG } from './svgs';
-import { Circle, CircleButton } from '../../Circles';
-import { circleAnimationA, circleAnimationB, circleAnimationC } from './circles';
+import { GithubSVG, MetamaskSVG } from '../../svgs';
+import { Circle } from '../../Circles';
+import { circleAnimationA } from './circles';
 
 import styles from "./login.module.scss"
 import circleStyles from "./circles.module.scss"
@@ -51,8 +51,6 @@ export const Login = () => {
   return (
     <>
       <Circle className={circleStyles.circleA} circleAnimation={circleAnimationA} />
-      <Circle className={circleStyles.circleB} circleAnimation={circleAnimationB} />
-      <CircleButton className={circleStyles.circleC} circleAnimation={circleAnimationC} disabled={true} />
       <motion.div
         initial={{ opacity: 1 }}
         exit={{ opacity: 0 }}
