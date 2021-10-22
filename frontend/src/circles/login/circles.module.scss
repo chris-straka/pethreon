@@ -1,25 +1,68 @@
-@use "../contribute/circles.module" as hello;
-
-.circleA_login {
-  --X: -5vw;
-  --Y: -5vh;
-  --size: 400px;
-
-  --X-contribute: ;
-  --Y-contribute: ;
-  --Z-contribute: ;
+.circleA {
+  --X-login: -5vw;
+  --Y-login: -5vh;
+  --size-login: 112px;
 }
 
-.circleA_login {
+.circleB {
+  --X-login: 92vw;
+  --Y-login: 40vh;
+  --size-login: 128px;
+}
+
+.circleC {
+  --X-login: 30vw;
+  --Y-login: 92vh;
+  --size-login: 160px;
+}
+
+@media (min-width: 600px) and (orientation: portrait) {
+  .circleA {
+    --X-login: -2vw;
+    --Y-login: -2vh;
+    --size-login: clamp(224px, 6vw, 650px);
+  }
+
+  .circleB {
+    --size-login: 200px;
+  }
+
+  .circleC {
+    --Y-login: 82vh;
+    --size-login: 440px;
+  }
+}
+
+@media (min-width: 1280px) and (orientation: landscape) {
+  .circleA {
+    --size-login: 240px;
+  }
+
+  .circleB {
+    --X-login: 50vw;
+    --Y-login: 85vh;
+    --size-login: 300px;
+  }
+
+  .circleC {
+    --X-login: 80vw;
+    --Y-login: 3vh;
+    --size-login: 490px;
+  }
+}
+
+.circleA,
+.circleB,
+.circleC {
   position: fixed;
   border-radius: 50%;
   outline: none;
   z-index: -1;
-}
 
-.circleA_login {
-  left: var(--X);
-  top: var(--Y);
-  width: var(--size);
-  height: var(--size);
+  left: var(--X-login);
+  top: var(--Y-login);
+  width: var(--size-login);
+  height: var(--size-login);
+  color: transparent;
+  fill: transparent;
 }

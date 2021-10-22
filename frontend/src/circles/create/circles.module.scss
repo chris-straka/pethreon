@@ -1,24 +1,24 @@
 .circleA {
-  --Y: 80vh;
-  --X: 17vw;
-  --size: 10vh;
+  --Y-create: 80vh;
+  --X-create: 17vw;
+  --size-create: 10vh;
 }
 
 .circleB {
-  --Y: 77vh;
-  --X: 55vw;
-  --size: 18vh;
+  --Y-create: 77vh;
+  --X-create: 55vw;
+  --size-create: 18vh;
 }
 
 .circleC {
-  --Y: 0vh;
-  --X: 60vw;
-  --width: 40vw;
-  --height: 13vh;
-  --fs: clamp(10px, 6vw, 30px);
+  --Y-create: 0vh;
+  --X-create: 60vw;
+  --width-create: 40vw;
+  --height-create: 13vh;
+  --fs-create: clamp(10px, 6vw, 30px);
 
-  --outline-offset: 3px;
-  --outline-size: 5px;
+  --outline-offset-create: 3px;
+  --outline-size-create: 5px;
 
   --transition: top 0.7s, left 0.7s, width 0.5s, height 0.5s,
     border-top-left-radius 1.2s, border-top-right-radius 1s,
@@ -84,14 +84,14 @@
 .circleC {
   position: var(--position);
   z-index: -1;
+  top: var(--Y);
+  left: var(--X);
 }
 
 .circleA {
-  top: var(--Y);
-  left: var(--X);
   width: var(--size);
   height: var(--size);
-  background-color: var(--primary-light);
+  // background-color: var(--primary-light);
   border-radius: 50%;
 
   animation: 5s linear 0s infinite alternate none running leftBall_animation;
@@ -99,11 +99,9 @@
 }
 
 .circleB {
-  top: var(--Y);
-  left: var(--X);
   width: var(--size);
   height: var(--size);
-  background-color: var(--primary);
+  // background-color: var(--primary);
   border-radius: 50%;
 
   animation: 5s linear 0s infinite alternate none running rightBall_animation;

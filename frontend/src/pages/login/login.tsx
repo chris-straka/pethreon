@@ -49,13 +49,13 @@ export const Login = () => {
 
   return (
     <>
-      <Circle className={circleStyles.circleA_login} circleAnimation={circleAnimationA} />
+      <Circle className={circleStyles.circleA} circleAnimation={circleAnimationA} />
       <motion.div
         initial={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 1 }}
-        role="region"
+        transition={{ duration: 1}}
         className={styles.loginLayout}
+        role="region"
       >
         <Pethreon className={styles.pethreon} />
         <Features className={styles.features} />
