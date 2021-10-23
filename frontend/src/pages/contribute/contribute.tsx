@@ -5,14 +5,15 @@ import { Pledge } from "../../components/Pledge/Pledge"
 import { Balance } from "../../components/Balance/Balance"
 import { Loading } from "../../components/Loading/Loading"
 import { Modal } from "../../components/ModalOutline/ModalOutline"
-import { DepositModal, PledgeModal, WithdrawModal } from "./components"
 import { WithdrawSVG, DepositSVG, PledgeSVG } from "../../svgs"
-import styles from "./contribute.module.scss"
-
+import { Circles, DepositModal, PledgeModal, WithdrawModal } from "./components"
 import {
   EthereumWindow, PledgeType,
   getContributorBalance, getContributorPledges, MetamaskError
 } from "../../pethreon"
+import styles from "./contribute.module.scss"
+
+const CONTRIBUTE_PAGE_FADEOUT_DURATION = 1
 
 export const ContributePage = () => {
   const { ethereum } = window as EthereumWindow
@@ -69,6 +70,7 @@ export const ContributePage = () => {
 
   return <>
     {loading && <Loading />}
+    <Circles animationDelay={CONTRIBUTE_PAGE_FADEOUT_DURATION}></Circles>
     <motion.div
       className={styles.contributeLayout}
     // initial={{ opacity: 0 }}

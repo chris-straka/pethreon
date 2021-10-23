@@ -6,12 +6,14 @@ import { Balance } from "../../components/Balance/Balance"
 import { Pledge } from "../../components/Pledge/Pledge"
 import { extractPledgesToCSV } from "../../utils/extractPledgesToCSV"
 import { WithdrawSVG, CsvSVG } from "../../svgs"
-import styles from "./create.module.scss"
-
+import { Circles } from "./components"
 import {
   MetamaskError, EthereumWindow, PledgeType,
   creatorWithdraw, getCreatorBalance, getCreatorPledges
 } from "../../pethreon"
+import styles from "./create.module.scss"
+
+const CREATE_PAGE_FADEOUT_DURATION = 1
 
 export const CreatePage = () => {
   const { ethereum } = window as EthereumWindow
@@ -57,6 +59,7 @@ export const CreatePage = () => {
 
   return <>
     {loading && <Loading />}
+    <Circles animationDelay={CREATE_PAGE_FADEOUT_DURATION} />
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}

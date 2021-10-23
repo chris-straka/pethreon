@@ -1,7 +1,8 @@
+import { Circles } from "./Circles/Circles";
 import { Features } from "./Features/Features";
+import { LoginContainer } from "./LoginContainer/LoginContainer";
+import { Pethreon } from "./Pethreon/Pethreon";
 import { TypewriterEffect } from "./TypewriterEffect/TypewriterEffect";
 import { Video } from "./Video/Video";
-import { Pethreon } from "./Pethreon/Pethreon";
-import { LoginContainer } from "./LoginContainer/LoginContainer";
 
-export { Features, TypewriterEffect, Video, Pethreon, LoginContainer }
+export { Circles, Features, LoginContainer, Pethreon, TypewriterEffect, Video }

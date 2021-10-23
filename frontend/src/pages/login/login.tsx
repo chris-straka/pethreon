@@ -4,17 +4,15 @@ import { useHistory } from 'react-router';
 import { EthereumWindow, MetamaskError } from "../../pethreon"
 import { TypewriterEffect } from "./components/TypewriterEffect/TypewriterEffect"
 import { Footer } from '../../components/Footer/Footer';
-import { Features, Video, Pethreon, LoginContainer } from './components';
-import { Circle } from '../../circles/components';
-import { circleAnimationA } from "../../circles/login/circles"
+import { Circles, Features, Video, Pethreon, LoginContainer } from './components';
 
 import styles from "./login.module.scss"
-import circleStyles from "../../circles/login/circles.module.scss"
 
 const WALLET_DETECTED = "This app uses your ethereum wallet to make subscriptions to creators"
 const WALLET_NOT_FOUND = "This app requires a cryptocurrency wallet to work, "
 const TEXT_ANIMATION_DELAY = 1000
 const TEXT_ANIMATION_CADENCE = 75
+const LOGIN_PAGE_FADEOUT_DURATION = 1
 
 export const Login = () => {
   const history = useHistory()
@@ -49,11 +47,11 @@ export const Login = () => {
 
   return (
     <>
-      <Circle className={circleStyles.circleA} circleAnimation={circleAnimationA} />
+      <Circles animationDelay={LOGIN_PAGE_FADEOUT_DURATION}></Circles>
       <motion.div
         initial={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 1}}
+        transition={{ duration: LOGIN_PAGE_FADEOUT_DURATION }}
         className={styles.loginLayout}
         role="region"
       >

@@ -90,17 +90,11 @@
 .circleA {
   // background-color: var(--primary-light);
   border-radius: 50%;
-
-  animation: 5s linear 0s infinite alternate none running leftBall_animation;
-  transition: all 0.5s linear;
 }
 
 .circleB {
   // background-color: var(--primary);
   border-radius: 50%;
-
-  animation: 5s linear 0s infinite alternate none running rightBall_animation;
-  transition: all 0.5s linear;
 }
 
 .circleC {
