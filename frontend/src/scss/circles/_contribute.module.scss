@@ -1,121 +1,103 @@
 .circleA {
-  --X: 50vw;
-  --Y: 80vh;
-  --size: 10vh;
+  --X-contribute: 50vw;
+  --Y-contribute: 80vh;
+  --size-contribute: 10vh;
 }
 
-.circleB {
-  --Y: 77vh;
-  --X: 55vw;
-  --size: 18vh;
-}
+// .circleB {
+//   --X-contribute: 55vw;
+//   --Y-contribute: 77vh;
+//   --size-contribute: 18vh;
+// }
 
-.circleC {
-  --Y: 0vh;
-  --X: 60vw;
-  --width: 40vw;
-  --height: 13vh;
+// .circleC {
+//   --X-contribute: 60vw;
+//   --Y-contribute: 0vh;
+//   --width-contribute: 40vw;
+//   --height-contribute: 13vh;
 
-  --fs: clamp(10px, 6vw, 30px);
-  --outline-offset: 3px;
-  --outline-size: 5px;
-}
+//   --fs-contribute: clamp(10px, 6vw, 30px);
+//   --outline-offset-contribute: 3px;
+//   --outline-size-contribute: 5px;
+// }
 
-.circleA,
-.circleB,
-.circleC {
-  --position: fixed;
-}
+// .circleA,
+// .circleB,
+// .circleC {
+//   --position-contribute: fixed;
+// }
 
-@media (min-width: 600px) {
-  .circleC {
-    --fs: clamp(10px, 5vw, 190px);
-    --outline-offset: 4px;
-    --outline-size: 10px;
-  }
-}
+// @media (min-width: 600px) {
+//   .circleC {
+//     --fs-contribute: clamp(10px, 5vw, 190px);
+//     --outline-offset-contribute: 4px;
+//     --outline-size-contribute: 10px;
+//   }
+// }
 
-@media (max-width: 1279px) and (orientation: landscape) {
-  .circleA,
-  .circleB {
-    --size: 0;
-    --position: absolute;
-  }
+// @media (max-width: 1279px) and (orientation: landscape) {
+//   .circleA,
+//   .circleB {
+//     --size-contribute: 0;
+//     --position-contribute: absolute;
+//   }
 
-  .circleC {
-    --Y: 25vh;
-  }
-}
+//   .circleC {
+//     --Y-contribute: 25vh;
+//   }
+// }
 
-@media (min-width: 1280px) and (orientation: landscape) {
-  .circleC {
-    --width: 20vw;
-    --height: 80vw;
-    --fs: 2.5vw;
-    --outline-offset: 4px;
-    --outline-size: 10px;
+// @media (min-width: 1280px) and (orientation: landscape) {
+//   .circleC {
+//     --width-contribute: 20vw;
+//     --height-contribute: 80vw;
+//     --fs-contribute: 2.5vw;
+//     --outline-offset-contribute: 4px;
+//     --outline-size-contribute: 10px;
+//   }
 
-    --transition: top 0.7s, left 0.7s, width 0.5s 0.4s, height 0.8s,
-      border-top-left-radius 0.7s 0.2s, border-top-right-radius 0.7s 0.2s,
-      border-bottom-left-radius 0.7s 0.2s, border-bottom-right-radius 0.7s 0.2s,
-      background-color 1.6s 1s, color 1.6s 1s, outline-color 0.2s;
+//   .circleA,
+//   .circleB,
+//   .circleC {
+//     --X-contribute: 22vw;
+//     --Y-contribute: 51vh;
+//     --size-contribute: 25vh;
+//   }
+// }
 
-    --arrowSVG-transition: fill 1.6s 1s;
-  }
+// .circleA,
+// .circleB,
+// .circleC {
+//   position: var(--position-contribute);
+//   z-index: -1;
+//   top: var(--Y-contribute);
+//   left: var(--X-contribute);
+//   width: var(--size-contribute);
+//   height: var(--size-contribute);
+// }
 
-  .circleA,
-  .circleB,
-  .circleC {
-    // --size: 12vh;
-    // --Y: 75vh;
-    // --X: 12vw;
+// .circleA 
+// .circleB {
+//   border-radius: 50%;
+// }
 
-    --size: 25vh;
-    --Y: 51vh;
-    --X: 22vw;
-  }
-}
+// .circleC {
+//   width: var(--width-contribute);
+//   height: var(--height-contribute);
 
-.circleA,
-.circleB,
-.circleC {
-  position: var(--position);
-  z-index: -1;
-  top: var(--Y);
-  left: var(--X);
-  width: var(--size);
-  height: var(--size);
-}
+//   background-color: var(--secondary-contribute);
+//   color: var(--darktheme-black-text-contribute);
+//   border-radius: 0 0 0 32px;
+//   cursor: pointer;
 
-.circleA {
-  // background-color: var(--primary-light);
-  border-radius: 50%;
-}
+//   font-size: var(--fs-contribute);
+//   font-weight: bold;
 
-.circleB {
-  // background-color: var(--primary);
-  border-radius: 50%;
-}
+//   outline-offset: var(--outline-offset-contribute);
+//   outline: var(--outline-size-contribute) dotted transparent;
 
-.circleC {
-  width: var(--width);
-  height: var(--height);
-
-  background-color: var(--secondary);
-  color: var(--darktheme-black-text);
-  border-radius: 0 0 0 32px;
-  cursor: pointer;
-
-  font-size: var(--fs);
-  font-weight: bold;
-
-  outline-offset: var(--outline-offset);
-  outline: var(--outline-size) dotted transparent;
-
-  transition: var(--transition);
-
-  &:focus {
-    outline-color: var(--secondary);
-    transition: outline-color 0.2s;
-  }
-}
+//   &:focus {
+//     outline-color: var(--secondary);
+//     transition: outline-color 0.2s;
+//   }
+// }

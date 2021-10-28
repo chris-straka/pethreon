@@ -1,134 +1,117 @@
 .circleA {
-  --Y-create: 80vh;
   --X-create: 17vw;
+  --Y-create: 80vh;
   --size-create: 10vh;
 }
 
-.circleB {
-  --Y-create: 77vh;
-  --X-create: 55vw;
-  --size-create: 18vh;
-}
+// .circleB {
+//   --X-create: 55vw;
+//   --Y-create: 77vh;
+//   --size-create: 18vh;
+// }
 
-.circleC {
-  --Y-create: 0vh;
-  --X-create: 60vw;
-  --width-create: 40vw;
-  --height-create: 13vh;
-  --fs-create: clamp(10px, 6vw, 30px);
+// .circleC {
+//   --Y-create: 0vh;
+//   --X-create: 60vw;
+//   --width-create: 40vw;
+//   --height-create: 13vh;
+//   --fs-create: clamp(10px, 6vw, 30px);
 
-  --outline-offset-create: 3px;
-  --outline-size-create: 5px;
+//   --outline-offset-create: 3px;
+//   --outline-size-create: 5px;
+// }
 
-  --transition: top 0.7s, left 0.7s, width 0.5s, height 0.5s,
-    border-top-left-radius 1.2s, border-top-right-radius 1s,
-    border-bottom-left-radius 1.2s, border-bottom-right-radius 1.1s,
-    background-color 0.7s 0.2s, color 0.8s 0.8s, outline-color 0.2s;
-}
+// .circleA,
+// .circleB,
+// .circleC {
+//   --position-create: fixed;
+// }
 
-.circleA,
-.circleB,
-.circleC {
-  --position: fixed;
-}
+// @media (min-width: 600px) {
+//   .circleB {
+//     --fs-create: clamp(10px, 5vw, 190px);
+//     --outline-offset-create: 4px;
+//     --outline-size-create: 10px;
+//   }
+// }
 
-@media (min-width: 600px) {
-  .circleB {
-    --fs: clamp(10px, 5vw, 190px);
-    --outline-offset: 4px;
-    --outline-size: 10px;
-  }
-}
+// @media (max-width: 1279px) and (orientation: landscape) {
+//   .circleA .circleB {
+//     --size-create: 0;
+//     --position-create: absolute;
+//   }
 
-@media (max-width: 1279px) and (orientation: landscape) {
-  .circleA .circleB {
-    --size: 0;
-    --size: 0;
-    --position: absolute;
-  }
+//   .circleC {
+//     --height-create: 25vh;
+//   }
+// }
 
-  .circleC {
-    --height: 25vh;
-  }
-}
-
-@media (min-width: 1280px) and (orientation: landscape) {
-  .circleA {
-    --Y: 75vh;
-    --X: 12vw;
-    --size: 12vh;
-  }
-  .circleB {
-    --Y: 51vh;
-    --X: 22vw;
-    --size: 25vh;
-  }
-  .circleC {
-    --Y: 20vw;
-    --X: 80vw;
-    --fs: 2.5vw;
-    --outline-offset: 4px;
-    --outline-size: 10px;
-
-    --transition: top 0.7s, left 0.7s, width 0.5s 0.4s, height 0.8s,
-      border-top-left-radius 0.7s 0.2s, border-top-right-radius 0.7s 0.2s,
-      border-bottom-left-radius 0.7s 0.2s, border-bottom-right-radius 0.7s 0.2s,
-      background-color 1.6s 1s, color 1.6s 1s, outline-color 0.2s;
-
-    --arrowSVG-transition: fill 1.6s 1s;
-  }
-}
+// @media (min-width: 1280px) and (orientation: landscape) {
+//   .circleA {
+//     --Y-create: 75vh;
+//     --X-create: 12vw;
+//     --size-create: 12vh;
+//   }
+//   .circleB {
+//     --Y-create: 51vh;
+//     --X-create: 22vw;
+//     --size-create: 25vh;
+//   }
+//   .circleC {
+//     --Y-create: 20vw;
+//     --X-create: 80vw;
+//     --fs-create: 2.5vw;
+//     --outline-offset-create: 4px;
+//     --outline-size-create: 10px;
+//   }
+// }
 
 .circleA,
 .circleB,
 .circleC {
-  position: var(--position);
+  position: var(--position-create);
+  top: var(--Y-create);
+  left: var(--X-create);
   z-index: -1;
-  top: var(--Y);
-  left: var(--X);
 }
 
 .circleA {
-  width: var(--size);
-  height: var(--size);
+  width: var(--size-create);
+  height: var(--size-create);
   // background-color: var(--primary-light);
   border-radius: 50%;
 
-  animation: 5s linear 0s infinite alternate none running leftBall_animation;
+  // Why does this cause my animation to behave so strangely?
+  // My circle no longer moves vertically with this transition property
   transition: all 0.5s linear;
 }
 
-.circleB {
-  width: var(--size);
-  height: var(--size);
-  // background-color: var(--primary);
-  border-radius: 50%;
+// .circleB {
+//   width: var(--size-create);
+//   height: var(--size-create);
+//   border-radius: 50%;
 
-  animation: 5s linear 0s infinite alternate none running rightBall_animation;
-  transition: all 0.5s linear;
+//   &:focus {
+//     outline-color: var(--secondary);
+//   }
+// }
 
-  &:focus {
-    outline-color: var(--secondary);
-    transition: outline-color 0.2s;
-  }
-}
+// .circleC {
+//   top: var(--Y-create);
+//   left: var(--X-create);
+//   width: var(--width-create);
+//   height: var(--height-create);
 
-.circleC {
-  top: var(--Y);
-  left: var(--X);
-  width: var(--width);
-  height: var(--height);
+//   background-color: var(--secondary);
+//   color: var(--darktheme-black-text);
+//   border-radius: 0 0 0 32px;
+//   cursor: pointer;
 
-  background-color: var(--secondary);
-  color: var(--darktheme-black-text);
-  border-radius: 0 0 0 32px;
-  cursor: pointer;
+//   font-size: var(--fs-create);
+//   font-weight: bold;
 
-  font-size: var(--fs);
-  font-weight: bold;
+//   outline-offset: var(--outline-offset-create);
+//   outline: var(--outline-size-create) dotted transparent;
 
-  outline-offset: var(--outline-offset);
-  outline: var(--outline-size) dotted transparent;
-
-  transition: var(--transition);
-}
+//   transition: var(--transition-create);
+// }

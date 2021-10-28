@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { motion } from "framer-motion"
 import { useHistory } from 'react-router';
 import { EthereumWindow, MetamaskError } from "../../pethreon"
-import { TypewriterEffect } from "./components/TypewriterEffect/TypewriterEffect"
-import { Footer } from '../../components/Footer/Footer';
+import { TypewriterEffect } from './components';
+import { Footer } from "../../components"
 import { Circles, Features, Video, Pethreon, LoginContainer } from './components';
 
 import styles from "./login.module.scss"

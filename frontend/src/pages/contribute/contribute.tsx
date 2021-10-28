@@ -4,7 +4,7 @@ import { useHistory } from "react-router"
 import { Pledge } from "../../components/Pledge/Pledge"
 import { Balance } from "../../components/Balance/Balance"
 import { Loading } from "../../components/Loading/Loading"
-import { Modal } from "../../components/ModalOutline/ModalOutline"
+import { ModalOutline } from "../../components/ModalOutline/ModalOutline"
 import { WithdrawSVG, DepositSVG, PledgeSVG } from "../../svgs"
 import { Circles, DepositModal, PledgeModal, WithdrawModal } from "./components"
 import {
@@ -70,7 +70,7 @@ export const ContributePage = () => {
 
   return <>
     {loading && <Loading />}
-    <Circles animationDelay={CONTRIBUTE_PAGE_FADEOUT_DURATION}></Circles>
+    <Circles animationDelay={CONTRIBUTE_PAGE_FADEOUT_DURATION} />
     <motion.div
       className={styles.contributeLayout}
     // initial={{ opacity: 0 }}
@@ -97,6 +97,6 @@ export const ContributePage = () => {
         {pledges.length === 0 ? <li className={styles.emptyPledgeText}>You need to make a pledge first...</li> : null}
       </ul>
     </motion.div>
-    <Modal open={currentModal === "" ? false : true} onClose={() => setCurrentModal("")}>{modalBody}</Modal>
+    <ModalOutline open={currentModal === "" ? false : true} onClose={() => setCurrentModal("")}>{modalBody}</ModalOutline>
   </>
 }

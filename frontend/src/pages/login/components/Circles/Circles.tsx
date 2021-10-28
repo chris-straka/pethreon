@@ -7,16 +7,16 @@ interface CirclesProps {
 
 export const Circles = ({ animationDelay }: CirclesProps) => {
   const lastVisited = localStorage.getItem("lastVisited")
-  let exitAnimationX
-  let exitAnimationY
+  // let exitAnimationX
+  // let exitAnimationY
 
-  if (lastVisited === "create") {
-    exitAnimationX = "var(--X-create)"
-    exitAnimationY = "var(--Y-create)"
-  } else {
-    exitAnimationX = "var(--X-contribute)"
-    exitAnimationY = "var(--Y-contribute)"
-  }
+  // if (lastVisited === "create") {
+  //   exitAnimationX = "var(--X-create)"
+  //   exitAnimationY = "var(--Y-create)"
+  // } else {
+  //   exitAnimationX = "var(--X-contribute)"
+  //   exitAnimationY = "var(--Y-contribute)"
+  // }
 
   return (
     <>
@@ -31,6 +31,7 @@ export const Circles = ({ animationDelay }: CirclesProps) => {
         animate={{
           scale: 1.55,
           x: "2vw",
+          y: "2vw"
         }}
         transition={{
           duration: 16,
@@ -39,15 +40,16 @@ export const Circles = ({ animationDelay }: CirclesProps) => {
           repeatDelay: 0.1,
         }}
         exit={{
-          x: exitAnimationX,
-          y: exitAnimationY,
+          x: "var(--X-contribute)",
+          y: "var(--Y-contribute)",
           transition: {
+            duration: 5,
             delay: animationDelay
           }
         }}
       />
 
-      <motion.div
+      {/* <motion.div
         className={styles.circleB}
         initial={{
           backgroundColor: "var(--primary)",
@@ -99,7 +101,7 @@ export const Circles = ({ animationDelay }: CirclesProps) => {
             delay: animationDelay
           }
         }}
-      />
+      /> */}
 
     </>
   )

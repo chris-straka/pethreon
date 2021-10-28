@@ -8,7 +8,7 @@ interface ModalProps {
   children: ReactNode
 }
 
-export const Modal = ({ open, onClose, children }: ModalProps) => {
+export const ModalOutline = ({ open, onClose, children }: ModalProps) => {
   if (!open) return null
 
   return createPortal(
