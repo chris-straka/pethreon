@@ -78,40 +78,35 @@
 .circleA {
   width: var(--size-create);
   height: var(--size-create);
-  // background-color: var(--primary-light);
   border-radius: 50%;
-
-  // Why does this cause my animation to behave so strangely?
-  // My circle no longer moves vertically with this transition property
-  transition: all 0.5s linear;
 }
 
-// .circleB {
-//   width: var(--size-create);
-//   height: var(--size-create);
-//   border-radius: 50%;
+.circleB {
+  width: var(--size-create);
+  height: var(--size-create);
+  border-radius: 50%;
 
-//   &:focus {
-//     outline-color: var(--secondary);
-//   }
-// }
+  &:focus {
+    outline-color: var(--secondary);
+  }
+}
 
-// .circleC {
-//   top: var(--Y-create);
-//   left: var(--X-create);
-//   width: var(--width-create);
-//   height: var(--height-create);
+.circleC {
+  top: var(--Y-create);
+  left: var(--X-create);
+  width: var(--width-create);
+  height: var(--height-create);
 
-//   background-color: var(--secondary);
-//   color: var(--darktheme-black-text);
-//   border-radius: 0 0 0 32px;
-//   cursor: pointer;
+  background-color: var(--secondary);
+  color: var(--darktheme-black-text);
+  border-radius: 0 0 0 32px;
+  cursor: pointer;
 
-//   font-size: var(--fs-create);
-//   font-weight: bold;
+  font-size: var(--fs-create);
+  font-weight: bold;
 
-//   outline-offset: var(--outline-offset-create);
-//   outline: var(--outline-size-create) dotted transparent;
+  outline-offset: var(--outline-offset-create);
+  outline: var(--outline-size-create) dotted transparent;
 
-//   transition: var(--transition-create);
-// }
+  transition: var(--transition-create);
+}
