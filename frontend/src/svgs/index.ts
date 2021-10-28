@@ -1,3 +1,4 @@
+import { ArrowSVG } from "./ArrowSVG/ArrowSVG";
 import { CashSVG } from "./CashSVG/CashSVG";
 import { CsvSVG } from "./CsvSVG/CSVSVG";
 import { DateSVG } from "./DateSVG/DateSVG";
@@ -9,4 +10,4 @@ import { PledgeSVG } from "./PledgeSVG/PledgeSVG";
 import { TrashSVG } from "./TrashSVG/TrashSVG";
 import { WithdrawSVG } from "./WithdrawSVG/WithdrawSVG"
 
-export { CashSVG, CsvSVG, DateSVG, DepositSVG, GithubSVG, MetamaskSVG, PersonSVG, PledgeSVG, TrashSVG, WithdrawSVG }
+export { ArrowSVG, CashSVG, CsvSVG, DateSVG, DepositSVG, GithubSVG, MetamaskSVG, PersonSVG, PledgeSVG, TrashSVG, WithdrawSVG }

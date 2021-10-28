@@ -16,6 +16,12 @@
   --size-login: 160px;
 }
 
+.circleA,
+.circleB,
+.circleC {
+  --login-position: fixed;
+}
+
 @media (min-width: 600px) and (orientation: portrait) {
   .circleA {
     --X-login: -2vw;
@@ -54,7 +60,7 @@
 .circleA,
 .circleB,
 .circleC {
-  position: fixed;
+  position: var(--login-position);
   border-radius: 50%;
   outline: none;
   z-index: -1;

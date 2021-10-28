@@ -1,6 +1,6 @@
 .circleA {
-  --Y: 80vh;
   --X: 50vw;
+  --Y: 80vh;
   --size: 10vh;
 }
 
@@ -76,9 +76,9 @@
   }
 }
 
-.circleA_contribute,
-.circleB_contribute,
-.circleC_contribute {
+.circleA,
+.circleB,
+.circleC {
   position: var(--position);
   z-index: -1;
   top: var(--Y);

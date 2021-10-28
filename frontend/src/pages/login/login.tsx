@@ -32,10 +32,11 @@ export const Login = () => {
   }, [ethereum, location])
 
   async function login() {
+    let lastVisited = localStorage.getItem("lastPage")
     try {
       setMessage("Logging in... You might have to click the metamask extension in your browser")
       await ethereum.request({ method: 'eth_requestAccounts' })
-      history.push("/contribute")
+      lastVisited === "create" ? history.push("/create") : history.push("/contribute")
     } catch (error) {
       if ((error as MetamaskError).code === -32002) {
         setMessage("Request already sent, click the metamask extension in your browser")
@@ -47,7 +48,7 @@ export const Login = () => {
 
   return (
     <>
-      <Circles animationDelay={LOGIN_PAGE_FADEOUT_DURATION}></Circles>
+      <Circles animationDelay={LOGIN_PAGE_FADEOUT_DURATION} />
       <motion.div
         initial={{ opacity: 1 }}
         exit={{ opacity: 0 }}
