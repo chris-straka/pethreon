@@ -2,21 +2,28 @@ import { motion } from "framer-motion"
 import styles from "../../../../scss/index.module.scss"
 
 interface CirclesProps {
-  animationDelay: number
+  animationDelay: number,
+  circleAnimationDuration: number
 }
 
-export const Circles = ({ animationDelay }: CirclesProps) => {
+export const Circles = ({ animationDelay, circleAnimationDuration }: CirclesProps) => {
   const lastVisited = localStorage.getItem("lastVisited")
-  // let exitAnimationX
-  // let exitAnimationY
+  let exitAnimationX
+  let exitAnimationY
+  let exitWidth
+  let exitHeight
 
-  // if (lastVisited === "create") {
-  //   exitAnimationX = "var(--X-create)"
-  //   exitAnimationY = "var(--Y-create)"
-  // } else {
-  //   exitAnimationX = "var(--X-contribute)"
-  //   exitAnimationY = "var(--Y-contribute)"
-  // }
+  if (lastVisited === "create") {
+    exitAnimationX = "var(--X-create)"
+    exitAnimationY = "var(--Y-create)"
+    exitHeight = "var(--size-create)"
+    exitWidth = "var(--size-create)"
+  } else {
+    exitAnimationX = "var(--X-contribute)"
+    exitAnimationY = "var(--Y-contribute)"
+    exitHeight = "var(--size-create)"
+    exitWidth = "var(--size-create)"
+  }
 
   return (
     <>
@@ -25,8 +32,10 @@ export const Circles = ({ animationDelay }: CirclesProps) => {
         className={styles.circleA}
         initial={{
           backgroundColor: "var(--primary)",
-          x: "var(--X-login)",
-          y: "var(--Y-login)"
+          left: "var(--X-login)",
+          top: "var(--Y-login)",
+          width: "var(--size-login)",
+          height: "var(--size-login)"
         }}
         animate={{
           scale: 1.55,
@@ -40,21 +49,25 @@ export const Circles = ({ animationDelay }: CirclesProps) => {
           repeatDelay: 0.1,
         }}
         exit={{
-          x: "var(--X-contribute)",
-          y: "var(--Y-contribute)",
+          left: exitAnimationX,
+          top: exitAnimationY,
+          width: exitWidth,
+          height: exitHeight,
           transition: {
-            duration: 5,
+            duration: circleAnimationDuration,
             delay: animationDelay
           }
         }}
       />
 
-      {/* <motion.div
+      <motion.div
         className={styles.circleB}
         initial={{
           backgroundColor: "var(--primary)",
           x: "var(--X-login)",
-          y: "var(--Y-login)"
+          y: "var(--Y-login)",
+          width: "var(--size-login)",
+          height: "var(--size-login)"
         }}
         animate={{
           x: "2vw",
@@ -67,9 +80,10 @@ export const Circles = ({ animationDelay }: CirclesProps) => {
           repeatDelay: 0.1
         }}
         exit={{
-          x: exitAnimationX,
-          y: exitAnimationY,
+          left: exitAnimationX,
+          top: exitAnimationY,
           transition: {
+            duration: circleAnimationDuration,
             delay: animationDelay
           }
         }}
@@ -81,7 +95,9 @@ export const Circles = ({ animationDelay }: CirclesProps) => {
         initial={{
           backgroundColor: "var(--primary)",
           x: "var(--X-login)",
-          y: "var(--Y-login)"
+          y: "var(--Y-login)",
+          width: "var(--size-login)",
+          height: "var(--size-login)"
         }}
         animate={{
           scale: 1.55,
@@ -95,13 +111,14 @@ export const Circles = ({ animationDelay }: CirclesProps) => {
           repeatDelay: 0.1
         }}
         exit={{
-          x: exitAnimationX,
-          y: exitAnimationY,
+          left: exitAnimationX,
+          top: exitAnimationY,
           transition: {
+            duration: circleAnimationDuration,
             delay: animationDelay
           }
         }}
-      /> */}
+      />
 
     </>
   )

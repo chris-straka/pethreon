@@ -1,22 +1,17 @@
 import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
 import { useHistory } from "react-router"
-import { Pledge } from "../../components/Pledge/Pledge"
-import { Balance } from "../../components/Balance/Balance"
-import { Loading } from "../../components/Loading/Loading"
-import { ModalOutline } from "../../components/ModalOutline/ModalOutline"
-import { WithdrawSVG, DepositSVG, PledgeSVG } from "../../svgs"
-import { Circles, DepositModal, PledgeModal, WithdrawModal } from "./components"
-import {
-  EthereumWindow, PledgeType,
-  getContributorBalance, getContributorPledges, MetamaskError
-} from "../../pethreon"
+import { motion } from "framer-motion"
+import { Balance, Loading, ModalOutline } from "../../components"
+import { Circles, PledgeList, ActionBar } from "./components"
+import { getContributorBalance, getContributorPledges } from "../../pethreon"
+import { EthereumWindow, PledgeType, MetamaskError } from "../../utils/EtherTypes"
+import { DepositModal, WithdrawModal, PledgeModal } from "./modals"
 import styles from "./contribute.module.scss"
 
 const CONTRIBUTE_PAGE_FADEOUT_DURATION = 1
 
+
 export const ContributePage = () => {
-  const { ethereum } = window as EthereumWindow
   const [loading, setLoading] = useState(false)
   const [balance, setBalance] = useState("0.0")
   const [pledges, setPledges] = useState<PledgeType[]>([])
@@ -24,15 +19,14 @@ export const ContributePage = () => {
   const [modalBody, setModalBody] = useState<JSX.Element | null>(null)
   const history = useHistory()
 
+  const { ethereum } = window as EthereumWindow
+
   useEffect(() => {
-    if (typeof ethereum === undefined) history.push("/")
-    if (!ethereum.isConnected()) history.push("/")
+    if (typeof ethereum === undefined || !ethereum.isConnected()) history.push("/")
   }, [ethereum, history])
 
   useEffect(() => {
-    ethereum.on("accountsChanged", () => {
-      history.push('/')
-    })
+    ethereum.on("accountsChanged", () => history.push('/'))
   }, [ethereum, history])
 
   useEffect(() => {
@@ -70,33 +64,32 @@ export const ContributePage = () => {
 
   return <>
     {loading && <Loading />}
-    <Circles animationDelay={CONTRIBUTE_PAGE_FADEOUT_DURATION} />
+    <Circles
+      animationDelay={CONTRIBUTE_PAGE_FADEOUT_DURATION}
+    />
     <motion.div
       className={styles.contributeLayout}
-    // initial={{ opacity: 0 }}
-    // animate={{ opacity: 1 }}
-    // exit={{ opacity: 0 }}
-    // transition={{ duration: 2 }}
-    // role="region"
+      initial={{ opacity: 0 }}
+      transition={{ duration: 2 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      role="region"
     >
       <Balance className={styles.balance} balance={balance} />
       <h1 className={styles.userAccountName}>{ethereum.selectedAddress}</h1>
-      <div className={styles.actionBar}>
-        <button className={styles.actionButton} onClick={() => setCurrentModal("deposit")}>Deposit <DepositSVG /></button>
-        <button className={styles.actionButton} onClick={() => setCurrentModal("withdraw")}>Withdraw <WithdrawSVG /></button>
-        <button className={styles.actionButton} onClick={() => setCurrentModal("withdraw")}>Pledge <PledgeSVG /></button>
-      </div>
-      <ul className={pledges.length === 0 ? styles.emptyPledgeBox : styles.pledgeBox}>
-        {pledges.map((pledge: PledgeType) => <Pledge
-          pledge={pledge}
-          setLoading={setLoading}
-          setBalance={setBalance}
-          setPledges={setPledges}
-          key={pledge.creatorAddress}
-        />)}
-        {pledges.length === 0 ? <li className={styles.emptyPledgeText}>You need to make a pledge first...</li> : null}
-      </ul>
+      <ActionBar
+        actionBarClassName={styles.actionBar}
+        actionButtonClassName={styles.actionButon}
+      />
+      <PledgeList
+        className={pledges.length === 0 ? styles.emptyPledgeBox : styles.pledgeBox}
+        emptyListTextStyles={styles.emptyPledgeText}
+        pledges={pledges}
+      />
     </motion.div>
-    <ModalOutline open={currentModal === "" ? false : true} onClose={() => setCurrentModal("")}>{modalBody}</ModalOutline>
+    <ModalOutline
+      open={currentModal === "" ? false : true}
+      onClose={() => setCurrentModal("")}
+    >{modalBody}</ModalOutline>
   </>
 }

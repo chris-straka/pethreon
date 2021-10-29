@@ -4,32 +4,6 @@ import { formatEther } from "@ethersproject/units";
 import { abi } from "./artifacts/localhost/Pethreon.json"
 import { BigNumber } from "@ethersproject/bignumber"
 
-export interface EthereumWindow extends Window { ethereum?: any }
-
-export interface MetamaskError extends Error { data: any, code: number, message: string }
-
-export enum EtherDenomination {
-  ETHER = "Ether",
-  GWEI = "Gwei",
-  WEI = "Wei",
-  ALL = "All",
-}
-
-export enum PledgeStatus {
-  ACTIVE,
-  CANCELLED,
-  EXPIRED
-}
-
-export type PledgeType = {
-  contributorAddress: string,
-  creatorAddress: string,
-  dateCreated: BigNumber,
-  duration: BigNumber,
-  periodExpires: BigNumber,
-  status: PledgeStatus,
-  weiPerPeriod: BigNumber,
-}
 
 const PETHREON_CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
 

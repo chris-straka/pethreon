@@ -1,18 +1,10 @@
 import { BigNumberish, utils } from "ethers"
 import { useState, ChangeEvent, FormEvent, Dispatch, SetStateAction } from "react"
-import { ConsentCheckbox } from "../../../../components/ConsentCheckbox/ConsentCheckbox"
-import { CurrencyField } from "../../../../components/CurrencyField/CurrrencyField"
-import { CurrencyDenomination } from "../../../../components/CurrencyDenomination/CurrencyDenomination"
-import { SubmitButton } from "../../../../components/SubmitButton/Submit"
-import { Disclaimer } from "../../../../components/Disclaimer/Disclaimer"
-import { Spacer } from "../../../../components/Spacer/Spacer"
+import { Spacer, Disclaimer, SubmitButton, CurrencyDenomination, CurrencyField, ConsentCheckbox } from "../../../../components"
 import { DepositSVG } from "../../../../svgs"
+import { deposit, getContributorBalance, } from "../../../../pethreon"
+import { EtherDenomination, MetamaskError } from "../../../../utils/EtherTypes"
 import styles from "./Deposit.module.scss"
-
-import {
-  deposit, getContributorBalance, EtherDenomination,
-  MetamaskError
-} from "../../../../pethreon"
 
 interface DepositModalProps {
   closeModal: () => void,
@@ -54,10 +46,16 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositModa
   return (
     <form className={styles.depositFormLayout}>
       <h3 className={styles.depositHeading}>How much to deposit?</h3>
-      <CurrencyField invalid={invalid} amount={amount} getAmount={(event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)} />
+      <CurrencyField
+        invalid={invalid}
+        amount={amount}
+        getAmount={(event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)}
+      />
       <Spacer marginBottom="16px" />
-      <div className={styles.currencyButtons}
-        onChange={(event: ChangeEvent<HTMLInputElement>) => setCurrency((event.target.value) as EtherDenomination)}>
+      <div
+        className={styles.currencyButtons}
+        onChange={(event: ChangeEvent<HTMLInputElement>) => setCurrency((event.target.value) as EtherDenomination)}
+      >
         <CurrencyDenomination defaultChecked={true} denomination={EtherDenomination.ETHER} />
         <CurrencyDenomination defaultChecked={false} denomination={EtherDenomination.GWEI} />
         <CurrencyDenomination defaultChecked={false} denomination={EtherDenomination.WEI} />

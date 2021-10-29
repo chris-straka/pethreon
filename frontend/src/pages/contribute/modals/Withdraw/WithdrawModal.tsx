@@ -1,18 +1,10 @@
 import { useState, Dispatch, SetStateAction, ChangeEvent, FormEvent } from "react"
 import { BigNumberish, utils } from "ethers"
-import { CurrencyField } from "../../../../components/CurrencyField/CurrrencyField"
-import { CurrencyDenomination } from "../../../../components/CurrencyDenomination/CurrencyDenomination"
-import { Spacer } from "../../../../components/Spacer/Spacer"
-import { Disclaimer } from "../../../../components/Disclaimer/Disclaimer"
-import { ConsentCheckbox } from "../../../../components/ConsentCheckbox/ConsentCheckbox"
-import { SubmitButton } from "../../../../components/SubmitButton/Submit"
+import { CurrencyField, CurrencyDenomination, Spacer, Disclaimer, ConsentCheckbox, SubmitButton } from "../../../../components"
 import { WithdrawSVG } from "../../../../svgs"
+import { MetamaskError, EtherDenomination } from "../../../../utils/EtherTypes"
+import { contributorWithdraw, getContributorBalance, } from "../../../../pethreon"
 import styles from "./WithdrawModal.module.scss"
-
-import {
-  contributorWithdraw, getContributorBalance, MetamaskError,
-  EtherDenomination
-} from "../../../../pethreon"
 
 
 interface WithdrawModalProps {

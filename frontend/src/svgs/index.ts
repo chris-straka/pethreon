@@ -1,6 +1,6 @@
 import { ArrowSVG } from "./ArrowSVG/ArrowSVG";
 import { CashSVG } from "./CashSVG/CashSVG";
-import { CsvSVG } from "./CsvSVG/CSVSVG";
+import { CsvSVG } from "./CsvSVG/CsvSVG";
 import { DateSVG } from "./DateSVG/DateSVG";
 import { DepositSVG } from "./DepositSVG/DepositSVG"
 import { GithubSVG } from "./GithubSVG/GithubSVG";

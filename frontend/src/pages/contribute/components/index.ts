@@ -1,6 +1,5 @@
+import { ActionBar } from "./ActionBar/ActionBar"
 import { Circles } from "./Circles/Circles"
-import { DepositModal } from "./DepositModal/Deposit";
-import { PledgeModal } from "./PledgeModal/PledgeModal";
-import { WithdrawModal } from "./WithdrawModal/WithdrawModal";
+import { PledgeList } from "./PledgeList/PledgeList";
 
-export { Circles, DepositModal, PledgeModal, WithdrawModal }
+export { Circles, PledgeList, ActionBar }

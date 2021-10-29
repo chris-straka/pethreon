@@ -20,7 +20,7 @@ export const Circles = ({ animationDelay }: CirclesProps) => {
         transition={{}}
       />
 
-      {/* <motion.div
+      <motion.div
         className={styles.circleB}
         initial={{
           backgroundColor: "var(--primary)",
@@ -42,7 +42,7 @@ export const Circles = ({ animationDelay }: CirclesProps) => {
         transition={{}}
         animate={{}}
         exit={{}}
-      /> */}
+      />
 
     </>
   )

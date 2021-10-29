@@ -1,4 +1,5 @@
-import { PledgeType, PledgeStatus, getExpiredPledges } from "../pethreon"
+import { getExpiredPledges } from "../pethreon"
+import { PledgeType, PledgeStatus } from "./EtherTypes";
 import { utils } from "ethers"
 
 export const extractPledgesToCSV = async (active?: PledgeType[]) => {

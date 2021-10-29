@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from "framer-motion"
 import { useHistory } from 'react-router';
-import { EthereumWindow, MetamaskError } from "../../pethreon"
+import { EthereumWindow, MetamaskError } from '../../utils/EtherTypes';
 import { TypewriterEffect } from './components';
 import { Footer } from "../../components"
 import { Circles, Features, Video, Pethreon, LoginContainer } from './components';
@@ -10,9 +10,12 @@ import styles from "./login.module.scss"
 
 const WALLET_DETECTED = "This app uses your ethereum wallet to make subscriptions to creators"
 const WALLET_NOT_FOUND = "This app requires a cryptocurrency wallet to work, "
+
 const TEXT_ANIMATION_DELAY = 1000
 const TEXT_ANIMATION_CADENCE = 75
+
 const LOGIN_PAGE_FADEOUT_DURATION = 1
+const CIRCLE_ANIMATION_DURATION = 1
 
 export const Login = () => {
   const history = useHistory()
@@ -48,7 +51,10 @@ export const Login = () => {
 
   return (
     <>
-      <Circles animationDelay={LOGIN_PAGE_FADEOUT_DURATION} />
+      <Circles
+        animationDelay={LOGIN_PAGE_FADEOUT_DURATION}
+        circleAnimationDuration={CIRCLE_ANIMATION_DURATION}
+      />
       <motion.div
         initial={{ opacity: 1 }}
         exit={{ opacity: 0 }}

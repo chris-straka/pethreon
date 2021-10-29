@@ -1,16 +1,11 @@
 import { useState, Dispatch, ChangeEvent, SetStateAction, FormEvent } from "react"
-import { CurrencyDenomination } from "../../../../components/CurrencyDenomination/CurrencyDenomination"
-import { PledgeField } from "./PledgeModalField/PledgeModalField"
-import { SubmitButton } from "../../../../components/SubmitButton/Submit"
-import { Spacer } from "../../../../components/Spacer/Spacer"
+import { Spacer, SubmitButton, CurrencyDenomination } from "../../../../components"
+import { PledgeField } from "../PledgeField/PledgeModalField"
 import { BigNumberish, utils } from "ethers"
 import { CashSVG, PersonSVG, DateSVG, PledgeSVG } from "../../../../svgs"
+import { getContributorBalance, createPledge, getContributorPledges } from "../../../../pethreon"
+import { PledgeType, EtherDenomination, MetamaskError } from "../../../../utils/EtherTypes"
 import styles from "./PledgeModal.module.scss"
-
-import {
-  getContributorBalance, createPledge, getContributorPledges,
-  EtherDenomination, MetamaskError, PledgeType
-} from "../../../../pethreon"
 
 
 interface PledgeModalProps {
