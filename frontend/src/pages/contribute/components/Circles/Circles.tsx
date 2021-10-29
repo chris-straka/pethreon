@@ -2,7 +2,8 @@ import { motion } from "framer-motion"
 import styles from "../../../../scss/index.module.scss"
 
 interface CirclesProps {
-  animationDelay: number
+  animationDelay: number,
+  circleAnimationDuration: number
 }
 
 export const Circles = ({ animationDelay }: CirclesProps) => {

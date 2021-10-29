@@ -3,7 +3,7 @@ import { PledgeModal } from "./Pledge/PledgeModal"
 import { Pledge } from "../../../components";
 import { WithdrawModal } from "./Withdraw/WithdrawModal";
 
-export enum MODAL {
+export enum MODAL_TYPE {
   NONE = "",
   DEPOSIT = "deposit",
   PLEDGE = "pledge",

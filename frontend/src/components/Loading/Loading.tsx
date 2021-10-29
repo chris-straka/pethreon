@@ -1,4 +1,4 @@
-import "./Loading.scss"
+import "./Loading.scss" // it's not a module because it's an animation
 
 const LOADING_TEXT = "Loading..."
 

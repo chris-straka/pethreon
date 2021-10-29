@@ -1,4 +1,5 @@
-import { getContributorPledges, getContributorBalance, cancelPledge, MetamaskError, PledgeType } from "../../pethreon"
+import { getContributorPledges, getContributorBalance, cancelPledge } from "../../pethreon"
+import { PledgeType, MetamaskError } from "../../utils/EtherTypes"
 import { utils } from "ethers"
 import { TrashSVG } from "../../svgs"
 import styles from "./Pledge.module.scss"

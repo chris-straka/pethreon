@@ -1,15 +1,16 @@
 import { motion } from "framer-motion"
 
 interface CirclesProps {
-  animationDelay: number
+  animationDelay: number,
+  circleAnimationDuration: number
 }
 
-export const Circles = ({ animationDelay }: CirclesProps) => {
+export const Circles = ({ animationDelay, circleAnimationDuration }: CirclesProps) => {
   return (
     <>
       <motion.div
         initial={{}}
-        transition={{ duration: 6 }}
+        transition={{}}
         animate={{}}
         exit={{}}
       />

@@ -9,9 +9,10 @@ import { ModalOutline } from "./ModalOutline/ModalOutline";
 import { Pledge } from "./Pledge/Pledge";
 import { Spacer } from "./Spacer/Spacer";
 import { SubmitButton } from "./SubmitButton/Submit";
+import { UserAddress } from "./UserAddress/UserAddress";
 
 export {
   Balance, ConsentCheckbox, CurrencyDenomination,
   CurrencyField, Disclaimer, Footer, Loading, ModalOutline,
-  Pledge, Spacer, SubmitButton
+  Pledge, Spacer, SubmitButton, UserAddress
 }

@@ -2,10 +2,11 @@ import { DepositSVG, WithdrawSVG, PledgeSVG } from "../../../../svgs"
 
 interface ActionBarProps {
   actionBarClassName: string,
-  actionButtonClassName: string
+  actionButtonClassName: string,
+  setCurrentModal: any
 }
 
-export const ActionBar = ({ actionBarClassName, actionButtonClassName }: ActionBarProps) => {
+export const ActionBar = ({ actionBarClassName, actionButtonClassName, setCurrentModal }: ActionBarProps) => {
   return (
     <div className={actionBarClassName}>
       <button

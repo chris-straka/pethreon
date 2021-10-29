@@ -9,5 +9,5 @@ const warning = (event: FormEvent<HTMLButtonElement>) => {
 }
 
 export const Disclaimer = () => (
-  <p className={styles.disclaimerText}>⚠️  Warning! <button type="button" className={styles.popup} onClick={warning}>Please read!</button></p>
+  <p className={styles.disclaimerText}>⚠️  Warning! < button type="button" className={styles.popup} onClick={warning}>Please read!</button></p>
 )

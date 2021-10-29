@@ -1,19 +1,15 @@
 import { useState, useEffect, FormEvent } from "react"
 import { motion } from "framer-motion"
 import { useHistory } from "react-router"
-import { Loading } from "../../components/Loading/Loading"
-import { Balance } from "../../components/Balance/Balance"
-import { Pledge } from "../../components/Pledge/Pledge"
+import { Loading, Balance, UserAddress } from "../../components"
 import { extractPledgesToCSV } from "../../utils/extractPledgesToCSV"
-import { WithdrawSVG, CsvSVG } from "../../svgs"
-import { Circles } from "./components"
-import {
-  MetamaskError, EthereumWindow, PledgeType,
-  creatorWithdraw, getCreatorBalance, getCreatorPledges
-} from "../../pethreon"
+import { Circles, ActionBar, PledgeList } from "./components"
+import { creatorWithdraw, getCreatorBalance, getCreatorPledges } from "../../pethreon"
+import { EthereumWindow, MetamaskError, PledgeType } from "../../utils/EtherTypes"
 import styles from "./create.module.scss"
 
 const CREATE_PAGE_FADEOUT_DURATION = 1
+const CIRCLE_ANIMATION_DURATION = 1
 
 export const CreatePage = () => {
   const { ethereum } = window as EthereumWindow
@@ -59,25 +55,36 @@ export const CreatePage = () => {
 
   return <>
     {loading && <Loading />}
-    <Circles animationDelay={CREATE_PAGE_FADEOUT_DURATION} />
+    <Circles
+      animationDelay={CREATE_PAGE_FADEOUT_DURATION}
+      circleAnimationDuration={CIRCLE_ANIMATION_DURATION}
+    />
     <motion.div
+      className={styles.createLayout}
+      role="region"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: .5 }}
-      role="region"
-      className={styles.createLayout}
     >
-      <Balance className={styles.balance} balance={balance} />
-      <h2 className={styles.userAccountName}>{ethereum.selectedAddress}</h2>
-      <div className={styles.actionBar}>
-        <button className={styles.actionButton} onClick={() => withdrawBalance}>Withdraw <WithdrawSVG /></button>
-        <button className={styles.actionButton} onClick={() => extractPledgesToCSV(pledges)}>Extract to CSV <CsvSVG /></button>
-      </div>
-      <ul className={pledges.length === 0 ? styles.emptyPledgeBox : styles.pledgeBox}>
-        {pledges.map((pledge: PledgeType) => <Pledge pledge={pledge} creator={true} key={pledge.contributorAddress} />)}
-        {pledges.length === 0 ? <li className={styles.emptyPledgeText}>Nobody has pledged to you yet...</li> : null}
-      </ul>
+      <Balance
+        className={styles.balance}
+        balance={balance}
+      />
+      <UserAddress
+        className={styles.userAccountName}
+        userAccountAddress={ethereum.selectedAddress}
+      />
+      <ActionBar
+        actionBarClassName={styles.actionBar}
+        actionButtonClassName={styles.actionButton}
+        makeCSV={() => extractPledgesToCSV(pledges)}
+        withdraw={() => withdrawBalance}
+      />
+      <PledgeList
+        className={pledges.length === 0 ? styles.emptyPledgeBox : styles.pledgeBox}
+        emptyListTextStyle={styles.emptyPledgeText}
+        pledges={pledges}
+      />
     </motion.div>
   </>
 }
