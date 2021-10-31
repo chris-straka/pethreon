@@ -51,6 +51,7 @@ export const ContributePage = () => {
       className={styles.contributeLayout}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
+      transition={{ duration: CONTRIBUTE_PAGE_FADEOUT_DURATION }}
       exit={{ opacity: 0 }}
       role="region"
     >
@@ -63,7 +64,7 @@ export const ContributePage = () => {
       />
       <ActionBar
         actionBarClassName={styles.actionBar}
-        actionButtonClassName={styles.actionButon}
+        actionButtonClassName={styles.actionButton}
         setCurrentModal={setCurrentModal}
       />
       <PledgeList

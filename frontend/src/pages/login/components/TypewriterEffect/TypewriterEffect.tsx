@@ -1,5 +1,5 @@
 import { useEffect, useState, Dispatch, SetStateAction } from "react"
-import { EthereumWindow } from "../../../../pethreon";
+import { EthereumWindow } from "../../../../utils/EtherTypes";
 
 interface MetamaskAnimationProps {
   className: string,

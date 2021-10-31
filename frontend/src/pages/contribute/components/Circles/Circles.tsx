@@ -14,35 +14,64 @@ export const Circles = ({ animationDelay }: CirclesProps) => {
         className={styles.circleA}
         initial={{
           backgroundColor: "var(--primary)",
-          x: "var(--X-contribute)",
-          y: "var(--Y-contribute)"
+          top: "var(--top-contribute)",
+          left: "var(--left-contribute)",
+          height: "var(--height-contribute)",
+          width: "var(--width-contribute)",
+          borderRadius: "50%"
         }}
-        animate={{}}
-        transition={{}}
+        animate={{
+          scale: 1.55,
+          x: "2vw",
+          y: "2vw"
+        }}
+        transition={{
+          duration: 16,
+          repeat: Infinity,
+          repeatType: "reverse",
+          repeatDelay: 0.1,
+        }}
       />
 
       <motion.div
         className={styles.circleB}
         initial={{
           backgroundColor: "var(--primary)",
-          x: "var(--X-contribute)",
-          y: "var(--Y-contribute)"
+          top: "var(--top-contribute)",
+          left: "var(--left-contribute)",
+          height: "var(--height-contribute)",
+          width: "var(--width-contribute)",
+          borderRadius: "50%"
         }}
-        transition={{}}
-        animate={{}}
-        exit={{}}
+        animate={{
+          scale: 1.55,
+          x: "2vw",
+          y: "2vw"
+        }}
+        transition={{
+          duration: 16,
+          repeat: Infinity,
+          repeatType: "reverse",
+          repeatDelay: 0.1,
+        }}
       />
 
       <motion.button
         className={styles.circleC}
         initial={{
           backgroundColor: "var(--primary)",
-          x: "var(--X-contribute)",
-          y: "var(--Y-contribute)"
+          top: "var(--top-contribute)",
+          left: "var(--left-contribute)",
+          height: "var(--height-contribute)",
+          width: "var(--width-contribute)",
+          borderRadius: "0px",
+          borderBottomLeftRadius: "32px"
         }}
-        transition={{}}
-        animate={{}}
-        exit={{}}
+        animate={{
+          backgroundColor: "var(--secondary)",
+          top: "var(--top-contribute)",
+          left: "var(--left-contribute)",
+        }}
       />
 
     </>

@@ -1,31 +1,31 @@
 .circleA {
-  --X-login: -5vw;
-  --Y-login: -5vh;
+  --left-login: -5vw;
+  --top-login: -5vh;
   --size-login: 112px;
+  --width-login: var(--size-login);
+  --height-login: var(--size-login);
 }
 
 .circleB {
-  --X-login: 92vw;
-  --Y-login: 40vh;
+  --left-login: 92vw;
+  --top-login: 40vh;
   --size-login: 128px;
+  --width-login: var(--size-login);
+  --height-login: var(--size-login);
 }
 
 .circleC {
-  --X-login: 30vw;
-  --Y-login: 92vh;
+  --left-login: 30vw;
+  --top-login: 92vh;
   --size-login: 160px;
-}
-
-.circleA,
-.circleB,
-.circleC {
-  --login-position: fixed;
+  --width-login: var(--size-login);
+  --height-login: var(--size-login);
 }
 
 @media (min-width: 600px) and (orientation: portrait) {
   .circleA {
-    --X-login: -2vw;
-    --Y-login: -2vh;
+    --left-login: -2vw;
+    --top-login: -2vh;
     --size-login: clamp(224px, 6vw, 650px);
   }
 
@@ -34,7 +34,7 @@
   }
 
   .circleC {
-    --Y-login: 82vh;
+    --top-login: 82vh;
     --size-login: 440px;
   }
 }
@@ -45,14 +45,14 @@
   }
 
   .circleB {
-    --X-login: 50vw;
-    --Y-login: 85vh;
+    --left-login: 50vw;
+    --top-login: 85vh;
     --size-login: 300px;
   }
 
   .circleC {
-    --X-login: 80vw;
-    --Y-login: 3vh;
+    --left-login: 80vw;
+    --top-login: 3vh;
     --size-login: 490px;
   }
 }
@@ -60,15 +60,11 @@
 .circleA,
 .circleB,
 .circleC {
-  position: var(--login-position);
-  border-radius: 50%;
   outline: none;
   z-index: -1;
 
-  left: var(--X-login);
-  top: var(--Y-login);
-  width: var(--size-login);
-  height: var(--size-login);
-  color: transparent;
-  fill: transparent;
+  left: var(--left-login);
+  top: var(--top-login);
+  width: var(--width-login);
+  height: var(--height-login);
 }

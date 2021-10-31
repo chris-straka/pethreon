@@ -1,24 +1,29 @@
 .circleA {
-  --X-contribute: 50vw;
-  --Y-contribute: 80vh;
+  --top-contribute: 80vh;
+  --left-contribute: 15vw;
   --size-contribute: 10vh;
+  --width-contribute: var(--size-contribute);
+  --height-contribute: var(--size-contribute);
 }
 
 .circleB {
-  --X-contribute: 55vw;
-  --Y-contribute: 77vh;
+  --top-contribute: 77vh;
+  --left-contribute: 55vw;
   --size-contribute: 18vh;
+  --width-contribute: var(--size-contribute);
+  --height-contribute: var(--size-contribute);
 }
 
 .circleC {
-  --X-contribute: 60vw;
-  --Y-contribute: 0vh;
+  --top-contribute: 0vh;
+  --left-contribute: 60vw;
   --width-contribute: 40vw;
   --height-contribute: 13vh;
 
   --fs-contribute: clamp(10px, 6vw, 30px);
   --outline-offset-contribute: 3px;
   --outline-size-contribute: 5px;
+  --border-radius-contribute: 0 0 0 32px;
 }
 
 .circleA,
@@ -43,7 +48,7 @@
   }
 
   .circleC {
-    --Y-contribute: 25vh;
+    --top-contribute: 25vh;
   }
 }
 
@@ -59,8 +64,8 @@
   .circleA,
   .circleB,
   .circleC {
-    --X-contribute: 22vw;
-    --Y-contribute: 51vh;
+    --top-contribute: 51vh;
+    --left-contribute: 22vw;
     --size-contribute: 25vh;
   }
 }
@@ -69,25 +74,16 @@
 .circleB,
 .circleC {
   position: var(--position-contribute);
+  top: var(--top-contribute);
+  left: var(--left-contribute);
+  width: var(--width-contribute);
+  height: var(--height-contribute);
   z-index: -1;
-  top: var(--Y-contribute);
-  left: var(--X-contribute);
-  width: var(--size-contribute);
-  height: var(--size-contribute);
-}
-
-.circleA 
-.circleB {
-  border-radius: 50%;
 }
 
 .circleC {
-  width: var(--width-contribute);
-  height: var(--height-contribute);
-
   background-color: var(--secondary-contribute);
   color: var(--darktheme-black-text-contribute);
-  border-radius: 0 0 0 32px;
   cursor: pointer;
 
   font-size: var(--fs-contribute);

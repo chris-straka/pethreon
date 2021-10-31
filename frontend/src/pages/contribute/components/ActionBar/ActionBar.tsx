@@ -17,7 +17,7 @@ export const ActionBar = ({ actionBarClassName, actionButtonClassName, setCurren
         onClick={() => setCurrentModal("withdraw")}>Withdraw <WithdrawSVG /></button>
       <button
         className={actionButtonClassName}
-        onClick={() => setCurrentModal("withdraw")}>Pledge <PledgeSVG /></button>
+        onClick={() => setCurrentModal("pledge")}>Pledge <PledgeSVG /></button>
     </div>
   );
 }
