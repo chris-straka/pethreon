@@ -1,0 +1,53 @@
+.circleA {
+  position: fixed;
+  outline: none;
+  z-index: -1;
+
+  --left-login: -5vw;
+  --top-login: -5vh;
+  --size-login: 112px;
+  --width-login: var(--size-login);
+  --height-login: var(--size-login);
+
+  --top-contribute: 80vh;
+  --left-contribute: 15vw;
+  --size-contribute: 10vh;
+  --width-contribute: var(--size-contribute);
+  --height-contribute: var(--size-contribute);
+
+  --left-create: 17vw;
+  --top-create: 80vh;
+  --size-create: 10vh;
+  --width-create: var(--size-create);
+  --height-create: var(--size-create)
+}
+
+@media (min-width: 600px) and (orientation: portrait) {
+  .circleA {
+    --left-login: -2vw;
+    --top-login: -2vh;
+    --size-login: clamp(224px, 6vw, 650px);
+  }
+}
+
+@media (max-width: 1279px) and (orientation: landscape) {
+  .circleA {
+    --size-contribute: 0;
+    --size-create: 0;
+    position: absolute;
+  }
+}
+
+@media (min-width: 1280px) and (orientation: landscape) {
+  .circleA {
+    --size-login: 240px;
+
+    --top-contribute: 75vh;
+    --left-contribute: 6vw;
+    --size-contribute: 12vh;
+
+    --top-create: 75vh;
+    --left-create: 12vw;
+    --size-create: 12vh;
+  }
+}

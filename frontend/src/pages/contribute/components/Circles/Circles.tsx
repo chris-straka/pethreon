@@ -1,4 +1,5 @@
 import { motion } from "framer-motion"
+import { ArrowSVG } from "../../../../svgs"
 import styles from "../../../../scss/index.module.scss"
 
 interface CirclesProps {
@@ -7,13 +8,13 @@ interface CirclesProps {
 }
 
 export const Circles = ({ animationDelay }: CirclesProps) => {
+
   return (
     <>
-
       <motion.div
         className={styles.circleA}
         initial={{
-          backgroundColor: "var(--primary)",
+          backgroundColor: "var(--primary-dark)",
           top: "var(--top-contribute)",
           left: "var(--left-contribute)",
           height: "var(--height-contribute)",
@@ -21,7 +22,7 @@ export const Circles = ({ animationDelay }: CirclesProps) => {
           borderRadius: "50%"
         }}
         animate={{
-          scale: 1.55,
+          scale: 1.25,
           x: "2vw",
           y: "2vw"
         }}
@@ -30,6 +31,12 @@ export const Circles = ({ animationDelay }: CirclesProps) => {
           repeat: Infinity,
           repeatType: "reverse",
           repeatDelay: 0.1,
+        }}
+        exit={{
+          top: "var(--top-login)",
+          left: "var(--left-login)",
+          height: "var(--height-login",
+          width: "var(--width-login)"
         }}
       />
 
@@ -44,7 +51,7 @@ export const Circles = ({ animationDelay }: CirclesProps) => {
           borderRadius: "50%"
         }}
         animate={{
-          scale: 1.55,
+          scale: 1.25,
           x: "2vw",
           y: "2vw"
         }}
@@ -54,26 +61,32 @@ export const Circles = ({ animationDelay }: CirclesProps) => {
           repeatType: "reverse",
           repeatDelay: 0.1,
         }}
+        exit={{
+          top: "var(--top-login)",
+          left: "var(--left-login)",
+          height: "var(--height-login",
+          width: "var(--width-login)"
+        }}
       />
 
       <motion.button
         className={styles.circleC}
         initial={{
-          backgroundColor: "var(--primary)",
+          backgroundColor: "var(--secondary)",
           top: "var(--top-contribute)",
           left: "var(--left-contribute)",
           height: "var(--height-contribute)",
           width: "var(--width-contribute)",
-          borderRadius: "0px",
-          borderBottomLeftRadius: "32px"
+          borderBottomLeftRadius: "40px"
         }}
-        animate={{
-          backgroundColor: "var(--secondary)",
-          top: "var(--top-contribute)",
-          left: "var(--left-contribute)",
+        animate={{}}
+        exit={{
+          top: "var(--top-login)",
+          left: "var(--left-login)",
+          height: "var(--height-login",
+          width: "var(--width-login)"
         }}
-      />
-
+      > Create <ArrowSVG /></motion.button >
     </>
   )
 }

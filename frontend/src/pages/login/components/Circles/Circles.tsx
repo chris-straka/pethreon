@@ -7,23 +7,6 @@ interface CirclesProps {
 }
 
 export const Circles = ({ animationDelay, circleAnimationDuration }: CirclesProps) => {
-  const lastVisited = localStorage.getItem("lastVisited")
-  let exitAnimationLeft
-  let exitAnimationTop
-  let exitWidth
-  let exitHeight
-
-  if (lastVisited === "create") {
-    exitAnimationLeft = "var(--left-create)"
-    exitAnimationTop = "var(--top-create)"
-    exitHeight = "var(--height-create)"
-    exitWidth = "var(--width-create)"
-  } else {
-    exitAnimationLeft = "var(--left-contribute)"
-    exitAnimationTop = "var(--top-contribute)"
-    exitHeight = "var(--height-contribute)"
-    exitWidth = "var(--width-contribute)"
-  }
 
   return (
     <>
@@ -52,10 +35,11 @@ export const Circles = ({ animationDelay, circleAnimationDuration }: CirclesProp
         }}
         exit={{
           scale: 1,
-          left: exitAnimationLeft,
-          top: exitAnimationTop,
-          width: exitWidth,
-          height: exitHeight,
+          backgroundColor: "var(--primary-dark)",
+          left: "var(--left-contribute)",
+          top: "var(--top-contribute)",
+          width: "var(--width-contribute)",
+          height: "var(--height-contribute)",
           transition: {
             duration: circleAnimationDuration,
             delay: animationDelay
@@ -86,10 +70,10 @@ export const Circles = ({ animationDelay, circleAnimationDuration }: CirclesProp
         }}
         exit={{
           scale: 1,
-          left: exitAnimationLeft,
-          top: exitAnimationTop,
-          width: exitWidth,
-          height: exitHeight,
+          left: "var(--left-contribute)",
+          top: "var(--top-contribute)",
+          width: "var(--width-contribute)",
+          height: "var(--height-contribute)",
           transition: {
             duration: circleAnimationDuration,
             delay: animationDelay
@@ -122,15 +106,17 @@ export const Circles = ({ animationDelay, circleAnimationDuration }: CirclesProp
         }}
         exit={{
           scale: 1,
-          top: exitAnimationTop,
-          left: exitAnimationLeft,
-          height: exitHeight,
-          width: exitWidth,
+          backgroundColor: "var(--secondary)",
+          left: "var(--left-contribute)",
+          top: "var(--top-contribute)",
+          width: "var(--width-contribute)",
+          height: "var(--height-contribute)",
           borderRadius: "0px",
-          borderBottomLeftRadius: "32px",
+          borderBottomLeftRadius: "40px",
           transition: {
+            ease: "easeInOut",
             duration: circleAnimationDuration,
-            delay: animationDelay
+            delay: animationDelay,
           }
         }}
       />

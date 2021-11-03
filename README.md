@@ -86,7 +86,7 @@ function getExpectedPayment(uint period) constant returns (uint expectedPayment)
 }
 ```
 
-According to this [post](https://ethereum.stackexchange.com/questions/39723), it looks like there's no way to test the existence of a map.  Sergei used an "exists" boolean, I think I might have to do something similar with an enum.
+According to this [post](https://ethereum.stackexchange.com/questions/39723), it looks like there's no way to test the existence of a map. Sergei used an "exists" boolean, I think I might have to do something similar with an enum.
 
 ### Can the creator get locked out of their money?
 
@@ -129,6 +129,10 @@ I probably could've done my typewriter animation in the login screen using CSS o
 ### Metamask Problems
 
 When the user clicks my login button, they're prompted with a "sign-in" modal from metamask (and not me). If the user closes that modal without signing in, metamask will NOT error out. Instead, my code behaves as if the user is STILL logging in which is not a great UX. It looks like other popular sites like Aave and Uniswap behave the same though. Also, when an error is thrown metamask will give back an object but sometimes the error is tricky to find. It might be in error.message or it might be in error.data.message which is frustating.
+
+### Circle Problems
+
+I'm not happy with how my circles are setup.
 
 ## Todo
 
@@ -192,17 +196,23 @@ I spent a lot of time playing around with font-sizes. I was tweaking the same st
 
 ```scss
 /* Uses vh and vm with calc */
-@media screen and (min-width: 25em){
-  html { font-size: calc( 16px + (24 - 16) * (100vw - 400px) / (800 - 400) ); }
+@media screen and (min-width: 25em) {
+  html {
+    font-size: calc(16px + (24 - 16) * (100vw - 400px) / (800 - 400));
+  }
 }
 
 /* Safari <8 and IE <11 */
-@media screen and (min-width: 25em){
-  html { font-size: calc( 16px + (24 - 16) * (100vw - 400px) / (800 - 400) ); }
+@media screen and (min-width: 25em) {
+  html {
+    font-size: calc(16px + (24 - 16) * (100vw - 400px) / (800 - 400));
+  }
 }
 
-@media screen and (min-width: 50em){
-html { font-size: calc( 16px + (24 - 16) * (100vw - 400px) / (800 - 400) ); }
+@media screen and (min-width: 50em) {
+  html {
+    font-size: calc(16px + (24 - 16) * (100vw - 400px) / (800 - 400));
+  }
 }
 ```
 

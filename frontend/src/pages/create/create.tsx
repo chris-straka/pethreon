@@ -3,7 +3,7 @@ import { motion } from "framer-motion"
 import { useHistory } from "react-router"
 import { Loading, Balance, UserAddress } from "../../components"
 import { extractPledgesToCSV } from "../../utils/extractPledgesToCSV"
-import { Circles, ActionBar, PledgeList } from "./components"
+import { ActionBar, PledgeList } from "./components"
 import { creatorWithdraw, getCreatorBalance, getCreatorPledges } from "../../pethreon"
 import { EthereumWindow, MetamaskError, PledgeType } from "../../utils/EtherTypes"
 import styles from "./create.module.scss"
@@ -55,10 +55,6 @@ export const CreatePage = () => {
 
   return <>
     {loading && <Loading />}
-    <Circles
-      animationDelay={CREATE_PAGE_FADEOUT_DURATION}
-      circleAnimationDuration={CIRCLE_ANIMATION_DURATION}
-    />
     <motion.div
       className={styles.createLayout}
       role="region"

@@ -1,4 +1,7 @@
 import { Balance } from "./Balance/Balance";
+import { CircleA } from "./CircleA/CircleA";
+import { CircleB } from "./CircleB/CircleB";
+import { CircleC } from "./CircleC/CircleC";
 import { ConsentCheckbox } from "./ConsentCheckbox/ConsentCheckbox";
 import { CurrencyDenomination } from "./CurrencyDenomination/CurrencyDenomination";
 import { CurrencyField } from "./CurrencyField/CurrrencyField";
@@ -12,7 +15,7 @@ import { SubmitButton } from "./SubmitButton/Submit";
 import { UserAddress } from "./UserAddress/UserAddress";
 
 export {
-  Balance, ConsentCheckbox, CurrencyDenomination,
+  Balance, CircleA, CircleB, CircleC, ConsentCheckbox, CurrencyDenomination,
   CurrencyField, Disclaimer, Footer, Loading, ModalOutline,
   Pledge, Spacer, SubmitButton, UserAddress
 }

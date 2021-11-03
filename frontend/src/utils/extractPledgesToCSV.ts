@@ -10,13 +10,9 @@ export const extractPledgesToCSV = async (active?: PledgeType[]) => {
 
   const expired = await getExpiredPledges()
 
-  if (active !== undefined && active !== []) {
-    activePledges = processForCSV(active)
-  }
+  if (active !== undefined && active !== []) activePledges = processForCSV(active)
 
-  if (expired === undefined && expired !== []) {
-    expiredPledges = processForCSV(expired)
-  }
+  if (expired === undefined && expired !== []) expiredPledges = processForCSV(expired)
 
   const rows = [
     [`Creator Address: ${creatorAddress}`, "Start date", "End date", "Duration (days)", "Ether per day", "Status"],

@@ -22,14 +22,14 @@ const config: HardhatUserConfig = {
     hardhat: {
       chainId: 1337,
       accounts: {
-        mnemonic: "test test test test test test test test test test test junk",
+        mnemonic: "test test test test test test test test test test test junk"
       },
     },
   },
   solidity: "0.8.6",
   paths: {
     deployments: "./frontend/src/artifacts"
-  }
+  },
 }
 
 export default config

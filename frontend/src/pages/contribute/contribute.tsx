@@ -2,13 +2,13 @@ import { useState, useEffect } from "react"
 import { useHistory } from "react-router"
 import { motion } from "framer-motion"
 import { Balance, Loading, UserAddress } from "../../components"
-import { Circles, PledgeList, ActionBar } from "./components"
+import { PledgeList, ActionBar } from "./components"
 import { getContributorBalance, getContributorPledges } from "../../pethreon"
 import { EthereumWindow, PledgeType, MetamaskError } from "../../utils/EtherTypes"
 import { DepositModal, WithdrawModal, PledgeModal, MODAL_TYPE } from "./modals"
 import styles from "./contribute.module.scss"
 
-const CONTRIBUTE_PAGE_FADEOUT_DURATION = 1
+const CONTRIBUTE_PAGE_FADEIN_DURATION = 1
 const CIRCLE_ANIMATION_DURATION = 1
 
 export const ContributePage = () => {
@@ -43,15 +43,11 @@ export const ContributePage = () => {
 
   return <>
     {loading && <Loading />}
-    <Circles
-      animationDelay={CONTRIBUTE_PAGE_FADEOUT_DURATION}
-      circleAnimationDuration={CIRCLE_ANIMATION_DURATION}
-    />
     <motion.div
       className={styles.contributeLayout}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: CONTRIBUTE_PAGE_FADEOUT_DURATION }}
+      transition={{ duration: CONTRIBUTE_PAGE_FADEIN_DURATION }}
       exit={{ opacity: 0 }}
       role="region"
     >

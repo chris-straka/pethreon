@@ -9,7 +9,7 @@
 .circleB {
   --top-contribute: 77vh;
   --left-contribute: 55vw;
-  --size-contribute: 18vh;
+  --size-contribute: 15vh;
   --width-contribute: var(--size-contribute);
   --height-contribute: var(--size-contribute);
 }
@@ -23,7 +23,6 @@
   --fs-contribute: clamp(10px, 6vw, 30px);
   --outline-offset-contribute: 3px;
   --outline-size-contribute: 5px;
-  --border-radius-contribute: 0 0 0 32px;
 }
 
 .circleA,
@@ -53,20 +52,24 @@
 }
 
 @media (min-width: 1280px) and (orientation: landscape) {
+  .circleA {
+    --top-contribute: 75vh;
+    --left-contribute: 6vw;
+    --size-contribute: 12vh;
+  }
+  .circleB {
+    --top-contribute: 51vh;
+    --left-contribute: 20vw;
+    --size-contribute: 25vh;
+  }
   .circleC {
+    --top-contribute: 0vh;
+    --left-contribute: 80vw;
     --width-contribute: 20vw;
-    --height-contribute: 80vw;
+    --height-contribute: 15vh;
     --fs-contribute: 2.5vw;
     --outline-offset-contribute: 4px;
     --outline-size-contribute: 10px;
-  }
-
-  .circleA,
-  .circleB,
-  .circleC {
-    --top-contribute: 51vh;
-    --left-contribute: 22vw;
-    --size-contribute: 25vh;
   }
 }
 
