@@ -1,15 +1,15 @@
 import { useState, useEffect, FormEvent } from "react"
 import { motion } from "framer-motion"
 import { useHistory } from "react-router"
-import { Loading, Balance, UserAddress } from "../../components"
 import { extractPledgesToCSV } from "../../utils/extractPledgesToCSV"
+import { Loading, Balance, UserAddress } from "../../components"
 import { ActionBar, PledgeList } from "./components"
 import { creatorWithdraw, getCreatorBalance, getCreatorPledges } from "../../pethreon"
 import { EthereumWindow, MetamaskError, PledgeType } from "../../utils/EtherTypes"
 import styles from "./create.module.scss"
 
-const CREATE_PAGE_FADEOUT_DURATION = 1
-const CIRCLE_ANIMATION_DURATION = 1
+// const CREATE_PAGE_FADEOUT_DURATION = 1
+// const CIRCLE_ANIMATION_DURATION = 1
 
 export const CreatePage = () => {
   const { ethereum } = window as EthereumWindow

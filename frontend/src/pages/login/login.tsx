@@ -2,9 +2,8 @@ import { useState, useEffect } from 'react';
 import { motion } from "framer-motion"
 import { useHistory } from 'react-router';
 import { EthereumWindow, MetamaskError } from '../../utils/EtherTypes';
-import { TypewriterEffect } from './components';
+import { TypewriterEffect, Features, Video, Pethreon, LoginContainer } from './components';
 import { Footer } from "../../components"
-import { Features, Video, Pethreon, LoginContainer } from './components';
 import styles from "./login.module.scss"
 
 const WALLET_DETECTED = "This app uses your ethereum wallet to make subscriptions to creators"

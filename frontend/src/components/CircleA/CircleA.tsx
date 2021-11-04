@@ -5,40 +5,49 @@ import styles from "./CircleA.module.scss"
 
 export const CircleA = () => {
   const location = useLocation()
-  let top, left, width, height, backgroundColor;
+  const [animation, setAnimation] = useState({})
 
   useEffect(() => {
     if (location.pathname === "/") {
-      top = "var(--top-login)"
-      left = "var(--left-login)"
-      width = "var(--width-login)"
-      height = "var(--height-login)"
+      setAnimation({
+        top: "var(--top-login)",
+        left: "var(--left-login)",
+        width: "var(--width-login)",
+        height: "var(--height-login)",
+        backgroundColor: "var(--primary)",
+      })
     }
     if (location.pathname === "/contribute") {
-      top = "var(--top-contribute)"
-      left = "var(--left-contribute)"
-      width = "var(--width-contribute)"
-      height = "var(--height-contribute)"
+      setAnimation({
+        top: "var(--top-contribute)",
+        left: "var(--left-contribute)",
+        width: "var(--width-contribute)",
+        height: "var(--height-contribute)",
+        backgroundColor: "var(--primary-dark)"
+      })
     }
     if (location.pathname === "/create") {
-      top = "var(--top-create)"
-      left = "var(--left-create)"
-      width = "var(--width-create)"
-      height = "var(--height-create)"
+      setAnimation({
+        top: "var(--top-create)",
+        left: "var(--left-create)",
+        width: "var(--width-create)",
+        height: "var(--height-create)",
+        backgroundColor: "var(--secondary)"
+      })
     }
   }, [location])
 
   return (
     <motion.div
       className={styles.circleA}
-      initial={false}
-      animate={{
-        top: top,
-        left: left,
-        width: width,
-        height: height,
-        backgroundColor: backgroundColor
+      initial={{
+        top: "var(--top-login)",
+        left: "var(--left-login)",
+        width: "var(--width-login)",
+        height: "var(--height-login)",
+        backgroundColor: "var(--primary)"
       }}
+      animate={animation}
     />
   )
 }

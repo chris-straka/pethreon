@@ -9,7 +9,7 @@ import { DepositModal, WithdrawModal, PledgeModal, MODAL_TYPE } from "./modals"
 import styles from "./contribute.module.scss"
 
 const CONTRIBUTE_PAGE_FADEIN_DURATION = 1
-const CIRCLE_ANIMATION_DURATION = 1
+// const CIRCLE_ANIMATION_DURATION = 1
 
 export const ContributePage = () => {
   const [loading, setLoading] = useState(false)

@@ -108,13 +108,9 @@
   outline: var(--action-button-outline-size) dotted transparent;
   transition: outline-color 0.2s, background-color 0.2s;
 
-  &:focus {
-    outline-color: var(--primary);
-    transition: outline-color 0.2s, background-color 0.2s;
-  }
-
+  &:focus,
   &:hover {
-    background-color: var(--primary-light);
+    outline-color: var(--primary);
     transition: outline-color 0.2s, background-color 0.2s;
   }
 

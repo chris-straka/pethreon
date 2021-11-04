@@ -1,0 +1,54 @@
+.circleB {
+  position: fixed;
+  outline: none;
+  z-index: -1;
+  border-radius: 50%;
+
+  --left-login: 92vw;
+  --top-login: 40vh;
+  --size-login: 128px;
+  --width-login: var(--size-login);
+  --height-login: var(--size-login);
+
+  --top-contribute: 77vh;
+  --left-contribute: 55vw;
+  --size-contribute: 15vh;
+  --width-contribute: var(--size-contribute);
+  --height-contribute: var(--size-contribute);
+
+  --left-create: 55vw;
+  --top-create: 77vh;
+  --size-create: 18vh;
+  --width-create: var(--size-create);
+  --height-create: var(--size-create);
+}
+
+@media (min-width: 600px) and (orientation: portrait) {
+  .circleB {
+    --size-login: 200px;
+  }
+}
+
+@media (max-width: 1279px) and (orientation: landscape) {
+  .circleB {
+    --size-contribute: 0;
+    --size-create: 0;
+    position: absolute;
+  }
+}
+
+@media (min-width: 1280px) and (orientation: landscape) {
+  .circleB {
+    --left-login: 50vw;
+    --top-login: 85vh;
+    --size-login: 300px;
+
+    --top-contribute: 51vh;
+    --left-contribute: 20vw;
+    --size-contribute: 25vh;
+
+    --top-create: 51vh;
+    --left-create: 22vw;
+    --size-create: 25vh;
+  }
+}
