@@ -124,15 +124,17 @@ I think the issue was I was using one package.json file for the whole project, w
 
 ### Typewriter Effect Problems
 
-I probably could've done my typewriter animation in the login screen using CSS only, but it might be tricky because I've only seen this done with single lines of static text (not dynamic wrapping lines of text). So I did it through JS instead but there was a couple issues. I wanted to interrupt effect but JS is only single threaded so I had to check a boolean everytime it printed a character. I also had issues printing a hyperlink char-by-char (either that or I'm dumb?) because it kept printing the HTML markup as well `<a href="" rel="" etc="">download<a>`. So my current implementation recreates the link ~17 times, by incrementally building it on each iteration. I should look into this later in case I'm missing something obvious. The hyperlink was needed for people who don't have an ethereum wallet installed and need to download metamask.
+I probably could've done my TypewriterEffect with CSS only, but I've only ever seen this done with single lines of text (not dynamic text that can wrap x times). So I did it with JS instead but there's still a couple things I wonder about. I had issues printing the hyperlink char-by-char (either that or I'm dumb?) because it kept printing the HTML markup as well `<a href="" rel="" etc="">download<a>`. So I decided to recreat the same link ~17 times, char-by-char (feels like there should be an easier way to do this).
 
 ### Metamask Problems
 
-When the user clicks my login button, they're prompted with a "sign-in" modal from metamask (and not me). If the user closes that modal without signing in, metamask will NOT error out. Instead, my code behaves as if the user is STILL logging in which is not a great UX. It looks like other popular sites like Aave and Uniswap behave the same though. Also, when an error is thrown metamask will give back an object but sometimes the error is tricky to find. It might be in error.message or it might be in error.data.message which is frustating.
+When the user clicks the login button, metamask prompts them with a "sign-in" modal that I can't control. If the user closes it without signing in, metamask will NOT error out. Instead, my code behaves as if the user is STILL logging in which is not a great UX. It looks like other popular sites like Aave and Uniswap behave the same. Also, when an error is thrown metamask gives back an object but sometimes the error message is tricky to find could be error.message or error.data.message.
 
 ### Circle Problems
 
-I'm not happy with how my circles are setup.
+My circles have been very tricky to deal with. I want them to appear on screen at all times and I want them to move between page transitions. Specifically, I want the page content to disappear first, then the circles to move, and then the new content to appear. I thought I could move the circles to their new locations and then replace them with new circles that are positioned in the exact same spot but it didn't look good (they would flicker whenever they got replaced). Maybe I was missing something and could've made it work, but I ended up not replacing the circles and moving the same circles around instead.
+
+Framer-motion can animate css variables but it only takes their underlying value at that point in time (with that screen size). This meant my circles would refuse to move whenever the user resized the page. I thought about re-triggering my useEffect whenever the user resized the page (the same useEffect that would move the circles to the right position depending on what page they're on) and refreshing the CSS variables. But I ended up not relying on framer motion for this and instead decided to switch the CSS properties to different CSS variables depending on the route (using transitions). Finding a way to make this maintainable & customizable (in any implementation) was also quite difficult. The circles need to know about their future positions (which change depending on the page and screen size) but I also wanted to isolate the logic on a "per page" basis. I wasn't sure if I should've used CSS modules, or sass @use/forwards, etc. CircleA and CircleB are also very similar and they seem DRY, but it just seemed easier conceptually.
 
 ## Todo
 
@@ -150,10 +152,6 @@ const isOverflown = (clientHeight, scrollHeight) => {
   return scrollHeight > clientHeight;
 };
 ```
-
-### UX
-
-My circles animate slowly but my content loads instantly which is jarring. I should use framer-motion or react-transition-group to transition content more smoothly. I also use a lot of window.alert() for my form validation when I should use my own toasts that don't create an additional step for the user.
 
 ### A11y
 
@@ -249,15 +247,19 @@ A lot of my smart contract behaviour depends on what time it is, and how many da
 
 ### I fought the scrollbar and the scrollbar won
 
-It's common to use 62.5% for the root font size and then rem for all the other font-sizes. This lets the user choose their own preferred font-size, while still keeping the same proportions in the overall layout. However, I didn't want to do this because I didn't want the user to be able to scroll the page. If they preferred a really large default font-size, that could push my content outside of the screen and create scrollbars. I didn't want this to happen because I thought it would look janky if my decorative circles (which are positioned relative to the screen) moved together with the scrollbar. I also wanted my website to look like a mobile app and not like a website (PWA). However, I found it too cumbersome to not include scrollbars at certain screen sizes. It found that it would take too many media queries that would make my CSS less readable/maintainable. It was easy to set my content equal to viewport units, but my text would break everytime the text wrapped around when the viewport width increased/decreased.
+I originally didn't want to use rem units for any of my font-size because I didn't want my app to have scrollbars in the overall layout (they could set a font-size so big that it would push my content off screen and create scrollbars). I didn't want scrollbars because I wanted my webapp to fit on all on one page and have it to look like a mobile app (PWA). I also positioned my circles relative to the screen, and I thought it would look janky if my decorative circles moved together with the scrollbar. However, I found it too cumbersome to avoid scrollbars because I had dynamic text content. It would wrap differently depending on which message they got and it was tought to find a responsive font-size that made sense. There were too many media queries which was hard to maintain and read.
 
-I think I could've handled my decorative circles differently to make things easier too. One cool thing I learned along the way, is that you can't zoom in/out on any text that's been sized with viewport units. Thankfully, [calc(vw + 1em) or clamp(vw + 1em) fixes this issue](https://www.youtube.com/watch?v=wARbgs5Fmuw). I also learned how nice it is to use CSS variables for responsive design.
+One cool thing I learned along the way though, is that you can't zoom in/out on any text that's been sized with viewport units. You can use[calc(vw + 1em) or clamp(vw + 1em)](https://www.youtube.com/watch?v=wARbgs5Fmuw) though and it will work. I also learned how nice it is to use CSS variables for responsive design.
 
 ### I'm learning a lot about components
 
-When I started this project, I used to think components were mostly for reuse (and for getting rid of DRY code). But I think I underestimated how effective they are at making code more readable. I looked at other projects, and it seems like they would break things down into components even if they never intended to reuse them. I think the advantage here is that it's easy to swap things out and change functionality. I also noticed that a lot of projects will define media queries inside the components themselves. I wasn't a fan of this originally, because I thought it would make them less reusable (different pages could have different breakpoints/requirements) and I didn't like clicking between multiple different files to make tweaks for the same responsive layout. But I think I'm overestimating the difficulties here, so for my next project I'm going to try this instead.
+When I started this project, I used to think components were mostly for reusing stuff (eliminating DRY code). But I think I underestimated how effective they are at making code more readable. I looked at other projects, and it seems like they would break things down into components even if they never intended to reuse them. I think there were a couple times where I would avoid making components, because I didn't want to nest them that much (I think it adds more complexity and slows down performance).
 
-Some of the other things I ran into when developing, was that CSS doesn't mesh quite as nicely with components as I'd like. If I wanted to make a component reusable, I would have to make sure it didn't have any default margins because then the component would look out of place wherever I placed it. So I had to add margins later, but I didn't like my options for doing so. One option was to bloat my JSX in some way, either by littering it with Spacer components (which is not semantic) or by passing in additional style props. Passing in additional style props is alright, but for smaller components that don't have many styles it feels like it defeats the whole purpose. If I'm passing in my own styles into a component then it feels like I could've just used an element instead. Another option, which is probably not a good idea, was to select the React component in CSS by selecting its _underlying_ root element (using something like "first-child"), but it would break whenever I moved the component somewhere else or changed its underlying HTML element.
+When looking at other projects, I also noticed that they defined media queries inside of components and not in the container that defined the overall layout. I wasn't a fan of this originally, because I thought it would make components less reusable (different pages could have different breakpoints/requirements) and I didn't like clicking between multiple different files to make tweaks. Maybe this was a problem with how I built my components (needed more inherit? more responsive units?). For my next project, I'm going to try and take this approach instead.
+
+I also felt a couple times that CSS didn't mesh as nicely with components (or React) as I'd like. I think CSS has an "imperative" feel that clashes a bit with React's "declarative" code-style. For example, framer-motion is a declarative framework that handles animations for you and you're not really supposed to write CSS outside of motion components. However, once you get particular about the type of animation you want to see, it tends to rely more on CSS and doesn't feel that declarative anymore (even though you can get a lot of mileage out of easing functions and stuff).
+
+Another instance of CSS not meshing as nicely as I'd liked was was when I when I tried to create reusable components. I had to be careful of adding default margins because then it could look out of place depending on where I put it. My options for adding margins kind of sucked. I could've bloated my JSX with Spacer components (un-semantic divs), or I could've selected the underlying HTML element of that react component via "first-child" using css (which would break whenever I changed or moved it). The best option I found was to pass in additional style props which seemed overkill sometimes.
 
 ### A wireframe AND a prototype is probably a good idea
 
@@ -282,5 +284,7 @@ I put a lot of grey boxes in my mockups and ignored a lot of detail (including t
 - [Sora Sagano's Aileron Font](https://fontsarena.com/aileron-by-sora-sagano/)
 
 - [Sarah Fossheim](https://fossheim.io/writing/posts/react-text-splitting-animations/)
+
+- [Samuel Kraft](https://samuelkraft.com/blog/responsive-animation-framer-motion)
 
 - [Framer Motion](https://github.com/framer/motion)

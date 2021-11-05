@@ -4,33 +4,36 @@
   position: fixed;
   cursor: pointer;
   font-weight: bold;
+  font-size: var(--fs);
   outline-offset: var(--outline-offset);
   outline: var(--outline-size) dotted transparent;
+  color: var(--text);
+  fill: var(--text);
 
   --top-login: 92vh;
   --left-login: 30vw;
   --size-login: 160px;
-  --width-login: var(--size-login);
-  --height-login: var(--size-login);
+  --width-login: 160px;
+  --height-login: 160px;
 
   --top-contribute: 0vh;
   --left-contribute: 60vw;
   --width-contribute: 40vw;
   --height-contribute: 13vh;
-  --fs-contribute: clamp(10px, 6vw, 30px);
 
   --top-create: 0vh;
   --left-create: 60vw;
   --width-create: 40vw;
   --height-create: 13vh;
-  --fs-create: clamp(10px, 6vw, 30px);
 
+  --fs: clamp(10px, 6vw, 30px);
   --outline-offset: 3px;
   --outline-size: 5px;
 
   transition: outline-color 0.2s;
 
-  &:focus {
+  &:focus,
+  &:hover {
     outline-color: var(--secondary);
     transition: outline-color 0.2s;
   }
@@ -39,11 +42,10 @@
 @media (min-width: 600px) and (orientation: portrait) {
   .circleC {
     --top-login: 82vh;
-    --size-login: 440px;
+    --width-login: 440px;
+    --height-login: 440px;
 
-    --fs-contribute: clamp(10px, 5vw, 190px);
-    --fs-create: clamp(10px, 5vw, 190px);
-
+    --fs: clamp(10px, 5vw, 190px);
     --outline-offset: 4px;
     --outline-size: 10px;
   }
@@ -66,12 +68,13 @@
     --left-contribute: 80vw;
     --width-contribute: 20vw;
     --height-contribute: 15vh;
-    --fs-contribute: 2.5vw;
 
-    --top-create: 20vw;
+    --top-create: 0vh;
     --left-create: 80vw;
-    --fs-create: 2.5vw;
+    --width-create: 20vw;
+    --height-create: 15vh;
 
+    --fs: 2.5vw;
     --outline-offset: 4px;
     --outline-size: 10px;
   }

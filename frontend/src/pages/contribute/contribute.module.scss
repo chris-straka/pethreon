@@ -106,12 +106,16 @@
   color: var(--black-text);
   outline-offset: var(--action-button-outline-offset);
   outline: var(--action-button-outline-size) dotted transparent;
-  transition: outline-color 0.2s, background-color 0.2s;
+  transition: outline-color 0.2s, color 0.2s, background-color 0.2s;
 
-  &:focus,
   &:hover {
+    transition: color 0.2s;
+    color: var(--secondary);
+  }
+
+  &:focus {
     outline-color: var(--primary);
-    transition: outline-color 0.2s, background-color 0.2s;
+    transition: color 0.2s, outline-color 0.2s, background-color 0.2s;
   }
 
   & > svg {

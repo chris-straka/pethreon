@@ -3,20 +3,19 @@ import { ContributePage } from './pages/contribute/contribute';
 import { CreatePage } from './pages/create/create';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-import { CircleA, CircleB, CircleC } from './components';
+import { CircleA, CircleB, CircleC } from './Circles';
 
-// const LOGIN_PAGE_TRANSITION_DURATION = 1
-// const CONTRIBUTE_PAGE_TRANSITION_DURATION = 1
-// const CREATE_PAGE_TRANSITION_DURATION = 1
+const PAGE_TRANSITION_DURATION = 1
+const CIRCLE_ANIMATION_DURATION = 1
 
 const App = () => {
   const location = useLocation()
   return (
     <>
-      <CircleA />
-      <CircleB />
-      <CircleC />
-      <AnimatePresence exitBeforeEnter>
+      <CircleA delay={PAGE_TRANSITION_DURATION} duration={CIRCLE_ANIMATION_DURATION} />
+      <CircleB delay={PAGE_TRANSITION_DURATION} duration={CIRCLE_ANIMATION_DURATION} />
+      <CircleC delay={PAGE_TRANSITION_DURATION} duration={CIRCLE_ANIMATION_DURATION} />
+      <AnimatePresence exitBeforeEnter initial={false}>
         <Switch location={location} key={location.pathname}>
           <Route path="/contribute" exact component={ContributePage} />
           <Route path="/create" exact component={CreatePage} />
