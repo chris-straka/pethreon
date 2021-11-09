@@ -1,9 +1,9 @@
-import { Pethreon } from "./types"
 import { providers, Contract, BigNumberish } from "ethers"
 import { formatEther } from "@ethersproject/units";
-import { abi } from "./artifacts/localhost/Pethreon.json"
 import { BigNumber } from "@ethersproject/bignumber"
-import { EthereumWindow } from "./utils/EtherTypes";
+import { EthereumWindow } from "./utils";
+import { Pethreon } from "./types"
+import { abi } from "./artifacts/localhost/Pethreon.json"
 
 
 const PETHREON_CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3"

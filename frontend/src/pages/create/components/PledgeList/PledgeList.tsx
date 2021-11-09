@@ -1,4 +1,4 @@
-import { PledgeType } from "../../../../utils/EtherTypes"
+import { PledgeType } from "../../../../utils"
 import { Pledge } from "../../../../components"
 
 interface PledgeListProps {

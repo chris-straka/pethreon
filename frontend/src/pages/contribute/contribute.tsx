@@ -1,29 +1,33 @@
 import { useState, useEffect } from "react"
-import { useHistory } from "react-router"
+import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 import { Balance, Loading, UserAddress } from "../../components"
 import { PledgeList, ActionBar } from "./components"
 import { getContributorBalance, getContributorPledges } from "../../pethreon"
-import { EthereumWindow, PledgeType, MetamaskError } from "../../utils/EtherTypes"
+import { EthereumWindow, PledgeType, MetamaskError } from "../../utils"
 import { DepositModal, WithdrawModal, PledgeModal, MODAL_TYPE } from "./modals"
 import styles from "./contribute.module.scss"
 
-const CONTRIBUTE_PAGE_FADEIN_DURATION = 1
-// const CIRCLE_ANIMATION_DURATION = 1
+interface ContributeProps {
+  transitionDelay: number,
+  transitionDuration: number
+}
 
-export const ContributePage = () => {
+export const Contribute = (
+  { transitionDelay, transitionDuration }: ContributeProps
+) => {
   const [loading, setLoading] = useState(false)
   const [balance, setBalance] = useState("0.0")
   const [pledges, setPledges] = useState<PledgeType[]>([])
   const [currentModal, setCurrentModal] = useState("")
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const { ethereum } = window as EthereumWindow
 
   useEffect(() => {
-    if (typeof ethereum === undefined || !ethereum.isConnected()) history.push("/")
-    ethereum.on("accountsChanged", () => history.push('/'))
-  }, [ethereum, history])
+    if (typeof ethereum === undefined || !ethereum.isConnected()) navigate("/")
+    ethereum.on("accountsChanged", () => navigate("/"))
+  }, [ethereum, navigate])
 
   useEffect(() => {
     async function init() {
@@ -35,21 +39,20 @@ export const ContributePage = () => {
         setPledges(pledges)
       } catch (error) {
         window.alert((error as MetamaskError).message)
-        history.push("/")
+        navigate("/")
       }
     }
     init()
-  }, [history])
+  }, [navigate])
 
   return <>
     {loading && <Loading />}
     <motion.div
       className={styles.contributeLayout}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: CONTRIBUTE_PAGE_FADEIN_DURATION }}
-      exit={{ opacity: 0 }}
       role="region"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { delay: transitionDelay, duration: transitionDuration } }}
+      exit={{ opacity: 0 }}
     >
       <Balance
         className={styles.balance}

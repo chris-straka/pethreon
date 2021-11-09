@@ -3,7 +3,7 @@ import { useState, ChangeEvent, FormEvent, Dispatch, SetStateAction } from "reac
 import { Spacer, Disclaimer, SubmitButton, CurrencyDenomination, CurrencyField, ConsentCheckbox } from "../../../../components"
 import { DepositSVG } from "../../../../svgs"
 import { deposit, getContributorBalance, } from "../../../../pethreon"
-import { EtherDenomination, MetamaskError } from "../../../../utils/EtherTypes"
+import { EtherDenomination, MetamaskError } from "../../../../utils"
 import styles from "./Deposit.module.scss"
 
 interface DepositModalProps {

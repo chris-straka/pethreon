@@ -1,21 +1,20 @@
 import { useState, useEffect } from 'react';
 import { motion } from "framer-motion"
-import { useHistory } from 'react-router';
-import { EthereumWindow, MetamaskError } from '../../utils/EtherTypes';
+import { useNavigate } from 'react-router-dom';
+import { EthereumWindow, MetamaskError } from '../../utils';
 import { TypewriterEffect, Features, Video, Pethreon, LoginContainer } from './components';
 import { Footer } from "../../components"
 import styles from "./login.module.scss"
 
-const WALLET_DETECTED = "This app uses your ethereum wallet to make subscriptions to creators"
-const WALLET_NOT_FOUND = "This app requires a cryptocurrency wallet to work, "
+interface LoginProps {
+  transitionDuration: number,
+  transitionDelay: number
+}
 
-const TEXT_ANIMATION_DELAY = 1000
-const TEXT_ANIMATION_CADENCE = 75
-
-const LOGIN_PAGE_FADEOUT_DURATION = 1
-
-export const Login = () => {
-  const history = useHistory()
+export const Login = (
+  { transitionDuration, transitionDelay }: LoginProps
+) => {
+  const navigate = useNavigate()
   const { ethereum, location } = window as EthereumWindow
   const [message, setMessage] = useState("")
   const [talking, setTalking] = useState(false)
@@ -23,9 +22,13 @@ export const Login = () => {
   const [linkUrl, setLinkUrl] = useState("")
 
   useEffect(() => {
-    if (ethereum !== undefined && location.pathname === "/") setMessage(WALLET_DETECTED)
+    if (ethereum !== undefined && location.pathname === "/") {
+      setMessage(
+        "This app uses your ethereum wallet to make subscriptions to creators"
+      )
+    }
     if (ethereum === undefined && location.pathname === "/") {
-      setMessage(WALLET_NOT_FOUND)
+      setMessage("This app requires a cryptocurrency wallet to work, ")
       setLinkContent("download metamask!")
       setLinkUrl("https://metamask.io/download")
     }
@@ -36,7 +39,7 @@ export const Login = () => {
     try {
       setMessage("Logging in... You might have to click the metamask extension in your browser")
       await ethereum.request({ method: 'eth_requestAccounts' })
-      lastVisited === "create" ? history.push("/create") : history.push("/contribute")
+      lastVisited === "create" ? navigate("create") : navigate("contribute")
     } catch (error) {
       if ((error as MetamaskError).code === -32002) {
         setMessage("Request already sent, click the metamask extension in your browser")
@@ -48,18 +51,18 @@ export const Login = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: LOGIN_PAGE_FADEOUT_DURATION }}
       className={styles.loginLayout}
       role="region"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { delay: transitionDelay, duration: transitionDuration } }}
+      exit={{ opacity: 0 }}
     >
       <Pethreon className={styles.pethreon} />
       <Features className={styles.features} />
       <TypewriterEffect
         className={styles.typewriter}
-        cadence={TEXT_ANIMATION_CADENCE}
-        delay={TEXT_ANIMATION_DELAY}
+        cadence={75}
+        delay={1000}
         message={message}
         linkContent={linkContent}
         linkUrl={linkUrl}

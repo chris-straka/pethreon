@@ -3,6 +3,8 @@
   outline: none;
   z-index: -1;
   border-radius: 50%;
+  background-color: var(--primary);
+  transition-property: top, left, width, height, background-color;
 
   --left-login: 92vw;
   --top-login: 40vh;

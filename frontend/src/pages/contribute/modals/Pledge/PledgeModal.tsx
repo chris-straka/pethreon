@@ -4,7 +4,7 @@ import { PledgeField } from "../PledgeField/PledgeModalField"
 import { BigNumberish, utils } from "ethers"
 import { CashSVG, PersonSVG, DateSVG, PledgeSVG } from "../../../../svgs"
 import { getContributorBalance, createPledge, getContributorPledges } from "../../../../pethreon"
-import { PledgeType, EtherDenomination, MetamaskError } from "../../../../utils/EtherTypes"
+import { PledgeType, EtherDenomination, MetamaskError } from "../../../../utils"
 import styles from "./PledgeModal.module.scss"
 
 

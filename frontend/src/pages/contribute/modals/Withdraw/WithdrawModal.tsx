@@ -2,7 +2,7 @@ import { useState, Dispatch, SetStateAction, ChangeEvent, FormEvent } from "reac
 import { BigNumberish, utils } from "ethers"
 import { CurrencyField, CurrencyDenomination, Spacer, Disclaimer, ConsentCheckbox, SubmitButton } from "../../../../components"
 import { WithdrawSVG } from "../../../../svgs"
-import { MetamaskError, EtherDenomination } from "../../../../utils/EtherTypes"
+import { MetamaskError, EtherDenomination } from "../../../../utils"
 import { contributorWithdraw, getContributorBalance, } from "../../../../pethreon"
 import styles from "./WithdrawModal.module.scss"
 

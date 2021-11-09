@@ -4,11 +4,11 @@ import { motion } from "framer-motion"
 import styles from "./CircleA.module.scss"
 
 interface CircleAProps {
-  delay: number,
-  duration: number
+  duration: number,
+  delay: number
 }
 
-export const CircleA = ({ delay, duration }: CircleAProps) => {
+export const CircleA = ({ duration, delay }: CircleAProps) => {
   const location = useLocation()
   const ref = useRef<HTMLDivElement | null>(null)
 
@@ -19,6 +19,8 @@ export const CircleA = ({ delay, duration }: CircleAProps) => {
       ref.current?.style.setProperty("width", "var(--width-login)")
       ref.current?.style.setProperty("height", "var(--height-login)")
       ref.current?.style.setProperty("background-color", "var(--primary)")
+      ref.current?.style.setProperty("transition-duration", `${duration}s`)
+      ref.current?.style.setProperty("transition-delay", `${delay}s`)
     }
 
     if (location.pathname === "/contribute") {
@@ -26,7 +28,9 @@ export const CircleA = ({ delay, duration }: CircleAProps) => {
       ref.current?.style.setProperty("left", "var(--left-contribute)")
       ref.current?.style.setProperty("width", "var(--width-contribute)")
       ref.current?.style.setProperty("height", "var(--height-contribute)")
-      ref.current?.style.setProperty("background-color", "var(--primary-dark)")
+      ref.current?.style.setProperty("background-color", "var(--secondary-dark)")
+      ref.current?.style.setProperty("transition-duration", `${duration}s`)
+      ref.current?.style.setProperty("transition-delay", `${delay}s`)
     }
 
     if (location.pathname === "/create") {
@@ -34,14 +38,24 @@ export const CircleA = ({ delay, duration }: CircleAProps) => {
       ref.current?.style.setProperty("left", "var(--left-create)")
       ref.current?.style.setProperty("width", "var(--width-create)")
       ref.current?.style.setProperty("height", "var(--height-create)")
-      ref.current?.style.setProperty("background-color", "var(--secondary-dark)")
+      ref.current?.style.setProperty("background-color", "var(--primary-dark)")
+      ref.current?.style.setProperty("transition-duration", `${duration}s`)
+      ref.current?.style.setProperty("transition-delay", `${delay}s`)
     }
-  }, [location])
+  }, [location, duration, delay])
 
   return (
     <motion.div
       className={styles.circleA}
       ref={ref}
+      animate={{
+        scale: 1.2
+      }}
+      transition={{
+        duration: 5,
+        repeat: Infinity,
+        repeatType: "reverse",
+      }}
     />
   )
 }

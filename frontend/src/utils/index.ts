@@ -1,3 +1,5 @@
+import { extractPledgesToCSV } from "./extractPledgesToCSV";
+
 import { BigNumber } from "@ethersproject/bignumber"
 
 export interface EthereumWindow extends Window {
@@ -32,3 +34,5 @@ export type PledgeType = {
   status: PledgeStatus,
   weiPerPeriod: BigNumber,
 }
+
+export { extractPledgesToCSV }

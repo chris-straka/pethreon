@@ -7,8 +7,19 @@
   font-size: var(--fs);
   outline-offset: var(--outline-offset);
   outline: var(--outline-size) dotted transparent;
-  color: var(--text);
-  fill: var(--text);
+  background-color: var(--primary);
+  color: transparent;
+  fill: transparent;
+  transition: top var(--animation-duration) var(--animation-duration),
+    left var(--animation-duration) var(--animation-delay),
+    width var(--animation-duration) var(--animation-delay),
+    height var(--animation-duration) var(--animation-delay), outline-color 0.2s,
+    color var(--animation-duration) var(--animation-delay),
+    fill var(--animation-duration) var(--animation-delay),
+    border-radius var(--color-and-border-radius-duration)
+      var(--color-and-border-radius-delay),
+    background-color var(--color-and-border-radius-duration)
+      var(--color-and-border-radius-delay);
 
   --top-login: 92vh;
   --left-login: 30vw;
@@ -30,12 +41,21 @@
   --outline-offset: 3px;
   --outline-size: 5px;
 
-  transition: outline-color 0.2s;
+  --animation-duration: 1s;
+  --animation-delay: 1s;
 
-  &:focus,
+  --color-and-border-radius-duration: 0s;
+  --color-and-border-radius-delay: 0s;
+
   &:hover {
-    outline-color: var(--secondary);
-    transition: outline-color 0.2s;
+    color: var(--secondary);
+    fill: var(--secondary);
+    transition: color 0.2s, fill 0.2s;
+  }
+
+  &:focus {
+    outline-color: var(--primary);
+    transition: outline-color 0.15s, color 0.2s, fill 0.2s;
   }
 }
 

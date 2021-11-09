@@ -1,27 +1,30 @@
 import { useState, useEffect, FormEvent } from "react"
+import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
-import { useHistory } from "react-router"
-import { extractPledgesToCSV } from "../../utils/extractPledgesToCSV"
 import { Loading, Balance, UserAddress } from "../../components"
 import { ActionBar, PledgeList } from "./components"
 import { creatorWithdraw, getCreatorBalance, getCreatorPledges } from "../../pethreon"
-import { EthereumWindow, MetamaskError, PledgeType } from "../../utils/EtherTypes"
+import { EthereumWindow, MetamaskError, PledgeType, extractPledgesToCSV } from "../../utils"
 import styles from "./create.module.scss"
 
-// const CREATE_PAGE_FADEOUT_DURATION = 1
-// const CIRCLE_ANIMATION_DURATION = 1
+interface CreateProps {
+  transitionDelay: number,
+  transitionDuration: number
+}
 
-export const CreatePage = () => {
+export const Create = (
+  { transitionDelay, transitionDuration }: CreateProps
+) => {
   const { ethereum } = window as EthereumWindow
   const [loading, setLoading] = useState(false)
   const [balance, setBalance] = useState("0.0")
   const [pledges, setPledges] = useState<PledgeType[]>([])
-  const history = useHistory()
+  const navigate = useNavigate()
 
   useEffect(() => {
-    if (typeof ethereum === undefined) history.push("/")
-    if (!ethereum.isConnected()) history.push("/")
-  }, [ethereum, history])
+    if (typeof ethereum === undefined) navigate("/")
+    if (!ethereum.isConnected()) navigate("/")
+  }, [ethereum, navigate])
 
   useEffect(() => {
     async function init() {
@@ -33,11 +36,11 @@ export const CreatePage = () => {
         setPledges(pledges)
       } catch (error) {
         window.alert(`${error}`)
-        history.push("/")
+        navigate("/")
       }
     }
     init()
-  }, [history])
+  }, [navigate])
 
   const withdrawBalance = async (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
@@ -59,6 +62,7 @@ export const CreatePage = () => {
       className={styles.createLayout}
       role="region"
       initial={{ opacity: 0 }}
+      transition={{ duration: transitionDuration }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
