@@ -8,18 +8,18 @@
   outline-offset: var(--outline-offset);
   outline: var(--outline-size) dotted transparent;
   background-color: var(--primary);
+  border-radius: 50%;
   color: transparent;
   fill: transparent;
-  transition: top var(--animation-duration) var(--animation-duration),
+  transition: outline-color 0.2s,
+    top var(--animation-duration) var(--animation-duration),
     left var(--animation-duration) var(--animation-delay),
     width var(--animation-duration) var(--animation-delay),
-    height var(--animation-duration) var(--animation-delay), outline-color 0.2s,
-    color var(--animation-duration) var(--animation-delay),
-    fill var(--animation-duration) var(--animation-delay),
-    border-radius var(--color-and-border-radius-duration)
-      var(--color-and-border-radius-delay),
-    background-color var(--color-and-border-radius-duration)
-      var(--color-and-border-radius-delay);
+    height var(--animation-duration) var(--animation-delay),
+    color var(--animation-duration) var(--text-delay),
+    fill var(--animation-duration) var(--text-delay),
+    border-radius var(--animation-duration) var(--animation-delay),
+    background-color var(--animation-duration) var(--animation-delay);
 
   --top-login: 92vh;
   --left-login: 30vw;
@@ -40,12 +40,6 @@
   --fs: clamp(10px, 6vw, 30px);
   --outline-offset: 3px;
   --outline-size: 5px;
-
-  --animation-duration: 1s;
-  --animation-delay: 1s;
-
-  --color-and-border-radius-duration: 0s;
-  --color-and-border-radius-delay: 0s;
 
   &:hover {
     color: var(--secondary);

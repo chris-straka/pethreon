@@ -8,12 +8,14 @@ import { EthereumWindow, MetamaskError, PledgeType, extractPledgesToCSV } from "
 import styles from "./create.module.scss"
 
 interface CreateProps {
-  transitionDelay: number,
-  transitionDuration: number
+  fadeInDuration: number,
+  fadeInDelay: number,
+  fadeOutDuration: number,
+  fadeOutDelay: number
 }
 
 export const Create = (
-  { transitionDelay, transitionDuration }: CreateProps
+  { fadeInDuration, fadeInDelay, fadeOutDuration, fadeOutDelay }: CreateProps
 ) => {
   const { ethereum } = window as EthereumWindow
   const [loading, setLoading] = useState(false)
@@ -62,9 +64,8 @@ export const Create = (
       className={styles.createLayout}
       role="region"
       initial={{ opacity: 0 }}
-      transition={{ duration: transitionDuration }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { duration: fadeInDuration, delay: fadeInDelay } }}
+      exit={{ opacity: 0, transition: { duration: fadeOutDuration, delay: fadeOutDelay } }}
     >
       <Balance
         className={styles.balance}

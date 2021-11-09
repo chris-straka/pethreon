@@ -7,12 +7,14 @@ import { Footer } from "../../components"
 import styles from "./login.module.scss"
 
 interface LoginProps {
-  transitionDuration: number,
-  transitionDelay: number
+  fadeInDuration: number,
+  fadeInDelay: number,
+  fadeOutDuration: number,
+  fadeOutDelay: number
 }
 
 export const Login = (
-  { transitionDuration, transitionDelay }: LoginProps
+  { fadeInDuration, fadeInDelay, fadeOutDuration, fadeOutDelay }: LoginProps
 ) => {
   const navigate = useNavigate()
   const { ethereum, location } = window as EthereumWindow
@@ -54,8 +56,8 @@ export const Login = (
       className={styles.loginLayout}
       role="region"
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { delay: transitionDelay, duration: transitionDuration } }}
-      exit={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { delay: fadeInDelay, duration: fadeInDuration } }}
+      exit={{ opacity: 0, transition: { delay: fadeOutDelay, duration: fadeOutDuration } }}
     >
       <Pethreon className={styles.pethreon} />
       <Features className={styles.features} />

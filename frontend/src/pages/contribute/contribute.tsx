@@ -9,12 +9,14 @@ import { DepositModal, WithdrawModal, PledgeModal, MODAL_TYPE } from "./modals"
 import styles from "./contribute.module.scss"
 
 interface ContributeProps {
-  transitionDelay: number,
-  transitionDuration: number
+  fadeInDuration: number,
+  fadeInDelay: number,
+  fadeOutDuration: number,
+  fadeOutDelay: number
 }
 
 export const Contribute = (
-  { transitionDelay, transitionDuration }: ContributeProps
+  { fadeInDuration, fadeInDelay, fadeOutDuration, fadeOutDelay }: ContributeProps
 ) => {
   const [loading, setLoading] = useState(false)
   const [balance, setBalance] = useState("0.0")
@@ -51,8 +53,8 @@ export const Contribute = (
       className={styles.contributeLayout}
       role="region"
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { delay: transitionDelay, duration: transitionDuration } }}
-      exit={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { duration: fadeInDuration, delay: fadeInDelay } }}
+      exit={{ opacity: 0, transition: { duration: fadeOutDuration, delay: fadeOutDelay } }}
     >
       <Balance
         className={styles.balance}
@@ -73,28 +75,32 @@ export const Contribute = (
       />
     </motion.div>
 
-    {currentModal === MODAL_TYPE.DEPOSIT ?
-      <DepositModal
-        closeModal={() => setCurrentModal(MODAL_TYPE.NONE)}
-        setLoading={setLoading}
-        setBalance={setBalance}
-      /> : ""}
-
-    {currentModal === MODAL_TYPE.WITHDRAW ?
-      <WithdrawModal
-        closeModal={() => setCurrentModal(MODAL_TYPE.NONE)}
-        setLoading={setLoading}
-        setBalance={setBalance}
-      /> : ""
+    {
+      currentModal === MODAL_TYPE.DEPOSIT ?
+        <DepositModal
+          closeModal={() => setCurrentModal(MODAL_TYPE.NONE)}
+          setLoading={setLoading}
+          setBalance={setBalance}
+        /> : ""
     }
 
-    {currentModal === MODAL_TYPE.PLEDGE ?
-      <PledgeModal
-        closeModal={() => setCurrentModal(MODAL_TYPE.NONE)}
-        setLoading={setLoading}
-        setBalance={setBalance}
-        setPledges={setPledges}
-      /> : ""
+    {
+      currentModal === MODAL_TYPE.WITHDRAW ?
+        <WithdrawModal
+          closeModal={() => setCurrentModal(MODAL_TYPE.NONE)}
+          setLoading={setLoading}
+          setBalance={setBalance}
+        /> : ""
+    }
+
+    {
+      currentModal === MODAL_TYPE.PLEDGE ?
+        <PledgeModal
+          closeModal={() => setCurrentModal(MODAL_TYPE.NONE)}
+          setLoading={setLoading}
+          setBalance={setBalance}
+          setPledges={setPledges}
+        /> : ""
     }
 
   </>

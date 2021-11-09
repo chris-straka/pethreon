@@ -5,36 +5,45 @@ import { Contribute } from './pages/contribute/contribute';
 import { Create } from './pages/create/create';
 import { CircleA, CircleB, CircleC } from './circles';
 
-const PAGE_TRANSITION_DURATION = 1
+const PAGE_FADE_IN_DURATION = 1
+const PAGE_FADE_OUT_DURATION = 1
+const PAGE_FADE_OUT_DELAY = 0
 const CIRCLE_ANIMATION_DURATION = 1
 
 const App = () => {
   const location = useLocation()
   return (
     <>
-      <CircleA delay={PAGE_TRANSITION_DURATION} duration={CIRCLE_ANIMATION_DURATION} />
-      <CircleB delay={PAGE_TRANSITION_DURATION} duration={CIRCLE_ANIMATION_DURATION} />
-      <CircleC delay={PAGE_TRANSITION_DURATION} duration={CIRCLE_ANIMATION_DURATION} />
+      <CircleA duration={CIRCLE_ANIMATION_DURATION} delay={PAGE_FADE_OUT_DURATION} />
+      <CircleB duration={CIRCLE_ANIMATION_DURATION} delay={PAGE_FADE_OUT_DURATION} />
+      <CircleC duration={CIRCLE_ANIMATION_DURATION} delay={PAGE_FADE_OUT_DURATION}
+        textDelay={PAGE_FADE_OUT_DURATION + PAGE_FADE_IN_DURATION} />
       <AnimatePresence exitBeforeEnter initial={false}>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={
             <Login
-              transitionDelay={CIRCLE_ANIMATION_DURATION}
-              transitionDuration={PAGE_TRANSITION_DURATION}
+              fadeInDuration={PAGE_FADE_IN_DURATION}
+              fadeInDelay={CIRCLE_ANIMATION_DURATION}
+              fadeOutDuration={PAGE_FADE_OUT_DURATION}
+              fadeOutDelay={PAGE_FADE_OUT_DELAY}
             />
           }
           />
           <Route path="/contribute" element={
             <Contribute
-              transitionDelay={CIRCLE_ANIMATION_DURATION}
-              transitionDuration={PAGE_TRANSITION_DURATION}
+              fadeInDuration={PAGE_FADE_IN_DURATION}
+              fadeInDelay={CIRCLE_ANIMATION_DURATION}
+              fadeOutDuration={PAGE_FADE_OUT_DURATION}
+              fadeOutDelay={PAGE_FADE_OUT_DELAY}
             />
           }
           />
           <Route path="/create" element={
             <Create
-              transitionDelay={CIRCLE_ANIMATION_DURATION}
-              transitionDuration={PAGE_TRANSITION_DURATION}
+              fadeInDuration={PAGE_FADE_IN_DURATION}
+              fadeInDelay={CIRCLE_ANIMATION_DURATION}
+              fadeOutDuration={PAGE_FADE_OUT_DURATION}
+              fadeOutDelay={PAGE_FADE_OUT_DELAY}
             />
           }
           />

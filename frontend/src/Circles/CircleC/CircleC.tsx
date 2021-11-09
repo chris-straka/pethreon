@@ -6,10 +6,11 @@ import styles from "./CircleC.module.scss"
 
 interface CircleCProps {
   duration: number,
-  delay: number
+  delay: number,
+  textDelay: number
 }
 
-export const CircleC = ({ delay, duration }: CircleCProps) => {
+export const CircleC = ({ delay, duration, textDelay }: CircleCProps) => {
   const location = useLocation()
   const [disabled, setDisabled] = useState(true)
   const ref = useRef<HTMLButtonElement | null>(null);
@@ -26,6 +27,7 @@ export const CircleC = ({ delay, duration }: CircleCProps) => {
       ref.current?.style.setProperty("fill", "transparent")
       ref.current?.style.setProperty("--animation-duration", `${duration}s`)
       ref.current?.style.setProperty("--animation-delay", `${delay}s`)
+      ref.current?.style.setProperty("--text-delay", `0s`)
       setDisabled(true)
     }
     if (location.pathname === "/contribute") {
@@ -38,10 +40,7 @@ export const CircleC = ({ delay, duration }: CircleCProps) => {
       ref.current?.style.setProperty("border-bottom-left-radius", "50px")
       ref.current?.style.setProperty("color", "var(--text)")
       ref.current?.style.setProperty("fill", "var(--text)")
-      ref.current?.style.setProperty("--animation-duration", `${duration}s`)
-      ref.current?.style.setProperty("--animation-delay", `${delay}s`)
-      ref.current?.style.setProperty("--color-and-border-radius-duration", `${duration}s`)
-      ref.current?.style.setProperty("--color-and-border-radius-delay", `${delay}s`)
+      ref.current?.style.setProperty("--text-delay", `${textDelay}s`)
       setDisabled(false)
     }
     if (location.pathname === "/create") {
@@ -49,15 +48,12 @@ export const CircleC = ({ delay, duration }: CircleCProps) => {
       ref.current?.style.setProperty("left", "var(--left-create)")
       ref.current?.style.setProperty("width", "var(--width-create)")
       ref.current?.style.setProperty("height", "var(--height-create)")
-      ref.current?.style.setProperty("background-color", "var(--primary)")
+      ref.current?.style.setProperty("background-color", "var(--secondary)")
       ref.current?.style.setProperty("border-radius", "0%")
       ref.current?.style.setProperty("border-bottom-left-radius", "50px")
       ref.current?.style.setProperty("color", "var(--text)")
       ref.current?.style.setProperty("fill", "var(--text)")
-      ref.current?.style.setProperty("--animation-duration", `${duration}s`)
-      ref.current?.style.setProperty("--animation-delay", `${delay}s`)
-      ref.current?.style.setProperty("--color-and-border-radius-duration", `${duration}s`)
-      ref.current?.style.setProperty("--color-and-border-radius-delay", `${delay}s`)
+      ref.current?.style.setProperty("--text-delay", `${textDelay}s`)
       setDisabled(false)
     }
   }, [location, delay, duration])
@@ -69,7 +65,7 @@ export const CircleC = ({ delay, duration }: CircleCProps) => {
       ref={ref}
     >
       {location.pathname === "/create" ? "Donate" : "Create"}
-      {location.pathname === "/" ? null : < ArrowSVG />}
+      <ArrowSVG />
     </motion.button>
   )
 }
