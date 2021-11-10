@@ -48,13 +48,14 @@ export const CircleB = ({ delay, duration }: CircleBProps) => {
     <motion.div
       className={styles.circleB}
       ref={ref}
+      drag
       animate={{
         scale: 1.2,
         x: 2,
         y: 2
       }}
       transition={{
-        duration: 5,
+        duration: 8,
         repeat: Infinity,
         repeatType: "reverse"
       }}

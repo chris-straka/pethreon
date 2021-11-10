@@ -12,7 +12,7 @@ export interface MetamaskError extends Error {
   message: string
 }
 
-export enum EtherDenomination {
+export enum Denomination {
   ETHER = "Ether",
   GWEI = "Gwei",
   WEI = "Wei",

@@ -1,11 +1,10 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, ReactNode } from "react"
 import { useNavigate } from "react-router-dom"
-import { motion } from "framer-motion"
-import { Balance, Loading, UserAddress } from "../../components"
+import { motion, AnimatePresence } from "framer-motion"
+import { Balance, Loading, UserAddress, Modal } from "../../components"
 import { PledgeList, ActionBar } from "./components"
 import { getContributorBalance, getContributorPledges } from "../../pethreon"
 import { EthereumWindow, PledgeType, MetamaskError } from "../../utils"
-import { DepositModal, WithdrawModal, PledgeModal, MODAL_TYPE } from "./modals"
 import styles from "./contribute.module.scss"
 
 interface ContributeProps {
@@ -21,17 +20,13 @@ export const Contribute = (
   const [loading, setLoading] = useState(false)
   const [balance, setBalance] = useState("0.0")
   const [pledges, setPledges] = useState<PledgeType[]>([])
-  const [currentModal, setCurrentModal] = useState("")
+  const [modal, setModal] = useState<ReactNode | null>(null)
   const navigate = useNavigate()
-
   const { ethereum } = window as EthereumWindow
 
   useEffect(() => {
     if (typeof ethereum === undefined || !ethereum.isConnected()) navigate("/")
     ethereum.on("accountsChanged", () => navigate("/"))
-  }, [ethereum, navigate])
-
-  useEffect(() => {
     async function init() {
       if (window.location.pathname === "/") return
       try {
@@ -45,7 +40,7 @@ export const Contribute = (
       }
     }
     init()
-  }, [navigate])
+  }, [ethereum, navigate])
 
   return <>
     {loading && <Loading />}
@@ -66,7 +61,10 @@ export const Contribute = (
       <ActionBar
         actionBarClassName={styles.actionBar}
         actionButtonClassName={styles.actionButton}
-        setCurrentModal={setCurrentModal}
+        setModal={setModal}
+        setBalance={setBalance}
+        setLoading={setLoading}
+        setPledges={setPledges}
       />
       <PledgeList
         className={pledges.length === 0 ? styles.emptyPledgeBox : styles.pledgeBox}
@@ -75,33 +73,11 @@ export const Contribute = (
       />
     </motion.div>
 
-    {
-      currentModal === MODAL_TYPE.DEPOSIT ?
-        <DepositModal
-          closeModal={() => setCurrentModal(MODAL_TYPE.NONE)}
-          setLoading={setLoading}
-          setBalance={setBalance}
-        /> : ""
-    }
-
-    {
-      currentModal === MODAL_TYPE.WITHDRAW ?
-        <WithdrawModal
-          closeModal={() => setCurrentModal(MODAL_TYPE.NONE)}
-          setLoading={setLoading}
-          setBalance={setBalance}
-        /> : ""
-    }
-
-    {
-      currentModal === MODAL_TYPE.PLEDGE ?
-        <PledgeModal
-          closeModal={() => setCurrentModal(MODAL_TYPE.NONE)}
-          setLoading={setLoading}
-          setBalance={setBalance}
-          setPledges={setPledges}
-        /> : ""
-    }
-
+    <AnimatePresence
+      initial={false}
+      exitBeforeEnter={true}
+    >
+      {modal !== null && <Modal closeModal={() => setModal(null)} children={modal} />}
+    </AnimatePresence>
   </>
 }

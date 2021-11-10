@@ -5,10 +5,10 @@ import { Contribute } from './pages/contribute/contribute';
 import { Create } from './pages/create/create';
 import { CircleA, CircleB, CircleC } from './circles';
 
-const PAGE_FADE_IN_DURATION = 1
-const PAGE_FADE_OUT_DURATION = 1
+const PAGE_FADE_IN_DURATION = .5
+const PAGE_FADE_OUT_DURATION = .5
 const PAGE_FADE_OUT_DELAY = 0
-const CIRCLE_ANIMATION_DURATION = 1
+const CIRCLE_ANIMATION_DURATION = .5
 
 const App = () => {
   const location = useLocation()

@@ -14,13 +14,13 @@
   }
 }
 
+.currencyButtons {
+  display: flex;
+  font-size: 13px; /* controls the size of my currency buttons */
+}
+
 .withdrawSVG {
   width: 2ch;
   vertical-align: text-bottom;
   font-weight: 600;
-}
-
-.currencyButtons {
-  display: flex;
-  font-size: 13px; /* controls the size of my currency buttons */
 }

@@ -1,5 +1,5 @@
 import { ReactNode, ChangeEvent } from "react"
-import styles from "./PledgeModalField.module.scss"
+import styles from "./PledgeField.module.scss"
 
 interface PledgeFieldProps {
   autofocus?: boolean,

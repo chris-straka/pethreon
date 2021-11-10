@@ -21,11 +21,11 @@
     border-radius var(--animation-duration) var(--animation-delay),
     background-color var(--animation-duration) var(--animation-delay);
 
-  --top-login: 92vh;
-  --left-login: 30vw;
-  --size-login: 160px;
-  --width-login: 160px;
-  --height-login: 160px;
+  --top-login: 80vh;
+  --left-login: 25vw;
+  --size-login: 45vh;
+  --width-login: var(--size-login);
+  --height-login: var(--size-login);
 
   --top-contribute: 0vh;
   --left-contribute: 60vw;
@@ -40,15 +40,10 @@
   --fs: clamp(10px, 6vw, 30px);
   --outline-offset: 3px;
   --outline-size: 5px;
-
-  &:hover {
-    color: var(--secondary);
-    fill: var(--secondary);
-    transition: color 0.2s, fill 0.2s;
-  }
+  --outline-color: var(--primary);
 
   &:focus {
-    outline-color: var(--primary);
+    outline-color: var(--outline-color);
     transition: outline-color 0.15s, color 0.2s, fill 0.2s;
   }
 }

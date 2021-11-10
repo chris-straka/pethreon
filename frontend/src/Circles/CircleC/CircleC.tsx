@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 import { ArrowSVG } from "../../svgs"
 import styles from "./CircleC.module.scss"
@@ -12,6 +12,7 @@ interface CircleCProps {
 
 export const CircleC = ({ delay, duration, textDelay }: CircleCProps) => {
   const location = useLocation()
+  const navigate = useNavigate()
   const [disabled, setDisabled] = useState(true)
   const ref = useRef<HTMLButtonElement | null>(null);
 
@@ -40,6 +41,7 @@ export const CircleC = ({ delay, duration, textDelay }: CircleCProps) => {
       ref.current?.style.setProperty("border-bottom-left-radius", "50px")
       ref.current?.style.setProperty("color", "var(--text)")
       ref.current?.style.setProperty("fill", "var(--text)")
+      ref.current?.style.setProperty("--outline-color", "var(--primary)")
       ref.current?.style.setProperty("--text-delay", `${textDelay}s`)
       setDisabled(false)
     }
@@ -53,19 +55,39 @@ export const CircleC = ({ delay, duration, textDelay }: CircleCProps) => {
       ref.current?.style.setProperty("border-bottom-left-radius", "50px")
       ref.current?.style.setProperty("color", "var(--text)")
       ref.current?.style.setProperty("fill", "var(--text)")
+      ref.current?.style.setProperty("--outline-color", "var(--secondary)")
       ref.current?.style.setProperty("--text-delay", `${textDelay}s`)
       setDisabled(false)
     }
-  }, [location, delay, duration])
+  }, [location, duration, delay, textDelay])
+
+  function navigateToNewPage() {
+    location.pathname === "/contribute"
+      ? navigate("/create")
+      : navigate("/contribute")
+  }
 
   return (
     <motion.button
       className={styles.circleC}
       disabled={disabled}
       ref={ref}
+      onClick={navigateToNewPage}
+      animate={
+        location.pathname === "/" ?
+          {
+            scale: 1.25,
+            transition: {
+              duration: 5,
+              repeat: Infinity,
+              repeatType: "reverse"
+            }
+          }
+          : {}
+      }
     >
       {location.pathname === "/create" ? "Donate" : "Create"}
-      <ArrowSVG />
-    </motion.button>
+      < ArrowSVG />
+    </motion.button >
   )
 }

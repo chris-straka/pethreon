@@ -1,30 +1,29 @@
 import { useState, Dispatch, ChangeEvent, SetStateAction, FormEvent } from "react"
 import { Spacer, SubmitButton, CurrencyDenomination } from "../../../../components"
-import { PledgeField } from "../PledgeField/PledgeModalField"
+import { PledgeField } from "../PledgeField/PledgeField"
 import { BigNumberish, utils } from "ethers"
 import { CashSVG, PersonSVG, DateSVG, PledgeSVG } from "../../../../svgs"
 import { getContributorBalance, createPledge, getContributorPledges } from "../../../../pethreon"
-import { PledgeType, EtherDenomination, MetamaskError } from "../../../../utils"
-import styles from "./PledgeModal.module.scss"
+import { PledgeType, Denomination, MetamaskError } from "../../../../utils"
+import styles from "./Pledge.module.scss"
 
-
-interface PledgeModalProps {
+interface PledgeProps {
   closeModal: () => void,
   setLoading: Dispatch<SetStateAction<boolean>>,
   setBalance: Dispatch<SetStateAction<string>>,
   setPledges: Dispatch<SetStateAction<PledgeType[]>>
 }
 
-export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: PledgeModalProps) => {
+export const Pledge = ({ closeModal, setLoading, setBalance, setPledges }: PledgeProps) => {
   const [pledgeAmount, setPledgeAmount] = useState("")
   const [address, setAddress] = useState("")
-  const [currency, setCurrency] = useState<EtherDenomination>(EtherDenomination.ETHER)
+  const [currency, setCurrency] = useState<Denomination>(Denomination.ETHER)
   const [period, setPeriod] = useState("")
 
   const submitPledge = async (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
 
-    if (!pledgeAmount && currency !== EtherDenomination.ALL) return window.alert("Please enter a pledge amount")
+    if (!pledgeAmount && currency !== Denomination.ALL) return window.alert("Please enter a pledge amount")
     if (!address) return window.alert("Please enter a destination address")
     if (!period) return window.alert("Please set a pledge duration")
 
@@ -39,9 +38,9 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
     closeModal()
 
     let amountPerPeriodInWei: BigNumberish = amountPerPeriod
-    if (currency === EtherDenomination.ETHER) amountPerPeriodInWei = utils.parseEther(amountPerPeriod)
-    if (currency === EtherDenomination.WEI) amountPerPeriodInWei = utils.parseUnits(amountPerPeriod, "gwei")
-    if (currency === EtherDenomination.ALL) {
+    if (currency === Denomination.ETHER) amountPerPeriodInWei = utils.parseEther(amountPerPeriod)
+    if (currency === Denomination.WEI) amountPerPeriodInWei = utils.parseUnits(amountPerPeriod, "gwei")
+    if (currency === Denomination.ALL) {
       const fullBalance = await getContributorBalance()
       amountPerPeriodInWei = utils.parseEther(fullBalance)
     }
@@ -75,11 +74,11 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
       ><CashSVG className={styles.pledgeSVG} /></PledgeField>
       <Spacer marginBottom="13px" />
       <div className={styles.currencyButtons}
-        onChange={(event: ChangeEvent<HTMLInputElement>) => setCurrency((event.target.value) as EtherDenomination)}>
-        <CurrencyDenomination defaultChecked={true} denomination={EtherDenomination.ETHER} />
-        <CurrencyDenomination defaultChecked={false} denomination={EtherDenomination.GWEI} />
-        <CurrencyDenomination defaultChecked={false} denomination={EtherDenomination.WEI} />
-        <CurrencyDenomination defaultChecked={false} denomination={EtherDenomination.ALL} />
+        onChange={(event: ChangeEvent<HTMLInputElement>) => setCurrency((event.target.value) as Denomination)}>
+        <CurrencyDenomination defaultChecked={true} denomination={Denomination.ETHER} />
+        <CurrencyDenomination defaultChecked={false} denomination={Denomination.GWEI} />
+        <CurrencyDenomination defaultChecked={false} denomination={Denomination.WEI} />
+        <CurrencyDenomination defaultChecked={false} denomination={Denomination.ALL} />
       </div>
       <Spacer marginBottom="16px" />
       <h3 className={styles.pledgeHeading}>Across how many days?</h3>
@@ -100,7 +99,7 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
         onChange={(event: ChangeEvent<HTMLInputElement>) => setAddress(event.target.value)}
       ><PersonSVG className={styles.pledgeSVG} /></PledgeField>
       <Spacer marginBottom="22px" />
-      <SubmitButton handler={submitPledge}>Pledge <PledgeSVG className={styles.submitSVG} /></SubmitButton>
+      <SubmitButton onClick={submitPledge}>Pledge <PledgeSVG className={styles.submitSVG} /></SubmitButton>
     </form>
   )
 }
