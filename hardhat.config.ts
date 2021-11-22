@@ -20,7 +20,7 @@ const config: HardhatUserConfig = {
   },
   networks: {
     hardhat: {
-      chainId: 1337,
+      chainId: 31337,
       accounts: {
         mnemonic: "test test test test test test test test test test test junk"
       },
