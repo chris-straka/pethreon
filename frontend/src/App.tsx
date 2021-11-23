@@ -3,7 +3,7 @@ import { AnimatePresence } from 'framer-motion';
 import { Login } from './pages/login/login';
 import { Contribute } from './pages/contribute/contribute';
 import { Create } from './pages/create/create';
-import { CircleA, CircleB, CircleC } from './Circles';
+import { Circles } from './Circles/Circles';
 
 const PAGE_FADE_IN_DURATION = .5
 const PAGE_FADE_OUT_DURATION = .5
@@ -14,10 +14,11 @@ const App = () => {
   const location = useLocation()
   return (
     <>
-      <CircleA duration={CIRCLE_ANIMATION_DURATION} delay={PAGE_FADE_OUT_DURATION} />
-      <CircleB duration={CIRCLE_ANIMATION_DURATION} delay={PAGE_FADE_OUT_DURATION} />
-      <CircleC duration={CIRCLE_ANIMATION_DURATION} delay={PAGE_FADE_OUT_DURATION}
-        textDelay={PAGE_FADE_OUT_DURATION + PAGE_FADE_IN_DURATION} />
+      <Circles
+        circleAnimationDuration={CIRCLE_ANIMATION_DURATION}
+        pageFadeInDuration={PAGE_FADE_IN_DURATION}
+        pageFadeOutDuration={PAGE_FADE_OUT_DURATION}
+      />
       <AnimatePresence exitBeforeEnter initial={false}>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={

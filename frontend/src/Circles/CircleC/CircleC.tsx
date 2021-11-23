@@ -63,8 +63,8 @@ export const CircleC = ({ delay, duration, textDelay }: CircleCProps) => {
 
   function navigateToNewPage() {
     location.pathname === "/contribute"
-      ? navigate("/create")
-      : navigate("/contribute")
+      ? navigate("/create", { replace: true })
+      : navigate("/contribute", { replace: true })
   }
 
   return (

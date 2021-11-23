@@ -101,7 +101,7 @@ I spent a lot of time playing around with font-sizes. I was tweaking the same st
 
 ### A11y
 
-I used to have this problem on my contributor & creator page where the keyboard navigation was messed up. My circleC was the last element to receive focus even though it should've been the first. I tried changing this by messing around with the tabIndex attribute but it didn't seem to work. I made a bunch of huge refactors in my project and that somehow fixed it. I still don't know why this was happening, I think it's because circleC was at the bottom of the page and then got moved to the top later. I think this was happening despite CircleC being listed above all the other elements.
+There's this weird problem in my contributor & creator page where the keyboard navigation gets messed up. My circleC should be the first element to receive focus, but it keeps skipping over it.
 
 I also had a problem with modals and a11y. My first implementation used React portals which I think gave me some issues with handling focus (it was a while ago). I ended up refactoring to use [Fireship's Framer Motion Modals](https://www.youtube.com/watch?v=SuqU904ZHA4&t=576s) instead, I figured it was worthwhile since I already decided to use framer-motion for page transitions.
 
