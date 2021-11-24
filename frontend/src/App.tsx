@@ -30,7 +30,7 @@ const App = () => {
             />
           }
           />
-          <Route path="/contribute" element={
+          <Route path="contribute" element={
             <Contribute
               fadeInDuration={PAGE_FADE_IN_DURATION}
               fadeInDelay={CIRCLE_ANIMATION_DURATION}
@@ -39,7 +39,7 @@ const App = () => {
             />
           }
           />
-          <Route path="/create" element={
+          <Route path="create" element={
             <Create
               fadeInDuration={PAGE_FADE_IN_DURATION}
               fadeInDelay={CIRCLE_ANIMATION_DURATION}
