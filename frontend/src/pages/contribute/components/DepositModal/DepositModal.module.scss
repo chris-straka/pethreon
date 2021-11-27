@@ -18,3 +18,14 @@
   vertical-align: text-bottom;
   font-weight: 600;
 }
+
+.subsectionDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+@media only screen and (min-width: 700px) {
+  .subsectionDetails {
+    flex-direction: row;
+  }
+}

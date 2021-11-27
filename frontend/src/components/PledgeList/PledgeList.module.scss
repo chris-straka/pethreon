@@ -24,7 +24,7 @@
 @media (min-width: 1280px) and (orientation: landscape) {
   .pledgeBox,
   .emptyPledgeBox {
-    grid-area: Pledges;
+    grid-area: pledges;
     place-self: start center;
 
     --fs-no-pledges: clamp(0.5rem, 4vw, 5rem);

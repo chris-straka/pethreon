@@ -6,12 +6,12 @@ import { Loading } from "./Loading/Loading";
 import { Modal } from "./Modal/Modal"
 import { Pledge } from "./Pledge/Pledge";
 import { PledgeList } from "./PledgeList/PledgeList"
-import { Spacer } from "./Spacer/Spacer";
-import { SubmitButton } from "./SubmitButton/Submit";
+import { SubmitModalButton } from "./SubmitModalButton/SubmitModalButton";
 import { UserAddress } from "./UserAddress/UserAddress";
 
 export {
   Balance, CurrencyDenomination,
   CurrencyField, Footer, Loading, Modal,
-  Pledge, PledgeList, Spacer, SubmitButton, UserAddress
+  Pledge, PledgeList, SubmitModalButton,
+  UserAddress
 }

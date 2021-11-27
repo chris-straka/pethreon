@@ -60,20 +60,20 @@
   .contributeLayout {
     display: grid;
     grid:
-      [Account-row-start] "EthBalance EthBalance" [Action-row-end]
-      [Account-row-start] "Account actionBar" [Action-row-end]
+      [Account-row-start] "ethBalance ethBalance" [Action-row-end]
+      [Account-row-start] "account actionBar" [Action-row-end]
       [Balance-row-start] ". pledges" [Balance-row-end]
       [Pledge-row-start] ". pledges" [Pledge-row-end];
   }
 
   .userAccountName {
     display: block;
-    grid-area: Account;
+    grid-area: account;
     align-self: center;
   }
 
   .balance {
-    grid-area: EthBalance;
+    grid-area: ethBalance;
     align-self: end;
     overflow: hidden;
     text-overflow: ellipsis;

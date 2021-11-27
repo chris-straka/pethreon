@@ -4,23 +4,19 @@
   padding-bottom: 5px;
   border-width: 0 0 5px 0;
   border-style: solid;
-  border-image: linear-gradient(
-      to right,
-      var(--darktheme-secondary),
-      transparent 80%
-    )
-    1;
+  border-image: linear-gradient(to right, var(--secondary), transparent 80%) 1;
+  margin-bottom: 12px;
 
   &:after {
     position: absolute;
-    content: "_______________________________________________________________"; /* _____L_O_L */
+    content: "_______________________________________________________________"; /* ___L_O_L */
     overflow: hidden;
     pointer-events: none;
     font-size: 100px;
     width: 65vw;
-    top: -55px;
+    top: -57px;
     left: -1px;
-    color: var(--darktheme-modal-background);
+    color: var(--modal-background);
     transition: opacity 0.3s;
   }
 
@@ -35,6 +31,6 @@
   outline: none;
   width: 100%;
   font-size: inherit;
-  caret-color: var(--primary);
+  caret-color: var(--text);
   margin-left: 10px;
 }

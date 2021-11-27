@@ -8,7 +8,6 @@ interface EtherDenominationProps {
 }
 
 export const EtherDenominationButtons = ({ setCurrency }: EtherDenominationProps) => {
-
   return (
     <div
       className={styles.currencyButtons}

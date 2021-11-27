@@ -1,23 +1,22 @@
 import { useState, ChangeEvent, FormEvent, Dispatch, SetStateAction } from "react"
-import { CurrencyField } from "../../../../components"
 import { BigNumberish, utils } from "ethers"
+import { CurrencyField, SubmitModalButton } from "../../../../components"
 import { deposit, getContributorBalance, } from "../../../../pethreon"
 import { MetamaskError, Denomination } from "../../../../utils"
+import { EtherDenominationButtons, Disclaimer } from ".."
 import { DepositSVG } from "../../../../svgs"
-import { EtherDenominationButtons } from "../EtherDenominationButtons/EtherDenominationButtons"
-import { DisclaimerAndSubmit } from "../DisclaimerAndSubmit/DisclaimerAndSubmit"
 import styles from "./DepositModal.module.scss"
 
 interface DepositProps {
   closeModal: (() => void),
   setLoading: Dispatch<SetStateAction<boolean>>,
-  setBalance: Dispatch<SetStateAction<string>>
+  setBalance: Dispatch<SetStateAction<string>>,
 }
 
 export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositProps) => {
   const [amount, setAmount] = useState("")
   const [currency, setCurrency] = useState<Denomination>(Denomination.ETHER)
-  const [invalid, setInvalid] = useState(false)
+  const [isInvalid, setInvalid] = useState(false)
 
   const submitDeposit = async (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
@@ -48,12 +47,15 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositProp
     <form className={styles.depositFormLayout}>
       <h3 className={styles.depositHeading}>How much to deposit?</h3>
       <CurrencyField
-        invalid={invalid}
+        invalid={isInvalid}
         amount={amount}
         getAmount={(event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)}
       />
       <EtherDenominationButtons setCurrency={setCurrency} />
-      <DisclaimerAndSubmit onSubmit={submitDeposit}>Deposit <DepositSVG className={styles.depositSVG} /></DisclaimerAndSubmit>
+      <div className={styles.subsectionDetails}>
+        <Disclaimer />
+        <SubmitModalButton disabled={false} onSubmit={submitDeposit}>Deposit <DepositSVG className={styles.depositSVG} /></SubmitModalButton>
+      </div>
     </form>
   );
 }

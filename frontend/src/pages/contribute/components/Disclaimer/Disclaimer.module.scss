@@ -1,0 +1,37 @@
+.disclaimer {
+  font-size: 1rem;
+  user-select: none;
+
+  &Popup { // what is he doing?
+    font-size: inherit;
+    cursor: pointer;
+    background-color: transparent;
+    border-bottom: 5px dotted transparent;
+    color: var(--primary-light);
+    outline: none;
+    transition: all 0.3s;
+
+    &:focus {
+      border-bottom: 5px dotted var(--secondary);
+      color: var(--secondary);
+    }
+  }
+}
+
+.consentLabel {
+  cursor: pointer;
+  margin-right: 0.8rem;
+  user-select: none;
+}
+
+.consentCheckbox {
+  cursor: pointer;
+  outline: 4px dotted transparent;
+  outline-offset: 3px;
+  transition: outline-color 0.3s;
+  margin-bottom: 18px;
+
+  &:focus {
+    outline-color: var(--secondary);
+  }
+}

@@ -1,10 +1,10 @@
 import { useState, Dispatch, SetStateAction, ChangeEvent, FormEvent } from "react"
-import { CurrencyField } from "../../../../components"
 import { BigNumberish, utils } from "ethers"
 import { MetamaskError, Denomination } from "../../../../utils"
 import { contributorWithdraw, getContributorBalance, } from "../../../../pethreon"
+import { CurrencyField, SubmitModalButton } from "../../../../components"
+import { Disclaimer, EtherDenominationButtons } from ".."
 import { WithdrawSVG } from "../../../../svgs"
-import { DisclaimerAndSubmit, EtherDenominationButtons } from ".."
 import styles from "./WithdrawModal.module.scss"
 
 interface WithdrawProps {
@@ -48,7 +48,8 @@ export const WithdrawModal = ({ closeModal, setLoading, setBalance }: WithdrawPr
         getAmount={(event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)}
       />
       <EtherDenominationButtons setCurrency={setCurrency} />
-      <DisclaimerAndSubmit onSubmit={submitWithdraw}>Withdraw <WithdrawSVG className={styles.withdrawSVG}/></DisclaimerAndSubmit>
+      <Disclaimer />
+      <SubmitModalButton disabled={false} onSubmit={submitWithdraw}>Withdraw <WithdrawSVG className={styles.withdrawSVG} /></SubmitModalButton>
     </form>
   )
 }

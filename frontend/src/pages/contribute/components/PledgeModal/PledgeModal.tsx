@@ -1,5 +1,5 @@
 import { useState, Dispatch, ChangeEvent, SetStateAction, FormEvent } from "react"
-import { SubmitButton, CurrencyDenomination } from "../../../../components"
+import { SubmitModalButton, CurrencyDenomination } from "../../../../components"
 import { CashSVG, PersonSVG, DateSVG, PledgeSVG } from "../../../../svgs"
 import { getContributorBalance, createPledge, getContributorPledges } from "../../../../pethreon"
 import { PledgeType, Denomination, MetamaskError } from "../../../../utils"
@@ -107,7 +107,7 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
         />
         <PersonSVG className={styles.pledgeSVG} />
       </div>
-      <SubmitButton onClick={submitPledge}>Pledge <PledgeSVG className={styles.submitSVG} /></SubmitButton>
+      <SubmitModalButton onSubmit={submitPledge}>Pledge <PledgeSVG className={styles.submitSVG} /></SubmitModalButton>
     </form>
   )
 }
