@@ -1,8 +1,8 @@
 import { useState, useEffect, FormEvent } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
-import { Loading, Balance, UserAddress } from "../../components"
-import { ActionBar, PledgeList } from "./components"
+import { Loading, Balance, UserAddress, PledgeList } from "../../components"
+import { ActionBar } from "./components"
 import { creatorWithdraw, getCreatorBalance, getCreatorPledges } from "../../pethreon"
 import { EthereumWindow, MetamaskError, PledgeType, extractPledgesToCSV } from "../../utils"
 import styles from "./create.module.scss"
@@ -82,8 +82,8 @@ export const Create = (
         withdraw={() => withdrawBalance}
       />
       <PledgeList
-        className={pledges.length === 0 ? styles.emptyPledgeBox : styles.pledgeBox}
-        emptyListTextStyle={styles.emptyPledgeText}
+        isCreator={true}
+        textForWhenItsEmpty="Nobody has pledged to you yet..."
         pledges={pledges}
       />
     </motion.div>

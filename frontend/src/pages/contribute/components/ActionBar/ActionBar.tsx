@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, ReactNode } from "react"
-import { Deposit, Pledge, Withdraw } from "..";
+import { DepositModal, PledgeModal, WithdrawModal } from "..";
 import { DepositSVG, WithdrawSVG, PledgeSVG } from "../../../../svgs"
 import { PledgeType } from "../../../../utils";
 import styles from "./ActionBar.module.scss"
@@ -21,7 +21,7 @@ export const ActionBar = (
       <button
         className={styles.actionButton}
         onClick={() => setModal(
-          <Deposit
+          <DepositModal
             closeModal={() => setModal(null)}
             setLoading={setLoading}
             setBalance={setBalance}
@@ -31,7 +31,7 @@ export const ActionBar = (
       <button
         className={styles.actionButton}
         onClick={() => setModal(
-          <Withdraw
+          <WithdrawModal
             closeModal={() => setModal(null)}
             setLoading={setLoading}
             setBalance={setBalance}
@@ -40,7 +40,7 @@ export const ActionBar = (
       <button
         className={styles.actionButton}
         onClick={() => setModal(
-          <Pledge
+          <PledgeModal
             closeModal={() => setModal(null)}
             setLoading={setLoading}
             setBalance={setBalance}

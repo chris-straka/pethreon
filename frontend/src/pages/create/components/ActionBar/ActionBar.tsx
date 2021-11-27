@@ -14,7 +14,6 @@ export const ActionBar = ({ actionBarClassName, actionButtonClassName, withdraw,
         className={actionButtonClassName}
         onClick={() => withdraw()}
       >Withdraw <WithdrawSVG /></button>
-
       <button
         className={actionButtonClassName}
         onClick={() => makeCSV()}

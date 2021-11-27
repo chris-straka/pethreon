@@ -1,11 +1,10 @@
 import { useState, Dispatch, ChangeEvent, SetStateAction, FormEvent } from "react"
-import { Spacer, SubmitButton, CurrencyDenomination } from "../../../../components"
-import { PledgeField } from "../PledgeField/PledgeField"
-import { BigNumberish, utils } from "ethers"
+import { SubmitButton, CurrencyDenomination } from "../../../../components"
 import { CashSVG, PersonSVG, DateSVG, PledgeSVG } from "../../../../svgs"
 import { getContributorBalance, createPledge, getContributorPledges } from "../../../../pethreon"
 import { PledgeType, Denomination, MetamaskError } from "../../../../utils"
-import styles from "./Pledge.module.scss"
+import { BigNumberish, utils } from "ethers"
+import styles from "./PledgeModal.module.scss"
 
 interface PledgeProps {
   closeModal: () => void,
@@ -14,10 +13,10 @@ interface PledgeProps {
   setPledges: Dispatch<SetStateAction<PledgeType[]>>
 }
 
-export const Pledge = ({ closeModal, setLoading, setBalance, setPledges }: PledgeProps) => {
+export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: PledgeProps) => {
+  const [currency, setCurrency] = useState<Denomination>(Denomination.ETHER)
   const [pledgeAmount, setPledgeAmount] = useState("")
   const [address, setAddress] = useState("")
-  const [currency, setCurrency] = useState<Denomination>(Denomination.ETHER)
   const [period, setPeriod] = useState("")
 
   const submitPledge = async (event: FormEvent<HTMLButtonElement>) => {
@@ -63,42 +62,51 @@ export const Pledge = ({ closeModal, setLoading, setBalance, setPledges }: Pledg
   return (
     <form className={styles.pledgeFormLayout}>
       <h3 className={styles.pledgeHeading}>How much to pledge?</h3>
-      <PledgeField
-        autofocus={true}
-        type="number"
-        placeholder="0"
-        min="0"
-        disabled={currency === "All" ? true : false}
-        value={pledgeAmount}
-        onChange={(event: ChangeEvent<HTMLInputElement>) => setPledgeAmount(event.target.value)}
-      ><CashSVG className={styles.pledgeSVG} /></PledgeField>
-      <Spacer marginBottom="13px" />
-      <div className={styles.currencyButtons}
+      <div className={styles.pledgeInputContainer}>
+        <input
+          autoFocus={true}
+          className={styles.pledgeInput}
+          type="number"
+          placeholder="0"
+          min="0"
+          disabled={currency === Denomination.ALL ? true : false}
+          value={pledgeAmount}
+          onChange={(event: ChangeEvent<HTMLInputElement>) => setPledgeAmount(event.target.value)}
+        />
+        <CashSVG className={styles.pledgeSVG} />
+      </div>
+      <div
+        className={styles.currencyButtons}
         onChange={(event: ChangeEvent<HTMLInputElement>) => setCurrency((event.target.value) as Denomination)}>
         <CurrencyDenomination defaultChecked={true} denomination={Denomination.ETHER} />
         <CurrencyDenomination defaultChecked={false} denomination={Denomination.GWEI} />
         <CurrencyDenomination defaultChecked={false} denomination={Denomination.WEI} />
         <CurrencyDenomination defaultChecked={false} denomination={Denomination.ALL} />
       </div>
-      <Spacer marginBottom="16px" />
       <h3 className={styles.pledgeHeading}>Across how many days?</h3>
-      <PledgeField
-        type="number"
-        placeholder="0"
-        min="0"
-        value={period}
-        onChange={(event: ChangeEvent<HTMLInputElement>) => setPeriod(event.target.value)}
-      ><DateSVG className={styles.pledgeSVG} /></PledgeField>
-      <Spacer marginBottom="14px" />
+      <div className={styles.pledgeInputContainer}>
+        <input
+          className={styles.pledgeInput}
+          type="number"
+          placeholder="0"
+          min="0"
+          value={period}
+          onChange={(event: ChangeEvent<HTMLInputElement>) => setPeriod(event.target.value)}
+        />
+        <DateSVG className={styles.pledgeSVG} />
+      </div>
       <h3 className={styles.pledgeHeading}>To which ethereum address?</h3>
-      <PledgeField
-        type="text"
-        placeholder="0x"
-        spellCheck={false}
-        value={address}
-        onChange={(event: ChangeEvent<HTMLInputElement>) => setAddress(event.target.value)}
-      ><PersonSVG className={styles.pledgeSVG} /></PledgeField>
-      <Spacer marginBottom="22px" />
+      <div className={styles.pledgeInputContainer}>
+        <input
+          className={styles.pledgeInput}
+          type="text"
+          placeholder="0x"
+          spellCheck={false}
+          value={address}
+          onChange={(event: ChangeEvent<HTMLInputElement>) => setAddress(event.target.value)}
+        />
+        <PersonSVG className={styles.pledgeSVG} />
+      </div>
       <SubmitButton onClick={submitPledge}>Pledge <PledgeSVG className={styles.submitSVG} /></SubmitButton>
     </form>
   )

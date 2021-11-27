@@ -1,13 +1,11 @@
 import { ActionBar } from "./ActionBar/ActionBar"
-import { Deposit } from "./Deposit/Deposit"
+import { DepositModal } from "./DepositModal/DepositModal"
 import { DisclaimerAndSubmit } from "./DisclaimerAndSubmit/DisclaimerAndSubmit";
 import { EtherDenominationButtons } from "./EtherDenominationButtons/EtherDenominationButtons";
-import { Pledge } from "./Pledge/Pledge";
-import { PledgeField } from "./PledgeField/PledgeField"
-import { PledgeList } from "./PledgeList/PledgeList";
-import { Withdraw } from "./Withdraw/Withdraw"
+import { PledgeModal } from "./PledgeModal/PledgeModal";
+import { WithdrawModal } from "./WithdrawModal/WithdrawModal"
 
 export {
-  ActionBar, Deposit, DisclaimerAndSubmit, EtherDenominationButtons,
-  Pledge, PledgeField, PledgeList, Withdraw
+  ActionBar, DepositModal, DisclaimerAndSubmit,
+  EtherDenominationButtons, PledgeModal, WithdrawModal
 }

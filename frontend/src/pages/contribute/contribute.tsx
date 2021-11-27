@@ -1,8 +1,8 @@
 import { useState, useEffect, ReactNode } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { Balance, Loading, UserAddress, Modal } from "../../components"
-import { PledgeList, ActionBar } from "./components"
+import { Balance, Loading, UserAddress, Modal, PledgeList } from "../../components"
+import { ActionBar } from "./components"
 import { getContributorBalance, getContributorPledges } from "../../pethreon"
 import { EthereumWindow, PledgeType, MetamaskError } from "../../utils"
 import styles from "./contribute.module.scss"
@@ -64,7 +64,11 @@ export const Contribute = (
         setLoading={setLoading}
         setPledges={setPledges}
       />
-      <PledgeList pledges={pledges} />
+      <PledgeList
+        isCreator={false}
+        textForWhenItsEmpty="You need to make a pledge first..."
+        pledges={pledges}
+      />
     </motion.div>
 
     <AnimatePresence

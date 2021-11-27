@@ -6,7 +6,7 @@ import { MetamaskError, Denomination } from "../../../../utils"
 import { DepositSVG } from "../../../../svgs"
 import { EtherDenominationButtons } from "../EtherDenominationButtons/EtherDenominationButtons"
 import { DisclaimerAndSubmit } from "../DisclaimerAndSubmit/DisclaimerAndSubmit"
-import styles from "./Deposit.module.scss"
+import styles from "./DepositModal.module.scss"
 
 interface DepositProps {
   closeModal: (() => void),
@@ -14,7 +14,7 @@ interface DepositProps {
   setBalance: Dispatch<SetStateAction<string>>
 }
 
-export const Deposit = ({ closeModal, setLoading, setBalance }: DepositProps) => {
+export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositProps) => {
   const [amount, setAmount] = useState("")
   const [currency, setCurrency] = useState<Denomination>(Denomination.ETHER)
   const [invalid, setInvalid] = useState(false)

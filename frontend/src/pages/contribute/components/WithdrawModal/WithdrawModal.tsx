@@ -5,7 +5,7 @@ import { MetamaskError, Denomination } from "../../../../utils"
 import { contributorWithdraw, getContributorBalance, } from "../../../../pethreon"
 import { WithdrawSVG } from "../../../../svgs"
 import { DisclaimerAndSubmit, EtherDenominationButtons } from ".."
-import styles from "./Withdraw.module.scss"
+import styles from "./WithdrawModal.module.scss"
 
 interface WithdrawProps {
   closeModal: (() => void),
@@ -13,7 +13,7 @@ interface WithdrawProps {
   setBalance: Dispatch<SetStateAction<string>>
 }
 
-export const Withdraw = ({ closeModal, setLoading, setBalance }: WithdrawProps) => {
+export const WithdrawModal = ({ closeModal, setLoading, setBalance }: WithdrawProps) => {
   const [amount, setAmount] = useState("")
   const [currency, setCurrency] = useState<Denomination>(Denomination.ETHER)
 
