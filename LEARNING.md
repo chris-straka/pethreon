@@ -101,9 +101,7 @@ I spent a lot of time playing around with font-sizes. I was tweaking the same st
 
 ### A11y
 
-There's this weird problem in my contributor & creator page where the keyboard navigation gets messed up. My circleC should be the first element to receive focus, but it keeps skipping over it.
-
-I also had a problem with modals and a11y. My first implementation used React portals which I think gave me some issues with handling focus (it was a while ago). I ended up refactoring to use [Fireship's Framer Motion Modals](https://www.youtube.com/watch?v=SuqU904ZHA4&t=576s) instead, I figured it was worthwhile since I already decided to use framer-motion for page transitions.
+There's this weird problem in my contributor & creator page where the keyboard navigation is messed up. My circleC should be the first element to receive focus, but it keeps skipping over it. Clicking somewhere else on the page resets it to the proper order. Idk if this is because of react-router or framer-motion? Either way I don't know how to fix it. Also, screen reader users are going to be very confused since the content between the contributor portal and the creator portal is almost identical.
 
 ### My Choice of React
 

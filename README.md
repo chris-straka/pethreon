@@ -30,3 +30,5 @@
 - [Samuel Kraft](https://samuelkraft.com/blog/responsive-animation-framer-motion)
 
 - [Framer Motion](https://github.com/framer/motion)
+
+- [Fireship's Framer Motion Modals](https://www.youtube.com/watch?v=SuqU904ZHA4&t=576s)

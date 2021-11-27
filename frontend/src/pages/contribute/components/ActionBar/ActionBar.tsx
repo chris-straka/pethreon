@@ -2,10 +2,9 @@ import { Dispatch, SetStateAction, ReactNode } from "react"
 import { Deposit, Pledge, Withdraw } from "..";
 import { DepositSVG, WithdrawSVG, PledgeSVG } from "../../../../svgs"
 import { PledgeType } from "../../../../utils";
+import styles from "./ActionBar.module.scss"
 
 interface ActionBarProps {
-  actionBarClassName: string,
-  actionButtonClassName: string,
   setModal: Dispatch<SetStateAction<ReactNode>>,
   setBalance: Dispatch<SetStateAction<string>>,
   setLoading: Dispatch<SetStateAction<boolean>>,
@@ -14,14 +13,13 @@ interface ActionBarProps {
 
 export const ActionBar = (
   {
-    actionBarClassName, actionButtonClassName,
     setModal, setBalance, setLoading, setPledges
   }: ActionBarProps
 ) => {
   return (
-    <div className={actionBarClassName}>
+    <div className={styles.actionBar}>
       <button
-        className={actionButtonClassName}
+        className={styles.actionButton}
         onClick={() => setModal(
           <Deposit
             closeModal={() => setModal(null)}
@@ -31,7 +29,7 @@ export const ActionBar = (
         )}
       >Deposit <DepositSVG /></button>
       <button
-        className={actionButtonClassName}
+        className={styles.actionButton}
         onClick={() => setModal(
           <Withdraw
             closeModal={() => setModal(null)}
@@ -40,7 +38,7 @@ export const ActionBar = (
           />
         )}>Withdraw <WithdrawSVG /></button>
       <button
-        className={actionButtonClassName}
+        className={styles.actionButton}
         onClick={() => setModal(
           <Pledge
             closeModal={() => setModal(null)}

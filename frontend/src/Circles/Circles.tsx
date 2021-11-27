@@ -13,8 +13,8 @@ export const Circles = ({ circleAnimationDuration, pageFadeOutDuration, pageFade
     <>
       <CircleA duration={circleAnimationDuration} delay={pageFadeOutDuration} />
       <CircleB duration={circleAnimationDuration} delay={pageFadeOutDuration} />
-      <CircleC duration={circleAnimationDuration} delay={pageFadeOutDuration}
-        textDelay={pageFadeOutDuration + pageFadeInDuration} />
+      <CircleC circleAnimationDuration={circleAnimationDuration} circleAnimationDelay={pageFadeOutDuration}
+        textAnimationDelay={pageFadeOutDuration + pageFadeInDuration} />
     </>
   )
 }

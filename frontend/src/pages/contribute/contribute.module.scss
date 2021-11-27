@@ -1,38 +1,21 @@
 .contributeLayout {
   --fs-user-balance: clamp(2rem, 8vw + 1rem, 5rem);
-  --fs-action-bar-button: clamp(0.5rem, 4.5vw, 3rem);
-  --fs-emptyPledgeText: clamp(0.5rem, 10vw, 5rem);
 
   --contribute-layout-margin-inline: clamp(1.5em, 9vw, 5rem);
   --contribute-layout-height: 60vh;
   --contribute-layout-margin-top: 15vh;
-
-  --action-bar-margin-top: 2vh;
-  --action-bar-margin-bottom: 0;
-  --action-bar-button-width: 8ch;
-
-  --action-button-outline-offset: 4px;
-  --action-button-outline-size: 5px;
-
-  --pledge-box-margin-top: 3vh;
-  --pledge-box-height: 30vh;
 }
 
 @media (max-width: 1280px) and (orientation: landscape) {
   .contributeLayout {
     --contribute-layout-height: auto;
     --contribute-layout-margin-top: 30vh;
-
-    --pledge-box-height: 90vh;
-    --pledge-box-margin-top: 8vh;
   }
 }
 
 @media (min-width: 600px) {
   .contributeLayout {
     --contribute-layout-margin-inline: clamp(3rem, 9vw, 9rem);
-    --action-button-outline-offset: 4px;
-    --action-button-outline-size: 10px;
   }
 }
 
@@ -40,8 +23,6 @@
   .contributeLayout {
     --fs-user-account: clamp(0.2rem, 0.4vw + 1rem, 5rem);
     --fs-user-balance: clamp(1.5rem, 3vw + 1rem, 9rem);
-    --fs-action-bar-button: clamp(0.5rem, 2vw, 2rem);
-    --fs-emptyPledgeText: clamp(0.5rem, 4vw, 5rem);
 
     --contribute-layout-height: 85vh;
     --contribute-layout-margin-top: 15vh;
@@ -49,17 +30,6 @@
 
     --user-account-margin-left: clamp(30px, 4vw, 4rem);
     --user-balance-margin-left: clamp(30px, 4vw, 4rem);
-
-    --action-bar-button-width: unset;
-    --action-bar-width: 55vw;
-    --action-bar-margin-top: 0;
-    --action-bar-margin-bottom: 8px;
-
-    --action-button-outline-offset: 4px;
-    --action-button-outline-size: 10px;
-
-    --pledge-box-height: 40vh;
-    --pledge-box-width: 50vw;
   }
 }
 
@@ -84,68 +54,6 @@
   width: var(--user-balance-width);
   margin-left: var(--user-balance-margin-left);
   margin-bottom: var(--user-balance-margin-bottom);
-  overflow: scroll;
-}
-
-.actionBar {
-  display: flex;
-  justify-content: center;
-  width: var(--action-bar-width);
-  margin-top: var(--action-bar-margin-top);
-  margin-bottom: var(--action-bar-margin-bottom);
-}
-
-.actionButton {
-  font-size: var(--fs-action-bar-button);
-  font-weight: 600;
-  cursor: pointer;
-  width: var(--action-bar-button-width);
-  padding: 0.7em;
-  border-right: 3px solid white;
-  background-color: var(--primary);
-  color: var(--black-text);
-  outline-offset: var(--action-button-outline-offset);
-  outline: var(--action-button-outline-size) dotted transparent;
-  transition: outline-color 0.2s, color 0.2s, background-color 0.2s;
-
-  &:hover {
-    transition: color 0.2s;
-    color: var(--secondary);
-  }
-
-  &:focus {
-    outline-color: var(--primary);
-    transition: color 0.2s, outline-color 0.2s, background-color 0.2s;
-  }
-
-  & > svg {
-    width: 2ch;
-    vertical-align: text-bottom;
-  }
-}
-
-.pledgeBox,
-.emptyPledgeBox {
-  width: var(--pledge-box-width);
-  height: var(--pledge-box-height);
-  margin-top: var(--pledge-box-margin-top);
-  overflow: auto;
-  list-style: none;
-}
-
-.emptyPledgeBox {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: cute;
-  list-style: none;
-  border: 0.3em solid var(--primary-light);
-  border-radius: 2em;
-}
-
-.emptyPledgeText {
-  font-size: var(--fs-emptyPledgeText);
-  width: 13ch;
 }
 
 @media (min-width: 1280px) and (orientation: landscape) {
@@ -153,9 +61,9 @@
     display: grid;
     grid:
       [Account-row-start] "EthBalance EthBalance" [Action-row-end]
-      [Account-row-start] "Account Actions" [Action-row-end]
-      [Balance-row-start] ". Pledges" [Balance-row-end]
-      [Pledge-row-start] ". Pledges" [Pledge-row-end];
+      [Account-row-start] "Account actionBar" [Action-row-end]
+      [Balance-row-start] ". pledges" [Balance-row-end]
+      [Pledge-row-start] ". pledges" [Pledge-row-end];
   }
 
   .userAccountName {
@@ -169,17 +77,5 @@
     align-self: end;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-
-  .actionBar {
-    grid-area: Actions;
-    place-self: end center;
-    justify-content: space-evenly;
-  }
-
-  .pledgeBox,
-  .emptyPledgeBox {
-    grid-area: Pledges;
-    place-self: start center;
   }
 }

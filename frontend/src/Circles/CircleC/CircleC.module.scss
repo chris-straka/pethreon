@@ -1,26 +1,4 @@
 .circleC {
-  outline: none;
-  z-index: -1;
-  position: fixed;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: var(--fs);
-  outline-offset: var(--outline-offset);
-  outline: var(--outline-size) dotted transparent;
-  background-color: var(--primary);
-  border-radius: 50%;
-  color: transparent;
-  fill: transparent;
-  transition: outline-color 0.2s,
-    top var(--animation-duration) var(--animation-duration),
-    left var(--animation-duration) var(--animation-delay),
-    width var(--animation-duration) var(--animation-delay),
-    height var(--animation-duration) var(--animation-delay),
-    color var(--animation-duration) var(--text-delay),
-    fill var(--animation-duration) var(--text-delay),
-    border-radius var(--animation-duration) var(--animation-delay),
-    background-color var(--animation-duration) var(--animation-delay);
-
   --top-login: 80vh;
   --left-login: 25vw;
   --size-login: 45vh;
@@ -41,10 +19,38 @@
   --outline-offset: 3px;
   --outline-size: 5px;
   --outline-color: var(--primary);
+  --color: transparent;
+
+  outline: none;
+  z-index: -1;
+  position: fixed;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: var(--fs);
+  outline-offset: var(--outline-offset);
+  outline: var(--outline-size) dotted transparent;
+  background-color: var(--primary);
+  border-radius: 50%;
+  color: var(--color);
+  fill: var(--color);
+
+  // Most of these variables come from CircleC.tsx
+  transition: outline-color 0.2s, top var(--circle-animation-duration) var(--circle-animation-duration),
+    left var(--circle-animation-duration) var(--circle-animation-delay),
+    width var(--circle-animation-duration) var(--circle-animation-delay),
+    height var(--circle-animation-duration) var(--circle-animation-delay),
+    color var(--text-animation-duration) var(--text-animation-delay),
+    fill var(--text-animation-duration) var(--text-animation-delay),
+    border-radius var(--circle-animation-duration) var(--circle-animation-delay),
+    background-color var(--circle-animation-duration) var(--circle-animation-delay);
 
   &:focus {
     outline-color: var(--outline-color);
     transition: outline-color 0.15s, color 0.2s, fill 0.2s;
+  }
+
+  &:hover {
+    --color: var(--hover-color);
   }
 }
 

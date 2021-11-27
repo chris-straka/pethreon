@@ -5,12 +5,17 @@ import { ArrowSVG } from "../../svgs"
 import styles from "./CircleC.module.scss"
 
 interface CircleCProps {
-  duration: number,
-  delay: number,
-  textDelay: number
+  circleAnimationDuration: number,
+  circleAnimationDelay: number,
+  textAnimationDelay: number
 }
 
-export const CircleC = ({ delay, duration, textDelay }: CircleCProps) => {
+export const CircleC = ({
+  circleAnimationDuration,
+  circleAnimationDelay,
+  textAnimationDelay
+}: CircleCProps
+) => {
   const location = useLocation()
   const navigate = useNavigate()
   const [disabled, setDisabled] = useState(true)
@@ -24,13 +29,14 @@ export const CircleC = ({ delay, duration, textDelay }: CircleCProps) => {
       ref.current?.style.setProperty("height", "var(--height-login)")
       ref.current?.style.setProperty("background-color", "var(--primary)")
       ref.current?.style.setProperty("border-radius", "50%")
-      ref.current?.style.setProperty("color", "transparent")
-      ref.current?.style.setProperty("fill", "transparent")
-      ref.current?.style.setProperty("--animation-duration", `${duration}s`)
-      ref.current?.style.setProperty("--animation-delay", `${delay}s`)
-      ref.current?.style.setProperty("--text-delay", `0s`)
+      ref.current?.style.setProperty("--color", "transparent")
+      ref.current?.style.setProperty("--circle-animation-duration", `${circleAnimationDuration}s`)
+      ref.current?.style.setProperty("--circle-animation-delay", `${circleAnimationDelay}s`)
+      ref.current?.style.setProperty("--text-animation-duration", `${circleAnimationDuration}s`)
+      ref.current?.style.setProperty("--text-animation-delay", `0s`)
       setDisabled(true)
     }
+
     if (location.pathname === "/contribute") {
       ref.current?.style.setProperty("top", "var(--top-contribute)")
       ref.current?.style.setProperty("left", "var(--left-contribute)")
@@ -39,12 +45,24 @@ export const CircleC = ({ delay, duration, textDelay }: CircleCProps) => {
       ref.current?.style.setProperty("background-color", "var(--primary)")
       ref.current?.style.setProperty("border-radius", "0%")
       ref.current?.style.setProperty("border-bottom-left-radius", "50px")
-      ref.current?.style.setProperty("color", "var(--text)")
-      ref.current?.style.setProperty("fill", "var(--text)")
+      ref.current?.style.setProperty("--color", "var(--text)")
       ref.current?.style.setProperty("--outline-color", "var(--primary)")
-      ref.current?.style.setProperty("--text-delay", `${textDelay}s`)
+      ref.current?.style.setProperty("--hover-color", "var(--secondary)")
+      ref.current?.style.setProperty("--circle-animation-duration", `${circleAnimationDuration}s`)
+      ref.current?.style.setProperty("--circle-animation-delay", `${circleAnimationDelay}s`)
+      ref.current?.style.setProperty("--text-animation-duration", `${circleAnimationDuration}s`)
+      ref.current?.style.setProperty("--text-animation-delay", `${textAnimationDelay}s`)
+
+      setTimeout(() => {
+        if (location.pathname === "/contribute") {
+          ref.current?.style.setProperty("--text-animation-duration", ".3s")
+          ref.current?.style.setProperty("--text-animation-delay", "0s")
+        }
+      }, textAnimationDelay + circleAnimationDuration + circleAnimationDelay);
+
       setDisabled(false)
     }
+
     if (location.pathname === "/create") {
       ref.current?.style.setProperty("top", "var(--top-create)")
       ref.current?.style.setProperty("left", "var(--left-create)")
@@ -53,13 +71,24 @@ export const CircleC = ({ delay, duration, textDelay }: CircleCProps) => {
       ref.current?.style.setProperty("background-color", "var(--secondary)")
       ref.current?.style.setProperty("border-radius", "0%")
       ref.current?.style.setProperty("border-bottom-left-radius", "50px")
-      ref.current?.style.setProperty("color", "var(--text)")
-      ref.current?.style.setProperty("fill", "var(--text)")
+      ref.current?.style.setProperty("--color", "var(--text)")
       ref.current?.style.setProperty("--outline-color", "var(--secondary)")
-      ref.current?.style.setProperty("--text-delay", `${textDelay}s`)
+      ref.current?.style.setProperty("--hover-color", "var(--primary-light)")
+      ref.current?.style.setProperty("--circle-animation-duration", `${circleAnimationDuration}s`)
+      ref.current?.style.setProperty("--circle-animation-delay", `${circleAnimationDelay}s`)
+      ref.current?.style.setProperty("--text-animation-duration", `${circleAnimationDuration}s`)
+      ref.current?.style.setProperty("--text-animation-delay", `${textAnimationDelay}s`)
+
+      setTimeout(() => {
+        if (location.pathname === "/create") {
+          ref.current?.style.setProperty("--color-animation-duration", ".3s")
+          ref.current?.style.setProperty("--color-animation-delay", "0s")
+        }
+      }, textAnimationDelay + circleAnimationDuration + circleAnimationDelay);
+
       setDisabled(false)
     }
-  }, [location, duration, delay, textDelay])
+  }, [location, circleAnimationDuration, circleAnimationDelay, textAnimationDelay])
 
   function navigateToNewPage() {
     location.pathname === "/contribute"
@@ -87,7 +116,7 @@ export const CircleC = ({ delay, duration, textDelay }: CircleCProps) => {
       }
     >
       {location.pathname === "/create" ? "Donate" : "Create"}
-      < ArrowSVG />
+      <ArrowSVG />
     </motion.button >
   )
 }

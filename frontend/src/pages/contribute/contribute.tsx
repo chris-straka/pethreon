@@ -59,18 +59,12 @@ export const Contribute = (
         userAccountAddress={ethereum.selectedAddress}
       />
       <ActionBar
-        actionBarClassName={styles.actionBar}
-        actionButtonClassName={styles.actionButton}
         setModal={setModal}
         setBalance={setBalance}
         setLoading={setLoading}
         setPledges={setPledges}
       />
-      <PledgeList
-        className={pledges.length === 0 ? styles.emptyPledgeBox : styles.pledgeBox}
-        emptyListTextStyles={styles.emptyPledgeText}
-        pledges={pledges}
-      />
+      <PledgeList pledges={pledges} />
     </motion.div>
 
     <AnimatePresence
