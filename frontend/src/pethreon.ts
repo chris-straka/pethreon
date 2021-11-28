@@ -1,6 +1,4 @@
-import { providers, Contract, BigNumberish } from "ethers"
-import { formatEther } from "@ethersproject/units";
-import { BigNumber } from "@ethersproject/bignumber"
+import { providers, Contract, BigNumberish, utils } from "ethers"
 import { EthereumWindow } from "./utils";
 import { Pethreon } from "./types"
 import { abi } from "./artifacts/localhost/Pethreon.json"
@@ -24,9 +22,9 @@ export async function deposit(amount: BigNumberish) {
 
 export async function getContributorBalance() {
   const contract = init()
-  const balance: BigNumber = await contract.getContributorBalance()
+  const balance: BigNumberish = await contract.getContributorBalance()
   const balanceToString = await balance.toString()
-  return formatEther(balanceToString)
+  return utils.formatEther(balanceToString)
 }
 
 export async function contributorWithdraw(amount: BigNumberish) {
@@ -37,9 +35,9 @@ export async function contributorWithdraw(amount: BigNumberish) {
 
 export async function getCreatorBalance() {
   const contract = init()
-  const balance: BigNumber = await contract.getCreatorBalance()
+  const balance: BigNumberish = await contract.getCreatorBalance()
   const balanceToString = await balance.toString()
-  return formatEther(balanceToString)
+  return utils.formatEther(balanceToString)
 }
 
 export async function creatorWithdraw() {
