@@ -1,0 +1,19 @@
+@keyframes moveMouth {
+  50% {
+    transform: translateY(-2.3px);
+  }
+}
+
+@keyframes moveHead {
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.talking {
+  animation: 0.2s linear 0s infinite alternate none running moveMouth;
+}
+
+.floating {
+  animation: 4s ease-in-out 1s infinite alternate none running moveHead;
+}

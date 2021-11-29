@@ -1,0 +1,81 @@
+.contributeLayout {
+  --fs-user-balance: clamp(2rem, 8vw + 1rem, 5rem);
+
+  --contribute-layout-margin-inline: clamp(1.5em, 9vw, 5rem);
+  --contribute-layout-height: 60vh;
+  --contribute-layout-margin-top: 15vh;
+}
+
+@media (max-width: 1280px) and (orientation: landscape) {
+  .contributeLayout {
+    --contribute-layout-height: auto;
+    --contribute-layout-margin-top: 30vh;
+  }
+}
+
+@media (min-width: 600px) {
+  .contributeLayout {
+    --contribute-layout-margin-inline: clamp(3rem, 9vw, 9rem);
+  }
+}
+
+@media (min-width: 1280px) and (orientation: landscape) {
+  .contributeLayout {
+    --fs-user-account: clamp(0.2rem, 0.4vw + 1rem, 5rem);
+    --fs-user-balance: clamp(1.5rem, 3vw + 1rem, 9rem);
+
+    --contribute-layout-height: 85vh;
+    --contribute-layout-margin-top: 15vh;
+    --contribute-layout-margin-inline: 0;
+
+    --user-account-margin-left: clamp(30px, 4vw, 4rem);
+    --user-balance-margin-left: clamp(30px, 4vw, 4rem);
+  }
+}
+
+.contributeLayout {
+  height: var(--contribute-layout-height);
+  margin-top: var(--contribute-layout-margin-top);
+  margin-inline: var(--contribute-layout-margin-inline);
+}
+
+.userAccountName {
+  display: none;
+  font-size: var(--fs-user-account);
+  margin-left: var(--user-account-margin-left);
+  margin-top: var(--user-account-margin-top);
+  width: var(--user-account-width);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.balance {
+  font-size: var(--fs-user-balance);
+  width: var(--user-balance-width);
+  margin-left: var(--user-balance-margin-left);
+  margin-bottom: var(--user-balance-margin-bottom);
+}
+
+@media (min-width: 1280px) and (orientation: landscape) {
+  .contributeLayout {
+    display: grid;
+    grid:
+      [Account-row-start] "ethBalance ethBalance" [Action-row-end]
+      [Account-row-start] "account actionBar" [Action-row-end]
+      [Balance-row-start] ". pledges" [Balance-row-end]
+      [Pledge-row-start] ". pledges" [Pledge-row-end];
+  }
+
+  .userAccountName {
+    display: block;
+    grid-area: account;
+    align-self: center;
+  }
+
+  .balance {
+    grid-area: ethBalance;
+    align-self: end;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

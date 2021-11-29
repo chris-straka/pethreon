@@ -1,0 +1,170 @@
+.createLayout {
+  --fs-user-balance: clamp(2rem, 8vw + 1rem, 5rem);
+  --fs-action-bar-button: clamp(0.5rem, 4.5vw, 3rem);
+  --fs-empty-pledge-text: clamp(0.5rem, 10vw, 5rem);
+
+  --create-layout-margin-inline: clamp(1.5em, 9vw, 5rem);
+  --create-layout-height: 60vh;
+  --create-layout-margin-top: 15vh;
+
+  --action-bar-margin-top: 2vh;
+  --action-bar-margin-bottom: 0;
+
+  --action-button-outline-offset: 4px;
+  --action-button-outline-size: 10px;
+
+  --pledge-box-margin-top: 3vh;
+  --pledge-box-height: 30vh;
+
+  --empty-pledge-text-width: 15ch;
+}
+
+@media (min-width: 600px) {
+  .createLayout {
+    --create-layout-margin-inline: clamp(3rem, 9vw, 9rem);
+  }
+}
+
+@media (min-width: 1280px) and (orientation: landscape) {
+  .createLayout {
+    --fs-user-account: clamp(0.2rem, 0.4vw + 1rem, 5rem);
+    --fs-user-balance: clamp(1.5rem, 3vw + 1rem, 9rem);
+    --fs-action-bar-button: clamp(0.5rem, 2vw, 2rem);
+    --fs-empty-pledge-text: clamp(0.5rem, 4vw, 5rem);
+
+    --create-layout-height: 85vh;
+    --create-layout-margin-top: 15vh;
+    --create-layout-margin-inline: 0;
+
+    --user-account-margin-left: 0;
+    --user-balance-margin-left: clamp(30px, 4vw, 4rem);
+
+    --action-bar-button-width: unset;
+    --action-bar-width: 55vw;
+    --action-bar-margin-top: 0;
+    --action-bar-margin-bottom: 8px;
+
+    --pledge-box-height: 40vh;
+    --pledge-box-width: 50vw;
+  }
+}
+
+.createLayout {
+  height: var(--create-layout-height);
+  margin-top: var(--create-layout-margin-top);
+  margin-inline: var(--create-layout-margin-inline);
+}
+
+.userAccountName {
+  font-size: var(--fs-user-account);
+  margin-left: var(--user-account-margin-left);
+  width: var(--user-account-width);
+  display: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.balance {
+  font-size: var(--fs-user-balance);
+  margin-left: var(--user-balance-margin-left);
+  width: var(--user-balance-width);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.actionBar {
+  width: var(--action-bar-width);
+  margin-top: var(--action-bar-margin-top);
+  margin-bottom: var(--action-bar-margin-bottom);
+  display: flex;
+  justify-content: center;
+}
+
+.actionButton {
+  font-size: var(--fs-action-bar-button);
+  width: var(--action-bar-button-width);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.7em;
+  border-right: 3px solid white;
+  color: var(--black-text);
+  background-color: var(--secondary);
+
+  outline-offset: var(--action-button-outline-offset);
+  outline: var(--action-button-outline-size) dotted transparent;
+  transition: outline-color 0.2s, background-color 0.2s;
+
+  &:focus {
+    outline-color: var(--secondary);
+    transition: outline-color 0.2s, background-color 0.2s;
+  }
+
+  &:hover {
+    background-color: var(--primary);
+    transition: outline-color 0.2s, background-color 0.2s;
+  }
+
+  & > svg {
+    width: 2ch;
+    vertical-align: text-bottom;
+  }
+}
+
+.pledgeBox,
+.emptyPledgeBox {
+  width: var(--pledge-box-width);
+  height: var(--pledge-box-height);
+  margin-top: var(--pledge-box-margin-top);
+  overflow: auto;
+  list-style: none;
+}
+
+.emptyPledgeBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: cute;
+  list-style: none;
+  border: 0.3em solid var(--darktheme-modal-background);
+  border-radius: 2em;
+}
+
+.emptyPledgeText {
+  font-size: var(--fs-empty-pledge-text);
+  width: var(--empty-pledge-text-width);
+}
+
+@media (min-width: 1280px) and (orientation: landscape) {
+  .createLayout {
+    display: grid;
+    grid:
+      [Account-row-start] "EthBalance EthBalance" [Action-row-end]
+      [Account-row-start] "Account Actions" [Action-row-end]
+      [Balance-row-start] ". Pledges" [Balance-row-end]
+      [Pledge-row-start] ". Pledges" [Pledge-row-end];
+  }
+
+  .userAccountName {
+    grid-area: Account;
+    display: block;
+    place-self: center start;
+  }
+
+  .balance {
+    grid-area: EthBalance;
+    align-self: end;
+  }
+
+  .actionBar {
+    grid-area: Actions;
+    justify-content: space-around;
+    place-self: end center;
+  }
+
+  .pledgeBox,
+  .emptyPledgeBox {
+    grid-area: Pledges;
+    border: 0.2em solid var(--darktheme-modal-background);
+    place-self: start center;
+  }
+}
