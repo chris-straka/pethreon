@@ -1,4 +1,4 @@
-import { BigNumberish } from "ethers";
+import { BigNumber } from "ethers";
 import { extractPledgesToCSV } from "./extractPledgesToCSV";
 
 export interface EthereumWindow extends Window {
@@ -27,11 +27,11 @@ export enum PledgeStatus {
 export type PledgeType = {
   contributorAddress: string,
   creatorAddress: string,
-  dateCreated: BigNumberish,
-  duration: BigNumberish,
-  periodExpires: BigNumberish,
+  dateCreated: BigNumber,
+  duration: BigNumber,
+  periodExpires: BigNumber,
   status: PledgeStatus,
-  weiPerPeriod: BigNumberish,
+  weiPerPeriod: BigNumber,
 }
 
 export { extractPledgesToCSV }
