@@ -15,6 +15,7 @@
     "test": "yarn workspaces foreach -pi run test",
     "dev": "yarn workspaces foreach -pi run dev",
     "backend:dev": "yarn workspace backend run dev",
-    "frontend:dev": "yarn workspace frontend run dev"
+    "frontend:dev": "yarn workspace frontend run dev",
+    "typechain": "yarn workspace backend run typechain"
   }
 }

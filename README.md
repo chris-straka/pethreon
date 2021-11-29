@@ -7,6 +7,8 @@
 ![Pethreon Desktop 2](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_desktop_2.png)
 ![Pethreon Desktop 3](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_desktop_3.png)
 
+Please see CONTRIBUTING.md to find out how you can run this locally on your machine.
+
 ## Attribution
 
 - [Sergei's Pethreon Smart Contract](https://github.com/s-tikhomirov/pethreon)
@@ -19,16 +21,10 @@
 
 - [ionicons](https://ionic.io/ionicons)
 
-- [Sarah Fossheim's Loading Animation](https://fossheim.io/writing/posts/react-text-splitting-animations/)
-
 - [Artsy Cat's Cutesy Font](https://www.dafont.com/cutesy.font)
 
 - [Sora Sagano's Aileron Font](https://fontsarena.com/aileron-by-sora-sagano/)
 
-- [Sarah Fossheim](https://fossheim.io/writing/posts/react-text-splitting-animations/)
-
-- [Samuel Kraft](https://samuelkraft.com/blog/responsive-animation-framer-motion)
-
-- [Framer Motion](https://github.com/framer/motion)
+- [Sarah Fossheim's "Loading..." Animation](https://fossheim.io/writing/posts/react-text-splitting-animations/)
 
 - [Fireship's Framer Motion Modals](https://www.youtube.com/watch?v=SuqU904ZHA4&t=576s)
