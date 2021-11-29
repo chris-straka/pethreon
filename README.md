@@ -2,10 +2,10 @@
 
 [This dapp](https://github.com/Chris56974/WeiBuddies) (decentralized application) is a modified version of Sergei Tikhomirov et al's ["Pethreon" Smart Contract](https://github.com/s-tikhomirov/pethreon/blob/master/pethreon.sol). It's a crowd funding platform, where users (contributors & creators) can sign in through their cryptowallet to contribute funds to each other in regular intervals. It's made under a mobile first approach using these mockups (Figma).
 
-![Pethreon Mobile Mockup](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_mobile.png)
-![Pethreon Desktoe 1](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_desktop_1.png)
-![Pethreon Desktop 2](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_desktop_2.png)
-![Pethreon Desktop 3](https://github.com/Chris56974/Pethreon/blob/main/frontend/public/pethreon_desktop_3.png)
+![Pethreon Mobile Mockup](https://github.com/Chris56974/Pethreon/blob/main/packages/frontend/public/pethreon_mobile.png)
+![Pethreon Desktoe 1](https://github.com/Chris56974/Pethreon/blob/main/packages/frontend/public/pethreon_desktop_1.png)
+![Pethreon Desktop 2](https://github.com/Chris56974/Pethreon/blob/main/packages/frontend/public/pethreon_desktop_2.png)
+![Pethreon Desktop 3](https://github.com/Chris56974/Pethreon/blob/main/packages/frontend/public/pethreon_desktop_3.png)
 
 Please see CONTRIBUTING.md to find out how you can run this locally on your machine.
 
