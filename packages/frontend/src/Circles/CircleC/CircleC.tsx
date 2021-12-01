@@ -19,7 +19,7 @@ export const CircleC = ({
   const location = useLocation()
   const navigate = useNavigate()
   const [disabled, setDisabled] = useState(true)
-  const ref = useRef<HTMLButtonElement | null>(null);
+  const ref = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (location.pathname === "/") {

@@ -10,7 +10,7 @@ interface CircleAProps {
 
 export const CircleA = ({ duration, delay }: CircleAProps) => {
   const location = useLocation()
-  const ref = useRef<HTMLDivElement | null>(null)
+  const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (location.pathname === "/") {
