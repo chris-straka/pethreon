@@ -1,5 +1,3 @@
-// import styles from "./DepositSVG.module.scss"
-
 interface DepositSVGProps {
   className?: string
 }

@@ -3,7 +3,7 @@ import { BigNumberish, utils } from "ethers"
 import { MetamaskError, Denomination } from "../../../../utils"
 import { contributorWithdraw, getContributorBalance, } from "../../../../pethreon"
 import { CurrencyField, SubmitModalButton } from "../../../../components"
-import { Disclaimer, EtherDenominationButtons } from ".."
+import { EtherDenominationButtons } from ".."
 import { WithdrawSVG } from "../../../../svgs"
 import styles from "./WithdrawModal.module.scss"
 
@@ -48,7 +48,6 @@ export const WithdrawModal = ({ closeModal, setLoading, setBalance }: WithdrawPr
         getAmount={(event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)}
       />
       <EtherDenominationButtons setCurrency={setCurrency} />
-      <Disclaimer />
       <SubmitModalButton disabled={false} onSubmit={submitWithdraw}>Withdraw <WithdrawSVG className={styles.withdrawSVG} /></SubmitModalButton>
     </form>
   )

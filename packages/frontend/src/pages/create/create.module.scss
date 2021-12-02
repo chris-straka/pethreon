@@ -110,61 +110,26 @@
   }
 }
 
-.pledgeBox,
-.emptyPledgeBox {
-  width: var(--pledge-box-width);
-  height: var(--pledge-box-height);
-  margin-top: var(--pledge-box-margin-top);
-  overflow: auto;
-  list-style: none;
-}
-
-.emptyPledgeBox {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: cute;
-  list-style: none;
-  border: 0.3em solid var(--darktheme-modal-background);
-  border-radius: 2em;
-}
-
-.emptyPledgeText {
-  font-size: var(--fs-empty-pledge-text);
-  width: var(--empty-pledge-text-width);
-}
 
 @media (min-width: 1280px) and (orientation: landscape) {
   .createLayout {
     display: grid;
     grid:
-      [Account-row-start] "EthBalance EthBalance" [Action-row-end]
-      [Account-row-start] "Account Actions" [Action-row-end]
-      [Balance-row-start] ". Pledges" [Balance-row-end]
-      [Pledge-row-start] ". Pledges" [Pledge-row-end];
+      [Account-row-start] "ethBalance ethBalance" [Action-row-end]
+      [Account-row-start] "account actionBar" [Action-row-end]
+      [Balance-row-start] ". pledges" [Balance-row-end]
+      [Pledge-row-start] ". pledges" [Pledge-row-end];
   }
 
   .userAccountName {
-    grid-area: Account;
+    grid-area: account;
     display: block;
     place-self: center start;
   }
 
   .balance {
-    grid-area: EthBalance;
+    grid-area: ethBalance;
     align-self: end;
   }
 
-  .actionBar {
-    grid-area: Actions;
-    justify-content: space-around;
-    place-self: end center;
-  }
-
-  .pledgeBox,
-  .emptyPledgeBox {
-    grid-area: Pledges;
-    border: 0.2em solid var(--darktheme-modal-background);
-    place-self: start center;
-  }
 }

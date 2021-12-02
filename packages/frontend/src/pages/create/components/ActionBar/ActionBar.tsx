@@ -1,4 +1,5 @@
 import { WithdrawSVG, CsvSVG } from "../../../../svgs"
+import styles from "./ActionBar.module.scss"
 
 interface ActionBarProps {
   actionBarClassName: string,
@@ -7,15 +8,15 @@ interface ActionBarProps {
   makeCSV: any,
 }
 
-export const ActionBar = ({ actionBarClassName, actionButtonClassName, withdraw, makeCSV }: ActionBarProps) => {
+export const ActionBar = ({ withdraw, makeCSV }: ActionBarProps) => {
   return (
-    <div className={actionBarClassName}>
+    <div className={styles.actionBar}>
       <button
-        className={actionButtonClassName}
+        className={styles.actionButton}
         onClick={() => withdraw()}
       >Withdraw <WithdrawSVG /></button>
       <button
-        className={actionButtonClassName}
+        className={styles.actionButton}
         onClick={() => makeCSV()}
       >Extract to CSV <CsvSVG /></button>
     </div>

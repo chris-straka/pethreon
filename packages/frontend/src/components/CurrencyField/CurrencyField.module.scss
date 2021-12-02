@@ -33,4 +33,14 @@
   font-size: inherit;
   caret-color: var(--text);
   margin-left: 10px;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &[type="number"] {
+    -moz-appearance: textfield;
+  }
 }

@@ -11,11 +11,7 @@ interface ActionBarProps {
   setPledges: Dispatch<SetStateAction<PledgeType[]>>
 }
 
-export const ActionBar = (
-  {
-    setModal, setBalance, setLoading, setPledges
-  }: ActionBarProps
-) => {
+export const ActionBar = ({ setModal, setBalance, setLoading, setPledges }: ActionBarProps) => {
   return (
     <div className={styles.actionBar}>
       <button

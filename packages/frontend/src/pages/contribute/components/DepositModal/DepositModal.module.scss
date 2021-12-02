@@ -1,16 +1,21 @@
 .depositFormLayout {
-  height: 100%;
-  width: 65vw;
+  --layout-width: 65vw;
+
   display: flex;
   flex-direction: column;
+  height: auto;
+  width: var(--layout-width);
+}
+
+.subsectionDetails {
+  --flex-direction: column;
+  display: flex;
+  flex-direction: var(--flex-direction);
 }
 
 .depositHeading {
   font-size: 1rem;
   margin: 0.5rem 0 0.8rem 0;
-  & + div {
-    font-size: 40px;
-  }
 }
 
 .depositSVG {
@@ -19,13 +24,8 @@
   font-weight: 600;
 }
 
-.subsectionDetails {
-  display: flex;
-  flex-direction: column;
-}
-
 @media only screen and (min-width: 700px) {
   .subsectionDetails {
-    flex-direction: row;
+    --flex-direction: row;
   }
 }
