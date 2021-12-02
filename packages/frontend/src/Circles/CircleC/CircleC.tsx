@@ -22,6 +22,8 @@ export const CircleC = ({
   const navigate = useNavigate()
   const [disabled, setDisabled] = useState(true)
   const ref = useRef<HTMLButtonElement>(null);
+  const createRef = useRef<HTMLSpanElement>(null);
+  const donateRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     if (location.pathname === "/") {
@@ -36,6 +38,15 @@ export const CircleC = ({
       ref.current?.style.setProperty("--circle-animation-delay", `${circleAnimationDelay}s`)
       ref.current?.style.setProperty("--textColor-animation-duration", `${circleAnimationDuration}s`)
       ref.current?.style.setProperty("--textColor-animation-delay", `0s`)
+
+      createRef.current!.style.display = "block"
+      createRef.current!.style.transition = "unset"
+      createRef.current!.style.opacity = "1"
+
+      donateRef.current!.style.display = "none"
+      donateRef.current!.style.transition = "unset"
+      donateRef.current!.style.opacity = "0"
+
       setDisabled(true)
     }
 
@@ -54,6 +65,21 @@ export const CircleC = ({
       ref.current?.style.setProperty("--circle-animation-delay", `${circleAnimationDelay}s`)
       ref.current?.style.setProperty("--textColor-animation-duration", `${circleAnimationDuration}s`)
       ref.current?.style.setProperty("--textColor-animation-delay", `${pageFadeInDuration + pageFadeOutDuration}s`)
+
+      // If coming from the login screen, this was already invisible and doesn't do anything
+      // If coming from the creator screen, this should now disappear 
+      donateRef.current!.style.transition = `opacity ${pageFadeOutDuration}s 0s`
+      donateRef.current!.style.opacity = "0"
+
+      setTimeout(() => {
+        createRef.current!.style.display = "block"
+        donateRef.current!.style.display = "none"
+
+        // If coming from the login screen, this was already visible and doesn't do anything
+        // If coming from the creator screen, this should now appear 
+        createRef.current!.style.transition = `opacity ${pageFadeInDuration}s 0s`
+        createRef.current!.style.opacity = "1"
+      }, pageFadeOutDuration + circleAnimationDuration * 1001);
 
       setTimeout(() => {
         if (location.pathname === "/contribute") {
@@ -81,6 +107,19 @@ export const CircleC = ({
       ref.current?.style.setProperty("--textColor-animation-duration", `${circleAnimationDuration}s`)
       ref.current?.style.setProperty("--textColor-animation-delay", `${pageFadeInDuration + pageFadeOutDuration}s`)
 
+      // If coming from the contributor screen, this should now disappear
+      createRef.current!.style.transition = `opacity ${pageFadeOutDuration}s 0s`
+      createRef.current!.style.opacity = "0"
+
+      setTimeout(() => {
+        createRef.current!.style.display = "none"
+        donateRef.current!.style.display = "block"
+
+        // If coming from the contributor screen, this should now appear 
+        donateRef.current!.style.transition = `opacity ${pageFadeInDuration}s ${pageFadeOutDuration + circleAnimationDuration}s`
+        donateRef.current!.style.opacity = "1"
+      }, pageFadeOutDuration + circleAnimationDuration * 1001);
+
       setTimeout(() => {
         if (location.pathname === "/create") {
           ref.current?.style.setProperty("--textColor-animation-duration", ".5s")
@@ -93,9 +132,9 @@ export const CircleC = ({
   }, [location, circleAnimationDuration, circleAnimationDelay, pageFadeInDuration, pageFadeOutDuration])
 
   function navigateToNewPage() {
-    location.pathname === "/contribute"
-      ? navigate("/create", { replace: true })
-      : navigate("/contribute", { replace: true })
+    location.pathname === "/contribute" ?
+      navigate("/create", { replace: true }) :
+      navigate("/contribute", { replace: true })
   }
 
   return (
@@ -117,8 +156,8 @@ export const CircleC = ({
           : {}
       }
     >
-      {location.pathname === "/create" ? "Donate" : "Create"}
-      <ArrowSVG />
+      <span ref={donateRef}>Donate <ArrowSVG /></span>
+      <span ref={createRef}>Create <ArrowSVG /></span>
     </motion.button >
   )
 }
