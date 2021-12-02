@@ -7,13 +7,15 @@ import styles from "./CircleC.module.scss"
 interface CircleCProps {
   circleAnimationDuration: number,
   circleAnimationDelay: number,
-  textAnimationDelay: number
+  pageFadeOutDuration: number,
+  pageFadeInDuration: number
 }
 
 export const CircleC = ({
   circleAnimationDuration,
   circleAnimationDelay,
-  textAnimationDelay
+  pageFadeOutDuration,
+  pageFadeInDuration
 }: CircleCProps
 ) => {
   const location = useLocation()
@@ -51,14 +53,14 @@ export const CircleC = ({
       ref.current?.style.setProperty("--circle-animation-duration", `${circleAnimationDuration}s`)
       ref.current?.style.setProperty("--circle-animation-delay", `${circleAnimationDelay}s`)
       ref.current?.style.setProperty("--text-animation-duration", `${circleAnimationDuration}s`)
-      ref.current?.style.setProperty("--text-animation-delay", `${textAnimationDelay}s`)
+      ref.current?.style.setProperty("--text-animation-delay", `${pageFadeInDuration + pageFadeOutDuration}s`)
 
       setTimeout(() => {
         if (location.pathname === "/contribute") {
           ref.current?.style.setProperty("--text-animation-duration", ".3s")
           ref.current?.style.setProperty("--text-animation-delay", "0s")
         }
-      }, textAnimationDelay + circleAnimationDuration + circleAnimationDelay);
+      }, pageFadeInDuration + pageFadeOutDuration + circleAnimationDuration + circleAnimationDelay);
 
       setDisabled(false)
     }
@@ -77,18 +79,18 @@ export const CircleC = ({
       ref.current?.style.setProperty("--circle-animation-duration", `${circleAnimationDuration}s`)
       ref.current?.style.setProperty("--circle-animation-delay", `${circleAnimationDelay}s`)
       ref.current?.style.setProperty("--text-animation-duration", `${circleAnimationDuration}s`)
-      ref.current?.style.setProperty("--text-animation-delay", `${textAnimationDelay}s`)
+      ref.current?.style.setProperty("--text-animation-delay", `${pageFadeInDuration + pageFadeOutDuration}s`)
 
       setTimeout(() => {
         if (location.pathname === "/create") {
           ref.current?.style.setProperty("--color-animation-duration", ".3s")
           ref.current?.style.setProperty("--color-animation-delay", "0s")
         }
-      }, textAnimationDelay + circleAnimationDuration + circleAnimationDelay);
+      }, pageFadeInDuration + pageFadeOutDuration + circleAnimationDuration + circleAnimationDelay);
 
       setDisabled(false)
     }
-  }, [location, circleAnimationDuration, circleAnimationDelay, textAnimationDelay])
+  }, [location, circleAnimationDuration, circleAnimationDelay, pageFadeInDuration, pageFadeOutDuration])
 
   function navigateToNewPage() {
     location.pathname === "/contribute"
