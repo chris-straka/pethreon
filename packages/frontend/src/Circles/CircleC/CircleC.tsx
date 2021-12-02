@@ -66,20 +66,18 @@ export const CircleC = ({
       ref.current?.style.setProperty("--textColor-animation-duration", `${circleAnimationDuration}s`)
       ref.current?.style.setProperty("--textColor-animation-delay", `${pageFadeInDuration + pageFadeOutDuration}s`)
 
-      // If coming from the login screen, this was already invisible and doesn't do anything
-      // If coming from the creator screen, this should now disappear 
       donateRef.current!.style.transition = `opacity ${pageFadeOutDuration}s 0s`
       donateRef.current!.style.opacity = "0"
 
       setTimeout(() => {
-        createRef.current!.style.display = "block"
         donateRef.current!.style.display = "none"
-
-        // If coming from the login screen, this was already visible and doesn't do anything
-        // If coming from the creator screen, this should now appear 
+        createRef.current!.style.display = "block"
         createRef.current!.style.transition = `opacity ${pageFadeInDuration}s 0s`
+      }, pageFadeOutDuration * 1000);
+
+      setTimeout(() => {
         createRef.current!.style.opacity = "1"
-      }, pageFadeOutDuration + circleAnimationDuration * 1001);
+      }, (pageFadeOutDuration + circleAnimationDuration) * 1000);
 
       setTimeout(() => {
         if (location.pathname === "/contribute") {
@@ -107,18 +105,18 @@ export const CircleC = ({
       ref.current?.style.setProperty("--textColor-animation-duration", `${circleAnimationDuration}s`)
       ref.current?.style.setProperty("--textColor-animation-delay", `${pageFadeInDuration + pageFadeOutDuration}s`)
 
-      // If coming from the contributor screen, this should now disappear
       createRef.current!.style.transition = `opacity ${pageFadeOutDuration}s 0s`
       createRef.current!.style.opacity = "0"
 
       setTimeout(() => {
         createRef.current!.style.display = "none"
         donateRef.current!.style.display = "block"
+        donateRef.current!.style.transition = `opacity ${pageFadeInDuration}s 0s`
+      }, pageFadeOutDuration * 1000);
 
-        // If coming from the contributor screen, this should now appear 
-        donateRef.current!.style.transition = `opacity ${pageFadeInDuration}s ${pageFadeOutDuration + circleAnimationDuration}s`
+      setTimeout(() => {
         donateRef.current!.style.opacity = "1"
-      }, pageFadeOutDuration + circleAnimationDuration * 1001);
+      }, (pageFadeOutDuration + pageFadeInDuration) * 1000);
 
       setTimeout(() => {
         if (location.pathname === "/create") {
