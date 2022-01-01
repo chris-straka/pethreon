@@ -10,6 +10,7 @@
     "packages/*"
   ],
   "scripts": {
+    "postinstall": "yarn workspace backend run typechain",
     "compile": "yarn workspace backend run compile",
     "test": "yarn workspaces foreach -pi run test",
     "dev": "yarn workspaces foreach -pi run dev",
