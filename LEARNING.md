@@ -75,7 +75,7 @@ I thought it'd be pretty cool to have a "unipledge" feature that would donate to
 
 ### Using AI to find the right responsive design
 
-I spent a lot of time playing around with font-sizes. I was tweaking the same stuff over and over again passing in different numbers each time. It almost felt like I could train a model to pass in the numbers for me until it finds the right allocation. I seen some examples online use this...
+I spent a lot of time playing around with different sizes in CSS. I was tweaking the same stuff over and over again passing in different numbers each time. For some reason, I got the impression that I could train a model to find the right size for me by feeding it an image that had the correct sizing. I know some frontend testing tools can take screenshots of your application. It's likely that I'm doing something wrong with CSS though due to lack of experience.
 
 ```scss
 /* Uses vh and vm with calc */

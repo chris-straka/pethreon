@@ -9,14 +9,13 @@
 
   &:after {
     position: absolute;
-    content: "_______________________________________________________________"; /* ___L_O_L */
+    content: "_______________________________________________________________"; // ___L_O_L
     overflow: hidden;
     pointer-events: none;
-    font-size: 100px;
+    font-size: 120px;
+    top: -105px;
     width: 65vw;
-    top: -57px;
-    left: -1px;
-    color: var(--modal-background);
+    color: var(--modal-background); // var(--modal-background);
     transition: opacity 0.3s;
   }
 

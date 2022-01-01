@@ -1,4 +1,4 @@
-import { useState, FormEvent } from "react"
+import { FormEvent } from "react"
 import styles from "./Disclaimer.module.scss"
 
 const WARNING_MESSAGE = `
@@ -11,20 +11,20 @@ const WARNING_MESSAGE = `
 Ethereum mines 1 block every 10-19 seconds, which is roughly 8640-4547 blocks a day. Pethreon makes payments to people every 6500 blocks. 
 `
 
-export const Disclaimer = () => {
-  const [disabled, setDisabled] = useState(true)
+interface DisclaimerProps {
+  className: string
+}
+
+export const Disclaimer = ({ className }: DisclaimerProps) => {
 
   const warning = (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
     window.alert(WARNING_MESSAGE)
   }
 
-  // This needs to be one element for flexbox
   return (
-    <div className={styles.disclaimer}>
-      <p>⚠️  Warning! <button className={styles.disclaimerPopup} onClick={warning}>Please read!</button></p>
-      <label className={styles.consentLabel} htmlFor="consent" >🤝 I accept the risks️️ </label>
-      <input className={styles.consentCheckbox} required type="checkbox" id="consent" onChange={() => setDisabled(!disabled)} />
+    <div className={`${styles.disclaimer} ${className}`}>
+      <p className={styles.warning}>⚠️  Warning! <button className={styles.popup} onClick={warning}>Please read!</button></p>
     </div>
   )
 }

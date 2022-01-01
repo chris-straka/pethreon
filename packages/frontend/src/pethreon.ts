@@ -1,6 +1,6 @@
 import { providers, BigNumber, utils } from "ethers"
 import { EthereumWindow } from "./utils";
-import { Pethreon__factory } from "./types"
+import { Pethreon__factory } from "./types/factories/Pethreon__factory"
 
 const PETHREON_CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
 
@@ -13,13 +13,13 @@ function init() {
 
 export async function deposit(amount: BigNumber) {
   const contract = init()
-  console.log(contract)
   const transaction = await contract.deposit({ value: amount })
   await transaction.wait()
 }
 
 export async function getContributorBalance() {
   const contract = init()
+  console.log(contract)
   const balance: BigNumber = await contract.getContributorBalance()
   const balanceToString = await balance.toString()
   return utils.formatEther(balanceToString)

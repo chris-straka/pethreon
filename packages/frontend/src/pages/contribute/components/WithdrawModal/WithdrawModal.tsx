@@ -1,5 +1,5 @@
 import { useState, Dispatch, SetStateAction, ChangeEvent, FormEvent } from "react"
-import { BigNumberish, utils } from "ethers"
+import { BigNumber, utils } from "ethers"
 import { MetamaskError, Denomination } from "../../../../utils"
 import { contributorWithdraw, getContributorBalance, } from "../../../../pethreon"
 import { CurrencyField, SubmitModalButton } from "../../../../components"
@@ -21,7 +21,7 @@ export const WithdrawModal = ({ closeModal, setLoading, setBalance }: WithdrawPr
     event.preventDefault()
     if (!amount && currency !== Denomination.ALL) return window.alert("Please insert an amount")
     closeModal()
-    let amountInWei: BigNumberish = amount
+    let amountInWei: BigNumber = BigNumber.from(amount)
     if (currency === Denomination.ETHER) amountInWei = utils.parseEther(amount)
     if (currency === Denomination.ALL) {
       const fullBalance = await getContributorBalance()
@@ -44,11 +44,12 @@ export const WithdrawModal = ({ closeModal, setLoading, setBalance }: WithdrawPr
       <h3 className={styles.withdrawHeading}>How much to withdraw?</h3>
       <CurrencyField
         amount={amount}
+        className={styles.currencyField}
         disabled={currency === "All" ? true : false}
         getAmount={(event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)}
       />
-      <EtherDenominationButtons setCurrency={setCurrency} />
-      <SubmitModalButton disabled={false} onSubmit={submitWithdraw}>Withdraw <WithdrawSVG className={styles.withdrawSVG} /></SubmitModalButton>
+      <EtherDenominationButtons className={styles.etherButtons} setCurrency={setCurrency} />
+      <SubmitModalButton className={styles.submit} disabled={false} onSubmit={submitWithdraw}>Withdraw <WithdrawSVG className={styles.withdrawSVG} /></SubmitModalButton>
     </form>
   )
 }

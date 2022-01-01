@@ -10,7 +10,6 @@
     "packages/*"
   ],
   "scripts": {
-    "prepare": "yarn workspace backend run prepare",
     "compile": "yarn workspace backend run compile",
     "test": "yarn workspaces foreach -pi run test",
     "dev": "yarn workspaces foreach -pi run dev",

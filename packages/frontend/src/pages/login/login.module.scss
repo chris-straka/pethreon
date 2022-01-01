@@ -118,7 +118,7 @@
   cursor: pointer;
   outline: none;
 
-  transition: transform .2s, color .2s, background-color .2s;
+  transition: transform 0.2s, color 0.2s, background-color 0.2s;
 
   &:focus,
   &:hover {

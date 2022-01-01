@@ -1,31 +1,48 @@
-.depositFormLayout {
-  --layout-width: 65vw;
-
-  display: flex;
-  flex-direction: column;
+.form {
+  display: grid;
+  grid:
+    "heading"
+    "deposit"
+    "denomination"
+    "disclaimer"
+    "consent"
+    "submit";
   height: auto;
-  width: var(--layout-width);
+  width: 65vw;
 }
 
-.subsectionDetails {
-  --flex-direction: column;
-  display: flex;
-  flex-direction: var(--flex-direction);
-}
-
-.depositHeading {
+.heading {
+  grid-area: heading;
   font-size: 1rem;
-  margin: 0.5rem 0 0.8rem 0;
+  margin-bottom: 12px;
+}
+
+.depositAmount {
+  grid-area: deposit;
+}
+
+.etherButtons {
+  grid-area: denomination;
+  font-size: 10px;
+}
+
+.disclaimer {
+  grid-area: disclaimer;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+.consent {
+  grid-area: consent;
+  font-size: 12px;
+}
+
+.submit {
+  grid-area: submit;
 }
 
 .depositSVG {
   width: 2ch;
   vertical-align: text-bottom;
   font-weight: 600;
-}
-
-@media only screen and (min-width: 700px) {
-  .subsectionDetails {
-    --flex-direction: row;
-  }
 }

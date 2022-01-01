@@ -8,7 +8,6 @@ interface ModalProps {
 }
 
 export const ModalBackdrop = ({ children, onClick }: ModalProps) => {
-
   return (
     <motion.div
       className={styles.modalBackdrop}

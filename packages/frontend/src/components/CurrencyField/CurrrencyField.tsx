@@ -3,12 +3,13 @@ import styles from "./CurrencyField.module.scss"
 
 interface CurrencySelectProps {
   amount: string,
+  className: string,
   disabled?: boolean,
   invalid?: boolean,
   getAmount: (event: ChangeEvent<HTMLInputElement>) => void,
 }
 
-export const CurrencyField = ({ amount, getAmount, disabled = false, invalid = false }: CurrencySelectProps) => {
+export const CurrencyField = ({ amount, className, getAmount, disabled = false, invalid = false }: CurrencySelectProps) => {
   return (
     <div className={styles.currencyContainer}>
       <span className={styles.Ξ}>Ξ</span>

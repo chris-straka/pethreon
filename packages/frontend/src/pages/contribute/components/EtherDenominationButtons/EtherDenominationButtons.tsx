@@ -4,13 +4,14 @@ import { Denomination } from "../../../../utils"
 import styles from "./EtherDenominationButtons.module.scss"
 
 interface EtherDenominationProps {
+  className: string,
   setCurrency: Dispatch<SetStateAction<Denomination>>,
 }
 
-export const EtherDenominationButtons = ({ setCurrency }: EtherDenominationProps) => {
+export const EtherDenominationButtons = ({ className, setCurrency }: EtherDenominationProps) => {
   return (
     <div
-      className={styles.currencyButtons}
+      className={`${styles.currencyButtons} + ${className}`}
       onChange={
         (event: ChangeEvent<HTMLInputElement>) => setCurrency((event.target.value) as Denomination)
       }>

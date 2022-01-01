@@ -53,7 +53,8 @@ export const Contribute = (
     >
       <Balance
         className={styles.balance}
-        balance={balance} />
+        balance={balance}
+      />
       <UserAddress
         className={styles.userAccountName}
         userAccountAddress={ethereum.selectedAddress}

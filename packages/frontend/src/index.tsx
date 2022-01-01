@@ -3,7 +3,6 @@ import { render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import "./index.scss";
-// import reportWebVitals from './reportWebVitals';
 
 render(
   <StrictMode>
@@ -13,6 +12,3 @@ render(
   </StrictMode>,
   document.getElementById('root')
 );
-
-// reportWebVitals(); 
-// reportWebVitals(console.log) https://bit.ly/CRA-vitals

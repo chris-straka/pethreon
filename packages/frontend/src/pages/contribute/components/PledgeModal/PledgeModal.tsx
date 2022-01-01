@@ -3,7 +3,7 @@ import { SubmitModalButton, CurrencyDenomination } from "../../../../components"
 import { CashSVG, PersonSVG, DateSVG, PledgeSVG } from "../../../../svgs"
 import { getContributorBalance, createPledge, getContributorPledges } from "../../../../pethreon"
 import { PledgeType, Denomination, MetamaskError } from "../../../../utils"
-import { BigNumberish, utils } from "ethers"
+import { BigNumber, utils } from "ethers"
 import styles from "./PledgeModal.module.scss"
 
 interface PledgeProps {
@@ -36,7 +36,7 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
 
     closeModal()
 
-    let amountPerPeriodInWei: BigNumberish = amountPerPeriod
+    let amountPerPeriodInWei: BigNumber = BigNumber.from(amountPerPeriod)
     if (currency === Denomination.ETHER) amountPerPeriodInWei = utils.parseEther(amountPerPeriod)
     if (currency === Denomination.WEI) amountPerPeriodInWei = utils.parseUnits(amountPerPeriod, "gwei")
     if (currency === Denomination.ALL) {
@@ -107,7 +107,7 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
         />
         <PersonSVG className={styles.pledgeSVG} />
       </div>
-      <SubmitModalButton onSubmit={submitPledge}>Pledge <PledgeSVG className={styles.submitSVG} /></SubmitModalButton>
+      <SubmitModalButton className={styles.submit} onSubmit={submitPledge}>Pledge <PledgeSVG className={styles.submitSVG} /></SubmitModalButton>
     </form>
   )
 }

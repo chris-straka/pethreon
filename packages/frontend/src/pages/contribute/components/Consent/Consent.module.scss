@@ -1,0 +1,17 @@
+.label {
+  cursor: pointer;
+  margin-right: 15px;
+  user-select: none;
+  margin-bottom: 18px;
+}
+
+.checkbox {
+  cursor: pointer;
+  outline: 4px dotted transparent;
+  outline-offset: 3px;
+  transition: outline-color 0.3s;
+
+  &:focus {
+    outline-color: var(--secondary);
+  }
+}
