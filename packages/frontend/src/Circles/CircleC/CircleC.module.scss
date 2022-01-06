@@ -67,8 +67,8 @@
 
 @media (max-width: 1279px) and (orientation: landscape) {
   .circleC {
-    --top-contribute: 25vh;
-    --height-create: 25vh;
+    position: absolute;
+    --height-contribute: 35vh;
   }
 }
 
