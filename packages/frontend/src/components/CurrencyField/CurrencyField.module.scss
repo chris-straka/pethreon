@@ -8,8 +8,8 @@
   margin-bottom: 12px;
 
   &:after {
-    position: absolute;
     content: "_______________________________________________________________"; // ___L_O_L
+    position: absolute;
     overflow: hidden;
     pointer-events: none;
     font-size: 120px;

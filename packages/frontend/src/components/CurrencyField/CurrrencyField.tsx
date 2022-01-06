@@ -11,7 +11,7 @@ interface CurrencySelectProps {
 
 export const CurrencyField = ({ amount, className, getAmount, disabled = false, invalid = false }: CurrencySelectProps) => {
   return (
-    <div className={styles.currencyContainer}>
+    <div className={`${styles.currencyContainer} ${className}`}>
       <span className={styles.Ξ}>Ξ</span>
       <input
         disabled={disabled}

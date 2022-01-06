@@ -19,7 +19,6 @@ export async function deposit(amount: BigNumber) {
 
 export async function getContributorBalance() {
   const contract = init()
-  console.log(contract)
   const balance: BigNumber = await contract.getContributorBalance()
   const balanceToString = await balance.toString()
   return utils.formatEther(balanceToString)
