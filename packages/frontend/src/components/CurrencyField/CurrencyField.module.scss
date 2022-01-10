@@ -1,27 +1,17 @@
 .currencyContainer {
-  position: relative;
   display: flex;
-  padding-bottom: 5px;
+  position: relative;
+  border-image: none;
+  border-bottom: 5px red solid;
   border-width: 0 0 5px 0;
   border-style: solid;
-  border-image: linear-gradient(to right, var(--secondary), transparent 80%) 1;
+  padding-bottom: 5px;
   margin-bottom: 12px;
+}
 
-  &:after {
-    content: "_______________________________________________________________"; // ___L_O_L
-    position: absolute;
-    overflow: hidden;
-    pointer-events: none;
-    font-size: 120px;
-    top: -105px;
-    width: 65vw;
-    color: var(--modal-background); // var(--modal-background);
-    transition: opacity 0.3s;
-  }
-
-  &:focus-within::after {
-    opacity: 0;
-  }
+.currencyContainer:hover {
+  // border-bottom: 5px var(--modal-background) solid;
+  border-image: linear-gradient(to right, var(--secondary), transparent 80%) 1;
 }
 
 .currencyField {
