@@ -142,16 +142,14 @@ export const CircleC = ({
       ref={ref}
       onClick={navigateToNewPage}
       animate={
-        location.pathname === "/" ?
-          {
-            scale: 1.25,
-            transition: {
-              duration: 5,
-              repeat: Infinity,
-              repeatType: "reverse"
-            }
+        location.pathname === "/" && !window.matchMedia("(prefers-reduced-motion)").matches ? {
+          scale: 1.25,
+          transition: {
+            duration: 5,
+            repeat: Infinity,
+            repeatType: "reverse"
           }
-          : {}
+        } : {}
       }
     >
       <span ref={donateRef}>Donate <ArrowSVG /></span>

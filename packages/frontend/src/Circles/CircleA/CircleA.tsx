@@ -51,11 +51,13 @@ export const CircleA = ({ duration, delay }: CircleAProps) => {
       animate={{
         scale: 1.2
       }}
-      transition={{
-        duration: 5,
-        repeat: Infinity,
-        repeatType: "reverse",
-      }}
+      transition={
+        window.matchMedia("(prefers-reduced-motion)") ? {} : { // a11y
+          duration: 5,
+          repeat: Infinity,
+          repeatType: "reverse",
+        }
+      }
     />
   )
 }
