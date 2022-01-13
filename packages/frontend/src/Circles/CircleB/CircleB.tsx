@@ -46,6 +46,7 @@ export const CircleB = ({ delay, duration }: CircleBProps) => {
 
   return (
     <motion.div
+      aria-hidden // idk if divs are included in the a11y tree but I don't want screen readers to read this
       className={styles.circleB}
       ref={ref}
       animate={{
@@ -54,7 +55,7 @@ export const CircleB = ({ delay, duration }: CircleBProps) => {
         y: 2
       }}
       transition={
-        window.matchMedia("(prefers-reduced-motion)") ? {} : { // a11y
+        window.matchMedia("(prefers-reduced-motion)").matches ? {} : { // a11y
         duration: 8,
         repeat: Infinity,
         repeatType: "reverse"

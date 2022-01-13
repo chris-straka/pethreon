@@ -10,6 +10,7 @@
   outline: 4px dotted transparent;
   outline-offset: 3px;
   transition: outline-color 0.3s;
+  margin-left: 12px;
 
   &:focus {
     outline-color: var(--secondary);

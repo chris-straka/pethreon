@@ -79,6 +79,7 @@ export const CircleC = ({
         createRef.current!.style.opacity = "1"
       }, (pageFadeOutDuration + circleAnimationDuration) * 1000);
 
+      // HERE
       setTimeout(() => {
         if (location.pathname === "/contribute") {
           ref.current?.style.setProperty("--textColor-animation-duration", ".3s")
@@ -120,7 +121,7 @@ export const CircleC = ({
 
       setTimeout(() => {
         if (location.pathname === "/create") {
-          ref.current?.style.setProperty("--textColor-animation-duration", ".5s")
+          ref.current?.style.setProperty("--textColor-animation-duration", ".3s")
           ref.current?.style.setProperty("--textColor-animation-delay", "0s")
         }
       })

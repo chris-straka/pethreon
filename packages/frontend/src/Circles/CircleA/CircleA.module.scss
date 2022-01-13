@@ -12,14 +12,14 @@
   --width-login: var(--size-login);
   --height-login: var(--size-login);
 
-  --top-contribute: 80vh;
-  --left-contribute: 15vw;
+  --top-contribute: 82vh;
+  --left-contribute: 17vw;
   --size-contribute: 10vh;
   --width-contribute: var(--size-contribute);
   --height-contribute: var(--size-contribute);
 
   --top-create: 80vh;
-  --left-create: 17vw;
+  --left-create: 20vw;
   --size-create: 10vh;
   --width-create: var(--size-create);
   --height-create: var(--size-create);
@@ -27,8 +27,8 @@
 
 @media (min-width: 600px) and (orientation: portrait) {
   .circleA {
-    --left-login: -4vw;
     --top-login: -4vh;
+    --left-login: -4vw;
     --size-login: clamp(224px, 7vw, 650px);
   }
 }

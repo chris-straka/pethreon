@@ -40,8 +40,16 @@ export const Login = (
     let lastVisited = localStorage.getItem("last_page_visited")
     try {
       setMessage("Logging in... You might have to click the metamask extension in your browser")
-      await ethereum.request({ method: 'eth_requestAccounts' })
-      lastVisited === "create" ? navigate("create") : navigate("contribute")
+      if (ethereum.isConnected) {
+        lastVisited === "create" ?
+          navigate("create") :
+          navigate("contribute")
+      } else {
+        await ethereum.request({ method: 'eth_requestAccounts' })
+        lastVisited === "create" ?
+          navigate("create") :
+          navigate("contribute")
+      }
     } catch (error) {
       if ((error as MetamaskError).code === -32002) {
         setMessage("Request already sent, click the metamask extension in your browser")

@@ -6,23 +6,33 @@
   background-color: var(--primary);
   transition-property: top, left, width, height, background-color;
 
-  --left-login: 92vw;
   --top-login: 40vh;
+  --left-login: 92vw;
   --size-login: 128px;
   --width-login: var(--size-login);
   --height-login: var(--size-login);
 
   --top-contribute: 77vh;
-  --left-contribute: 55vw;
+  --left-contribute: 62vw;
   --size-contribute: 15vh;
   --width-contribute: var(--size-contribute);
   --height-contribute: var(--size-contribute);
 
-  --left-create: 55vw;
   --top-create: 77vh;
+  --left-create: 56vw;
   --size-create: 18vh;
   --width-create: var(--size-create);
   --height-create: var(--size-create);
+}
+
+@media (max-width: 600px) and (orientation: portrait) {
+  .circleB {
+    --top-contribute: 77vh;
+    --left-contribute: 56vw;
+
+    --top-create: 77vh;
+    --left-create: 56vw;
+  }
 }
 
 @media (min-width: 600px) and (orientation: portrait) {
@@ -39,10 +49,11 @@
   }
 }
 
+// Desktop Styles
 @media (min-width: 1280px) and (orientation: landscape) {
   .circleB {
-    --left-login: 50vw;
     --top-login: 85vh;
+    --left-login: 50vw;
     --size-login: 300px;
 
     --top-contribute: 51vh;

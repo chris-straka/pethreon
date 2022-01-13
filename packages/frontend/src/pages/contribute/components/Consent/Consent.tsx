@@ -3,18 +3,20 @@ import styles from "./Consent.module.scss"
 
 interface ConsentProps {
   className: string,
-  setDisabled: Dispatch<SetStateAction<boolean>>,
+  setConsent: Dispatch<SetStateAction<boolean>>,
 }
 
-export const Consent = ({ className, setDisabled }: ConsentProps) => {
+export const Consent = ({ className, setConsent }: ConsentProps) => {
   return (
-    <label
-      className={`${styles.label} ${className}`}
-      htmlFor="consent"
-    >🤝 I accept the risks️️ <input
+    <label className={`${styles.label} ${className}`} htmlFor="consent">
+      🤝 I accept the risks️️
+      <input
         className={`${styles.checkbox} ${className}`}
-        required type="checkbox" id="consent"
-        onChange={() => setDisabled(prev => !prev)}
-      /></label>
+        required
+        type="checkbox"
+        id="consent"
+        onChange={() => setConsent(prev => !prev)}
+      />
+    </label>
   )
 }

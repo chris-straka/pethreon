@@ -19,4 +19,8 @@
     border-bottom: 5px dotted var(--secondary);
     color: var(--secondary);
   }
+
+  &:hover {
+    color: var(--secondary);
+  }
 }

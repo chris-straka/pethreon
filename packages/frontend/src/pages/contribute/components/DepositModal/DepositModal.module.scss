@@ -13,29 +13,29 @@
 
 .heading {
   grid-area: heading;
-  font-size: 1rem;
+  font-size: 1.4rem;
   margin-bottom: 12px;
 }
 
 .depositAmount {
   grid-area: deposit;
-  font-size: 1rem;
+  font-size: 2rem;
 }
 
 .etherButtons {
   grid-area: denomination;
-  font-size: 10px;
+  font-size: .8rem;
 }
 
 .disclaimer {
   grid-area: disclaimer;
-  font-size: 12px;
+  font-size: 1.1rem;
   margin-bottom: 12px;
 }
 
 .consent {
   grid-area: consent;
-  font-size: 12px;
+  font-size: 1.1rem;
 }
 
 .submit {

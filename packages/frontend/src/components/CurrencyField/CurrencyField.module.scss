@@ -1,17 +1,22 @@
+.transitioningBorder {
+  border-image: linear-gradient(to right, var(--secondary), transparent 80%) 1;
+  border-style: solid;
+  border-bottom-width: 5px;
+  margin-bottom: 15px;
+}
+
+// var(--modal-background)
 .currencyContainer {
   display: flex;
-  position: relative;
-  border-image: none;
-  border-bottom: 5px red solid;
-  border-width: 0 0 5px 0;
-  border-style: solid;
+  border-bottom: 5px solid var(--modal-background);
   padding-bottom: 5px;
-  margin-bottom: 12px;
+  margin-bottom: -5px;
+  transition: border-color .3s;
 }
 
 .currencyContainer:hover {
-  // border-bottom: 5px var(--modal-background) solid;
-  border-image: linear-gradient(to right, var(--secondary), transparent 80%) 1;
+  border-bottom: 5px solid transparent;
+  transition: border-color .3s;
 }
 
 .currencyField {

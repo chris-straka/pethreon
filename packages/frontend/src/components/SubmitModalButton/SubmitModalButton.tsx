@@ -9,5 +9,10 @@ interface SubmitModalButtonProps {
 }
 
 export const SubmitModalButton = ({ children, className, onSubmit, disabled = false }: SubmitModalButtonProps) => {
-  return <button type="submit" className={styles.button} onClick={onSubmit} disabled={disabled}>{children}</button>
+  return <button
+    type="submit"
+    className={`${styles.button} ${className}`}
+    onClick={onSubmit}
+    disabled={disabled}
+  >{children} </button>
 }

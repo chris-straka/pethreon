@@ -11,19 +11,21 @@ interface CurrencySelectProps {
 
 export const CurrencyField = ({ amount, className, getAmount, disabled = false, invalid = false }: CurrencySelectProps) => {
   return (
-    <div className={`${styles.currencyContainer} ${className}`}>
-      <span className={styles.Ξ}>Ξ</span>
-      <input
-        disabled={disabled}
-        autoFocus
-        required
-        className={styles.currencyField}
-        type={disabled ? "text" : "number"}
-        placeholder="0"
-        onChange={getAmount}
-        value={disabled ? "ALL" : amount}
-        min="0"
-      />
-    </div>
+    <span className={styles.transitioningBorder}>
+      <div className={`${styles.currencyContainer} ${className}`}>
+        <span className={styles.Ξ}>Ξ</span>
+        <input
+          className={styles.currencyField}
+          disabled={disabled}
+          autoFocus
+          required
+          type={disabled ? "text" : "number"}
+          placeholder="0"
+          onChange={getAmount}
+          value={disabled ? "ALL" : amount}
+          min="0"
+        />
+      </div>
+    </span>
   )
 }

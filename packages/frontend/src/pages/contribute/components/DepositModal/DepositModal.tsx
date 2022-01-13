@@ -16,7 +16,7 @@ interface DepositProps {
 export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositProps) => {
   const [amount, setAmount] = useState("")
   const [currency, setCurrency] = useState<Denomination>(Denomination.ETHER)
-  const [disabled, setDisabled] = useState(false)
+  const [disabled, setDisabled] = useState(true)
 
   const submitDeposit = async (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
@@ -53,12 +53,14 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositProp
       />
       <EtherDenominationButtons className={styles.etherButtons} setCurrency={setCurrency} />
       <Disclaimer className={styles.disclaimer} />
-      <Consent className={styles.consent} setDisabled={setDisabled} />
+      <Consent className={styles.consent} setConsent={setDisabled} />
       <SubmitModalButton
         className={styles.submit}
         disabled={disabled}
         onSubmit={submitDeposit}
-      >Deposit <DepositSVG className={styles.depositSVG} /></SubmitModalButton>
-    </form >
+      >
+        Deposit <DepositSVG className={styles.depositSVG} />
+      </SubmitModalButton>
+    </form>
   );
 }

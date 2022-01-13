@@ -65,6 +65,12 @@
   }
 }
 
+@media (min-width: 600px) and (orientation: landscape) {
+  .circleC {
+    --fs: clamp(10px, 5.6vw, 290px);
+  }
+}
+
 @media (max-width: 1279px) and (orientation: landscape) {
   .circleC {
     position: absolute;
