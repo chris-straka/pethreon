@@ -1,7 +1,7 @@
 import { Dispatch, ReactNode, SetStateAction } from "react"
 import { ActionBar, ActionButton } from "../../../../components";
 import { WithdrawSVG, CsvSVG } from "../../../../svgs"
-import { WithdrawModal } from "../../../contribute/components";
+import { WithdrawModal } from "../../../Contribute/components";
 import styles from "./CreatorActionBar.module.scss"
 
 interface ActionBarProps {

@@ -1,11 +1,11 @@
 import { useState, useEffect, ReactNode } from "react"
 import { useNavigate } from "react-router-dom"
-import { motion } from "framer-motion"
-import { Loading, Balance, UserAddress, PledgeList } from "../../components"
+import { motion, AnimatePresence } from "framer-motion"
+import { UserBalance, UserAddress, Loading, PledgeList, Modal } from "../../components"
 import { CreatorActionBar } from "./components"
 import { getCreatorBalance, getCreatorPledges } from "../../pethreon"
 import { EthereumWindow, PledgeType, extractPledgesToCSV } from "../../utils"
-import styles from "./create.module.scss"
+import styles from "./Create.module.scss"
 
 interface CreateProps {
   fadeInDuration: number,
@@ -45,20 +45,6 @@ export const Create = (
     init()
   }, [navigate])
 
-  // const withdrawBalance = async (event: FormEvent<HTMLButtonElement>) => {
-  //   event.preventDefault()
-  //   try {
-  //     setLoading(true)
-  //     await creatorWithdraw()
-  //     const newBalance = await getCreatorBalance()
-  //     setBalance(newBalance)
-  //     setLoading(false)
-  //   } catch (error) {
-  //     setLoading(false)
-  //     window.alert(`Error: ${(error as MetamaskError).message}`)
-  //   }
-  // }
-
   return <>
     {loading && <Loading />}
     <motion.div
@@ -68,12 +54,12 @@ export const Create = (
       animate={{ opacity: 1, transition: { duration: fadeInDuration, delay: fadeInDelay } }}
       exit={{ opacity: 0, transition: { duration: fadeOutDuration, delay: fadeOutDelay } }}
     >
-      <Balance
+      <UserBalance
         className={styles.balance}
         balance={balance}
       />
       <UserAddress
-        className={styles.userAccountName}
+        className={styles.userAddress}
         userAccountAddress={ethereum.selectedAddress}
       />
       <CreatorActionBar
@@ -89,5 +75,11 @@ export const Create = (
         pledges={pledges}
       />
     </motion.div>
+    <AnimatePresence
+      initial={false}
+      exitBeforeEnter={true}
+    >
+      {modal !== null && <Modal closeModal={() => setModal(null)} children={modal} />}
+    </AnimatePresence>
   </>
 }

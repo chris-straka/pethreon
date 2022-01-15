@@ -1,0 +1,30 @@
+.userBalance {
+  color: var(--text); // comes from root index.scss
+  font-family: aileron;
+  font-weight: 400;
+  font-size: inherit;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  font-size: var(--fs-user-balance);
+  width: var(--user-balance-width);
+  margin-left: var(--user-balance-margin-left);
+  margin-bottom: var(--user-balance-margin-bottom);
+
+  --fs-user-balance: clamp(2rem, 8vw + 1rem, 5rem);
+}
+
+.eth {
+  font-size: inherit;
+  font-family: aileron;
+  font-weight: 200;
+  margin-right: 14px;
+}
+
+@media (min-width: 1280px) and (orientation: landscape) {
+  .userBalance {
+    --fs-user-balance: clamp(1.5rem, 3vw + 1rem, 9rem);
+    --user-balance-margin-left: clamp(30px, 4vw, 4rem);
+  }
+}

@@ -1,6 +1,5 @@
 import { ActionBar } from "./ActionBar/ActionBar";
 import { ActionButton } from "./ActionButton/ActionButton";
-import { Balance } from "./Balance/Balance";
 import { Consent } from "./Consent/Consent";
 import { CurrencyButton } from "./CurrencyButton/CurrencyButton";
 import { CurrencyButtons } from "./CurrencyButtons/CurrencyButtons";
@@ -14,11 +13,11 @@ import { Pledge } from "./Pledge/Pledge";
 import { PledgeList } from "./PledgeList/PledgeList";
 import { SubmitModalButton } from "./SubmitModalButton/SubmitModalButton";
 import { UserAddress } from "./UserAddress/UserAddress";
+import { UserBalance } from "./UserBalance/UserBalance";
 
 export {
   ActionBar,
   ActionButton,
-  Balance,
   Consent,
   CurrencyButton,
   CurrencyButtons,
@@ -31,5 +30,6 @@ export {
   Pledge,
   PledgeList,
   SubmitModalButton,
-  UserAddress
+  UserAddress,
+  UserBalance,
 }

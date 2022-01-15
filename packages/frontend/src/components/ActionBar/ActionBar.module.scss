@@ -23,10 +23,6 @@
 
 @media (min-width: 1280px) and (orientation: landscape) {
   .actionBar {
-    grid-area: actionBar;
-    place-self: end center;
-    justify-content: space-evenly;
-
     --fs: clamp(0.5rem, 2vw, 2rem);
 
     --action-bar-button-width: unset;

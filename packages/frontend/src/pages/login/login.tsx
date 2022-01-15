@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { EthereumWindow, MetamaskError } from '../../utils';
 import { TypewriterEffect, Features, Video, Pethreon, LoginContainer } from './components';
 import { Footer } from "../../components"
-import styles from "./login.module.scss"
+import styles from "./Login.module.scss"
 
 interface LoginProps {
   fadeInDuration: number,

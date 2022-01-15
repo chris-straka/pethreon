@@ -1,11 +1,11 @@
 import { useState, useEffect, ReactNode } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { Balance, Loading, UserAddress, Modal, PledgeList } from "../../components"
+import { UserBalance, UserAddress, Loading, Modal, PledgeList } from "../../components"
 import { getContributorBalance, getContributorPledges } from "../../pethreon"
 import { EthereumWindow, PledgeType, MetamaskError } from "../../utils"
 import { ContributorActionBar } from "./components"
-import styles from "./contribute.module.scss"
+import styles from "./Contribute.module.scss"
 
 interface ContributeProps {
   fadeInDuration: number,
@@ -52,21 +52,23 @@ export const Contribute = (
         animate={{ opacity: 1, transition: { duration: fadeInDuration, delay: fadeInDelay } }}
         exit={{ opacity: 0, transition: { duration: fadeOutDuration, delay: fadeOutDelay } }}
       >
-        <Balance
-          className={styles.balance}
+        <UserBalance
+          className={styles.userBalance}
           balance={balance}
         />
         <UserAddress
-          className={styles.userAccountName}
+          className={styles.userAddress}
           userAccountAddress={ethereum.selectedAddress}
         />
         <ContributorActionBar
+          className={styles.contributorActionBar}
           setModal={setModal}
           setBalance={setBalance}
           setLoading={setLoading}
           setPledges={setPledges}
         />
         <PledgeList
+          className={styles.pledgeList}
           isCreator={false}
           textForWhenItsEmpty="You need to make a pledge first..."
           pledges={pledges}

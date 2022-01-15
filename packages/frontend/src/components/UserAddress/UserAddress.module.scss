@@ -1,0 +1,15 @@
+.userAddress {
+  display: none;
+  font-size: var(--fs-user-address);
+  margin-left: var(--user-account-margin-left);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (min-width: 1280px) and (orientation: landscape) {
+  .userAddress {
+    display: block;
+    --fs-user-address: clamp(0.2rem, 0.4vw + 1rem, 5rem);
+    --user-account-margin-left: clamp(30px, 4vw, 4rem);
+  }
+}

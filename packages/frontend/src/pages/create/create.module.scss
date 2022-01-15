@@ -1,8 +1,4 @@
 .createLayout {
-  --fs-user-balance: clamp(2rem, 8vw + 1rem, 5rem);
-  --fs-action-bar-button: clamp(0.5rem, 4.5vw, 3rem);
-  --fs-empty-pledge-text: clamp(0.5rem, 10vw, 5rem);
-
   --create-layout-margin-inline: clamp(1.5em, 9vw, 5rem);
   --create-layout-height: 60vh;
   --create-layout-margin-top: 15vh;
@@ -11,6 +7,10 @@
   --pledge-box-height: 30vh;
 
   --empty-pledge-text-width: 15ch;
+
+  height: var(--create-layout-height);
+  margin-top: var(--create-layout-margin-top);
+  margin-inline: var(--create-layout-margin-inline);
 }
 
 @media (min-width: 600px) {
@@ -21,6 +21,13 @@
 
 @media (min-width: 1280px) and (orientation: landscape) {
   .createLayout {
+    display: grid;
+    grid:
+      [Account-row-start] "userBalance userBalance" [Action-row-end]
+      [Account-row-start] "account actionBar" [Action-row-end]
+      [Balance-row-start] ". pledges" [Balance-row-end]
+      [Pledge-row-start] ". pledges" [Pledge-row-end];
+
     --fs-user-account: clamp(0.2rem, 0.4vw + 1rem, 5rem);
     --fs-user-balance: clamp(1.5rem, 3vw + 1rem, 9rem);
     --fs-action-bar-button: clamp(0.5rem, 2vw, 2rem);
@@ -41,57 +48,15 @@
     --pledge-box-height: 40vh;
     --pledge-box-width: 50vw;
   }
-}
 
-.createLayout {
-  height: var(--create-layout-height);
-  margin-top: var(--create-layout-margin-top);
-  margin-inline: var(--create-layout-margin-inline);
-}
-
-.userAccountName {
-  font-size: var(--fs-user-account);
-  margin-left: var(--user-account-margin-left);
-  width: var(--user-account-width);
-  display: none;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.balance {
-  font-size: var(--fs-user-balance);
-  margin-left: var(--user-balance-margin-left);
-  width: var(--user-balance-width);
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.actionBar {
-  width: var(--action-bar-width);
-  margin-top: var(--action-bar-margin-top);
-  margin-bottom: var(--action-bar-margin-bottom);
-  display: flex;
-  justify-content: center;
-}
-
-@media (min-width: 1280px) and (orientation: landscape) {
-  .createLayout {
-    display: grid;
-    grid:
-      [Account-row-start] "ethBalance ethBalance" [Action-row-end]
-      [Account-row-start] "account actionBar" [Action-row-end]
-      [Balance-row-start] ". pledges" [Balance-row-end]
-      [Pledge-row-start] ". pledges" [Pledge-row-end];
+  .balance {
+    grid-area: userBalance;
+    align-self: end;
   }
 
-  .userAccountName {
+  .userAddress {
     grid-area: account;
     display: block;
     place-self: center start;
-  }
-
-  .balance {
-    grid-area: ethBalance;
-    align-self: end;
   }
 }

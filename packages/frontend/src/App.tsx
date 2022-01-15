@@ -1,8 +1,8 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-import { Login } from './pages/login/login';
-import { Contribute } from './pages/contribute/contribute';
-import { Create } from './pages/create/create';
+import { Login } from './pages/Login/Login';
+import { Contribute } from './pages/Contribute/Contribute';
+import { Create } from './pages/Create/Create';
 import { Circles } from './Circles/Circles';
 
 const PAGE_FADE_IN_DURATION = .5

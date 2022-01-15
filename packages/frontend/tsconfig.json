@@ -24,5 +24,5 @@
     "src",
     "test/setupTests.ts",
     "test/App.test.tsx"
-, "src/pages/contribute/components/ContributorActionBar/ActionBarr/.tsx"  ]
+, "src/pages/Contribute/components/ContributorActionBar/ActionBarr/.tsx"  ]
 }

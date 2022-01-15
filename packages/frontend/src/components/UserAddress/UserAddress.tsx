@@ -1,3 +1,5 @@
+import styles from "./UserAddress.module.scss"
+
 interface UserAddressProps {
   className: string,
   userAccountAddress: string
@@ -5,6 +7,6 @@ interface UserAddressProps {
 
 export const UserAddress = ({ className, userAccountAddress }: UserAddressProps) => {
   return (
-    <h1 className={className}>{userAccountAddress}</h1>
+    <h1 className={`${className} ${styles.userAddress}`}>{userAccountAddress}</h1>
   )
 }

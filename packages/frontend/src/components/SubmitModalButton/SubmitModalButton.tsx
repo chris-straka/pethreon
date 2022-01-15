@@ -14,5 +14,7 @@ export const SubmitModalButton = ({ children, className, onSubmit, disabled = fa
     className={`${styles.button} ${className}`}
     onClick={onSubmit}
     disabled={disabled}
-  >{children} </button>
+  >
+    {children}
+  </button>
 }

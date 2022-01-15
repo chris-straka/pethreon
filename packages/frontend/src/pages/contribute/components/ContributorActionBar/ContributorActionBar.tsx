@@ -1,10 +1,11 @@
 import { Dispatch, SetStateAction, ReactNode } from "react"
 import { ActionBar, ActionButton } from "../../../../components"
 import { DepositSVG, WithdrawSVG, PledgeSVG } from "../../../../svgs"
-import { DepositModal, WithdrawModal, PledgeModal } from "../"
+import { DepositModal, WithdrawModal, PledgeModal } from ".."
 import { PledgeType } from "../../../../utils"
 
 interface ContributorActionBarProps {
+  className: string,
   setModal: Dispatch<SetStateAction<ReactNode>>,
   setBalance: Dispatch<SetStateAction<string>>,
   setLoading: Dispatch<SetStateAction<boolean>>,
@@ -12,10 +13,10 @@ interface ContributorActionBarProps {
 }
 
 export const ContributorActionBar = (
-  { setModal, setBalance, setLoading, setPledges }: ContributorActionBarProps
+  { className, setModal, setBalance, setLoading, setPledges }: ContributorActionBarProps
 ) => {
   return (
-    <ActionBar>
+    <ActionBar className={className}>
       <ActionButton onClick={() => setModal(
         <DepositModal
           closeModal={() => setModal(null)}
