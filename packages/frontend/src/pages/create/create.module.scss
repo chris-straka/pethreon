@@ -7,12 +7,6 @@
   --create-layout-height: 60vh;
   --create-layout-margin-top: 15vh;
 
-  --action-bar-margin-top: 2vh;
-  --action-bar-margin-bottom: 0;
-
-  --action-button-outline-offset: 4px;
-  --action-button-outline-size: 10px;
-
   --pledge-box-margin-top: 3vh;
   --pledge-box-height: 30vh;
 
@@ -80,37 +74,6 @@
   justify-content: center;
 }
 
-.actionButton {
-  font-size: var(--fs-action-bar-button);
-  width: var(--action-bar-button-width);
-  font-weight: 600;
-  cursor: pointer;
-  padding: 0.7em;
-  border-right: 3px solid white;
-  color: var(--black-text);
-  background-color: var(--secondary);
-
-  outline-offset: var(--action-button-outline-offset);
-  outline: var(--action-button-outline-size) dotted transparent;
-  transition: outline-color 0.2s, background-color 0.2s;
-
-  &:focus {
-    outline-color: var(--secondary);
-    transition: outline-color 0.2s, background-color 0.2s;
-  }
-
-  &:hover {
-    background-color: var(--primary);
-    transition: outline-color 0.2s, background-color 0.2s;
-  }
-
-  & > svg {
-    width: 2ch;
-    vertical-align: text-bottom;
-  }
-}
-
-
 @media (min-width: 1280px) and (orientation: landscape) {
   .createLayout {
     display: grid;
@@ -131,5 +94,4 @@
     grid-area: ethBalance;
     align-self: end;
   }
-
 }

@@ -1,0 +1,51 @@
+.actionButton {
+  --fs: clamp(0.5rem, 4.5vw, 3rem);
+
+  --action-button-width: 8ch;
+  --action-button-outline-offset: 4px;
+  --action-button-outline-size: 5px;
+
+  font-size: var(--fs);
+  font-weight: 600;
+  cursor: pointer;
+  width: var(--action-button-width);
+  padding: 0.7em;
+  border-right: 3px solid white;
+  background-color: var(--primary);
+  color: var(--black-text);
+  outline-offset: var(--action-button-outline-offset);
+  outline: var(--action-button-outline-size) dotted transparent;
+  transition: outline-color 0.3s, color 0.3s, background-color 0.3s;
+
+  &:hover {
+    transition: color 0.3s;
+    color: var(--secondary);
+  }
+
+  &:focus-visible {
+    outline-color: var(--primary);
+    transition: color 0.3s, outline-color 0.3s, background-color 0.3s;
+  }
+
+  & > svg {
+    width: 2ch;
+    vertical-align: text-bottom;
+  }
+}
+
+@media (min-width: 600px) {
+  .actionButton {
+    --action-button-outline-offset: 4px;
+    --action-button-outline-size: 10px;
+  }
+}
+
+@media (min-width: 1280px) and (orientation: landscape) {
+  .actionButton {
+    --fs: clamp(0.5rem, 2vw, 2rem);
+
+    --action-button-outline-offset: 4px;
+    --action-button-outline-size: 10px;
+    --action-button-width: unset;
+  }
+}

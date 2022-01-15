@@ -5,11 +5,10 @@ interface CurrencySelectProps {
   amount: string,
   className: string,
   disabled?: boolean,
-  invalid?: boolean,
   getAmount: (event: ChangeEvent<HTMLInputElement>) => void,
 }
 
-export const CurrencyField = ({ amount, className, getAmount, disabled = false, invalid = false }: CurrencySelectProps) => {
+export const CurrencyField = ({ amount, className, getAmount, disabled = false }: CurrencySelectProps) => {
   return (
     <span className={styles.transitioningBorder}>
       <div className={`${styles.currencyContainer} ${className}`}>

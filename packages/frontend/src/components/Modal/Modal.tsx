@@ -8,8 +8,13 @@ interface ModalProps {
   children: ReactNode
 }
 
+/**
+ * This component is a wrapper template for all the modals in my 
+ * contribute & create folders.
+ * 
+ * @param children - I pass in the modal I want here
+ */
 export const Modal = ({ closeModal, children }: ModalProps) => {
-
   return (
     <ModalBackdrop onClick={closeModal}>
       <motion.div

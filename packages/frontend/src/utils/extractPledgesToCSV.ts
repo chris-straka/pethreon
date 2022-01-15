@@ -11,7 +11,6 @@ export const extractPledgesToCSV = async (active?: PledgeType[]) => {
   const expired = await getExpiredPledges()
 
   if (active !== undefined && active !== []) activePledges = processForCSV(active)
-
   if (expired === undefined && expired !== []) expiredPledges = processForCSV(expired)
 
   const rows = [

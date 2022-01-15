@@ -1,9 +1,8 @@
 import { useState, ChangeEvent, FormEvent, Dispatch, SetStateAction } from "react"
-import { BigNumber, utils } from "ethers"
-import { CurrencyField, SubmitModalButton } from "../../../../components"
-import { deposit, getContributorBalance, } from "../../../../pethreon"
+import { CurrencyButtons, CurrencyButton, CurrencyField, SubmitModalButton, Disclaimer, Consent } from "../../../../components"
+import { deposit, getContributorBalance } from "../../../../pethreon"
 import { MetamaskError, Denomination } from "../../../../utils"
-import { EtherDenominationButtons, Disclaimer, Consent } from ".."
+import { BigNumber, utils } from "ethers"
 import { DepositSVG } from "../../../../svgs"
 import styles from "./DepositModal.module.scss"
 
@@ -51,9 +50,18 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositProp
         amount={amount}
         getAmount={(event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)}
       />
-      <EtherDenominationButtons className={styles.etherButtons} setCurrency={setCurrency} />
-      <Disclaimer className={styles.disclaimer} />
-      <Consent className={styles.consent} setConsent={setDisabled} />
+      <CurrencyButtons className={styles.etherButtons} setCurrency={setCurrency}>
+        <CurrencyButton checked denomination={Denomination.ETHER} />
+        <CurrencyButton denomination={Denomination.GWEI} />
+        <CurrencyButton denomination={Denomination.WEI} />
+      </CurrencyButtons>
+      <Disclaimer
+        className={styles.disclaimer}
+      />
+      <Consent
+        className={styles.consent}
+        setConsent={setDisabled}
+      />
       <SubmitModalButton
         className={styles.submit}
         disabled={disabled}

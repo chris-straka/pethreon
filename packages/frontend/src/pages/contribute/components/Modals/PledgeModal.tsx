@@ -1,5 +1,5 @@
 import { useState, Dispatch, ChangeEvent, SetStateAction, FormEvent } from "react"
-import { SubmitModalButton, CurrencyDenomination } from "../../../../components"
+import { CurrencyButtons, CurrencyButton, SubmitModalButton } from "../../../../components"
 import { CashSVG, PersonSVG, DateSVG, PledgeSVG } from "../../../../svgs"
 import { getContributorBalance, createPledge, getContributorPledges } from "../../../../pethreon"
 import { PledgeType, Denomination, MetamaskError } from "../../../../utils"
@@ -75,14 +75,16 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
         />
         <CashSVG className={styles.pledgeSVG} />
       </div>
-      <div
+
+      <CurrencyButtons
         className={styles.currencyButtons}
-        onChange={(event: ChangeEvent<HTMLInputElement>) => setCurrency((event.target.value) as Denomination)}>
-        <CurrencyDenomination defaultChecked={true} denomination={Denomination.ETHER} />
-        <CurrencyDenomination defaultChecked={false} denomination={Denomination.GWEI} />
-        <CurrencyDenomination defaultChecked={false} denomination={Denomination.WEI} />
-        <CurrencyDenomination defaultChecked={false} denomination={Denomination.ALL} />
-      </div>
+        setCurrency={() => setCurrency(Denomination.GWEI)}
+      >
+        <CurrencyButton checked denomination={Denomination.ETHER} />
+        <CurrencyButton denomination={Denomination.GWEI} />
+        <CurrencyButton denomination={Denomination.WEI} />
+        <CurrencyButton denomination={Denomination.ALL} />
+      </CurrencyButtons>
       <h3 className={styles.pledgeHeading}>Across how many days?</h3>
       <div className={styles.pledgeInputContainer}>
         <input

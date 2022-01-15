@@ -11,12 +11,17 @@
   border-bottom: 5px solid var(--modal-background);
   padding-bottom: 5px;
   margin-bottom: -5px;
-  transition: border-color .3s;
-}
+  transition: border-color 0.3s;
 
-.currencyContainer:hover {
-  border-bottom: 5px solid transparent;
-  transition: border-color .3s;
+  &:hover {
+    border-color: transparent;
+    transition: border-color 0.3s;
+  }
+
+  &:focus-within {
+    border-color: transparent;
+    transition: border-color 0.3s;
+  }
 }
 
 .currencyField {

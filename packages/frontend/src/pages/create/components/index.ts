@@ -1,3 +1,3 @@
-import { ActionBar } from "./ActionBar/ActionBar"
+import { CreatorActionBar } from "./CreatorActionBar/CreatorActionBar"
 
-export { ActionBar }
+export { CreatorActionBar }

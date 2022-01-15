@@ -38,7 +38,7 @@ export const CircleB = ({ delay, duration }: CircleBProps) => {
       ref.current?.style.setProperty("left", "var(--left-create)")
       ref.current?.style.setProperty("width", "var(--width-create)")
       ref.current?.style.setProperty("height", "var(--height-create)")
-      ref.current?.style.setProperty("background-color", "var(--secondary-dark)")
+      ref.current?.style.setProperty("background-color", "var(--primary)")
       ref.current?.style.setProperty("transition-duration", `${duration}s`)
       ref.current?.style.setProperty("transition-delay", `${delay}s`)
     }

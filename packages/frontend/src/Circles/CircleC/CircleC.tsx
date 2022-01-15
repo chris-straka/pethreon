@@ -97,7 +97,7 @@ export const CircleC = ({
       ref.current?.style.setProperty("height", "var(--height-create)")
       ref.current?.style.setProperty("border-radius", "0%")
       ref.current?.style.setProperty("border-bottom-left-radius", "50px")
-      ref.current?.style.setProperty("background-color", "var(--secondary-light)")
+      ref.current?.style.setProperty("background-color", "var(--secondary)")
       ref.current?.style.setProperty("--color", "var(--text)")
       ref.current?.style.setProperty("--outline-color", "var(--secondary-light)")
       ref.current?.style.setProperty("--hover-color", "var(--primary-light)")

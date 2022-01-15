@@ -1,9 +1,8 @@
 import { useState, Dispatch, SetStateAction, ChangeEvent, FormEvent } from "react"
-import { BigNumber, utils } from "ethers"
 import { MetamaskError, Denomination } from "../../../../utils"
 import { contributorWithdraw, getContributorBalance, } from "../../../../pethreon"
-import { CurrencyField, SubmitModalButton } from "../../../../components"
-import { EtherDenominationButtons } from ".."
+import { CurrencyField, CurrencyButtons, CurrencyButton, SubmitModalButton } from "../../../../components"
+import { BigNumber, utils } from "ethers"
 import { WithdrawSVG } from "../../../../svgs"
 import styles from "./WithdrawModal.module.scss"
 
@@ -48,8 +47,15 @@ export const WithdrawModal = ({ closeModal, setLoading, setBalance }: WithdrawPr
         disabled={currency === "All" ? true : false}
         getAmount={(event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)}
       />
-      <EtherDenominationButtons className={styles.etherButtons} setCurrency={setCurrency} />
-      <SubmitModalButton className={styles.submit} disabled={false} onSubmit={submitWithdraw}>Withdraw <WithdrawSVG className={styles.withdrawSVG} /></SubmitModalButton>
+      <CurrencyButtons className={styles.etherButtons} setCurrency={setCurrency}>
+        <CurrencyButton checked denomination={Denomination.ETHER} />
+        <CurrencyButton denomination={Denomination.GWEI} />
+        <CurrencyButton denomination={Denomination.WEI} />
+        <CurrencyButton denomination={Denomination.ALL} />
+      </CurrencyButtons>
+      <SubmitModalButton
+        className={styles.submit}
+        onSubmit={submitWithdraw}> Withdraw <WithdrawSVG className={styles.withdrawSVG} /></SubmitModalButton>
     </form>
   )
 }

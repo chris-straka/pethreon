@@ -1,10 +1,10 @@
-import { useState, useEffect, FormEvent } from "react"
+import { useState, useEffect, ReactNode } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 import { Loading, Balance, UserAddress, PledgeList } from "../../components"
-import { ActionBar } from "./components"
-import { creatorWithdraw, getCreatorBalance, getCreatorPledges } from "../../pethreon"
-import { EthereumWindow, MetamaskError, PledgeType, extractPledgesToCSV } from "../../utils"
+import { CreatorActionBar } from "./components"
+import { getCreatorBalance, getCreatorPledges } from "../../pethreon"
+import { EthereumWindow, PledgeType, extractPledgesToCSV } from "../../utils"
 import styles from "./create.module.scss"
 
 interface CreateProps {
@@ -21,6 +21,7 @@ export const Create = (
   const [loading, setLoading] = useState(false)
   const [balance, setBalance] = useState("0.0")
   const [pledges, setPledges] = useState<PledgeType[]>([])
+  const [modal, setModal] = useState<ReactNode | null>(null)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -44,19 +45,19 @@ export const Create = (
     init()
   }, [navigate])
 
-  const withdrawBalance = async (event: FormEvent<HTMLButtonElement>) => {
-    event.preventDefault()
-    try {
-      setLoading(true)
-      await creatorWithdraw()
-      const newBalance = await getCreatorBalance()
-      setBalance(newBalance)
-      setLoading(false)
-    } catch (error) {
-      setLoading(false)
-      window.alert(`Error: ${(error as MetamaskError).message}`)
-    }
-  }
+  // const withdrawBalance = async (event: FormEvent<HTMLButtonElement>) => {
+  //   event.preventDefault()
+  //   try {
+  //     setLoading(true)
+  //     await creatorWithdraw()
+  //     const newBalance = await getCreatorBalance()
+  //     setBalance(newBalance)
+  //     setLoading(false)
+  //   } catch (error) {
+  //     setLoading(false)
+  //     window.alert(`Error: ${(error as MetamaskError).message}`)
+  //   }
+  // }
 
   return <>
     {loading && <Loading />}
@@ -75,11 +76,12 @@ export const Create = (
         className={styles.userAccountName}
         userAccountAddress={ethereum.selectedAddress}
       />
-      <ActionBar
-        actionBarClassName={styles.actionBar}
-        actionButtonClassName={styles.actionButton}
+      <CreatorActionBar
+        className={styles.actionBar}
         makeCSV={() => extractPledgesToCSV(pledges)}
-        withdraw={() => withdrawBalance}
+        setModal={setModal}
+        setBalance={setBalance}
+        setLoading={setLoading}
       />
       <PledgeList
         isCreator={true}
