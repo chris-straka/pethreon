@@ -6,10 +6,10 @@ interface PledgeListProps {
   className?: string,
   pledges: PledgeType[],
   textForWhenItsEmpty: string,
-  isCreator: boolean
+  creator: boolean
 }
 
-export const PledgeList = ({ className, pledges, isCreator, textForWhenItsEmpty }: PledgeListProps) => {
+export const PledgeList = ({ className, pledges, creator, textForWhenItsEmpty }: PledgeListProps) => {
   return (
     <ul className={
       `${pledges.length === 0 ? styles.emptyPledgeBox : styles.pledgeBox} 
@@ -18,8 +18,8 @@ export const PledgeList = ({ className, pledges, isCreator, textForWhenItsEmpty 
       {pledges
         .map((pledge: PledgeType) => <Pledge
           pledge={pledge}
-          creator={isCreator}
-          key={isCreator ? pledge.contributorAddress : pledge.creatorAddress}
+          creator={creator}
+          key={creator ? pledge.contributorAddress : pledge.creatorAddress}
         />)
       }
       {pledges.length === 0 ? <li className={styles.emptyPledgeText}>{textForWhenItsEmpty}</li> : null}
