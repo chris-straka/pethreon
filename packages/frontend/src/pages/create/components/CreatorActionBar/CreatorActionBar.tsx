@@ -15,7 +15,7 @@ interface ActionBarProps {
 export const CreatorActionBar = ({ className, setModal, setLoading, setBalance, makeCSV }: ActionBarProps) => {
   return (
     <ActionBar className={`${styles.actionBar} ${className}`}>
-      <ActionButton onClick={() => setModal(
+      <ActionButton className={styles.withdrawButton} onClick={() => setModal(
         <WithdrawModal
           closeModal={() => setModal(null)}
           setLoading={setLoading}
@@ -25,7 +25,7 @@ export const CreatorActionBar = ({ className, setModal, setLoading, setBalance, 
         Withdraw <WithdrawSVG />
       </ActionButton>
 
-      <ActionButton onClick={makeCSV}>
+      <ActionButton className={styles.extractToCsvButton} onClick={makeCSV}>
         Extract to CSV <CsvSVG />
       </ActionButton>
     </ActionBar>

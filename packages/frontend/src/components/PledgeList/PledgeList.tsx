@@ -6,10 +6,10 @@ interface PledgeListProps {
   className?: string,
   pledges: PledgeType[],
   textForWhenItsEmpty: string,
-  creator: boolean
+  creator?: boolean
 }
 
-export const PledgeList = ({ className, pledges, creator, textForWhenItsEmpty }: PledgeListProps) => {
+export const PledgeList = ({ className, pledges, textForWhenItsEmpty, creator = false }: PledgeListProps) => {
   return (
     <ul className={
       `${pledges.length === 0 ? styles.emptyPledgeBox : styles.pledgeBox} 

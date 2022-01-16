@@ -55,7 +55,7 @@ export const Create = (
       exit={{ opacity: 0, transition: { duration: fadeOutDuration, delay: fadeOutDelay } }}
     >
       <UserBalance
-        className={styles.balance}
+        className={styles.userBalance}
         balance={balance}
       />
       <UserAddress
@@ -63,18 +63,20 @@ export const Create = (
         userAccountAddress={ethereum.selectedAddress}
       />
       <CreatorActionBar
-        className={styles.actionBar}
+        className={styles.creatorActionBar}
         makeCSV={() => extractPledgesToCSV(pledges)}
         setModal={setModal}
         setBalance={setBalance}
         setLoading={setLoading}
       />
       <PledgeList
-        isCreator={true}
+        className={styles.pledgeList}
+        creator
         textForWhenItsEmpty="Nobody has pledged to you yet..."
         pledges={pledges}
       />
     </motion.div>
+
     <AnimatePresence
       initial={false}
       exitBeforeEnter={true}

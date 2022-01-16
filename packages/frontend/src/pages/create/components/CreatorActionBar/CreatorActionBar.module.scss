@@ -8,6 +8,20 @@
   --action-button-outline-size: 10px;
 }
 
+.withdrawButton,
+.extractToCsvButton {
+  width: unset;
+  background-color: var(--secondary);
+
+  &:hover {
+    color: var(--primary-light);
+  }
+
+  &:focus-visible {
+    outline-color: var(--secondary);
+  }
+}
+
 @media (min-width: 1280px) and (orientation: landscape) {
   .actionBar {
     --fs-action-bar-button: clamp(0.5rem, 2vw, 2rem);

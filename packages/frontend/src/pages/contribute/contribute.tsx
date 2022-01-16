@@ -69,7 +69,6 @@ export const Contribute = (
         />
         <PledgeList
           className={styles.pledgeList}
-          isCreator={false}
           textForWhenItsEmpty="You need to make a pledge first..."
           pledges={pledges}
         />

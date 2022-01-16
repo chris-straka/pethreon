@@ -3,11 +3,6 @@
   --create-layout-height: 60vh;
   --create-layout-margin-top: 15vh;
 
-  --pledge-box-margin-top: 3vh;
-  --pledge-box-height: 30vh;
-
-  --empty-pledge-text-width: 15ch;
-
   height: var(--create-layout-height);
   margin-top: var(--create-layout-margin-top);
   margin-inline: var(--create-layout-margin-inline);
@@ -19,44 +14,44 @@
   }
 }
 
+@media (max-width: 1280px) and (orientation: landscape) {
+  .contributeLayout {
+    --contribute-layout-height: auto;
+    --contribute-layout-margin-top: 30vh;
+  }
+}
+
 @media (min-width: 1280px) and (orientation: landscape) {
   .createLayout {
     display: grid;
     grid:
       [Account-row-start] "userBalance userBalance" [Action-row-end]
-      [Account-row-start] "account actionBar" [Action-row-end]
-      [Balance-row-start] ". pledges" [Balance-row-end]
-      [Pledge-row-start] ". pledges" [Pledge-row-end];
-
-    --fs-user-account: clamp(0.2rem, 0.4vw + 1rem, 5rem);
-    --fs-user-balance: clamp(1.5rem, 3vw + 1rem, 9rem);
-    --fs-action-bar-button: clamp(0.5rem, 2vw, 2rem);
-    --fs-empty-pledge-text: clamp(0.5rem, 4vw, 5rem);
+      [Account-row-start] "userAddress creatorActionBar" [Action-row-end]
+      [Balance-row-start] ". pledgeList" [Balance-row-end]
+      [Pledge-row-start] ". pledgeList" [Pledge-row-end];
 
     --create-layout-height: 85vh;
     --create-layout-margin-top: 15vh;
     --create-layout-margin-inline: 0;
-
-    --user-account-margin-left: 0;
-    --user-balance-margin-left: clamp(30px, 4vw, 4rem);
-
-    --action-bar-button-width: unset;
-    --action-bar-width: 55vw;
-    --action-bar-margin-top: 0;
-    --action-bar-margin-bottom: 8px;
-
-    --pledge-box-height: 40vh;
-    --pledge-box-width: 50vw;
   }
 
-  .balance {
+  .userBalance {
     grid-area: userBalance;
     align-self: end;
   }
 
   .userAddress {
-    grid-area: account;
-    display: block;
+    grid-area: userAddress;
     place-self: center start;
+  }
+
+  .creatorActionBar {
+    grid-area: creatorActionBar;
+    place-self: end center;
+  }
+
+  .pledgeList {
+    grid-area: pledgeList;
+    place-self: start center;
   }
 }

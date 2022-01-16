@@ -99,7 +99,7 @@ export const CircleC = ({
       ref.current?.style.setProperty("border-bottom-left-radius", "50px")
       ref.current?.style.setProperty("background-color", "var(--secondary)")
       ref.current?.style.setProperty("--color", "var(--text)")
-      ref.current?.style.setProperty("--outline-color", "var(--secondary-light)")
+      ref.current?.style.setProperty("--outline-color", "var(--secondary)")
       ref.current?.style.setProperty("--hover-color", "var(--primary-light)")
       ref.current?.style.setProperty("--circle-animation-duration", `${circleAnimationDuration}s`)
       ref.current?.style.setProperty("--circle-animation-delay", `${circleAnimationDelay}s`)
