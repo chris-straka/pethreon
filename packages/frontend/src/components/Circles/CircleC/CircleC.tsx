@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
-import { ArrowSVG } from "../../svgs"
+import { ArrowSVG } from "../../../svgs/ArrowSVG/ArrowSVG"
 import styles from "./CircleC.module.scss"
 
 interface CircleCProps {

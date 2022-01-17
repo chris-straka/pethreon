@@ -34,22 +34,26 @@
   color: var(--color);
   fill: var(--color);
 
-  transition: outline-color 0.2s, top var(--circle-animation-duration) var(--circle-animation-duration),
+  transition: outline-color 0.2s,
+    top var(--circle-animation-duration) var(--circle-animation-duration),
     left var(--circle-animation-duration) var(--circle-animation-delay),
     width var(--circle-animation-duration) var(--circle-animation-delay),
     height var(--circle-animation-duration) var(--circle-animation-delay),
     color var(--textColor-animation-duration) var(--textColor-animation-delay),
     fill var(--textColor-animation-duration) var(--textColor-animation-delay),
     border-radius var(--circle-animation-duration) var(--circle-animation-delay),
-    background-color var(--circle-animation-duration) var(--circle-animation-delay);
+    background-color var(--circle-animation-duration)
+      var(--circle-animation-delay);
 
   &:focus-visible {
     outline-color: var(--outline-color);
     transition: outline-color 0.15s, color 0.2s, fill 0.2s;
   }
 
-  &:hover {
-    --color: var(--hover-color) !important;
+  @media (hover: hover) {
+    &:hover {
+      --color: var(--hover-color) !important;
+    }
   }
 }
 

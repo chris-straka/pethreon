@@ -3,7 +3,7 @@ import { AnimatePresence } from 'framer-motion';
 import { Login } from './pages/Login/Login';
 import { Contribute } from './pages/Contribute/Contribute';
 import { Create } from './pages/Create/Create';
-import { Circles } from './Circles/Circles';
+import { Circles } from './components';
 
 const PAGE_FADE_IN_DURATION = .5
 const PAGE_FADE_OUT_DURATION = .5

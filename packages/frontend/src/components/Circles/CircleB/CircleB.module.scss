@@ -1,4 +1,4 @@
-.circleA {
+.circleB {
   position: fixed;
   outline: none;
   z-index: -1;
@@ -6,53 +6,52 @@
   background-color: var(--primary);
   transition-property: top, left, width, height, background-color;
 
-  --top-login: -5vh;
-  --left-login: -5vw;
-  --size-login: 15vh;
+  --top-login: 40vh;
+  --left-login: 92vw;
+  --size-login: 128px;
   --width-login: var(--size-login);
   --height-login: var(--size-login);
 
-  --top-contribute: 82vh;
-  --left-contribute: 17vw;
-  --size-contribute: 10vh;
+  --top-contribute: 78vh;
+  --left-contribute: 59vw;
+  --size-contribute: 25vw;
   --width-contribute: var(--size-contribute);
   --height-contribute: var(--size-contribute);
 
-
-  --top-create: 77vh;
-  --left-create: 56vw;
-  --size-create: 18vh;
+  --top-create: 82vh;
+  --left-create: 16vw;
+  --size-create: 15vw;
   --width-create: var(--size-create);
   --height-create: var(--size-create);
 }
 
 @media (min-width: 600px) and (orientation: portrait) {
-  .circleA {
-    --top-login: -4vh;
-    --left-login: -4vw;
-    --size-login: clamp(224px, 7vw, 650px);
+  .circleB {
+    --size-login: 200px;
   }
 }
 
 @media (max-width: 1279px) and (orientation: landscape) {
-  .circleA {
+  .circleB {
     --size-contribute: 0;
     --size-create: 0;
     position: absolute;
   }
 }
 
+// Desktop Styles
 @media (min-width: 1280px) and (orientation: landscape) {
-  .circleA {
-    --size-login: 240px;
+  .circleB {
+    --top-login: 85vh;
+    --left-login: 50vw;
+    --size-login: 300px;
 
-    --top-contribute: 75vh;
-    --left-contribute: 6vw;
-    --size-contribute: 12vh;
+    --top-contribute: 51vh;
+    --left-contribute: 20vw;
+    --size-contribute: 25vh;
 
-    --top-create: 51vh;
-    --left-create: 20vw;
-    --size-create: 25vh;
-
+    --top-create: 75vh;
+    --left-create: 6vw;
+    --size-create: 12vh;
   }
 }

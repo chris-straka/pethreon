@@ -1,14 +1,14 @@
 import { useEffect, useRef } from "react"
 import { useLocation } from "react-router-dom"
 import { motion } from "framer-motion"
-import styles from "./CircleA.module.scss"
+import styles from "./CircleB.module.scss"
 
-interface CircleAProps {
+interface CircleBProps {
   duration: number,
   delay: number
 }
 
-export const CircleA = ({ duration, delay }: CircleAProps) => {
+export const CircleB = ({ delay, duration }: CircleBProps) => {
   const location = useLocation()
   const ref = useRef<HTMLDivElement>(null)
 
@@ -28,7 +28,7 @@ export const CircleA = ({ duration, delay }: CircleAProps) => {
       ref.current?.style.setProperty("left", "var(--left-contribute)")
       ref.current?.style.setProperty("width", "var(--width-contribute)")
       ref.current?.style.setProperty("height", "var(--height-contribute)")
-      ref.current?.style.setProperty("background-color", "var(--secondary-dark)")
+      ref.current?.style.setProperty("background-color", "var(--secondary)")
       ref.current?.style.setProperty("transition-duration", `${duration}s`)
       ref.current?.style.setProperty("transition-delay", `${delay}s`)
     }
@@ -45,20 +45,22 @@ export const CircleA = ({ duration, delay }: CircleAProps) => {
   }, [location, duration, delay])
 
   return (
-    <motion.div 
+    <motion.div
       aria-hidden // idk if divs are included in the a11y tree but I don't want screen readers to read this
-      className={styles.circleA}
+      className={styles.circleB}
       ref={ref}
       animate={{
-        scale: 1.2
+        scale: 1.2,
+        x: 2,
+        y: 2
       }}
       transition={
         window.matchMedia("(prefers-reduced-motion)").matches ? {} : { // a11y
-          duration: 5,
-          repeat: Infinity,
-          repeatType: "reverse",
-        }
-      }
+        duration: 8,
+        repeat: Infinity,
+        repeatType: "reverse"
+      }}
     />
   )
 }
+

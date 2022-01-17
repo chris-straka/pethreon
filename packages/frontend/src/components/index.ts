@@ -1,5 +1,6 @@
 import { ActionBar } from "./ActionBar/ActionBar";
 import { ActionButton } from "./ActionButton/ActionButton";
+import { Circles } from "./Circles/Circles"
 import { Consent } from "./Consent/Consent";
 import { CurrencyButton } from "./CurrencyButton/CurrencyButton";
 import { CurrencyButtons } from "./CurrencyButtons/CurrencyButtons";
@@ -18,6 +19,7 @@ import { UserBalance } from "./UserBalance/UserBalance";
 export {
   ActionBar,
   ActionButton,
+  Circles,
   Consent,
   CurrencyButton,
   CurrencyButtons,
