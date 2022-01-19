@@ -41,14 +41,11 @@ export const Login = (
     try {
       setMessage("Logging in... You might have to click the metamask extension in your browser")
       if (ethereum.isConnected) {
-        lastVisited === "create" ?
-          navigate("create") :
-          navigate("contribute")
-      } else {
         await ethereum.request({ method: 'eth_requestAccounts' })
-        lastVisited === "create" ?
-          navigate("create") :
-          navigate("contribute")
+        lastVisited === "create" ? navigate("create") : navigate("contribute")
+      } else {
+        window.alert("You're not connected to the ethereum chain. I'm going to refresh the page and see if that hooks you back up")
+        window.location.reload()
       }
     } catch (error) {
       if ((error as MetamaskError).code === -32002) {

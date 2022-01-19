@@ -8,8 +8,8 @@ import { CurrencyField } from "./CurrencyField/CurrrencyField";
 import { Disclaimer } from "./Disclaimer/Disclaimer";
 import { Footer } from "./Footer/Footer";
 import { Loading } from "./Loading/Loading";
-import { Modal } from "./Modal/Modal";
-import { ModalBackdrop } from "./ModalBackdrop/ModalBackdrop";
+import { WithdrawModal } from "./Modals/WithdrawModal";
+import { ModalTemplate } from "./ModalTemplate/ModalTemplate";
 import { Pledge } from "./Pledge/Pledge";
 import { PledgeList } from "./PledgeList/PledgeList";
 import { SubmitModalButton } from "./SubmitModalButton/SubmitModalButton";
@@ -27,8 +27,8 @@ export {
   Disclaimer,
   Footer,
   Loading,
-  Modal,
-  ModalBackdrop,
+  WithdrawModal,
+  ModalTemplate,
   Pledge,
   PledgeList,
   SubmitModalButton,

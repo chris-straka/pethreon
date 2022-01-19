@@ -1,7 +1,7 @@
 import { ReactNode } from "react"
 import { motion } from "framer-motion"
-import { ModalBackdrop } from "../ModalBackdrop/ModalBackdrop"
-import styles from "./Modal.module.scss"
+import { ModalBackdrop } from "./ModalBackdrop"
+import styles from "./ModalTemplate.module.scss"
 
 interface ModalProps {
   closeModal: (() => void),
@@ -14,7 +14,7 @@ interface ModalProps {
  * 
  * @param children - I pass in the modal I want here
  */
-export const Modal = ({ closeModal, children }: ModalProps) => {
+export const ModalTemplate = ({ closeModal, children }: ModalProps) => {
   return (
     <ModalBackdrop onClick={closeModal}>
       <motion.div

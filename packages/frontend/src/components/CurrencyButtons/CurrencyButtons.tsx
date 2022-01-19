@@ -1,5 +1,4 @@
 import { ChangeEvent, Dispatch, ReactNode, SetStateAction } from "react"
-import { CurrencyButton } from ".."
 import { Denomination } from "../../utils"
 import styles from "./CurrencyButtons.module.scss"
 
@@ -9,16 +8,14 @@ interface CurrencyButtonProps {
   children: ReactNode
 }
 
-export const CurrencyButtons = ({ className, setCurrency }: CurrencyButtonProps) => {
+export const CurrencyButtons = ({ className, setCurrency, children }: CurrencyButtonProps) => {
   return (
     <div
-      className={`${styles.currencyButtons} + ${className}`}
+      className={`${styles.currencyButtons} ${className}`}
       onChange={
         (event: ChangeEvent<HTMLInputElement>) => setCurrency((event.target.value) as Denomination)
       }>
-      <CurrencyButton checked denomination={Denomination.ETHER} />
-      <CurrencyButton denomination={Denomination.GWEI} />
-      <CurrencyButton denomination={Denomination.WEI} />
+      {children}
     </div>
   )
 }

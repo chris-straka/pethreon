@@ -30,6 +30,8 @@
       [Balance-row-start] ". pledgeList" [Balance-row-end]
       [Pledge-row-start] ". pledgeList" [Pledge-row-end];
 
+    grid-gap: 10px;
+
     --create-layout-height: 85vh;
     --create-layout-margin-top: 15vh;
     --create-layout-margin-inline: 0;

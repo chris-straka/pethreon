@@ -1,7 +1,7 @@
 import { useState, useEffect, ReactNode } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { UserBalance, UserAddress, Loading, Modal, PledgeList } from "../../components"
+import { UserBalance, UserAddress, Loading, ModalTemplate, PledgeList } from "../../components"
 import { getContributorBalance, getContributorPledges } from "../../pethreon"
 import { EthereumWindow, PledgeType, MetamaskError } from "../../utils"
 import { ContributorActionBar } from "./components"
@@ -78,7 +78,7 @@ export const Contribute = (
         initial={false}
         exitBeforeEnter={true}
       >
-        {modal !== null && <Modal closeModal={() => setModal(null)} children={modal} />}
+        {modal !== null && <ModalTemplate closeModal={() => setModal(null)} children={modal} />}
       </AnimatePresence>
     </>
   )

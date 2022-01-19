@@ -1,50 +1,26 @@
-.pledgeFormLayout {
+.form {
   display: flex;
   flex-direction: column;
   height: 100%;
   width: 65vw;
 }
 
+.currencyHeading,
+.dateHeading,
 .pledgeHeading {
   font-size: 1rem;
-  margin-bottom: 7px;
+  margin-bottom: 10px;
 }
 
-.currencyButtons {
-  display: flex;
-  font-size: 10px;
-}
-
-.pledgeSVG {
-  width: 5.5ch;
+.dateSVG,
+.addressSVG {
+  width: 2ch;
   vertical-align: text-bottom;
   font-weight: 600;
-  margin-right: 10px;
-  overflow: visible;
 }
 
 .submitSVG {
   width: 2ch;
   vertical-align: text-bottom;
   font-weight: 600;
-}
-
-.pledgeInputContainer {
-  display: flex;
-}
-
-.pledgeInput {
-  outline: none;
-  background-color: transparent;
-  caret-color: var(--secondary);
-  font-size: 25px;
-  overflow-x: auto;
-  border-top: 2px solid transparent;
-  border-bottom: 2px solid transparent;
-  transition: border-bottom 0.3s;
-  width: 74%;
-
-  &:focus {
-    border-bottom: 2px solid var(--secondary);
-  }
 }

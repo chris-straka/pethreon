@@ -46,11 +46,11 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositProp
     <form className={styles.form}>
       <h3 className={styles.heading}>How much to deposit?</h3>
       <CurrencyField
-        className={styles.depositAmount}
-        amount={amount}
-        getAmount={(event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)}
+        className={styles.currencyField}
+        value={amount}
+        setValue={(event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)}
       />
-      <CurrencyButtons className={styles.etherButtons} setCurrency={setCurrency}>
+      <CurrencyButtons className={styles.currencyButtons} setCurrency={setCurrency}>
         <CurrencyButton checked denomination={Denomination.ETHER} />
         <CurrencyButton denomination={Denomination.GWEI} />
         <CurrencyButton denomination={Denomination.WEI} />
@@ -63,7 +63,7 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositProp
         setConsent={setDisabled}
       />
       <SubmitModalButton
-        className={styles.submit}
+        className={styles.submitModalButton}
         disabled={disabled}
         onSubmit={submitDeposit}
       >

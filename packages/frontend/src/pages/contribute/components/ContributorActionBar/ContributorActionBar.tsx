@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, ReactNode } from "react"
-import { ActionBar, ActionButton } from "../../../../components"
+import { ActionBar, ActionButton, WithdrawModal } from "../../../../components"
 import { DepositSVG, WithdrawSVG, PledgeSVG } from "../../../../svgs"
-import { DepositModal, WithdrawModal, PledgeModal } from ".."
+import { DepositModal, PledgeModal } from ".."
 import { PledgeType } from "../../../../utils"
 
 interface ContributorActionBarProps {

@@ -13,37 +13,49 @@
 
 .heading {
   grid-area: heading;
-  font-size: 1.4rem;
+  font-size: 23px;
   margin-bottom: 12px;
 }
 
-.depositAmount {
+.currencyField {
   grid-area: deposit;
-  font-size: 2rem;
+  font-size: 32px;
 }
 
-.etherButtons {
+.currencyButtons {
   grid-area: denomination;
-  font-size: .8rem;
+  font-size: 13px;
 }
 
 .disclaimer {
   grid-area: disclaimer;
-  font-size: 1.1rem;
+  font-size: 18px;
   margin-bottom: 12px;
 }
 
 .consent {
   grid-area: consent;
-  font-size: 1.1rem;
+  font-size: 18px;
 }
 
 .submit {
-  grid-area: submit;
+  grid-area: submitModalButton;
 }
 
 .depositSVG {
   width: 2ch;
   vertical-align: text-bottom;
   font-weight: 600;
+}
+
+@media (min-width: 415px) {
+  .form {
+    width: 50vw;
+  }
+}
+
+@media (min-width: 545px) {
+  .form {
+    width: 300px;
+  }
 }

@@ -1,9 +1,9 @@
 import { useState, Dispatch, SetStateAction, ChangeEvent, FormEvent } from "react"
-import { MetamaskError, Denomination } from "../../../../utils"
-import { contributorWithdraw, getContributorBalance, } from "../../../../pethreon"
-import { CurrencyField, CurrencyButtons, CurrencyButton, SubmitModalButton } from "../../../../components"
+import { MetamaskError, Denomination } from "../../utils"
+import { contributorWithdraw, getContributorBalance } from "../../pethreon"
+import { CurrencyField, CurrencyButtons, CurrencyButton, SubmitModalButton } from "../"
 import { BigNumber, utils } from "ethers"
-import { WithdrawSVG } from "../../../../svgs"
+import { WithdrawSVG } from "../../svgs"
 import styles from "./WithdrawModal.module.scss"
 
 interface WithdrawProps {
@@ -39,15 +39,15 @@ export const WithdrawModal = ({ closeModal, setLoading, setBalance }: WithdrawPr
   }
 
   return (
-    <form className={styles.withdrawFormLayout}>
-      <h3 className={styles.withdrawHeading}>How much to withdraw?</h3>
+    <form className={styles.form}>
+      <h3 className={styles.heading}>How much to withdraw?</h3>
       <CurrencyField
-        amount={amount}
+        value={amount}
         className={styles.currencyField}
-        disabled={currency === "All" ? true : false}
-        getAmount={(event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)}
+        disabled={currency === Denomination.ALL ? true : false}
+        setValue={(event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)}
       />
-      <CurrencyButtons className={styles.etherButtons} setCurrency={setCurrency}>
+      <CurrencyButtons className={styles.currencyButtons} setCurrency={setCurrency}>
         <CurrencyButton checked denomination={Denomination.ETHER} />
         <CurrencyButton denomination={Denomination.GWEI} />
         <CurrencyButton denomination={Denomination.WEI} />

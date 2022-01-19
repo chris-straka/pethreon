@@ -1,5 +1,5 @@
 import { useState, Dispatch, ChangeEvent, SetStateAction, FormEvent } from "react"
-import { CurrencyButtons, CurrencyButton, SubmitModalButton } from "../../../../components"
+import { CurrencyField, CurrencyButtons, CurrencyButton, SubmitModalButton } from "../../../../components"
 import { CashSVG, PersonSVG, DateSVG, PledgeSVG } from "../../../../svgs"
 import { getContributorBalance, createPledge, getContributorPledges } from "../../../../pethreon"
 import { PledgeType, Denomination, MetamaskError } from "../../../../utils"
@@ -15,14 +15,14 @@ interface PledgeProps {
 
 export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: PledgeProps) => {
   const [currency, setCurrency] = useState<Denomination>(Denomination.ETHER)
-  const [pledgeAmount, setPledgeAmount] = useState("")
+  const [amount, setAmount] = useState("")
   const [address, setAddress] = useState("")
   const [period, setPeriod] = useState("")
 
   const submitPledge = async (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
 
-    if (!pledgeAmount && currency !== Denomination.ALL) return window.alert("Please enter a pledge amount")
+    if (!amount && currency !== Denomination.ALL) return window.alert("Please enter a pledge amount")
     if (!address) return window.alert("Please enter a destination address")
     if (!period) return window.alert("Please set a pledge duration")
 
@@ -30,7 +30,7 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
     if (address.indexOf(" ") >= 0) return window.alert("There is a space in the ethereum address")
     if (address.length !== 42) return window.alert(`Your ethereum address is ${address.length} characters long. It should be 42 characters long`)
 
-    const amountPerPeriod = (+pledgeAmount / +period).toString()
+    const amountPerPeriod = (+amount / +period).toString()
 
     window.confirm(`The total comes to ${amountPerPeriod} per day, over ${period} day(s). Do you accept?`)
 
@@ -60,22 +60,15 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
   }
 
   return (
-    <form className={styles.pledgeFormLayout}>
-      <h3 className={styles.pledgeHeading}>How much to pledge?</h3>
-      <div className={styles.pledgeInputContainer}>
-        <input
-          autoFocus={true}
-          className={styles.pledgeInput}
-          type="number"
-          placeholder="0"
-          min="0"
-          disabled={currency === Denomination.ALL ? true : false}
-          value={pledgeAmount}
-          onChange={(event: ChangeEvent<HTMLInputElement>) => setPledgeAmount(event.target.value)}
-        />
-        <CashSVG className={styles.pledgeSVG} />
-      </div>
+    <form className={styles.form}>
 
+      <h3 className={styles.currencyHeading}>How much to pledge?</h3>
+      <CurrencyField
+        className={styles.currencyField}
+        disabled={currency === Denomination.ALL ? true : false}
+        value={amount}
+        setValue={(event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)}
+      />
       <CurrencyButtons
         className={styles.currencyButtons}
         setCurrency={() => setCurrency(Denomination.GWEI)}
@@ -85,31 +78,29 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
         <CurrencyButton denomination={Denomination.WEI} />
         <CurrencyButton denomination={Denomination.ALL} />
       </CurrencyButtons>
-      <h3 className={styles.pledgeHeading}>Across how many days?</h3>
-      <div className={styles.pledgeInputContainer}>
-        <input
-          className={styles.pledgeInput}
-          type="number"
-          placeholder="0"
-          min="0"
-          value={period}
-          onChange={(event: ChangeEvent<HTMLInputElement>) => setPeriod(event.target.value)}
-        />
-        <DateSVG className={styles.pledgeSVG} />
-      </div>
+
+      <h3 className={styles.dateHeading}>Across how many days?</h3>
+      <CurrencyField
+        className={styles.dateField}
+        value={period}
+        setValue={(event: ChangeEvent<HTMLInputElement>) => setPeriod(event.target.value)}
+        svgComponent={<DateSVG className={styles.dateSVG} />}
+      />
+
       <h3 className={styles.pledgeHeading}>To which ethereum address?</h3>
-      <div className={styles.pledgeInputContainer}>
-        <input
-          className={styles.pledgeInput}
-          type="text"
-          placeholder="0x"
-          spellCheck={false}
-          value={address}
-          onChange={(event: ChangeEvent<HTMLInputElement>) => setAddress(event.target.value)}
-        />
-        <PersonSVG className={styles.pledgeSVG} />
-      </div>
-      <SubmitModalButton className={styles.submit} onSubmit={submitPledge}>Pledge <PledgeSVG className={styles.submitSVG} /></SubmitModalButton>
+      <CurrencyField
+        className={styles.pledgeInput}
+        value={address}
+        placeholder="0x"
+        textInput
+        setValue={(event: ChangeEvent<HTMLInputElement>) => setAddress(event.target.value)}
+        svgComponent={<PersonSVG className={styles.addressSVG} />}
+      />
+
+      <SubmitModalButton
+        className={styles.submit}
+        onSubmit={submitPledge}
+      >Pledge <PledgeSVG className={styles.submitSVG} /></SubmitModalButton>
     </form>
   )
 }

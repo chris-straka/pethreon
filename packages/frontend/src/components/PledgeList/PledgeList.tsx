@@ -11,9 +11,7 @@ interface PledgeListProps {
 
 export const PledgeList = ({ className, pledges, textForWhenItsEmpty, creator = false }: PledgeListProps) => {
   return (
-    <ul className={
-      `${pledges.length === 0 ? styles.emptyPledgeBox : styles.pledgeBox} 
-       ${className}`}
+    <ul className={`${pledges.length === 0 ? styles.emptyPledgeBox : styles.pledgeBox} ${className}`}
     >
       {pledges
         .map((pledge: PledgeType) => <Pledge

@@ -1,7 +1,7 @@
-/* box-shadow: x-offset, y-offset, blur-radius, spread-radius, color */
+// [Håvard Brynjulfsen](https://codepen.io/havardob/pen/dyYXBBr)
 
 .currencyContainer {
-  font-size: inherit; /* an outer container will set the size for all radio buttons */
+  font-size: inherit; // an outer container will set the size for all radio buttons
   color: var(--text);
   display: flex;
   cursor: pointer;
@@ -12,17 +12,18 @@
 
 .radioButtonInput {
   position: absolute;
-  left: -9999px; /* make the input button disappear so I can create my own button with box-shadows */
+  left: -9999px; // make the input button disappear so I can create my own button with box-shadows
   outline: none;
 
   &:checked {
-    /* this is the background for the whole radio button when checked */
+    // this is the background for the whole radio button when checked
     & + .radioButtonTextSpan {
       background-color: var(--primary);
     }
 
-    /* this is the dark circle wrapping around the big white circle */
+    /* this is the dark circle that goes inside the big white circle */
     & + .radioButtonTextSpan::before {
+      // box-shadow: x-offset, y-offset, blur-radius, spread-radius, color
       box-shadow: inset 0 0 0 0.4375em var(--primary-dark);
     }
   }

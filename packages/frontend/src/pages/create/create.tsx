@@ -1,7 +1,7 @@
 import { useState, useEffect, ReactNode } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { UserBalance, UserAddress, Loading, PledgeList, Modal } from "../../components"
+import { UserBalance, UserAddress, Loading, PledgeList, ModalTemplate } from "../../components"
 import { CreatorActionBar } from "./components"
 import { getCreatorBalance, getCreatorPledges } from "../../pethreon"
 import { EthereumWindow, PledgeType, extractPledgesToCSV } from "../../utils"
@@ -81,7 +81,7 @@ export const Create = (
       initial={false}
       exitBeforeEnter={true}
     >
-      {modal !== null && <Modal closeModal={() => setModal(null)} children={modal} />}
+      {modal !== null && <ModalTemplate closeModal={() => setModal(null)} children={modal} />}
     </AnimatePresence>
   </>
 }

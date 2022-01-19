@@ -1,7 +1,6 @@
 import { Dispatch, ReactNode, SetStateAction } from "react"
-import { ActionBar, ActionButton } from "../../../../components";
+import { ActionBar, ActionButton, WithdrawModal } from "../../../../components";
 import { WithdrawSVG, CsvSVG } from "../../../../svgs"
-import { WithdrawModal } from "../../../Contribute/components";
 import styles from "./CreatorActionBar.module.scss"
 
 interface ActionBarProps {
@@ -12,7 +11,9 @@ interface ActionBarProps {
   makeCSV: (() => void),
 }
 
-export const CreatorActionBar = ({ className, setModal, setLoading, setBalance, makeCSV }: ActionBarProps) => {
+export const CreatorActionBar = (
+  { className, setModal, setLoading, setBalance, makeCSV }: ActionBarProps
+) => {
   return (
     <ActionBar className={`${styles.actionBar} ${className}`}>
       <ActionButton className={styles.withdrawButton} onClick={() => setModal(
