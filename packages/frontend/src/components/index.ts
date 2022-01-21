@@ -12,7 +12,7 @@ import { WithdrawModal } from "./Modals/WithdrawModal";
 import { ModalTemplate } from "./ModalTemplate/ModalTemplate";
 import { Pledge } from "./Pledge/Pledge";
 import { PledgeList } from "./PledgeList/PledgeList";
-import { SubmitModalButton } from "./SubmitModalButton/SubmitModalButton";
+import { Submit } from "./Submit/Submit";
 import { UserAddress } from "./UserAddress/UserAddress";
 import { UserBalance } from "./UserBalance/UserBalance";
 
@@ -31,7 +31,7 @@ export {
   ModalTemplate,
   Pledge,
   PledgeList,
-  SubmitModalButton,
+  Submit,
   UserAddress,
   UserBalance,
 }

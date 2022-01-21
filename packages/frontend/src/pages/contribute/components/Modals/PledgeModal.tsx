@@ -1,9 +1,9 @@
-import { useState, Dispatch, ChangeEvent, SetStateAction, FormEvent } from "react"
-import { CurrencyField, CurrencyButtons, CurrencyButton, SubmitModalButton } from "../../../../components"
-import { CashSVG, PersonSVG, DateSVG, PledgeSVG } from "../../../../svgs"
-import { getContributorBalance, createPledge, getContributorPledges } from "../../../../pethreon"
-import { PledgeType, Denomination, MetamaskError } from "../../../../utils"
 import { BigNumber, utils } from "ethers"
+import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from "react"
+import { CurrencyButton, CurrencyButtons, CurrencyField, Submit } from "../../../../components"
+import { createPledge, getContributorBalance, getContributorPledges } from "../../../../pethreon"
+import { DateSVG, PersonSVG, PledgeSVG } from "../../../../svgs"
+import { Denomination, MetamaskError, PledgeType } from "../../../../utils"
 import styles from "./PledgeModal.module.scss"
 
 interface PledgeProps {
@@ -97,10 +97,10 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
         svgComponent={<PersonSVG className={styles.addressSVG} />}
       />
 
-      <SubmitModalButton
+      <Submit
         className={styles.submit}
         onSubmit={submitPledge}
-      >Pledge <PledgeSVG className={styles.submitSVG} /></SubmitModalButton>
+      >Pledge <PledgeSVG className={styles.submitSVG} /></Submit>
     </form>
   )
 }

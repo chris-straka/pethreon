@@ -1,12 +1,6 @@
 .form {
-  display: grid;
-  grid:
-    "heading"
-    "deposit"
-    "denomination"
-    "disclaimer"
-    "consent"
-    "submit";
+  display: flex;
+  flex-direction: column;
   height: auto;
   width: 65vw;
 }
@@ -18,44 +12,36 @@
 }
 
 .currencyField {
-  grid-area: deposit;
   font-size: 32px;
 }
 
 .currencyButtons {
-  grid-area: denomination;
   font-size: 13px;
 }
 
 .disclaimer {
-  grid-area: disclaimer;
   font-size: 18px;
   margin-bottom: 12px;
 }
 
 .consent {
-  grid-area: consent;
   font-size: 18px;
 }
 
 .submit {
-  grid-area: submitModalButton;
+  font-size: 18px;
+  font-weight: bolder;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .depositSVG {
   width: 2ch;
   vertical-align: text-bottom;
-  font-weight: 600;
 }
 
 @media (min-width: 415px) {
   .form {
-    width: 50vw;
-  }
-}
-
-@media (min-width: 545px) {
-  .form {
-    width: 300px;
+    width: 250px;
   }
 }

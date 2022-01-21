@@ -1,9 +1,9 @@
-import { useState, ChangeEvent, FormEvent, Dispatch, SetStateAction } from "react"
-import { CurrencyButtons, CurrencyButton, CurrencyField, SubmitModalButton, Disclaimer, Consent } from "../../../../components"
-import { deposit, getContributorBalance } from "../../../../pethreon"
-import { MetamaskError, Denomination } from "../../../../utils"
 import { BigNumber, utils } from "ethers"
+import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from "react"
+import { Consent, CurrencyButton, CurrencyButtons, CurrencyField, Disclaimer, Submit } from "../../../../components"
+import { deposit, getContributorBalance } from "../../../../pethreon"
 import { DepositSVG } from "../../../../svgs"
+import { Denomination, MetamaskError } from "../../../../utils"
 import styles from "./DepositModal.module.scss"
 
 interface DepositProps {
@@ -19,17 +19,15 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositProp
 
   const submitDeposit = async (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
-    if (+amount <= 0) {
-      setDisabled(true)
-      return window.alert("Please insert an amount")
-    }
+
+    if (+amount <= 0) return window.alert("Please insert an amount")
 
     closeModal()
+    setLoading(true)
 
     let amountInWei: BigNumber = BigNumber.from(amount)
     if (currency === Denomination.ETHER) amountInWei = utils.parseEther(amount)
     if (currency === Denomination.GWEI) amountInWei = utils.parseUnits(amount, "gwei")
-    setLoading(true)
 
     try {
       await deposit(amountInWei)
@@ -62,13 +60,13 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositProp
         className={styles.consent}
         setConsent={setDisabled}
       />
-      <SubmitModalButton
-        className={styles.submitModalButton}
+      <Submit
+        className={styles.submit}
         disabled={disabled}
         onSubmit={submitDeposit}
       >
         Deposit <DepositSVG className={styles.depositSVG} />
-      </SubmitModalButton>
+      </Submit>
     </form>
   );
 }

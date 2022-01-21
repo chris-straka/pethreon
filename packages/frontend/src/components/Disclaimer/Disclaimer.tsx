@@ -8,7 +8,7 @@ const WARNING_MESSAGE = `
 
 3. Creators might not get their payment on time (they might get it earlier or later). This is because Pethreon makes payments using "blocktime".
 
-Ethereum mines 1 block every 10-19 seconds, which is roughly 8640-4547 blocks a day. Pethreon makes payments to people every 6500 blocks. 
+Ethereum mines 1 block every 10-19 seconds, which is roughly 4547-8640 blocks a day. Pethreon makes payments to people every 6500 blocks. 
 `
 
 interface DisclaimerProps {
@@ -19,7 +19,10 @@ export const Disclaimer = ({ className }: DisclaimerProps) => {
 
   const warning = (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
-    window.alert(WARNING_MESSAGE)
+    setTimeout(() => {
+      window.alert(WARNING_MESSAGE)
+    }, 100);
+
   }
 
   return (

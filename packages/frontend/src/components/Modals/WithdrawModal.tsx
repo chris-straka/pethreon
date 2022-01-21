@@ -1,7 +1,7 @@
 import { useState, Dispatch, SetStateAction, ChangeEvent, FormEvent } from "react"
 import { MetamaskError, Denomination } from "../../utils"
 import { contributorWithdraw, getContributorBalance } from "../../pethreon"
-import { CurrencyField, CurrencyButtons, CurrencyButton, SubmitModalButton } from "../"
+import { CurrencyField, CurrencyButtons, CurrencyButton, Submit } from "../"
 import { BigNumber, utils } from "ethers"
 import { WithdrawSVG } from "../../svgs"
 import styles from "./WithdrawModal.module.scss"
@@ -53,9 +53,9 @@ export const WithdrawModal = ({ closeModal, setLoading, setBalance }: WithdrawPr
         <CurrencyButton denomination={Denomination.WEI} />
         <CurrencyButton denomination={Denomination.ALL} />
       </CurrencyButtons>
-      <SubmitModalButton
+      <Submit
         className={styles.submit}
-        onSubmit={submitWithdraw}> Withdraw <WithdrawSVG className={styles.withdrawSVG} /></SubmitModalButton>
+        onSubmit={submitWithdraw}> Withdraw <WithdrawSVG className={styles.withdrawSVG} /></Submit>
     </form>
   )
 }

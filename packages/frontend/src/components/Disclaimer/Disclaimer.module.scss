@@ -16,7 +16,7 @@
   transition: all 0.3s;
 
   &:focus {
-    border-bottom: 5px dotted var(--secondary);
+    border-color: var(--secondary);
     color: var(--secondary);
   }
 

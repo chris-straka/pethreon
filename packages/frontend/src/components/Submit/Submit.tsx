@@ -1,14 +1,14 @@
 import { ReactNode, FormEvent } from "react"
-import styles from "./SubmitModalButton.module.scss"
+import styles from "./Submit.module.scss"
 
-interface SubmitModalButtonProps {
+interface SubmitProps {
   children: ReactNode,
   className: string,
   disabled?: boolean,
   onSubmit: ((event: FormEvent<HTMLButtonElement>) => void)
 }
 
-export const SubmitModalButton = ({ children, className, onSubmit, disabled = false }: SubmitModalButtonProps) => {
+export const Submit = ({ children, className, onSubmit, disabled = false }: SubmitProps) => {
   return <button
     type="submit"
     className={`${styles.button} ${className}`}
