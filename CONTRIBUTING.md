@@ -1,23 +1,27 @@
 # How to develop
 
-You need to [install the latest version of yarn](https://yarnpkg.com/getting-started/install). If you're running into install issues, you might be using the old version of yarn on 
+You need to [install the latest version of yarn](https://yarnpkg.com/getting-started/install). Then you need to [download the metamask browser extension](https://metamask.io/). You might want to use a different [browser profile](https://youtu.be/Ik8-xn4DyCo?t=15) so you can keep your real metamask account separate from your development metamask account (so you don't accidentally add real money to the development account). 
 
-Then you gotta upgrade yarn to use 
+After you install metamask, sign in by clicking "import a metamask wallet using Secret Recovery Phrase". The secret phrase you need to use is "test test test test test test test test test test test junk". This is a unique key used by hardhat for development, in which every account (in that wallet) is given 10,000 fake ether for use in the fake development network (which should be running on localhost:8545). You can then create a password for that account.
 
-[Download the metamask extension](https://metamask.io/) for your specific browser. If you already have metamask, you may want to use a different [browser profile](https://youtu.be/Ik8-xn4DyCo?t=15) so you can keep your real metamask account separate from your development metamask account (so you don't accidentally add real money to the development account). After you install metamask, sign in by clicking "import a metamask wallet using a Secret Recovery Phrase". The secret phrase you need to use is "test test test test test test test test test test test junk". This is a unique key used by hardhat for development, in which every account (in that wallet) is given 10,000 fake ether for use in its fake development network (which should be running on localhost:8545). You can then create a password for that account like testjunk.
-
-After importing the account, go to the advanced settings and enable all the developer stuff (advanced gas controls, hex data, conversion on test networks, show test networks, and customize transaction nonce). You might notice that Metamask already has the network `localhost:8545` preconfigured for you automatically, which is the same network that hardhat uses but it doesn't work that great in my experience and I don't recommend it (if you want to try it out anyways, switch the chainID to 1337 in hardhat.config.ts). Instead, I recommend you "add a new network" to metamask with the following.
+After signing in, go to the advanced settings and enable all the developer stuff (advanced gas controls, hex data, conversion on test networks, show test networks, and customize transaction nonce). Run the following in your terminal.
 
 ```bash
-Network Name: Localhost   New RPC URL: http://127.0.0.1:8545
+yarn     # install dependencies 
+yarn dev # boot up a development network
+```
+
+You might notice that Metamask already has the network `localhost:8545` preconfigured for you automatically, which is the same network that hardhat uses but it doesn't work that great in my experience and I don't recommend it (if you want to try it out anyways, switch the chainID to 1337 in hardhat.config.ts and give it a whirl). Instead, I recommend you "add a new network" to metamask with the following configuration.
+
+```bash
+Network Name: localhost   New RPC URL: http://127.0.0.1:8545
 Chain Id: 31337           Currency Symbol: ETH
 ```
 
-After signing into the new network you should be good to go.
+You need to have a development network/blockchain running otherwise it won't find the chainid. After that you should be good to go
 
 ```bash
 yarn test # run tests
-yarn dev  # run a local development blockchain and react on localhost
 ```
 
 ## Errors
