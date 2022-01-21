@@ -1,11 +1,8 @@
 # How to develop
 
-Go to the project root and enter...
+You need to [install the latest version of yarn](https://yarnpkg.com/getting-started/install). If you're running into install issues, you might be using the old version of yarn on 
 
-```bash
-npm i -g yarn     # if you don't have yarn
-yarn              # install dependencies
-```
+Then you gotta upgrade yarn to use 
 
 [Download the metamask extension](https://metamask.io/) for your specific browser. If you already have metamask, you may want to use a different [browser profile](https://youtu.be/Ik8-xn4DyCo?t=15) so you can keep your real metamask account separate from your development metamask account (so you don't accidentally add real money to the development account). After you install metamask, sign in by clicking "import a metamask wallet using a Secret Recovery Phrase". The secret phrase you need to use is "test test test test test test test test test test test junk". This is a unique key used by hardhat for development, in which every account (in that wallet) is given 10,000 fake ether for use in its fake development network (which should be running on localhost:8545). You can then create a password for that account like testjunk.
 
