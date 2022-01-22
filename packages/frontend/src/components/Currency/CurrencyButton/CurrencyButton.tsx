@@ -1,4 +1,4 @@
-import { Denomination } from "../../utils"
+import { Denomination } from "../../../utils"
 import styles from "./CurrencyButton.module.scss"
 
 interface CurrencyButton {

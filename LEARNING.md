@@ -1,4 +1,35 @@
-# Learning 
+# Lessons
+
+### Tests were invaluable
+
+A lot of my smart contract behaviour depends on what time it is, and how many days it's been. I don't want to wait days just to see if something works in my smart contract, so [being able to set the time programatically](https://ethereum.stackexchange.com/questions/86633) was a big help. The tests also made it a lot easier to understand the smart contract code.
+
+### I'm learning a lot about components
+
+When I started this project, I used to think components were mostly for reusing stuff (eliminating DRY code). But I think I underestimated how effective they are at making code more readable. I ended up breaking things down even if I didn't intend to reuse them and I think it made things look better in a couple cases.
+
+I wasn't exactly sure where to put my CSS media queries. I could've put them in my components, or I could've passed them down as props. If I put them inside my components, then my media queries would apply everywhere I used the component. If I passed them down as props, then I could change them to look better in different places. I'm still finding the right balance of when to do what. I even tried using "spacer" components to add default padding and margin to things.
+
+### The same colors can look great or bad depending on how they're used
+
+I picked two colors that I really liked (my primary and secondary), but sometimes they don't mesh well and sometimes they do. In my contributor portal, I think the blue background looks great with the pink text. But in my creator portal, I think the pink background looks bad with blue text.
+
+### I fought the scrollbar and the scrollbar won
+
+Originally, I didn't want the user to scroll through the application because I wanted a "native-app" feel. I also positioned my circles relative to the screen, and I thought it would look bad if they moved together with the scrollbar. So I used pixels for all my font sizes instead of REM, because if the user increased the font size they could push my content off screen and force scrollbars. This made things very difficult in some cases because my TypewriterEffect was creating dynamic text content that would wrap in unpredictable ways. I also had to find the right font-size for every possible screen without it looking to big on some and too small on the others. It lead to so many media queries and made things really tricky. I think clamp() was giving me the false illusion that I could make it happen somehow but I ended up giving up and letting the app scroll in some cases.
+
+One cool thing I learned along the way though, is that you can't zoom in/out on any text that's been sized with viewport units. You have to use[calc(vw + 1em) or clamp(vw + 1em)](https://www.youtube.com/watch?v=wARbgs5Fmuw) instead. I also learned how nice it is to use CSS variables for responsive design.
+
+### My typewriter effect needs to be fast
+
+My typewriter effect (the talking metamask logo) is giving a lot of crucial information to the user (errors, recommendations, install links). This meant the user would have to wait for him to finish talking before they could read any of it. I think I have to make him talk really fast otherwise it would be annoying. 
+
+### A wireframe AND a prototype is probably a good idea
+
+In my design mockups, I ignored a lot of detail. I didn't create any design mockups for my modals and I put a lot of grey boxes everywhere so I could fill the details in later. I mostly did this because I didn't fully understand Sergei's smart contract at the time and how it worked. I didn't know what modifications I was going to make to it either. 
+
+I ended up creating things on the fly and my modals started to look a bit different from each other in the beginning. I would come up with new ideas for how to style things and I wasn't sure how "reusable" my components should be. I ended up refactoring later to make them much more homogenous.
+
 ## Issues I've ran into during development
 
 ### How does the original Pethreon contract from Sergei et al work?
@@ -116,39 +147,7 @@ According to this [post](https://ethereum.stackexchange.com/questions/39723), it
 
 You can't build a dynamic array in memory in solidity.
 
-
-## Lessons
-
-### Tests were invaluable
-
-A lot of my smart contract behaviour depends on what time it is, and how many days it's been. I don't want to wait days just to see if something works in my contract, so [being able to set the time programatically](https://ethereum.stackexchange.com/questions/86633) was a big help. The tests also made it a lot easier to understand the smart contract code.
-
-### I fought the scrollbar and the scrollbar won
-
-I originally didn't want to use any REM units for my font-sizes because I didn't want my app to have any scrollbars. If I used REM, the user could set a bigger font-size and push my content off-screen and force scrollbars. I didn't want any scrollbars because my circles are positioned relative to the screen, and I didn't my circles to move with the scrollbar. However, I found it too cumbersome to avoid scrollbars because my TypewriterEffect was creating dynamic text content and it would wrap in unpredictable ways. It made responsive design tricky, because I was trying to find the right font-size that worked on every possible screen for every possible arrangement of text from my TypeWriterEffect (which was crazy hard). I think clamp() was giving me the false illusion that I could make it happen somehow but I ended up giving up and throwing in scrollbars.
-
-One cool thing I learned along the way though, is that you can't zoom in/out on any text that's been sized with viewport units. You have to use[calc(vw + 1em) or clamp(vw + 1em)](https://www.youtube.com/watch?v=wARbgs5Fmuw) instead. I also learned how nice it is to use CSS variables for responsive design.
-
-### I'm learning a lot about components
-
-When I started this project, I used to think components were mostly for reusing stuff (eliminating DRY code). But I think I underestimated how effective they are at making code more readable. I looked at other projects, and it seems like they would break things down into components even if they never intended to reuse them. I think there were a couple times where I would avoid making components, because I didn't want to nest them that much (I think it adds more complexity and slows down performance).
-
-When looking at other projects, I also noticed that they defined media queries inside of components and not in the container that defined the overall layout. I wasn't a fan of this originally, because I thought it would make components less reusable (different pages could have different breakpoints/requirements) and I didn't like clicking between multiple different files to make tweaks. Maybe this was a problem with how I built my components (needed more inherit? more responsive units?). For my next project, I'm going to try and take this approach instead.
-
-I also felt a couple times that CSS didn't mesh as nicely with components (or React) as I'd like. I think CSS has an "imperative" feel that clashes a bit with React's "declarative" code-style. For example, framer-motion is a declarative framework that handles animations for you and you're not really supposed to write CSS outside of motion components. However, once you get particular about the type of animation you want to see, it tends to rely more on CSS and doesn't feel that declarative anymore (even though you can get a lot of mileage out of easing functions and stuff).
-
-Another instance of CSS not meshing as nicely as I'd liked was was when I when I tried to create reusable components. I had to be careful of adding default margins because then it could look out of place depending on where I put it. My options for adding margins kind of sucked. I could've bloated my JSX with Spacer components (un-semantic divs), or I could've selected the underlying HTML element of that react component via "first-child" using css (which would break whenever I changed or moved it). The best option I found was to pass in additional style props which seemed overkill sometimes.
-
-### A wireframe AND a prototype is probably a good idea
-
-In my design mockups, I ignored a lot of detail (like I didn't create any design mockups for my modals and put a lot of grey boxes everywhere) because I didn't fully understand Sergei's smart contract at the time. I ended up creating things on the fly and there's a lot interesting observations that about from this. My modals ended up looking a bit different from each other, because they all required different information. Initially, some of the components that I used in one modal weren't reusable in another so they all ended up having a slightly different style. I ended up refactoring my application after the fact to make them much more homogenous but it was something that caught me off guard. In the future I'm going to design for a lot more stuff (even if I have a bad idea of how it will turn out) just so I can understand the overall style of the application.
-### My typewriter effect isn't that great for UX as I thought it'd be
-
-I put a lot of crucial information inside my typewriter effect (errors, recommondations, install links), and the user has to wait for him to finish talking before they can see any of it. I thought it would make the application seem more interactive and fun, but I think it's more important that the user has that information immediately as soon as it becomes available. I'm keeping it up
-
 ## Misc
-
-### Frontend Stuff
 
 - [Certain animations can hurt a11y](https://developer.mozilla.org/en-US/docs/Web/CSS/animation#accessibility_concerns)
 - [window.opener() weirdness](https://stackoverflow.com/questions/57628890)

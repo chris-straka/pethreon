@@ -1,5 +1,5 @@
 import { PledgeType } from "../../utils";
-import { Pledge } from "../Pledge/Pledge"
+import { Pledge } from "./Pledge/Pledge"
 import styles from "./PledgeList.module.scss"
 
 interface PledgeListProps {
