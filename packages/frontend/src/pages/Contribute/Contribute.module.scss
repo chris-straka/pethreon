@@ -1,7 +1,7 @@
 .contributeLayout {
   --contribute-layout-height: 60vh;
   --contribute-layout-margin-top: 15vh;
-  --contribute-layout-margin-inline: clamp(1.5em, 9vw, 5rem);
+  --contribute-layout-margin-inline: clamp(23px, 9vw, 80px);
 
   height: var(--contribute-layout-height);
   margin-top: var(--contribute-layout-margin-top);
@@ -11,7 +11,7 @@
 @media (max-width: 1280px) and (orientation: landscape) {
   .contributeLayout {
     --contribute-layout-height: auto;
-    --contribute-layout-margin-top: 30vh;
+    --contribute-layout-margin-top: 35vh;
   }
 }
 
@@ -37,14 +37,19 @@
     --contribute-layout-margin-inline: 0;
   }
 
-  .userAddress {
-    grid-area: userAddress;
-    align-self: center;
-  }
-
   .userBalance {
     grid-area: userBalance;
     align-self: end;
+    margin-left: clamp(30px, 4vw, 64px);
+    font-size: clamp(24px, 3vw + 16px, 144px);
+  }
+
+  .userAddress {
+    grid-area: userAddress;
+    display: block;
+    align-self: center;
+    margin-left: clamp(30px, 4vw, 64px);
+    font-size: clamp(0.2rem, 0.4vw + 1rem, 5rem);
   }
 
   .contributorActionBar {

@@ -1,0 +1,18 @@
+.userBalance {
+  color: var(--text); // comes from root index.scss
+  font-family: aileron;
+  font-weight: 400;
+  font-size: inherit;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  font-size: clamp(2rem, 8vw + 1rem, 5rem);
+}
+
+.eth {
+  font-size: inherit;
+  font-family: aileron;
+  font-weight: 200;
+  margin-right: 14px;
+}

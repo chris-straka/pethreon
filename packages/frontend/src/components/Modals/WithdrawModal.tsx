@@ -19,6 +19,11 @@ export const WithdrawModal = ({ closeModal, setLoading, setBalance }: WithdrawPr
   const submitWithdraw = async (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
     if (!amount && currency !== Denomination.ALL) return window.alert("Please insert an amount")
+    if (currency === Denomination.ALL) {
+      const fullBalance = await getContributorBalance()
+      const fullBalanceInWei = utils.parseEther(fullBalance)
+      setAmount(await fullBalanceInWei.toString())
+    }
     closeModal()
     let amountInWei: BigNumber = BigNumber.from(amount)
     if (currency === Denomination.ETHER) amountInWei = utils.parseEther(amount)

@@ -18,7 +18,7 @@ Network Name: localhost   New RPC URL: http://127.0.0.1:8545
 Chain Id: 31337           Currency Symbol: ETH
 ```
 
-You need to have a development network/blockchain running otherwise it won't find the chainid. After that you should be good to go
+You need to have a development network/blockchain running otherwise it won't find the chainid. After that you should be good to go. If you want to test out donating to another person, create another account in that metamask wallet.
 
 ```bash
 yarn test # run tests

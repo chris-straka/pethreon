@@ -70,8 +70,8 @@ export const Create = (
         setLoading={setLoading}
       />
       <PledgeList
-        className={styles.pledgeList}
         creator
+        className={styles.pledgeList}
         textForWhenItsEmpty="Nobody has pledged to you yet..."
         pledges={pledges}
       />

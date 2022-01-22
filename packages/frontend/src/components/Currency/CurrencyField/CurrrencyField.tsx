@@ -7,13 +7,14 @@ interface CurrencySelectProps {
   placeholder?: string,
   disabled?: boolean,
   textInput?: boolean,
+  autoFocus?: boolean,
   svgComponent?: ReactNode,
   setValue: ((event: ChangeEvent<HTMLInputElement>) => void),
 }
 
 export const CurrencyField = (
   { value, className, setValue, placeholder = "0",
-    textInput = false, svgComponent = null, disabled = false }: CurrencySelectProps
+    textInput = false, svgComponent = null, disabled = false, autoFocus = true }: CurrencySelectProps
 ) => {
   return (
     <span className={styles.transitioningBorder}>
@@ -22,7 +23,7 @@ export const CurrencyField = (
         <input
           className={styles.currencyField}
           disabled={disabled}
-          autoFocus
+          autoFocus={autoFocus}
           required
           type={disabled || textInput ? "text" : "number"}
           placeholder={placeholder}

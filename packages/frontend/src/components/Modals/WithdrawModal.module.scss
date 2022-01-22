@@ -1,6 +1,7 @@
 .form {
   display: flex;
   flex-direction: column;
+  align-content: unset;
   height: 100%;
   width: 65vw;
 }
@@ -15,7 +16,6 @@
 }
 
 .currencyButtons {
-  display: flex;
   font-size: 13px; // controls the size of my currency buttons
 }
 

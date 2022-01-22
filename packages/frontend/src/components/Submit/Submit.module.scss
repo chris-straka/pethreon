@@ -3,14 +3,14 @@
   color: var(--text);
   background-color: var(--secondary);
   border-radius: 30px;
-  padding: 10px;
-  width: 100px;
+  padding: 13px;
   outline: none;
+  white-space: nowrap;
   transition: box-shadow 0.2s, background-color 0.2s, transform 0.2s;
 
   &:hover:enabled,
   &:focus:enabled {
-    transform: translateY(-0.05em);
+    transform: translateY(-0.06em);
     box-shadow: 0 0.2em 0 0 var(--primary);
   }
 

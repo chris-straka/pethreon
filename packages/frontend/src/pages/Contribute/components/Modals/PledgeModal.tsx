@@ -81,7 +81,8 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
 
       <h3 className={styles.dateHeading}>Across how many days?</h3>
       <CurrencyField
-        className={styles.dateField}
+        autoFocus={false}
+        className={styles.currencyField}
         value={period}
         setValue={(event: ChangeEvent<HTMLInputElement>) => setPeriod(event.target.value)}
         svgComponent={<DateSVG className={styles.dateSVG} />}
@@ -89,7 +90,8 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
 
       <h3 className={styles.pledgeHeading}>To which ethereum address?</h3>
       <CurrencyField
-        className={styles.pledgeInput}
+        autoFocus={false}
+        className={styles.currencyField}
         value={address}
         placeholder="0x"
         textInput

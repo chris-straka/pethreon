@@ -9,18 +9,33 @@
     transform: translateY(0);
   }
   100% {
-    transform: translateY(-1px) rotate(1deg);
+    color: var(--secondary);
+    transform: translateY(-9px) rotate(1deg);
   }
 }
 
 .loading {
   position: fixed;
-  top: 0%;
   font-family: cute;
-  font-size: 3rem;
-  margin: 1.4rem 0 0 1.5rem;
+  font-size: 13vmin;
+  margin-left: clamp(23px, 9vw, 80px);
+  margin-top: 40px;
+  top: 0%;
+
   & span {
     display: inline-block;
-    animation: 0.6s linear 0s infinite alternate none running loading_animation;
+    animation: 0.8s linear 0s infinite alternate none running loading_animation;
+  }
+}
+
+@media (max-width: 1279px) and (orientation: landscape) {
+  .loading {
+    position: absolute;
+  }
+}
+
+@media (min-width: 1280px) and (orientation: landscape) {
+  .loading {
+    margin-left: clamp(30px, 4vw, 64px);
   }
 }

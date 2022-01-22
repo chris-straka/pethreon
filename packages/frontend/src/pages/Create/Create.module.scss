@@ -1,23 +1,27 @@
 .createLayout {
-  --create-layout-margin-inline: clamp(1.5em, 9vw, 5rem);
   --create-layout-height: 60vh;
   --create-layout-margin-top: 15vh;
+  --create-layout-margin-inline: clamp(23px, 9vw, 80px);
 
   height: var(--create-layout-height);
   margin-top: var(--create-layout-margin-top);
   margin-inline: var(--create-layout-margin-inline);
 }
 
-@media (min-width: 600px) {
-  .createLayout {
-    --create-layout-margin-inline: clamp(3rem, 9vw, 9rem);
-  }
+.pledgeList {
+  border-color: var(--secondary);
 }
 
 @media (max-width: 1280px) and (orientation: landscape) {
-  .contributeLayout {
-    --contribute-layout-height: auto;
-    --contribute-layout-margin-top: 30vh;
+  .createLayout {
+    --create-layout-height: auto;
+    --create-layout-margin-top: 35vh;
+  }
+}
+
+@media (min-width: 600px) {
+  .createLayout {
+    --create-layout-margin-inline: clamp(3rem, 9vw, 9rem);
   }
 }
 
@@ -40,11 +44,16 @@
   .userBalance {
     grid-area: userBalance;
     align-self: end;
+    margin-left: clamp(30px, 4vw, 64px);
+    font-size: clamp(24px, 3vw + 16px, 144px);
   }
 
   .userAddress {
     grid-area: userAddress;
+    display: block;
     place-self: center start;
+    margin-left: clamp(30px, 4vw, 64px);
+    font-size: clamp(0.2rem, 0.4vw + 1rem, 5rem);
   }
 
   .creatorActionBar {

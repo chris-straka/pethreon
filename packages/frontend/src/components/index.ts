@@ -13,8 +13,8 @@ import { ModalTemplate } from "./Modals/ModalTemplate/ModalTemplate";
 import { Pledge } from "./PledgeList/Pledge/Pledge";
 import { PledgeList } from "./PledgeList/PledgeList";
 import { Submit } from "./Submit/Submit";
-import { UserAddress } from "./UserAddress/UserAddress";
-import { UserBalance } from "./UserBalance/UserBalance";
+import { UserAddress } from "./User/UserAddress";
+import { UserBalance } from "./User/UserBalance";
 
 export {
   ActionBar,
