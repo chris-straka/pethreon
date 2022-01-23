@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { UserBalance, UserAddress, Loading, PledgeList, ModalTemplate } from "../../components"
 import { CreatorActionBar } from "./components"
-import { getCreatorBalance, getCreatorPledges } from "../../pethreon"
+import { getCreatorBalanceInWei, getCreatorPledges } from "../../pethreon"
 import { EthereumWindow, PledgeType, extractPledgesToCSV } from "../../utils"
+import { utils } from "ethers"
 import styles from "./Create.module.scss"
 
 interface CreateProps {
@@ -33,9 +34,11 @@ export const Create = (
     async function init() {
       if (window.location.pathname === "/") return
       try {
-        let balance = await getCreatorBalance()
+        let balance = await getCreatorBalanceInWei()
+        let balanceEther = await utils.formatEther(balance)
+        let balanceEtherString = await balanceEther.toString()
+        setBalance(balanceEtherString)
         let pledges = await getCreatorPledges()
-        setBalance(balance)
         setPledges(pledges)
       } catch (error) {
         window.alert(`${error}`)

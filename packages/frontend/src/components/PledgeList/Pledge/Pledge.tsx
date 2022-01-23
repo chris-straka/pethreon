@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react"
 import { getContributorPledges, getContributorBalanceInWei, cancelPledge } from "../../../pethreon"
 import { PledgeType, MetamaskError } from "../../../utils"
 import { utils } from "ethers"
@@ -6,13 +7,15 @@ import styles from "./Pledge.module.scss"
 
 interface PledgeProps {
   pledge: PledgeType,
-  creator?: boolean,
   setLoading?: any, // not sure how to handle these
   setPledges?: any,
   setBalance?: any,
+  creator?: boolean,
 }
 
-export const Pledge = ({ pledge, creator = false, setLoading, setBalance, setPledges }: PledgeProps) => {
+export const Pledge = (
+  { pledge, setLoading, setBalance, setPledges, creator = false, }: PledgeProps
+) => {
   const creatorAddress = pledge.creatorAddress
   const contributorAddress = pledge.contributorAddress
   const etherPerPeriod = utils.formatEther(pledge.weiPerPeriod)

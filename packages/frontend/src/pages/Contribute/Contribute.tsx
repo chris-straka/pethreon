@@ -32,8 +32,8 @@ export const Contribute = (
       if (window.location.pathname === "/") return
       try {
         const balance = await getContributorBalanceInWei()
-        const balanceEther = utils.formatEther(balance)
-        const balanceEtherString = balanceEther.toString()
+        const balanceEther = await utils.formatEther(balance)
+        const balanceEtherString = await balanceEther.toString()
         setBalance(balanceEtherString)
         const pledges = await getContributorPledges()
         setPledges(pledges)
