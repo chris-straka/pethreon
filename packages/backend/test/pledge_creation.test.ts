@@ -43,7 +43,7 @@ describe("Pethreon", () => {
 
     it("The creator should be receiving money in the correct increments", async () => {
       expect(await Pethreon.connect(foo).getCreatorBalance()).to.equal(0)
-      expect(await Pethreon.getContributorBalance()).to.equal(97)
+      expect(await Pethreon.getContributorBalanceInWei()).to.equal(97)
 
       await network.provider.send("evm_increaseTime", [86400])
       await network.provider.send("evm_mine")
@@ -59,7 +59,7 @@ describe("Pethreon", () => {
 
       await network.provider.send("evm_increaseTime", [86400])
       await network.provider.send("evm_mine")
-      expect(await Pethreon.getContributorBalance()).to.equal(97)
+      expect(await Pethreon.getContributorBalanceInWei()).to.equal(97)
       expect(await Pethreon.connect(foo).getCreatorBalance()).to.equal(3)
       expect(await (await Pethreon.connect(foo).getCreatorBalance())).to.equal(3)
 

@@ -29,9 +29,9 @@ describe("Pethreon", () => {
     })
 
     it("The contributor should be reimbursed correctly", async function () {
-      const balanceBeforeCancellation = await (await Pethreon.getContributorBalance()).toNumber()
+      const balanceBeforeCancellation = await (await Pethreon.getContributorBalanceInWei()).toNumber()
       await Pethreon.cancelPledge(fooAddress)
-      const balanceAfterCancellation = await (await Pethreon.getContributorBalance()).toNumber()
+      const balanceAfterCancellation = await (await Pethreon.getContributorBalanceInWei()).toNumber()
 
       expect(balanceAfterCancellation).to.equal(balanceBeforeCancellation + 3)
     })

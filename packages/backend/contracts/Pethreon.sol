@@ -72,7 +72,7 @@ contract Pethreon {
         return (block.timestamp - startOfEpoch) / period; // how many periods (days) has it been since the beginning?
     }
 
-    function getCreatorBalance() public view returns (uint256) {
+    function getCreatorBalanceInWei() public view returns (uint256) {
         uint256 amount = 0;
         for (
             uint256 _period = lastWithdrawalPeriod[msg.sender]; // when was the last time they withdrew?
@@ -85,7 +85,7 @@ contract Pethreon {
     }
 
     function creatorWithdraw() public returns (uint256 newBalance) {
-        uint256 amount = getCreatorBalance(); // add up all their pledges SINCE their last withdrawal period
+        uint256 amount = getCreatorBalanceInWei(); // add up all their pledges SINCE their last withdrawal period
         lastWithdrawalPeriod[msg.sender] = currentPeriod(); // set a new withdrawal period (re-entrancy?)
         require(amount > 0, "Nothing to withdraw");
         (bool success, ) = payable(msg.sender).call{value: amount}(""); // send them money
@@ -101,7 +101,7 @@ contract Pethreon {
         return contributorBalances[msg.sender];
     }
 
-    function getContributorBalance() public view returns (uint256) {
+    function getContributorBalanceInWei() public view returns (uint256) {
         return contributorBalances[msg.sender];
     }
 

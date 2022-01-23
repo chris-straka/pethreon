@@ -1,6 +1,6 @@
 import { useState, Dispatch, SetStateAction, ChangeEvent, FormEvent } from "react"
 import { MetamaskError, Denomination } from "../../utils"
-import { contributorWithdraw, getContributorBalance } from "../../pethreon"
+import { contributorWithdraw, getContributorBalanceInWei } from "../../pethreon"
 import { CurrencyField, CurrencyButtons, CurrencyButton, Submit } from "../"
 import { BigNumber, utils } from "ethers"
 import { WithdrawSVG } from "../../svgs"
@@ -19,23 +19,33 @@ export const WithdrawModal = ({ closeModal, setLoading, setBalance }: WithdrawPr
   const submitWithdraw = async (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
     if (!amount && currency !== Denomination.ALL) return window.alert("Please insert an amount")
-    if (currency === Denomination.ALL) {
-      const fullBalance = await getContributorBalance()
-      const fullBalanceInWei = utils.parseEther(fullBalance)
-      setAmount(await fullBalanceInWei.toString())
+
+    let amountInWei: BigNumber;
+
+    switch (currency) {
+      case Denomination.ETHER:
+        amountInWei = utils.parseUnits(amount, "ether")
+        break 
+      case Denomination.GWEI:
+        amountInWei = utils.parseUnits(amount, "gwei")
+        break
+      case Denomination.WEI:
+        amountInWei = BigNumber.from(amount)
+        break
+      case Denomination.ALL:
+        amountInWei = await getContributorBalanceInWei()
+        break
     }
+
     closeModal()
-    let amountInWei: BigNumber = BigNumber.from(amount)
-    if (currency === Denomination.ETHER) amountInWei = utils.parseEther(amount)
-    if (currency === Denomination.ALL) {
-      const fullBalance = await getContributorBalance()
-      amountInWei = utils.parseEther(fullBalance)
-    }
+
     try {
       setLoading(true)
       await contributorWithdraw(amountInWei)
-      const newBalance = await getContributorBalance()
-      setBalance(newBalance)
+      const newBalance = await getContributorBalanceInWei()
+      const newBalanceEther = await utils.formatEther(newBalance)
+      const newBalanceEtherString = await newBalanceEther.toString()
+      setBalance(newBalanceEtherString)
       setLoading(false)
     } catch (error) {
       setLoading(false)

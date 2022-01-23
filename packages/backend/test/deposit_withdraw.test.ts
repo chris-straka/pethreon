@@ -23,13 +23,13 @@ describe("Pethreon", () => {
 
   describe("Deposit and Withdraw Tests", async () => {
     it("Should deposit and withdraw 1 ether", async () => {
-      expect(await Pethreon.getContributorBalance()).to.equal(0)
+      expect(await Pethreon.getContributorBalanceInWei()).to.equal(0)
 
       await Pethreon.deposit({ value: 100 })
-      expect(await Pethreon.getContributorBalance()).to.equal(100)
+      expect(await Pethreon.getContributorBalanceInWei()).to.equal(100)
 
       await Pethreon.contributorWithdraw(100)
-      expect(await Pethreon.getContributorBalance()).to.equal(0)
+      expect(await Pethreon.getContributorBalanceInWei()).to.equal(0)
     })
   })
 })

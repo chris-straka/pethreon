@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/chris/projects/Pethreon/packages/backend/contracts/Pethreon.sol": {
-      "lastModificationDate": 1642801422963,
-      "contentHash": "18c55826c8d728794391432ba7c423b2",
+      "lastModificationDate": 1642901507777,
+      "contentHash": "c5bf4b8a86a1f508d41c14fa4882ae9f",
       "sourceName": "contracts/Pethreon.sol",
       "solcConfig": {
         "version": "0.8.6",

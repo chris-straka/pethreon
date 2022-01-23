@@ -3,7 +3,7 @@ import "@nomiclabs/hardhat-ethers";
 import "@nomiclabs/hardhat-waffle";
 import "hardhat-deploy-ethers";
 import "hardhat-deploy";
-import "ethereum-waffle"
+import "ethereum-waffle";
 import '@typechain/hardhat';
 
 const INFURA_MAINNET_API = 'https://mainnet.infura.io/v3/5934efc92cb841e4ac589e7c070d6975'

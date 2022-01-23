@@ -17,24 +17,22 @@ export async function deposit(amount: BigNumber) {
   await transaction.wait()
 }
 
-export async function getContributorBalance() {
+// Need to turn it into a string with await toString()
+// Then turn it into ether with utils.formatEther()
+export async function getContributorBalanceInWei() {
   const contract = init()
-  const balance: BigNumber = await contract.getContributorBalance()
-  const balanceToString = await balance.toString()
-  return utils.formatEther(balanceToString)
+  return await contract.getContributorBalanceInWei()
+}
+
+export async function getCreatorBalanceInWei() {
+  const contract = init()
+  return await contract.getCreatorBalanceInWei()
 }
 
 export async function contributorWithdraw(amount: BigNumber) {
   const contract = init()
   const transaction = await contract.contributorWithdraw(amount)
   await transaction.wait()
-}
-
-export async function getCreatorBalance() {
-  const contract = init()
-  const balance: BigNumber = await contract.getCreatorBalance()
-  const balanceToString = await balance.toString()
-  return utils.formatEther(balanceToString)
 }
 
 export async function creatorWithdraw() {

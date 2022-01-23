@@ -1,4 +1,4 @@
-import { getContributorPledges, getContributorBalance, cancelPledge } from "../../../pethreon"
+import { getContributorPledges, getContributorBalanceInWei, cancelPledge } from "../../../pethreon"
 import { PledgeType, MetamaskError } from "../../../utils"
 import { utils } from "ethers"
 import { TrashSVG } from "../../../svgs"
@@ -24,9 +24,11 @@ export const Pledge = ({ pledge, creator = false, setLoading, setBalance, setPle
     setLoading(true)
     try {
       await cancelPledge(creatorAddress)
-      const balance = await getContributorBalance()
+      const balance = await getContributorBalanceInWei()
+      const balanceEther = await utils.parseEther(balance)
+      const balanceEtherString = await balance.toString(balanceEther)
+      setBalance(balanceEtherString)
       const newPledges = await getContributorPledges()
-      setBalance(balance)
       setPledges(newPledges)
       setLoading(false)
     }

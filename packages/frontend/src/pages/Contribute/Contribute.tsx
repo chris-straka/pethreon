@@ -2,8 +2,9 @@ import { useState, useEffect, ReactNode } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { UserBalance, UserAddress, Loading, ModalTemplate, PledgeList } from "../../components"
-import { getContributorBalance, getContributorPledges } from "../../pethreon"
+import { getContributorBalanceInWei, getContributorPledges } from "../../pethreon"
 import { EthereumWindow, PledgeType, MetamaskError } from "../../utils"
+import { utils } from "ethers"
 import { ContributorActionBar } from "./components"
 import styles from "./Contribute.module.scss"
 
@@ -30,9 +31,11 @@ export const Contribute = (
     async function init() {
       if (window.location.pathname === "/") return
       try {
-        const balance = await getContributorBalance()
+        const balance = await getContributorBalanceInWei()
+        const balanceEther = utils.formatEther(balance)
+        const balanceEtherString = balanceEther.toString()
+        setBalance(balanceEtherString)
         const pledges = await getContributorPledges()
-        setBalance(balance)
         setPledges(pledges)
       } catch (error) {
         window.alert((error as MetamaskError).message)

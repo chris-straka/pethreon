@@ -1,7 +1,7 @@
 import { BigNumber, utils } from "ethers"
 import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from "react"
 import { CurrencyButton, CurrencyButtons, CurrencyField, Submit } from "../../../../components"
-import { createPledge, getContributorBalance, getContributorPledges } from "../../../../pethreon"
+import { createPledge, getContributorBalanceInWei, getContributorPledges } from "../../../../pethreon"
 import { DateSVG, PersonSVG, PledgeSVG } from "../../../../svgs"
 import { Denomination, MetamaskError, PledgeType } from "../../../../utils"
 import styles from "./PledgeModal.module.scss"
@@ -36,20 +36,30 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
 
     closeModal()
 
-    let amountPerPeriodInWei: BigNumber = BigNumber.from(amountPerPeriod)
-    if (currency === Denomination.ETHER) amountPerPeriodInWei = utils.parseEther(amountPerPeriod)
-    if (currency === Denomination.WEI) amountPerPeriodInWei = utils.parseUnits(amountPerPeriod, "gwei")
-    if (currency === Denomination.ALL) {
-      const fullBalance = await getContributorBalance()
-      amountPerPeriodInWei = utils.parseEther(fullBalance)
+    let amountInWeiPerPeriod: BigNumber
+    
+    switch (currency) {
+      case Denomination.ETHER:
+        amountInWeiPerPeriod = utils.parseUnits(amountPerPeriod, "ether")
+        break
+      case Denomination.GWEI:
+        amountInWeiPerPeriod = utils.parseUnits(amountPerPeriod, "gwei")
+        break
+      case Denomination.WEI:
+        amountInWeiPerPeriod = BigNumber.from(amount)
+        break
+      case Denomination.ALL:
+        amountInWeiPerPeriod = await getContributorBalanceInWei()
     }
 
     try {
       setLoading(true)
-      await createPledge(address, period, amountPerPeriodInWei)
-      const newBalance = await getContributorBalance()
+      await createPledge(address, period, amountInWeiPerPeriod)
+      const newBalance = await getContributorBalanceInWei()
+      const newBalanceEther = await utils.formatEther(newBalance)
+      const newBalanceEtherString = await newBalanceEther.toString()
+      setBalance(newBalanceEtherString)
       const newPledges = await getContributorPledges()
-      setBalance(newBalance)
       setPledges(newPledges)
       setLoading(false)
     } catch (error) {
