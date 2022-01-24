@@ -72,6 +72,9 @@ export const Contribute = (
         />
         <PledgeList
           className={styles.pledgeList}
+          setBalance={setBalance}
+          setLoading={setLoading}
+          setPledges={setPledges}
           textForWhenItsEmpty="You need to make a pledge first..."
           pledges={pledges}
         />

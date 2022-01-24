@@ -1,20 +1,20 @@
 import { Dispatch, SetStateAction } from "react"
 import { getContributorPledges, getContributorBalanceInWei, cancelPledge } from "../../../pethreon"
 import { PledgeType, MetamaskError } from "../../../utils"
-import { utils } from "ethers"
 import { TrashSVG } from "../../../svgs"
+import { utils } from "ethers"
 import styles from "./Pledge.module.scss"
 
 interface PledgeProps {
   pledge: PledgeType,
-  setLoading?: any, // not sure how to handle these
-  setPledges?: any,
-  setBalance?: any,
   creator?: boolean,
+  setLoading: Dispatch<SetStateAction<boolean>>,
+  setBalance: Dispatch<SetStateAction<string>>,
+  setPledges: Dispatch<SetStateAction<PledgeType[]>>
 }
 
 export const Pledge = (
-  { pledge, setLoading, setBalance, setPledges, creator = false, }: PledgeProps
+  { pledge, creator = false, setLoading, setBalance, setPledges, }: PledgeProps
 ) => {
   const creatorAddress = pledge.creatorAddress
   const contributorAddress = pledge.contributorAddress
@@ -27,10 +27,10 @@ export const Pledge = (
     setLoading(true)
     try {
       await cancelPledge(creatorAddress)
-      const balance = await getContributorBalanceInWei()
-      const balanceEther = await utils.parseEther(balance)
-      const balanceEtherString = await balance.toString(balanceEther)
-      setBalance(balanceEtherString)
+      const newBalance = await getContributorBalanceInWei()
+      const newBalanceEther = await utils.formatEther(newBalance)
+      const newBalanceEtherString = await newBalanceEther.toString()
+      setBalance(newBalanceEtherString)
       const newPledges = await getContributorPledges()
       setPledges(newPledges)
       setLoading(false)

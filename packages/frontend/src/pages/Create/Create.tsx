@@ -77,6 +77,9 @@ export const Create = (
         className={styles.pledgeList}
         textForWhenItsEmpty="Nobody has pledged to you yet..."
         pledges={pledges}
+        setBalance={setBalance}
+        setLoading={setLoading}
+        setPledges={setPledges}
       />
     </motion.div>
 

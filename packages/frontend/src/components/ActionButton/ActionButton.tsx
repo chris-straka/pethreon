@@ -1,10 +1,10 @@
-import { ReactNode, Dispatch, SetStateAction } from "react"
+import { ReactNode, FormEventHandler, } from "react"
 import styles from "./ActionButton.module.scss"
 
 interface ActionButtonInterface {
   className?: string,
   children: ReactNode,
-  onClick: Dispatch<SetStateAction<any>>
+  onClick: FormEventHandler<HTMLButtonElement>
 }
 
 export function ActionButton({ className, children, onClick }: ActionButtonInterface) {
