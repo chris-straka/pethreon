@@ -42,4 +42,8 @@
   &[type="number"] {
     -moz-appearance: textfield;
   }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 }

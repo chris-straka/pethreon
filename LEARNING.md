@@ -12,7 +12,7 @@ I wasn't exactly sure where to put my CSS media queries. I could've put them in 
 
 ### The same colors can look great or bad depending on how they're used
 
-I picked two colors that I really liked (my primary and secondary), but sometimes they don't mesh well and sometimes they do. In my contributor portal, I think the blue background looks great with the pink text. But in my creator portal, I think the pink background looks bad with blue text.
+I picked two colors that I really liked (my primary and secondary), but sometimes they don't mesh well and sometimes they do. In my contributor portal, I think the blue background looks great with the pink text. But in my creator portal, I think the pink background looks bad with blue text. I found that with a lighter font-weight a darker color looked better. I was juggling between light and dark theme as well, and the same colors don't look as good if they're on a dark background compared to a white one.
 
 ### I fought the scrollbar and the scrollbar won
 
@@ -20,16 +20,17 @@ Originally, I didn't want the user to scroll through the application because I w
 
 One cool thing I learned along the way though, is that you can't zoom in/out on any text that's been sized with viewport units. You have to use[calc(vw + 1em) or clamp(vw + 1em)](https://www.youtube.com/watch?v=wARbgs5Fmuw) instead. I also learned how nice it is to use CSS variables for responsive design.
 
-### My typewriter effect needs to be fast
+### My typewriter effect can hurt UX if I'm not careful
 
-My typewriter effect (the talking metamask logo) is giving a lot of crucial information to the user (errors, recommendations, install links). This meant the user would have to wait for him to finish talking before they could read any of it. I think I have to make him talk really fast otherwise it would be annoying. 
+My typewriter effect (the talking metamask logo) is giving a lot of crucial information to the user (errors, recommendations, install links). The user would have to wait for him to finish talking before they could read any of it. I think I have to make him talk really fast otherwise it would be annoying.
 
 ### A wireframe AND a prototype is probably a good idea
 
-In my design mockups, I ignored a lot of detail. I didn't create any design mockups for my modals and I put a lot of grey boxes everywhere so I could fill the details in later. I mostly did this because I didn't fully understand Sergei's smart contract at the time and how it worked. I didn't know what modifications I was going to make to it either. 
+In my design mockups, I ignored a lot of detail. I didn't create a design for any of the modals and I put a lot of grey boxes everywhere with the intention of filling in those details later. I mostly did this because I didn't fully understand Sergei's smart contract at the time. I ended up creating things on the fly, and designing things in isolation because I was only focused on getting things working at that point. It was harder to think about what components I would need and how I would reuse them because I didn't plan it before hand. I ended up refactoring later and made the modals much more homogenous but I think in the future I'm going to create a more flushed out wireframe and prototype. 
 
-I ended up creating things on the fly and my modals started to look a bit different from each other in the beginning. I would come up with new ideas for how to style things and I wasn't sure how "reusable" my components should be. I ended up refactoring later to make them much more homogenous.
+### I should occassionally view my designs in fullscreen to get a better idea of scale
 
+When working on Figma, I would design for large screen sizes (like 1920x1080) using rectangles that were actually much smaller than that on my physical screen. I think I created layouts that would look great on a business card but not so great for a website. On my contributor & creator page, I left a ton of open space at the top left of the website. I used that space for my loading component but I underestimated just how much space I would leave open.
 ## Issues I've ran into during development
 
 ### How does the original Pethreon contract from Sergei et al work?
@@ -96,19 +97,17 @@ Framer-motion can animate css variables but it only takes their underlying value
 
 ### Idea for a Charity Application? Unipledge?
 
-I thought it'd be pretty cool to have a "unipledge" feature that would donate to every creator on the platform (this might create an influx of fake/repeat creators though). I also came up with a DeFi charity application, in which users could pool their money into different charity pools and have that money locked in a DeFi protocol like [Aave](https://aave.com/), the accrued interest could then go towards a charity address like [the water project @ 0x54a465610d119ad28deafd4bce555834c38beeb9](https://thewaterproject.org/donate-ethereum). Users could then switch their funds to different pools whenever they felt like it, except some of their original contribution would stay in the pool so that it would continue to grow forever.
+When I was brainstorming stuff in the beginning, I thought it would be pretty cool to have a "unipledge" feature that would donate to every creator on the platform (this might create an influx of fake/repeat creators though). I also thought of up with a DeFi charity application, where users could pool their money into different charity pools and have that money locked in a DeFi protocol like [Aave](https://aave.com/), the accrued interest could then go towards a charity address like [the water project @ 0x54a465610d119ad28deafd4bce555834c38beeb9](https://thewaterproject.org/donate-ethereum). Users could then switch their funds to different pools whenever they felt like it, but some of their original contribution would stay in the pool so that it would continue to grow forever.
 
 ### A11y
 
-There's this weird problem in my contributor & creator page where the keyboard navigation is messed up. My circleC should be the first element to receive focus, but it keeps skipping over it. Clicking somewhere else on the page resets it to the proper order. I think this is because of how I set up my circles, but I really don't know why it's doing that. 
-
-Another a11y problem, is that I think my application is going to be very hard for screen reader users to understand. I'd have to test it myself to find out.
+There's this weird problem in my contributor & creator page where the keyboard navigation is messed up. My circleC should be the first element to receive focus, but it keeps skipping over it and jumping my actionBar. Clicking somewhere else on the page resets it to the proper order. I think this is because of how I set up my circles, but I really don't know why it's doing that. Another a11y problem, is that I think my application is going to be very hard for screen reader users to understand. I'd have to test it myself to find out. 
 
 ### My Choice of React
 
-I originally chose React so I could use [this hardhat plugin](https://hardhat.org/plugins/hardhat-react.html) and resources for react seem more plentiful. That hardhat plugin is kind of like typechain because it creates types that I can use in my frontend (which gives me nice autocompletion). The difference is that it makes everything accessible via a react context, which makes a lot of sense. However, I ended up scrapping the plugin altogether though because it was giving me compatibility issues. I would have to downgrade stuff like solidity and bring in [SafeMath from @openzepplin/contracts](https://github.com/OpenZeppelin/openzeppelin-contracts) because under/over flow can happen on older versions of solidity (< 0.8.0). 
+I originally chose React so I could use [this hardhat plugin](https://hardhat.org/plugins/hardhat-react.html) and resources for react seem more plentiful. The plugin is sort of like typechain, because it creates types that I can use in my frontend (which gives me autocomplete). The difference is that it makes everything accessible via a react context, which makes a lot of sense. However, I ended up scrapping the plugin altogether because it was giving me compatibility issues. I would have to downgrade stuff like solidity and bring in [SafeMath from @openzepplin/contracts](https://github.com/OpenZeppelin/openzeppelin-contracts) because under/over flow can happen on older versions of solidity (< 0.8.0). Scrapping it also forced me to learn a lot more about ethers.js too.
 
-Scrapping it also forced me to learn a lot more about ethers.js too. I opted for a single TS file instead of react context. I did this because I didn't think I had any state to worry about. The only state that is worth storing in a react context is the contract instance, which I think never changes unless you're using a different smart contracts throughout your application? Or maybe there's other advantages that I don't know about yet (easier deployment?).
+I ended up using a single TS file instead of a react context. I did this because I didn't think I had any state to worry about. The only state that is worth storing in a react context is the contract instance, which I think never changes unless you're using a different smart contracts throughout your application? Or maybe there's other advantages that I don't know about yet (easier deployment?).
 
 ## Notes
 
@@ -139,7 +138,9 @@ In order to send a transaction with input data, you need to use a library like w
 
 If you want the smart contract to send ether to someone else, then you need to use send(), transfer() or call() functions. These days however, only [call()](https://ethereum.stackexchange.com/questions/78124/) is recommended. The address that you're sending money to must also be marked payable in the smart contract code i.e. payable(address). Every contract starts off at 0 balance, and your contract can see its own balance using address(this).balance. Sites like [Remix](https://remix.ethereum.org/) will also show you. In ethers.js lingo, a "provider" is a connection to Ethereum, a "signer" is an account.
 
-### Contract Misc
+## Misc
+
+### Backend
 
 Each smart contract uses [Unix Time](https://en.wikipedia.org/wiki/Unix_time) to keep track of things.
 
@@ -147,8 +148,9 @@ According to this [post](https://ethereum.stackexchange.com/questions/39723), it
 
 You can't build a dynamic array in memory in solidity.
 
-## Misc
+### Frontend 
 
+- How do you use BEM (specifically the --modifer part) in react using CSS modules? TODO
 - [Certain animations can hurt a11y](https://developer.mozilla.org/en-US/docs/Web/CSS/animation#accessibility_concerns)
 - [window.opener() weirdness](https://stackoverflow.com/questions/57628890)
 - Even though my "main" content is split between two pages, I should only use one main HTML tag.

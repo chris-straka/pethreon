@@ -10,14 +10,13 @@
   font-size: inherit;
   cursor: pointer;
   background-color: transparent;
-  border-bottom: 5px dotted transparent;
+  border-bottom: 3px solid transparent;
   color: var(--primary-light);
   outline: none;
   transition: all 0.3s;
 
   &:focus {
     border-color: var(--secondary);
-    color: var(--secondary);
   }
 
   &:hover {

@@ -25,19 +25,25 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
     if (!amount && currency !== Denomination.ALL) return window.alert("Please enter a pledge amount")
     if (!address) return window.alert("Please enter a destination address")
     if (!period) return window.alert("Please set a pledge duration")
+    if (+period >= 36525) return window.alert("This pledge would last over 100 years, please pick something smaller")
 
     address.trim()
     if (address.indexOf(" ") >= 0) return window.alert("There is a space in the ethereum address")
     if (address.length !== 42) return window.alert(`Your ethereum address is ${address.length} characters long. It should be 42 characters long`)
 
+    if (currency === Denomination.ALL) {
+      let fullbalance = await getContributorBalanceInWei()
+      setAmount(await fullbalance.toString())
+    }
+
     const amountPerPeriod = (+amount / +period).toString()
 
-    window.confirm(`The total comes to ${amountPerPeriod} per day, over ${period} day(s). Do you accept?`)
+    if (!window.confirm(`The total comes to ${amountPerPeriod} ${currency !== Denomination.ALL ? currency : Denomination.WEI} per day, over ${period} day(s). Do you accept?`)) return
 
     closeModal()
 
-    let amountInWeiPerPeriod: BigNumber
-    
+    let amountInWeiPerPeriod: BigNumber;
+
     switch (currency) {
       case Denomination.ETHER:
         amountInWeiPerPeriod = utils.parseUnits(amountPerPeriod, "ether")
@@ -46,10 +52,10 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
         amountInWeiPerPeriod = utils.parseUnits(amountPerPeriod, "gwei")
         break
       case Denomination.WEI:
-        amountInWeiPerPeriod = BigNumber.from(amount)
+        amountInWeiPerPeriod = BigNumber.from(amountPerPeriod)
         break
       case Denomination.ALL:
-        amountInWeiPerPeriod = await getContributorBalanceInWei()
+        amountInWeiPerPeriod = BigNumber.from(amountPerPeriod)
     }
 
     try {
@@ -81,7 +87,7 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
       />
       <CurrencyButtons
         className={styles.currencyButtons}
-        setCurrency={() => setCurrency(Denomination.GWEI)}
+        setCurrency={setCurrency}
       >
         <CurrencyButton checked denomination={Denomination.ETHER} />
         <CurrencyButton denomination={Denomination.GWEI} />

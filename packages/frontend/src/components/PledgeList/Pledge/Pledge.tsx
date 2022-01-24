@@ -43,22 +43,24 @@ export const Pledge = (
   }
 
   return (
-    <li className={`${styles.pledgeContainer} ${creator && styles.creatorStyles}`}>
-      <span className={styles.creatorAddress}>
-        {creator ? `Contributor: ${contributorAddress}` : `Creator ${creatorAddress}`}
-      </span>
-      <span className={styles.weiPerPeriod}>
-        Ether: {etherPerPeriod} per day
-      </span>
-      <span className={styles.duration}>
-        Duration: {duration} days
-      </span>
-      <span className={styles.dates}>
-        Dates: {startDate} - {endDate}
-      </span>
+    <li className={`${styles.pledge} ${creator && styles.creatorStyles}`}>
+      <ul className={styles.pledge__details}>
+        <li className={styles.pledge__details__address}>
+          {creator ? `Contributor: ${contributorAddress}` : `Creator ${creatorAddress}`}
+        </li>
+        <li className={styles.pledge__details__weiPerPeriod}>
+          Ether: {etherPerPeriod} per day
+        </li>
+        <li className={styles.pledge__details__duration}>
+          Duration: {duration} days
+        </li>
+        <li className={styles.pledge__details__dates}>
+          From: {startDate} - {endDate}
+        </li>
+      </ul>
       {!creator && <button
         onClick={() => cancelPledgeHandler()}
-        className={styles.cancelButton}><TrashSVG className={styles.trashSVG} />Delete</button>}
+        className={styles.cancelButton}><TrashSVG className={styles.cancelButton__SVG} />Delete</button>}
     </li>
   )
 }

@@ -55,14 +55,14 @@ export const Contribute = (
         animate={{ opacity: 1, transition: { duration: fadeInDuration, delay: fadeInDelay } }}
         exit={{ opacity: 0, transition: { duration: fadeOutDuration, delay: fadeOutDelay } }}
       >
-        <UserBalance
-          className={styles.userBalance}
-          balance={balance}
-        />
-        <UserAddress
-          className={styles.userAddress}
-          userAccountAddress={ethereum.selectedAddress}
-        />
+          <UserBalance
+            className={styles.userBalance}
+            balance={balance}
+          />
+          <UserAddress
+            className={styles.userAddress}
+            userAccountAddress={ethereum.selectedAddress}
+          />
         <ContributorActionBar
           className={styles.contributorActionBar}
           setModal={setModal}

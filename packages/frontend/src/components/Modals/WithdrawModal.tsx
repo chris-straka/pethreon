@@ -57,9 +57,9 @@ export const WithdrawModal = ({ closeModal, setLoading, setBalance }: WithdrawPr
     <form className={styles.form}>
       <h3 className={styles.heading}>How much to withdraw?</h3>
       <CurrencyField
-        value={amount}
         className={styles.currencyField}
         disabled={currency === Denomination.ALL ? true : false}
+        value={amount}
         setValue={(event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)}
       />
       <CurrencyButtons className={styles.currencyButtons} setCurrency={setCurrency}>

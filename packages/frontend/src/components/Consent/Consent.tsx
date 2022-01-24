@@ -8,16 +8,16 @@ interface ConsentProps {
 
 export const Consent = ({ className, setConsent }: ConsentProps) => {
   return (
-    <label className={`${styles.label} ${className}`} htmlFor="consent">
+    <label className={`${styles.checkbox} ${className}`} htmlFor="consent">
       🤝 I accept the risks️️
       <input
-        className={`${styles.checkboxInput} ${className}`}
+        className={`${styles.checkbox__input} ${className}`}
         required
         type="checkbox"
         id="consent"
         onChange={() => setConsent(prev => !prev)}
       />
-      <span className={styles.checkbox} />
+      <span className={styles.checkbox__span} />
     </label >
   )
 }
