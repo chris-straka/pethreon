@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/static/css/main.b8da6581.css",
+    "main.js": "/static/js/main.ba8bddf6.js",
+    "static/media/money.webm": "/static/media/money.efc5e710fec4ecafa299.webm",
+    "static/media/money.mp4": "/static/media/money.8530fecd94502ba06c39.mp4",
+    "static/media/Aileron-Light.woff2": "/static/media/Aileron-Light.3efeb2cc219309ab01fd.woff2",
+    "static/media/Aileron-UltraLight.woff2": "/static/media/Aileron-UltraLight.418b75786abe90e59c0b.woff2",
+    "static/media/Aileron-Regular.woff2": "/static/media/Aileron-Regular.ee9f235c79d12e768895.woff2",
+    "static/media/Cutesy.woff2": "/static/media/Cutesy.8ae7accafb2512a93498.woff2",
+    "index.html": "/index.html",
+    "main.b8da6581.css.map": "/static/css/main.b8da6581.css.map",
+    "main.ba8bddf6.js.map": "/static/js/main.ba8bddf6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b8da6581.css",
+    "static/js/main.ba8bddf6.js"
+  ]
+}
