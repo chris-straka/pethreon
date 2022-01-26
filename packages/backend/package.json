@@ -3,6 +3,7 @@
   "scripts": {
     "postinstall": "yarn generate-types",
     "generate-types": "hardhat typechain",
+    "build": "yarn generate-types",
     "dev": "hardhat node --watch",
     "typechain": "hardhat typechain"
   },

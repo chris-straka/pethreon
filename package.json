@@ -14,6 +14,7 @@
     "compile": "yarn workspace backend run compile",
     "test": "yarn workspaces foreach -pi run test",
     "dev": "yarn workspaces foreach -pi run dev",
+    "build": "yarn workspaces foreach run build",
     "backend:dev": "yarn workspace backend run dev",
     "frontend:dev": "yarn workspace frontend run dev",
     "frontend:build": "yarn workspace frontend run build",
