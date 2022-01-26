@@ -5599,7 +5599,7 @@ __metadata:
     chai: ^4.3.4
     ethereum-waffle: ^3.4.0
     ethers: ^5.5.2
-    hardhat: ^2.8.0
+    hardhat: ^2.8.3
     hardhat-deploy: ^0.9.22
     hardhat-deploy-ethers: ^0.3.0-beta.12
     ts-generator: ^0.1.1
@@ -10461,9 +10461,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hardhat@npm:^2.8.0":
-  version: 2.8.1
-  resolution: "hardhat@npm:2.8.1"
+"hardhat@npm:^2.8.3":
+  version: 2.8.3
+  resolution: "hardhat@npm:2.8.3"
   dependencies:
     "@ethereumjs/block": ^3.6.0
     "@ethereumjs/blockchain": ^5.5.0
@@ -10514,7 +10514,7 @@ __metadata:
     ws: ^7.4.6
   bin:
     hardhat: internal/cli/cli.js
-  checksum: 14287fcd15d3f0a605a6dc1e4bb9d9dbfffd8f1cc0a8164a1e864b2b2dc7aa6025e1e5b5581778fcc620bfba927dbf6c107c3c9b8de92fd85adba8ae9716d3b7
+  checksum: 760faf9c91d5c6cb5035bf9e62d14fb52cae6a995b86195457cf1d41a1fb73c4ec1ef9c7e8e033e335495d65265a072ddef4a4b56b1cbaa94c18fc87edf91e16
   languageName: node
   linkType: hard
 
