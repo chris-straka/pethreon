@@ -72,5 +72,3 @@ The react app was made under a mobile first approach using these design mockups 
 - [Github logo](https://github.com/logos)
 
 - [ionicons](https://ionic.io/ionicons)
-
-// Former remote origin git@github.com:Chris56974/Pethreon.git 
