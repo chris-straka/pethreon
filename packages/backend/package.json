@@ -1,8 +1,8 @@
 {
   "name": "backend",
   "scripts": {
-    "postinstall": "yarn generate-types",
-    "build": "yarn generate-types",
+    "postinstall": "yarn typechain",
+    "build": "yarn typechain",
     "dev": "hardhat node --watch",
     "typechain": "hardhat typechain"
   },
