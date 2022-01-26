@@ -42,10 +42,10 @@ Some of those smart contract functions cost real money (like creating a pledge) 
 
 The react app was made under a mobile first approach using these design mockups (Figma). 
 
-![Pethreon Mobile Mockup](https://github.com/Chris56974/Pethreon/design/pethreon_mobile.png)
-![Pethreon Desktop 1](https://github.com/Chris56974/Pethreon/design/pethreon_desktop_1.png)
-![Pethreon Desktop 2](https://github.com/Chris56974/Pethreon/design/pethreon_desktop_2.png)
-![Pethreon Desktop 3](https://github.com/Chris56974/Pethreon/design/pethreon_desktop_3.png)
+![Pethreon Mobile Mockup](https://github.com/Chris56974/Pethreon/blob/main/design/pethreon_mobile.png)
+![Pethreon Desktop 1](https://github.com/Chris56974/Pethreon/blob/main/design/pethreon_desktop_1.png)
+![Pethreon Desktop 2](https://github.com/Chris56974/Pethreon/blob/main/design/pethreon_desktop_2.png)
+![Pethreon Desktop 3](https://github.com/Chris56974/Pethreon/blob/main/design/pethreon_desktop_3.png)
 
 - For more information on how to run this locally, please refer to [CONTRIBUTING.md](https://github.com/Chris56974/Pethreon/blob/main/CONTRIBUTING.md)
 - If you want to see what I've learned while making this project, please refer to [LEARNING.md](https://github.com/Chris56974/Pethreon/blob/main/LEARNING.md) 
@@ -72,3 +72,5 @@ The react app was made under a mobile first approach using these design mockups 
 - [Github logo](https://github.com/logos)
 
 - [ionicons](https://ionic.io/ionicons)
+
+// Former remote origin git@github.com:Chris56974/Pethreon.git 
