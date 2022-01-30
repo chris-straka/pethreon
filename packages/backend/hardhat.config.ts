@@ -1,8 +1,6 @@
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomiclabs/hardhat-ethers";
 import "@nomiclabs/hardhat-waffle";
-import "hardhat-deploy-ethers";
-import "hardhat-deploy";
 import "ethereum-waffle";
 import '@typechain/hardhat';
 
@@ -13,13 +11,6 @@ const config: HardhatUserConfig = {
   typechain: {
     outDir: "../frontend/src/types",
     target: "ethers-v5"
-  },
-  // paths: {
-  //   artifacts: '../frontend/src'
-  // },
-  namedAccounts: {
-    deployer: 0,
-    first: 1
   },
   networks: {
     hardhat: {
@@ -33,6 +24,9 @@ const config: HardhatUserConfig = {
     //   accounts: [`0x${process.env.RINKEBY_DEPLOYMENT_ACCOUNT}`]
     // }
   },
+  // paths: {
+  //   artifacts: '../frontend/src'
+  // },
   solidity: "0.8.6",
 }
 
