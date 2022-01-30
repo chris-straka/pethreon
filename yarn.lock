@@ -6201,9 +6201,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30000844, caniuse-lite@npm:^1.0.30001286, caniuse-lite@npm:^1.0.30001297, caniuse-lite@npm:^1.0.30001299":
-  version: 1.0.30001303
-  resolution: "caniuse-lite@npm:1.0.30001303"
-  checksum: fe77fb680c94c875be2fb78c9507a69d3ed6be8894832d3ee8a7d24e4c5c7599bf217f030fcdfd761ea211065042679bf697a57eefe114058a3208561e2fd042
+  version: 1.0.30001304
+  resolution: "caniuse-lite@npm:1.0.30001304"
+  checksum: 63092ec6c65346f57026d9c7bee0548b77fd606819ca205ee3d99c948e4701b8820c365c00b79d4a4b96f3f0045bc0be767149b8edb74f7223d16cb30630f81e
   languageName: node
   linkType: hard
 
@@ -6631,14 +6631,14 @@ __metadata:
   linkType: hard
 
 "command-line-args@npm:^5.1.1":
-  version: 5.2.0
-  resolution: "command-line-args@npm:5.2.0"
+  version: 5.2.1
+  resolution: "command-line-args@npm:5.2.1"
   dependencies:
     array-back: ^3.1.0
     find-replace: ^3.0.0
     lodash.camelcase: ^4.3.0
     typical: ^4.0.0
-  checksum: a63dd41541fc98fcef7a5f4f63e626a6c5955fae57247b604077f1d0cfbff58c5830240880903342785a0c40952c4bbd3a977425ba3f4c7d515253296843a566
+  checksum: e759519087be3cf2e86af8b9a97d3058b4910cd11ee852495be881a067b72891f6a32718fb685ee6d41531ab76b2b7bfb6602f79f882cd4b7587ff1e827982c7
   languageName: node
   linkType: hard
 

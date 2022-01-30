@@ -14,9 +14,9 @@ const config: HardhatUserConfig = {
     outDir: "../frontend/src/types",
     target: "ethers-v5"
   },
-  paths: {
-    artifacts: '../frontend/src'
-  },
+  // paths: {
+  //   artifacts: '../frontend/src'
+  // },
   namedAccounts: {
     deployer: 0,
     first: 1
