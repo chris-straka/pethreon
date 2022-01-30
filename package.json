@@ -12,6 +12,7 @@
   "scripts": {
     "postinstall": "yarn workspace backend run typechain",
     "compile": "yarn workspace backend run compile",
+    "deploy:rinkeby": "yarn workspace backend run deploy:rinkeby",
     "test": "yarn workspaces foreach -pi run test",
     "dev": "yarn workspaces foreach -pi run dev",
     "build": "yarn workspaces foreach run build",

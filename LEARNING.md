@@ -20,9 +20,9 @@ Originally, I didn't want the user to scroll through the application because I w
 
 One cool thing I learned along the way though, is that you can't zoom in/out on any text that's been sized with viewport units. You have to use[calc(vw + 1em) or clamp(vw + 1em)](https://www.youtube.com/watch?v=wARbgs5Fmuw) instead. I also learned how nice it is to use CSS variables for responsive design.
 
-### My typewriter effect can hurt UX if I'm not careful
+### My metamask typewriter effect can hurt UX if I'm not careful
 
-My typewriter effect (the talking metamask logo) is giving a lot of crucial information to the user (errors, recommendations, install links). The user would have to wait for him to finish talking before they could read any of it. I think I have to make him talk really fast otherwise it would be annoying.
+My typewriter effect (the talking metamask logo) is giving a lot of crucial information to the user (errors, recommendations, install links). The user has to wait for him to finish talking before they can read any of it though, so I have to make him talk quickly. Also, my the metamask logo can be distracting when I have the video playing at the same time (the user's attention is divided).
 
 ### A wireframe AND a prototype is probably a good idea
 
@@ -31,7 +31,7 @@ In my design mockups, I ignored a lot of detail. I didn't create a design for an
 ### I should occassionally view my designs in fullscreen to get a better idea of scale
 
 When working on Figma, I would design for large screen sizes (like 1920x1080) using rectangles that were actually much smaller than that on my physical screen. I think I created layouts that would look great on a business card but not so great for a website. On my contributor & creator page, I left a ton of open space at the top left of the website. I used that space for my loading component but I underestimated just how much space I would leave open.
-## Issues I've ran into during development
+# Issues I've ran into during development
 
 ### How does the original Pethreon contract from Sergei et al work?
 
@@ -52,6 +52,32 @@ I will make some other changes though. I'm going to make it easier for contribut
 
 After reading (and contributing to) [this answer on stack exchange](https://ethereum.stackexchange.com/questions/42207), it turns out there's a possibility that a user might not be able to call a function because it takes too much gas to run. I think in my case, this would only ever happen if the creator takes a really long time to withdraw their funds (i.e. the withdraw function had to iterate over so many periods that they couldn't withdraw). Or if a new contributor couldn't make a new pledge to a creator because they had to iterate over too many pledges that are already being made to that creator. You might be wondering why the contributor has to do this, and it's ultimately because that's how I've chosen to keep track of all the creators pledges in my smart contract.
 
+### Does my monorepo structure make sense?
+
+I fell in love with monorepos at first because I thought it was a really nice way of separating concerns. They also fixed a problem I was having (see below in "multiple testing frameworks"). My ideas on this are still developing, but I'm not sure if this was the best idea. To start with, my backend has to output two different directories into the frontend package which doesn't feel like they're very separated. And I think monorepos have their own unique set of challenges when it comes to deployment and maintenance that make things difficult. I couldn't use any of the cool stuff like [Plug'n Play](https://yarnpkg.com/features/pnp) so I basically had to configure my .yarnrc.yaml file to use a different node-linker instead. I also had issues when I hoisted all my node_modules to the root of the project so I had to again go to my .yarnrc.yaml file to hoist node_modules to each workspace. 
+
+### Multiple testing frameworks?
+
+CRA "Create React App" uses Jest, but Truffle uses Mocha and Chai. I wanted to use just one but ended up trying to use all three, but I ran into issues where typechain would create conflicting type definitions (between Chai and Jest). 
+
+```ts
+// node_modules
+
+// chai.ts
+declare const: expect = Chai.ExpectStatic; // this kept conflicting with...
+
+// jest.ts
+declare const expect: jest.Expect;         // this
+```
+
+I was using a single package.json for the whole project at the time, which I think was the issue. I ended up reading about different package managers (yarn, pnpm) and found a solution using workspaces. When I was looking around for ways to fix this, I ran into hardhat and realized that it was a much better tool for my purposes. It lets you right console logs in solidity which is indispensable as a learning tool in my opinion. 
+
+### I actually ran into the "hey! it works on my machine!" problem that proponents of Docker talk about
+
+I didn't think I would ever run into this issue, but sure enough I did. I primarily developed this dapp on windows, but when I went to go deploy it on [netlify](https://www.netlify.com/) (which uses an [ubuntu 20.04 focal image](https://releases.ubuntu.com/20.04/)) I ran into issues. There's four phases of the [yarn install command](https://yarnpkg.com/cli/install#gatsby-focus-wrapper), and my app would fail at the second phase (yarn fetch). It was trying to pull [ethereumjs-abi](https://github.com/ethereumjs/ethereumjs-abi) but failed. The dependency is deprecated and no longer maintained, so I ran `yarn info` to find out what was using it in my project because I didn't install it directly. I was thinking maybe I could update my dependency that used it and that would get rid of it. Turns out hardhat was the only thing that needed it, but my hardhat install was already at the latest version. So I went to check out the source code of hardhat to see if I could submit a pull request to remove ethereumjs-abi. Turns out Hardhat only used it in 4 instances (2 of them easily replaceable) the other 2 not so much. So I decided to try something else.
+
+I ran my project on my fedora machine instead (I tripple boot windows/fedora/arch (btw)), and it turns out it doesn't work on my fedora machine either (despite it still working on my windows machine). I deleted the yarn.lock file on my windows machine and reinstalled everything on windows but it still didn't work. I did the same thing on fedora though, and everything works and the application deploys successfully. 
+
 ### Recurring payments
 
 Implementing [recurring payments](https://ethereum.stackexchange.com/questions/49596) on Ethereum is not as easy as I thought it'd be. It's hard to create recurring transactions because in Ethereum, only EOAs "Externally Owned Accounts" (humans) can create transactions. A CA "Contract Account" (smart contract) can't. This means my smart contract can't automatically create a transaction every period (day/week/month), only a human can create a transaction every period (day/week/month) which sort of defeats the whole point of using this application. [There's a couple ways people have gotten around this though](https://ethereum.stackexchange.com/questions/42). Usually what happens is someone creates a single transaction, and then your Dapp evaluates that transaction "eagerly" or "lazily". Sergei solved this problem by evaluating that transaction lazily (and I take up after Sergei). So what happens is a contributor makes a donation and in order for that creator to get any money from that donation, the creator must call a function (creatorWithdraw()), which means the creator must know about my Dapp. This function then tallies up how much they're owed up until that point and then they cash out.
@@ -69,25 +95,13 @@ I originally wanted creators to have their own unique landing page for a better 
 
 Ethereum development is weird because it's like you're giving people the keys to your database (because ethereum is sort of like a public database). I didn't want to introduce my own server for validation because then it'd be no different than something like Patreon, and I still wanted all the benefits of decentralization (censorship resistance, trustlessness, no third-party). 
 
-### Multiple testing frameworks?
-
-CRA "Create React App" uses Jest, but Truffle uses Mocha and Chai. I wanted to use just one but ended up trying to use all three, but I ran into issues where typechain would create conflicting type definitions (between Chai and Jest). 
-
-```ts
-// node_modules
-declare const: expect = Chai.ExpectStatic; // this kept conflicting with...
-declare const expect: jest.Expect;         // this
-```
-
-I was using a single package.json for the whole project at the time, which I think was the issue. I ended up reading about different package managers (yarn, pnpm) and found a solution using workspaces. When I was looking around for ways to fix this, I ran into hardhat and realized that it was a much better tool for my purposes. It lets you right console logs in solidity which is indispensable as a learning tool in my opinion. 
-
 ### Typewriter Effect Problems
 
 I probably could've done my TypewriterEffect using CSS only, but I've only ever seen this done with single lines of text (not dynamic text that can wrap across multiple lines). So I did it with JS instead but there's still a couple things I wonder about. I had issues printing the hyperlink char-by-char (either that or I'm dumb?) because it kept printing the HTML markup as well `<a href="" rel="" etc="">download<a>`. So I decided to recreat the same link ~17 times, char-by-char (feels like there should be an easier way to do this).
 
-### Metamask Problems
+### Metamask Login Problems
 
-When the user clicks the login button, metamask prompts them with a "sign-in" modal that I can't control. If the user closes it without signing in, metamask will NOT error out. Instead, my code behaves as if the user is STILL logging in which is not a great UX. It looks like other popular sites like Aave and Uniswap behave the same. Also, when an error is thrown metamask gives back an object but sometimes the error message is tricky to find could be error.message or error.data.message.
+When the user clicks the login button, metamask prompts them with a "sign-in" modal that I can't control. If the user closes it without signing in, metamask will NOT error out. Instead, my code behaves as if the user is STILL logging in which is not a great UX. It looks like other popular sites like Aave and Uniswap behave the same way. Also, when an error is thrown metamask throws an object, but sometimes the error message in that object is in different places (could be error.message or error.data.message). This may have changed since then.
 
 ### Circle Problems
 

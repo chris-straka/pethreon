@@ -46,6 +46,7 @@ export const Create = (
       }
     }
     init()
+    localStorage.setItem("last_page_visited", "create")
   }, [navigate])
 
   return <>

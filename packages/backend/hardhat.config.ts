@@ -14,6 +14,9 @@ const config: HardhatUserConfig = {
     outDir: "../frontend/src/types",
     target: "ethers-v5"
   },
+  paths: {
+    artifacts: '../frontend/src'
+  },
   namedAccounts: {
     deployer: 0,
     first: 1
@@ -25,6 +28,10 @@ const config: HardhatUserConfig = {
         mnemonic: "test test test test test test test test test test test junk"
       },
     },
+    // rinkeby: {
+    //   url: "https://rinkeby.infura.io/v3/5934efc92cb841e4ac589e7c070d6975",
+    //   accounts: [`0x${process.env.RINKEBY_DEPLOYMENT_ACCOUNT}`]
+    // }
   },
   solidity: "0.8.6",
 }

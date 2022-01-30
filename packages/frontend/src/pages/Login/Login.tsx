@@ -38,8 +38,8 @@ export const Login = (
 
   async function login() {
     let lastVisited = localStorage.getItem("last_page_visited")
-    try {
       setMessage("Logging in... You might have to click the metamask extension in your browser")
+    try {
       if (ethereum.isConnected) {
         await ethereum.request({ method: 'eth_requestAccounts' })
         lastVisited === "create" ? navigate("create") : navigate("contribute")

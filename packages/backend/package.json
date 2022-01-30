@@ -3,6 +3,7 @@
   "scripts": {
     "postinstall": "yarn typechain",
     "build": "yarn typechain",
+    "deploy:rinkeby": "hardhat run scripts/deploy.ts --network rinkeby",
     "dev": "hardhat node --watch",
     "typechain": "hardhat typechain"
   },

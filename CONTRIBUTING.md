@@ -1,4 +1,4 @@
-# How to develop
+# How to develop locally
 
 You need to [install the latest version of yarn](https://yarnpkg.com/getting-started/install). Then you need to [download the metamask browser extension](https://metamask.io/). You might want to use a different [browser profile](https://youtu.be/Ik8-xn4DyCo?t=15) so you can keep your real metamask account separate from your development metamask account (so you don't accidentally add real money to the development account). 
 
@@ -23,6 +23,16 @@ You need to have a development network/blockchain running otherwise it won't fin
 ```bash
 yarn test # run tests
 ```
+
+# How to develop on the Rinkeby test network 
+
+My contract is currently deployed on the Rinkeby test network at [0xFe63E035A1bbA894A614409371A0eb5726eEc09e](https://rinkeby.etherscan.io/address/0xFe63E035A1bbA894A614409371A0eb5726eEc09e). If you want to update the contract and deploy a new one to Rinkeby, you can grab a metamask account (from the rinkeby network) and add ether to it using a [faucet](https://faucets.chain.link/rinkeby) like this one. You then need to grab the private key from that metamask account (the private key is used to sign transactions and you need it because creating a smart contract requires a transaction). You then can then uncomment the rinkeby network in the hardhat.config.ts file and then run the following command.
+
+```bash
+RINKEBY_DEPLOYMENT_ACCOUNT=YOUR_METAMASK_PRIVATE_KEY yarn deploy:rinkeby
+```
+
+Then you have to make sure the frontend is using the right contract address.
 
 ## Errors
 

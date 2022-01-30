@@ -43,6 +43,7 @@ export const Contribute = (
       }
     }
     init()
+    localStorage.setItem("last_page_visited", "contribute")
   }, [ethereum, navigate])
 
   return (
