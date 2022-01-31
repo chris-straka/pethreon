@@ -11,15 +11,17 @@
   ],
   "scripts": {
     "postinstall": "yarn workspace backend run typechain",
-    "compile": "yarn workspace backend run compile",
-    "deploy:rinkeby": "yarn workspace backend run deploy:rinkeby",
-    "test": "yarn workspaces foreach -pi run test",
     "dev": "yarn workspaces foreach -pi run dev",
-    "build": "yarn workspaces foreach run build",
     "backend:dev": "yarn workspace backend run dev",
     "frontend:dev": "yarn workspace frontend run dev",
-    "frontend:build": "yarn workspace frontend run build",
-    "frontend:deploy": "yarn workspace frontend run deploy",
-    "typechain": "yarn workspace backend run typechain"
+    "deploy": "yarn workspace backend run deploy",
+    "deploy:localhost": "yarn workspace backend run deploy:localhost",
+    "deploy:rinkeby": "yarn workspace backend run deploy:rinkeby",
+    "build": "yarn workspaces foreach run build",
+    "build:backend": "yarn workspace backend run build",
+    "build:frontend": "yarn workspace frontend run build",
+    "test": "yarn workspaces foreach -pi run test",
+    "test:backend": "yarn workspace backend run test",
+    "test:frontend": "yarn workspace frontend run test"
   }
 }

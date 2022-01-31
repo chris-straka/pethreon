@@ -13,7 +13,7 @@ const config: HardhatUserConfig = {
     target: "ethers-v5"
   },
   networks: {
-    hardhat: {
+    localhost: {
       chainId: 31337,
       accounts: {
         mnemonic: "test test test test test test test test test test test junk"
@@ -25,7 +25,7 @@ const config: HardhatUserConfig = {
     // }
   },
   // paths: {
-  //   artifacts: '../frontend/src'
+  //   artifacts: '../frontend/src/artifacts'
   // },
   solidity: "0.8.6",
 }

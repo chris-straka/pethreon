@@ -68,7 +68,7 @@ export const Login = (
       <Features className={styles.features} />
       <TypewriterEffect
         className={styles.typewriter}
-        cadence={75}
+        cadence={60}
         delay={1000}
         message={message}
         linkContent={linkContent}
