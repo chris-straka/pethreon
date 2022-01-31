@@ -25,9 +25,15 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositProp
     closeModal()
     setLoading(true)
 
-    let amountInWei: BigNumber = BigNumber.from(amount)
-    if (currency === Denomination.ETHER) amountInWei = utils.parseEther(amount)
-    if (currency === Denomination.GWEI) amountInWei = utils.parseUnits(amount, "gwei")
+    let amountInWei: BigNumber;
+
+    if (currency === Denomination.ETHER) {
+      amountInWei = utils.parseUnits(amount, "ether")
+    } else if (currency === Denomination.GWEI) {
+      amountInWei = utils.parseUnits(amount, "gwei")
+    } else {
+      amountInWei = BigNumber.from(amount)
+    }
 
     try {
       await deposit(amountInWei)
