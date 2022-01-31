@@ -1,10 +1,10 @@
-import { ethers, providers, BigNumber } from "ethers"
+import { providers, BigNumber } from "ethers"
 import { EthereumWindow } from "./utils";
 import { Pethreon__factory } from "./types/factories/Pethreon__factory"
 
 // localhost 0x5FbDB2315678afecb367f032d93F642f64180aa3
 // rinkeby   0xFe63E035A1bbA894A614409371A0eb5726eEc09e
-const PETHREON_CONTRACT_ADDRESS = "0xFe63E035A1bbA894A614409371A0eb5726eEc09e"
+const PETHREON_CONTRACT_ADDRESS = process.env.REACT_APP_CONTRACT_ADDRESS || "0x5FbDB2315678afecb367f032d93F642f64180aa3"
 
 function initWithProvider() {
   const { ethereum } = window as EthereumWindow         // check if they have metamask installed (ethereum)
@@ -15,7 +15,6 @@ function initWithProvider() {
 function initWithSigner() {
   const { ethereum } = window as EthereumWindow         // check if they have metamask installed (ethereum)
   const provider = new providers.Web3Provider(ethereum) // grab their wallet          (Provider)
-  const prov = ethers.getDefaultProvider()
   const signer = provider.getSigner()                   // grab their current account (Signer)
   return Pethreon__factory.connect(PETHREON_CONTRACT_ADDRESS, signer)
 }

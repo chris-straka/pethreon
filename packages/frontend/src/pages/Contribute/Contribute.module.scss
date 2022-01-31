@@ -39,6 +39,7 @@
 
   .userBalance {
     grid-area: userBalance;
+    align-self: end;
     margin-left: clamp(30px, 4vw, 64px);
     font-size: clamp(24px, 3vw + 16px, 144px);
   }
@@ -46,6 +47,7 @@
   .userAddress {
     grid-area: userAddress;
     display: block;
+    place-self: center start;
     margin-left: clamp(30px, 4vw, 64px);
     font-size: clamp(0.2rem, 0.4vw + 1rem, 5rem);
   }
