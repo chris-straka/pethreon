@@ -1,24 +1,13 @@
-/* I want this stuff to be accessible everywhere, therefore I'm not making it a CSS module */
+// I want this stuff to be accessible everywhere, therefore I'm not making it a CSS module
 
 @font-face {
   font-family: Cute;
-  src: url(./assets/Cutesy.woff2) format("woff2");
+  src: url(/fonts/Cutesy.woff2) format("woff2");
 }
 
 @font-face {
   font-family: aileron;
-  src: url(./assets/Aileron-Regular.woff2) format("woff2");
-}
-
-@font-face {
-  font-family: aileron;
-  src: url(./assets/Aileron-Light.woff2) format("woff2");
-  font-weight: 300;
-}
-
-@font-face {
-  font-family: aileron;
-  src: url(./assets/Aileron-UltraLight.woff2) format("woff2");
+  src: url(/fonts/Aileron-UltraLight.woff2) format("woff2");
   font-weight: 200;
 }
 
