@@ -2,9 +2,9 @@ import { ethers, providers, BigNumber } from "ethers"
 import { EthereumWindow } from "./utils";
 import { Pethreon__factory } from "./types/factories/Pethreon__factory"
 
-// Netlify should define a CONTRACT_ADDRESS environment variable
-// It should currently be 
-const PETHREON_CONTRACT_ADDRESS = process.env.REACT_APP_CONTRACT_ADDRESS || "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+// localhost 0x5FbDB2315678afecb367f032d93F642f64180aa3
+// rinkeby   0xFe63E035A1bbA894A614409371A0eb5726eEc09e
+const PETHREON_CONTRACT_ADDRESS = "0xFe63E035A1bbA894A614409371A0eb5726eEc09e"
 
 function initWithProvider() {
   const { ethereum } = window as EthereumWindow         // check if they have metamask installed (ethereum)

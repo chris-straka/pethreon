@@ -2,7 +2,9 @@
 
 You need to [install the latest version of yarn](https://yarnpkg.com/getting-started/install). Then you need to [download the metamask browser extension](https://metamask.io/). You might want to use a different [browser profile](https://youtu.be/Ik8-xn4DyCo?t=15) so you can keep your real metamask account separate from your development metamask account (so you don't accidentally add real money to the development account). 
 
-After you install metamask, sign in by clicking "import a metamask wallet using Secret Recovery Phrase". The secret phrase you need to use is "test test test test test test test test test test test junk". This mnemonic will give you a bunch of accounts with 10,000 fake ether so you can use them in the local fake development network (which should be set to run on localhost:8545). Do not add real money to this account! Once you're done importing that mnemonic, go to the advanced settings and enable all the developer stuff (show test networks, advanced gas controls, hex data, conversion on test networks, and customize transaction nonce). Then run the following commands in your terminal at the root of the project.
+After you install metamask, sign in by clicking "import a metamask wallet using Secret Recovery Phrase". The secret phrase you need to use is "test test test test test test test test test test test junk". This mnemonic will give you a bunch of accounts with 10,000 fake ether so you can use them in the local fake development network (which should be set to run on localhost:8545). Do not add real money to this account! Once you're done importing that mnemonic, go to the advanced settings and enable all the developer stuff (show test networks, advanced gas controls, hex data, conversion on test networks, and customize transaction nonce). 
+
+Then go to packages/frontend/src/pethreon.ts and switch the contract address to the local development address. There's a more elegant way of Then run the following commands in your terminal at the root of the project.
 
 ```bash
 yarn     # to install dependencies 
