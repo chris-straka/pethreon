@@ -164,14 +164,14 @@ You can't build a dynamic array in memory in solidity.
 
 ### Frontend 
 
-- How do you use BEM (specifically the --modifer part) in react using CSS modules? TODO
+- How do you use BEM (specifically the modifier part "--") in react with CSS modules?
+- How do I preload and prefetch fonts in create-react-app?
 - [Certain animations can hurt a11y](https://developer.mozilla.org/en-US/docs/Web/CSS/animation#accessibility_concerns)
 - [window.opener() weirdness](https://stackoverflow.com/questions/57628890)
 - Even though my "main" content is split between two pages, I should only use one main HTML tag.
 - It's a good idea to make the login button the same color as [the primary color](https://ux.stackexchange.com/questions/104224)
 - innerHTML is only scary when it's in the user's hand, not yours (don't quote me)
 - In ethers, to get a lower denomination you "parse" and higher denomination via "format"
-- 🙅 onClick={function(arg)} -> onClick(() => function(arg))
 - The type of useState()'s setState handler is `Dispatch<SetStateAction<type>>` where type is the type of the state you're setting
 - The type of an event handler is `(event: ChangeEvent<HTMLElement>) => type`
 - [React.FC<>](https://github.com/typescript-cheatsheets/react#function-components) is discouraged, use interfaces instead.
