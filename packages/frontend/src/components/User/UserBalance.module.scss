@@ -1,6 +1,7 @@
 .userBalance {
-  color: var(--text); // comes from root index.scss
+  font-family: aileron;
   font-size: inherit;
+  color: var(--text); // comes from root index.scss
   max-width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
@@ -9,8 +10,8 @@
 }
 
 .eth {
-  font-size: inherit;
   font-family: aileron;
+  font-size: inherit;
   font-weight: 200;
   margin-right: 14px;
   user-select: none;

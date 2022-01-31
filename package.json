@@ -12,8 +12,8 @@
   "scripts": {
     "postinstall": "yarn workspace backend run typechain",
     "dev": "yarn workspaces foreach -pi run dev",
-    "backend:dev": "yarn workspace backend run dev",
-    "frontend:dev": "yarn workspace frontend run dev",
+    "dev:backend": "yarn workspace backend run dev",
+    "dev:frontend": "yarn workspace frontend run dev",
     "deploy": "yarn workspace backend run deploy",
     "deploy:localhost": "yarn workspace backend run deploy:localhost",
     "deploy:rinkeby": "yarn workspace backend run deploy:rinkeby",
