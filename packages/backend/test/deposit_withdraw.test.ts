@@ -1,7 +1,7 @@
 import { ContractFactory, Signer } from 'ethers';
 import { ethers } from 'hardhat';
 import { expect } from 'chai';
-import { Pethreon } from "../frontend/src/types/Pethreon";
+import { Pethreon } from "../../frontend/src/types/Pethreon";
 import "@nomiclabs/hardhat-ethers" // stops the error until I figure it out
 
 describe("Pethreon", () => {

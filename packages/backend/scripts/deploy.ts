@@ -1,5 +1,5 @@
-import "@nomiclabs/hardhat-ethers" // stops the error
 import { ethers } from "hardhat"
+import "@nomiclabs/hardhat-ethers" // stops the error
 
 async function main() {
   const PethreonFactory = await ethers.getContractFactory("Pethreon");

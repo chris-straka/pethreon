@@ -1,5 +1,5 @@
 import { ContractFactory, Signer } from 'ethers';
-import { Pethreon } from "../frontend/src/types/Pethreon";
+import { Pethreon } from "../../frontend/src/types/Pethreon";
 import { ethers, network } from 'hardhat';
 import { expect } from 'chai';
 import { PledgeType } from "./types"
@@ -56,14 +56,14 @@ describe("Pethreon", () => {
     })
 
     it('The creator should not get any of the cancelled payments', async function () {
-      const creatorBalanceBefore = await Pethreon.connect(foo).getCreatorBalance()
+      const creatorBalanceBefore = await Pethreon.connect(foo).getCreatorBalanceInWei()
       expect(creatorBalanceBefore).to.equal(0)
 
       await Pethreon.cancelPledge(fooAddress)
       await network.provider.send("evm_increaseTime", [86400 * 5])
       await network.provider.send("evm_mine")
 
-      const creatorBalanceAfter = await Pethreon.connect(foo).getCreatorBalance()
+      const creatorBalanceAfter = await Pethreon.connect(foo).getCreatorBalanceInWei()
       expect(creatorBalanceBefore).to.equal(creatorBalanceAfter)
     })
   })

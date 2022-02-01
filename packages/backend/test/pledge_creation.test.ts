@@ -1,9 +1,9 @@
-import { ContractFactory, Signer } from 'ethers';
-import { ethers, network } from 'hardhat';
 import { expect } from 'chai';
-import { Pethreon } from "../frontend/src/types/Pethreon";
+import { Pethreon } from "../../frontend/src/types";
 import { PledgeStatus, PledgeType } from "./types"
-import "@nomiclabs/hardhat-ethers" // stops the error until I figure it out
+import { ethers, network } from 'hardhat';
+import { ContractFactory, Signer } from 'ethers';
+import "@nomiclabs/hardhat-ethers" // stops the hardhat error
 
 describe("Pethreon", () => {
   let PethreonFactory: ContractFactory
@@ -42,26 +42,26 @@ describe("Pethreon", () => {
     })
 
     it("The creator should be receiving money in the correct increments", async () => {
-      expect(await Pethreon.connect(foo).getCreatorBalance()).to.equal(0)
+      expect(await Pethreon.connect(foo).getCreatorBalanceInWei()).to.equal(0)
       expect(await Pethreon.getContributorBalanceInWei()).to.equal(97)
 
       await network.provider.send("evm_increaseTime", [86400])
       await network.provider.send("evm_mine")
-      expect(await Pethreon.connect(foo).getCreatorBalance()).to.equal(1)
+      expect(await Pethreon.connect(foo).getCreatorBalanceInWei()).to.equal(1)
 
       await network.provider.send("evm_increaseTime", [86400])
       await network.provider.send("evm_mine")
-      expect(await Pethreon.connect(foo).getCreatorBalance()).to.equal(2)
+      expect(await Pethreon.connect(foo).getCreatorBalanceInWei()).to.equal(2)
 
       await network.provider.send("evm_increaseTime", [86400])
       await network.provider.send("evm_mine")
-      expect(await Pethreon.connect(foo).getCreatorBalance()).to.equal(3)
+      expect(await Pethreon.connect(foo).getCreatorBalanceInWei()).to.equal(3)
 
       await network.provider.send("evm_increaseTime", [86400])
       await network.provider.send("evm_mine")
       expect(await Pethreon.getContributorBalanceInWei()).to.equal(97)
-      expect(await Pethreon.connect(foo).getCreatorBalance()).to.equal(3)
-      expect(await (await Pethreon.connect(foo).getCreatorBalance())).to.equal(3)
+      expect(await Pethreon.connect(foo).getCreatorBalanceInWei()).to.equal(3)
+      expect(await (await Pethreon.connect(foo).getCreatorBalanceInWei())).to.equal(3)
 
       const pledges = await Pethreon.connect(foo).getCreatorPledges()
       expect(pledges.length).to.equal(1)
@@ -84,7 +84,7 @@ describe("Pethreon", () => {
       const creatorPledges = await Pethreon.connect(foo).getCreatorPledges()
       expect(creatorPledges.length).to.equal(1)
 
-      expect(await Pethreon.connect(foo).getCreatorBalance()).to.equal(3)  // hasn't been a day yet for the 2nd pledge
+      expect(await Pethreon.connect(foo).getCreatorBalanceInWei()).to.equal(3)  // hasn't been a day yet for the 2nd pledge
     })
 
     it('Creators should have old pledges show up as expired', async function () {
@@ -102,14 +102,14 @@ describe("Pethreon", () => {
 
       const pledges = await Pethreon.connect(foo).getCreatorPledges()
       expect(pledges.length).to.equal(2)
-      expect(await Pethreon.connect(foo).getCreatorBalance()).to.equal(0)
+      expect(await Pethreon.connect(foo).getCreatorBalanceInWei()).to.equal(0)
 
       await network.provider.send("evm_increaseTime", [86400 * 3])
       await network.provider.send("evm_mine")
 
-      expect(await Pethreon.connect(foo).getCreatorBalance()).to.equal(6)
+      expect(await Pethreon.connect(foo).getCreatorBalanceInWei()).to.equal(6)
       await Pethreon.connect(foo).creatorWithdraw()
-      expect(await Pethreon.connect(foo).getCreatorBalance()).to.equal(0)
+      expect(await Pethreon.connect(foo).getCreatorBalanceInWei()).to.equal(0)
     })
   })
 });

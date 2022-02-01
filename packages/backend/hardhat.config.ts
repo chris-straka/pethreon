@@ -27,7 +27,7 @@ const config: HardhatUserConfig = {
   // paths: {
   //   artifacts: '../frontend/src/artifacts'
   // },
-  solidity: "0.8.6",
+  solidity: "0.8.11",
 }
 
 export default config

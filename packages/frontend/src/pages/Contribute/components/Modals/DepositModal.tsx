@@ -32,15 +32,16 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositProp
     } else if (currency === Denomination.GWEI) {
       amountInWei = utils.parseUnits(amount, "gwei")
     } else {
-      amountInWei = BigNumber.from(amount)
+      const wholeNumberAmount = Math.floor(+amount)
+      amountInWei = BigNumber.from(wholeNumberAmount)
     }
 
     try {
-      await deposit(amountInWei)
-      const newBalance = await getContributorBalanceInWei()
-      const newBalanceEther = await utils.formatEther(newBalance)
-      const newBalanceEtherString = await newBalanceEther.toString()
-      setBalance(newBalanceEtherString)
+      const depositReceipt = await deposit(amountInWei) as any
+      const newBalanceInWei = depositReceipt.events[0].args.newBalance
+      const newBalanceInEther = await utils.formatEther(newBalanceInWei)
+      const newBalanceInEtherString = await newBalanceInEther.toString()
+      setBalance(newBalanceInEtherString)
       setLoading(false)
     } catch (error) {
       setLoading(false)

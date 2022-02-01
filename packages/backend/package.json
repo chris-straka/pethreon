@@ -3,7 +3,8 @@
   "scripts": {
     "postinstall": "yarn typechain",
     "build": "yarn typechain",
-    "dev": "hardhat node",
+    "dev": "hardhat node & yarn deploy:localhost",
+    "test": "hardhat test",
     "deploy:localhost": "hardhat run scripts/deploy.ts --network localhost",
     "deploy:rinkeby": "hardhat run scripts/deploy.ts --network rinkeby",
     "typechain": "hardhat typechain"

@@ -1,13 +1,11 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.6;
+pragma solidity 0.8.11;
 
 import "hardhat/console.sol";
 
 contract Pethreon {
     event ContributorDeposited(
-        uint256 period,
-        address contributor,
-        uint256 amount
+        uint256 newBalance
     );
     event PledgeCreated(
         uint256 period,
@@ -68,7 +66,7 @@ contract Pethreon {
     mapping(address => mapping(uint256 => uint256)) expectedPayments; // creatorAddress => (periodNumber => payment)
 
     function currentPeriod() public view returns (uint256 periodNumber) {
-        // it rounds DOWN 9 / 10 -> 0!
+        // it rounds down i.e. 9 / 10 -> 0
         return (block.timestamp - startOfEpoch) / period; // how many periods (days) has it been since the beginning?
     }
 
@@ -97,7 +95,7 @@ contract Pethreon {
     function deposit() public payable returns (uint256 newBalance) {
         require(msg.value > 0, "Can't deposit 0");
         contributorBalances[msg.sender] += msg.value;
-        emit ContributorDeposited(currentPeriod(), msg.sender, msg.value);
+        emit ContributorDeposited(contributorBalances[msg.sender]);
         return contributorBalances[msg.sender];
     }
 

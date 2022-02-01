@@ -21,12 +21,8 @@ function initWithSigner() {
 
 export async function deposit(amount: BigNumber) {
   const contract = initWithSigner()
-  try {
-    const transaction = await contract.deposit({ value: amount })
-    return await transaction.wait()
-  } catch(error) {
-    window.alert(error)
-  }
+  const transaction = await contract.deposit({ value: amount })
+  return await transaction.wait()
 }
 
 // Need to turn it into a string with await toString()

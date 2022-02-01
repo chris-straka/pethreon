@@ -152,6 +152,10 @@ In order to send a transaction with input data, you need to use a library like w
 
 If you want the smart contract to send ether to someone else, then you need to use send(), transfer() or call() functions. These days however, only [call()](https://ethereum.stackexchange.com/questions/78124/) is recommended. The address that you're sending money to must also be marked payable in the smart contract code i.e. payable(address). Every contract starts off at 0 balance, and your contract can see its own balance using address(this).balance. Sites like [Remix](https://remix.ethereum.org/) will also show you. In ethers.js lingo, a "provider" is a connection to Ethereum, a "signer" is an account.
 
+### Getting the return value of a payable function
+
+[This post was helpful](https://ethereum.stackexchange.com/questions/31399). When you create a transaction in solidity, all you get back is the transaction result and not the return value of the function.
+
 ## Misc
 
 ### Backend
