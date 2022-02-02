@@ -3420,7 +3420,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:^17.0.12":
+"@types/node@npm:*, @types/node@npm:^17.0.14":
   version: 17.0.14
   resolution: "@types/node@npm:17.0.14"
   checksum: cc059ce29686bad5890685f45741826a1a7d1d27382464f6d5fa00b72ba239f6f5b8245a7fa5a56c23ce928030dc76b165a4ab0b86dc078f05b44597d8fe1a46
@@ -5615,10 +5615,10 @@ __metadata:
     "@typechain/hardhat": ^4.0.0
     "@types/chai": ^4.3.0
     "@types/mocha": ^9.1.0
-    "@types/node": ^17.0.12
+    "@types/node": ^17.0.14
     chai: ^4.3.6
     ethereum-waffle: ^3.4.0
-    ethers: ^5.5.3
+    ethers: ^5.5.4
     hardhat: ^2.8.3
     ts-node: ^10.4.0
     typechain: ^7.0.0
@@ -9137,7 +9137,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ethers@npm:^5.0.1, ethers@npm:^5.0.2, ethers@npm:^5.4.7, ethers@npm:^5.5.2, ethers@npm:^5.5.3":
+"ethers@npm:^5.0.1, ethers@npm:^5.0.2, ethers@npm:^5.4.7, ethers@npm:^5.5.2, ethers@npm:^5.5.4":
   version: 5.5.4
   resolution: "ethers@npm:5.5.4"
   dependencies:
@@ -19115,9 +19115,9 @@ __metadata:
   linkType: hard
 
 "type@npm:^2.5.0":
-  version: 2.5.0
-  resolution: "type@npm:2.5.0"
-  checksum: 0fe1bb4e8ba298b2b245fdc6bca6178887e29e2134d231e468366615b3adffd651d464eb51d8b15f8cfd168577c282a17e19bf80f036a60d4df16308a83a93c4
+  version: 2.6.0
+  resolution: "type@npm:2.6.0"
+  checksum: 80da01fcc0f6ed5a253dc326530e134000a8f66ea44b6d9687cde2f894f0d0b2486595b0cd040a64f7f79dc3120784236f8c9ef667a8aef03984e049b447cfb4
   languageName: node
   linkType: hard
 
