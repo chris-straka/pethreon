@@ -23,7 +23,6 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositProp
     if (+amount <= 0) return window.alert("Please insert an amount")
 
     closeModal()
-    setLoading(true)
 
     let amountInWei: BigNumber;
 
@@ -36,8 +35,11 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositProp
       amountInWei = BigNumber.from(wholeNumberAmount)
     }
 
+    setLoading(true)
+
     try {
       const depositReceipt = await deposit(amountInWei) as any
+      console.log(depositReceipt)
       const newBalanceInWei = depositReceipt.events[0].args.newBalance
       const newBalanceInEther = await utils.formatEther(newBalanceInWei)
       const newBalanceInEtherString = await newBalanceInEther.toString()
