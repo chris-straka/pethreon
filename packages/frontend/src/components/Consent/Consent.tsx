@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react"
 import styles from "./Consent.module.scss"
 
 interface ConsentProps {
-  className: string,
+  className?: string,
   setConsent: Dispatch<SetStateAction<boolean>>,
 }
 
@@ -11,7 +11,7 @@ export const Consent = ({ className, setConsent }: ConsentProps) => {
     <label className={`${styles.checkbox} ${className}`} htmlFor="consent">
       🤝 I accept the risks️️
       <input
-        className={`${styles.checkbox__input} ${className}`}
+        className={`${styles.checkbox__input}`}
         required
         type="checkbox"
         id="consent"

@@ -3,7 +3,7 @@ import { motion } from "framer-motion"
 import { useNavigate } from 'react-router-dom';
 import { EthereumWindow, MetamaskError } from '../../utils';
 import { TypewriterEffect, Features, Video, Pethreon, LoginContainer } from './components';
-import { Footer } from "../../components"
+import { Consent, Footer } from "../../components"
 import styles from "./Login.module.scss"
 
 interface LoginProps {
@@ -38,7 +38,7 @@ export const Login = (
 
   async function login() {
     let lastVisited = localStorage.getItem("last_page_visited")
-      setMessage("Logging in... You might have to click the metamask extension in your browser")
+    setMessage("Logging in... You might have to click the metamask extension in your browser")
     try {
       if (ethereum.isConnected) {
         await ethereum.request({ method: 'eth_requestAccounts' })

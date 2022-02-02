@@ -2,32 +2,38 @@
   position: relative;
   cursor: pointer;
   user-select: none;
-  margin-bottom: 22px;
-  transition: all 0.2s;
-  width: fit-content;
+  transition: all 0.3s;
 
+  // HIDE THE CHECKBOX
   &__input {
-    transition: all 0.2s;
-    cursor: pointer;
-    position: absolute;
     opacity: 0;
     height: 0;
     width: 0;
   }
 
+  // SO I CAN USE THIS AS MY CHECKBOX INSTEAD
   &__span {
-    transition: all 0.2s;
     position: absolute;
+    top: 50%;
     height: 16px;
     width: 16px;
     background-color: #eee;
-    margin-left: 12px;
+    margin: -7px 0 0 12px;
+    outline: 2px solid transparent;
     border-radius: 2px;
-    top: 50%;
-    margin-top: -7px;
+    transition: all 0.3s;
   }
 
-  & .checkbox__input + .checkbox__span {
+  &:hover &__span {
+    background-color: var(--primary-light);
+  }
+
+  &__input:focus-visible + &__span {
+    outline-color: var(--secondary);
+    transition: all 0.3s;
+  }
+
+  &__input + &__span {
     &::after {
       content: "✓";
       position: absolute;
@@ -37,34 +43,11 @@
     }
   }
 
-  & .checkbox__input:checked + .checkbox__span {
+  &__input:checked + &__span {
     background-color: var(--primary-light);
     &::after {
-      content: "✓";
-      position: absolute;
-      top: -5px;
       opacity: 1;
       transition: all 0.2s;
     }
-  }
-
-  &:hover .checkbox__input + .checkbox__span {
-    transition: all 0.2s;
-    background-color: var(--primary-light);
-  }
-
-  &:focus-within .checkbox__input:not(:checked) + .checkbox__span {
-    transition: all 0.2s;
-    background-color: var(--secondary);
-  }
-
-  &:focus-within .checkbox__input:checked + .checkbox__span {
-    transition: all 0.2s;
-    outline: 2px solid var(--secondary);
-  }
-
-  &:hover .checkbox__input:checked + .checkbox__span {
-    transition: all 0.2s;
-    background-color: var(--secondary)
   }
 }
