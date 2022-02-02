@@ -182,3 +182,5 @@ You can't build a dynamic array in memory in solidity.
 - [Opacity slows down rendering](https://stackoverflow.com/questions/38523826) so use RGBA instead
 - [Responsive screen sizes](https://www.browserstack.com/guide/ideal-screen-sizes-for-responsive-design)
 - [All the new iphone sizes](https://stackoverflow.com/questions/58087446)
+
+https://stackoverflow.com/questions/70733361/why-contract-event-data-is-undefined-on-a-testnet-but-not-in-a-local-node

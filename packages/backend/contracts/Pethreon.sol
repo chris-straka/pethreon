@@ -5,7 +5,7 @@ import "hardhat/console.sol";
 
 contract Pethreon {
     event ContributorDeposited(
-        uint256 newBalance
+        uint256 indexed newBalance
     );
     event PledgeCreated(
         uint256 period,
