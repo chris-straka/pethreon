@@ -10,17 +10,16 @@
   ],
   "scripts": {
     "postinstall": "yarn workspace @pethreon/backend typechain",
-    "dev": "yarn workspaces foreach -pi dev",
+    "dev": "yarn workspaces foreach -pi run dev",
     "dev:backend": "yarn workspace @pethreon/backend dev",
-    "dev:frontend": "yarn workspace @pethreon/frontend run dev",
+    "dev:frontend": "yarn workspace @pethreon/frontend dev",
     "build": "yarn workspaces foreach run build",
-    "build:backend": "yarn workspace @pethreon/backend run build",
-    "build:frontend": "yarn workspace @pethreon/frontend run build",
+    "build:backend": "yarn workspace @pethreon/backend build",
+    "build:frontend": "yarn workspace @pethreon/frontend build",
     "test": "yarn workspaces foreach -pi run test",
-    "test:backend": "yarn workspace @pethreon/backend run test",
-    "test:frontend": "yarn workspace @pethreon/frontend run test",
-    "deploy": "yarn workspace backend run deploy",
-    "deploy:localhost": "yarn workspace @pethreon/backend run deploy:localhost",
-    "deploy:rinkeby": "yarn workspace @pethreon/backend run deploy:rinkeby"
+    "test:backend": "yarn workspace @pethreon/backend test",
+    "test:frontend": "yarn workspace @pethreon/frontend test",
+    "deploy:localhost": "yarn workspace @pethreon/backend deploy:localhost",
+    "deploy:rinkeby": "yarn workspace @pethreon/backend deploy:rinkeby"
   }
 }

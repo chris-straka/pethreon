@@ -26,12 +26,7 @@ yarn test:frontend
 
 # How to develop on the Rinkeby test network 
 
-My contract is currently deployed on the Rinkeby test network at [0xFe63E035A1bbA894A614409371A0eb5726eEc09e](https://rinkeby.etherscan.io/address/0xFe63E035A1bbA894A614409371A0eb5726eEc09e). You can't update smart contracts after they've already been deployed. So if you want to update the smart contract deployed at rinkeby, you're going to have to deploy a completely new contract and point the frontend to that new contract address. You're going to need "rinkeby ether" to deploy to Rinkeby, which you can get from a [faucet](https://faucets.chain.link/rinkeby). After you fund your rinkeby account, you then need to grab your private key which you can get in the metamask settings. You then have to put that private key in a dotenv file and make sure that you don't commit it to github. I use dotenv for local environment variables, and then I have [netlify](https://www.netlify.com/) override them later for my deployment.
-
-```bash
-RINKEBY_ACCOUNT=YOUR_RINKEBY_ACCOUNT_PRIVATE_KEY
-RINKEBY_NODE_INFURA_API=YOU_HAVE_TO_SIGNUP_AT_INFURA_AND_GET_YOUR_OWN_ETHEREUM_NODE_NOT_MINE
-```
+My contract is currently deployed on the Rinkeby test network at [0xa6Af639091752d535e9B3B826e9B91A575205390](https://rinkeby.etherscan.io/address/0xFe63E035A1bbA894A614409371A0eb5726eEc09e). You can't update smart contracts after they've already been deployed. So you're going to have to deploy a completely new contract and point the frontend to that new contract address. You're going to need "rinkeby ether" to deploy to Rinkeby too, which you can get from a [faucet](https://faucets.chain.link/rinkeby). After you fund your rinkeby account, you need to grab your private key from the metamask settings and put it in a .env file in the backend package. You can find more information in the .env.example files in both the backend and the frontend.
 
 # Common Errors
 
