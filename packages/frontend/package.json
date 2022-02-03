@@ -1,5 +1,5 @@
 {
-  "name": "frontend",
+  "name": "@pethreon/frontend",
   "version": "0.1.0",
   "scripts": {
     "dev": "react-scripts start",

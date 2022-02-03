@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "@pethreon/backend",
   "scripts": {
     "postinstall": "yarn typechain",
     "build": "yarn typechain",

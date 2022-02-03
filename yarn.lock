@@ -2539,6 +2539,52 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@pethreon/backend@workspace:packages/backend":
+  version: 0.0.0-use.local
+  resolution: "@pethreon/backend@workspace:packages/backend"
+  dependencies:
+    "@nomiclabs/hardhat-ethers": ^2.0.4
+    "@nomiclabs/hardhat-waffle": ^2.0.2
+    "@typechain/ethers-v5": ^9.0.0
+    "@typechain/hardhat": ^4.0.0
+    "@types/chai": ^4.3.0
+    "@types/mocha": ^9.1.0
+    "@types/node": ^17.0.14
+    chai: ^4.3.6
+    ethereum-waffle: ^3.4.0
+    ethers: ^5.5.4
+    hardhat: ^2.8.3
+    ts-node: ^10.4.0
+    typechain: ^7.0.0
+    typescript: ^4.5.5
+  languageName: unknown
+  linkType: soft
+
+"@pethreon/frontend@workspace:packages/frontend":
+  version: 0.0.0-use.local
+  resolution: "@pethreon/frontend@workspace:packages/frontend"
+  dependencies:
+    "@testing-library/jest-dom": ^5.16.1
+    "@testing-library/react": ^12.1.2
+    "@testing-library/user-event": ^13.5.0
+    "@types/jest": ^26.0.24
+    "@types/node": ^15.14.9
+    "@types/react": ^17.0.38
+    "@types/react-dom": ^17.0.11
+    "@types/react-router-dom": ^5.3.2
+    ethers: ^5.5.2
+    framer-motion: ^4.1.17
+    react: ^17.0.2
+    react-dom: ^17.0.2
+    react-router-dom: ^6.2.1
+    react-scripts: 5.0.0
+    sass: ^1.45.1
+    typescript: ^4.5.4
+    web-vitals: ^2.1.2
+    web3modal: ^1.9.4
+  languageName: unknown
+  linkType: soft
+
 "@pmmmwh/react-refresh-webpack-plugin@npm:^0.5.3":
   version: 0.5.4
   resolution: "@pmmmwh/react-refresh-webpack-plugin@npm:0.5.4"
@@ -5633,27 +5679,6 @@ __metadata:
   checksum: 0777ae0c735ce1cbfc856d627589ed9aae212b84fb0c03c368b55e6c5d3507841780052808d0ad46e18a2ba516e93d55eeed8cd967f3b2938822dfeccfb2a16d
   languageName: node
   linkType: hard
-
-"backend@workspace:packages/backend":
-  version: 0.0.0-use.local
-  resolution: "backend@workspace:packages/backend"
-  dependencies:
-    "@nomiclabs/hardhat-ethers": ^2.0.4
-    "@nomiclabs/hardhat-waffle": ^2.0.2
-    "@typechain/ethers-v5": ^9.0.0
-    "@typechain/hardhat": ^4.0.0
-    "@types/chai": ^4.3.0
-    "@types/mocha": ^9.1.0
-    "@types/node": ^17.0.14
-    chai: ^4.3.6
-    ethereum-waffle: ^3.4.0
-    ethers: ^5.5.4
-    hardhat: ^2.8.3
-    ts-node: ^10.4.0
-    typechain: ^7.0.0
-    typescript: ^4.5.5
-  languageName: unknown
-  linkType: soft
 
 "backoff@npm:^2.5.0":
   version: 2.5.0
@@ -9880,31 +9905,6 @@ __metadata:
   checksum: 13ea8b08f91e669a64e3ba3a20eb79d7ca5379a81f1ff7f4310d54e2320645503cc0c78daedc93dfb6191287295f6479544a649c64d8e41a1c0fb0c221552346
   languageName: node
   linkType: hard
-
-"frontend@workspace:packages/frontend":
-  version: 0.0.0-use.local
-  resolution: "frontend@workspace:packages/frontend"
-  dependencies:
-    "@testing-library/jest-dom": ^5.16.1
-    "@testing-library/react": ^12.1.2
-    "@testing-library/user-event": ^13.5.0
-    "@types/jest": ^26.0.24
-    "@types/node": ^15.14.9
-    "@types/react": ^17.0.38
-    "@types/react-dom": ^17.0.11
-    "@types/react-router-dom": ^5.3.2
-    ethers: ^5.5.2
-    framer-motion: ^4.1.17
-    react: ^17.0.2
-    react-dom: ^17.0.2
-    react-router-dom: ^6.2.1
-    react-scripts: 5.0.0
-    sass: ^1.45.1
-    typescript: ^4.5.4
-    web-vitals: ^2.1.2
-    web3modal: ^1.9.4
-  languageName: unknown
-  linkType: soft
 
 "fs-extra@npm:^0.30.0":
   version: 0.30.0
