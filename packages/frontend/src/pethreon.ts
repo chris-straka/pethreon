@@ -3,7 +3,6 @@ import { EthereumWindow } from "./utils";
 import { Pethreon__factory } from "./types/factories/Pethreon__factory"
 
 // localhost 0x5FbDB2315678afecb367f032d93F642f64180aa3
-// rinkeby   0xFe63E035A1bbA894A614409371A0eb5726eEc09e
 const PETHREON_CONTRACT_ADDRESS = process.env.REACT_APP_CONTRACT_ADDRESS || "0x5FbDB2315678afecb367f032d93F642f64180aa3"
 
 function initWithProvider() {
