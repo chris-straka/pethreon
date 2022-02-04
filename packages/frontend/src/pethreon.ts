@@ -19,7 +19,6 @@ function initWithSigner() {
 }
 
 export async function deposit(amount: BigNumber) {
-  console.log(PETHREON_CONTRACT_ADDRESS)
   const contract = initWithSigner()
   const transaction = await contract.deposit({ value: amount })
   return await transaction.wait()
@@ -28,6 +27,7 @@ export async function deposit(amount: BigNumber) {
 // Need to turn it into a string with await toString()
 // Then turn it into ether with utils.formatEther()
 export async function getContributorBalanceInWei() {
+  console.log(PETHREON_CONTRACT_ADDRESS)
   const contract = initWithProvider()
   return await contract.getContributorBalanceInWei()
 }
