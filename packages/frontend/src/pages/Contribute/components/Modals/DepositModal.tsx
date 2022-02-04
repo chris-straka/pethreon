@@ -1,7 +1,7 @@
 import { BigNumber, utils } from "ethers"
 import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from "react"
 import { Consent, CurrencyButton, CurrencyButtons, CurrencyField, Disclaimer, Submit } from "../../../../components"
-import { deposit, getContributorBalanceInWei } from "../../../../pethreon"
+import { deposit } from "../../../../pethreon"
 import { DepositSVG } from "../../../../svgs"
 import { Denomination, MetamaskError } from "../../../../utils"
 import styles from "./DepositModal.module.scss"
@@ -39,7 +39,6 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositProp
 
     try {
       const depositReceipt = await deposit(amountInWei) as any
-      console.log(depositReceipt)
       const newBalanceInWei = depositReceipt.events[0].args.newBalance
       const newBalanceInEther = await utils.formatEther(newBalanceInWei)
       const newBalanceInEtherString = await newBalanceInEther.toString()

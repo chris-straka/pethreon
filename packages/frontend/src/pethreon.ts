@@ -25,8 +25,6 @@ export async function deposit(amount: BigNumber) {
   return await transaction.wait()
 }
 
-// Need to turn it into a string with await toString()
-// Then turn it into ether with utils.formatEther()
 export async function getContributorBalanceInWei() {
   const contract = initWithProvider()
   return await contract.getContributorBalanceInWei()

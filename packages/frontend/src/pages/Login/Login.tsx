@@ -3,7 +3,7 @@ import { motion } from "framer-motion"
 import { useNavigate } from 'react-router-dom';
 import { EthereumWindow, MetamaskError } from '../../utils';
 import { TypewriterEffect, Features, Video, Pethreon, LoginContainer } from './components';
-import { Consent, Footer } from "../../components"
+import { Footer } from "../../components"
 import styles from "./Login.module.scss"
 
 interface LoginProps {

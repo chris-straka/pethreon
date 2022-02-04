@@ -34,6 +34,7 @@ export const Contribute = (
         const balance = await getContributorBalanceInWei()
         const balanceEther = await utils.formatEther(balance)
         const balanceEtherString = await balanceEther.toString()
+        console.log(balanceEtherString)
         setBalance(balanceEtherString)
         const pledges = await getContributorPledges()
         setPledges(pledges)
