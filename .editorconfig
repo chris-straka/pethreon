@@ -1,6 +1,6 @@
 root = true # top most editor-config file
 
-[packages/**.ts{,x}]
+[packages/**.tsx]
 indent_style = space
 indent_size = 2
 
