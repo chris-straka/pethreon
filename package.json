@@ -19,6 +19,7 @@
     "test": "yarn workspaces foreach -pi run test",
     "test:backend": "yarn workspace @pethreon/backend test",
     "test:frontend": "yarn workspace @pethreon/frontend test",
+    "deploy:frontend": "yarn workspace @pethreon/backend build && yarn workspace @pethreon/frontend deploy",
     "deploy:localhost": "yarn workspace @pethreon/backend deploy:localhost",
     "deploy:rinkeby": "yarn workspace @pethreon/backend deploy:rinkeby"
   }
