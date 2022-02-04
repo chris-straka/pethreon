@@ -2,8 +2,9 @@ import { providers, BigNumber } from "ethers"
 import { EthereumWindow } from "./utils";
 import { Pethreon__factory } from "./types/factories/Pethreon__factory"
 
-// localhost 0x5FbDB2315678afecb367f032d93F642f64180aa3
-const PETHREON_CONTRACT_ADDRESS = process.env.REACT_APP_CONTRACT_ADDRESS || "0x5"
+const PETHREON_CONTRACT_ADDRESS = process.env.NODE_ENV === "development" ?
+  process.env.REACT_APP_LOCALHOST_CONTRACT_ADDRESS as string:
+  process.env.REACT_APP_RINKEBY_CONTRACT_ADDRESS as string
 
 function initWithProvider() {
   const { ethereum } = window as EthereumWindow         // check if they have metamask installed (ethereum)
@@ -27,7 +28,6 @@ export async function deposit(amount: BigNumber) {
 // Need to turn it into a string with await toString()
 // Then turn it into ether with utils.formatEther()
 export async function getContributorBalanceInWei() {
-  console.log(PETHREON_CONTRACT_ADDRESS)
   const contract = initWithProvider()
   return await contract.getContributorBalanceInWei()
 }
