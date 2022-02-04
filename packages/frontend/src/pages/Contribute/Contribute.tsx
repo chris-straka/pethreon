@@ -22,8 +22,8 @@ export const Contribute = (
   const [balance, setBalance] = useState("0.0")
   const [pledges, setPledges] = useState<PledgeType[]>([])
   const [modal, setModal] = useState<ReactNode | null>(null)
-  const navigate = useNavigate()
   const { ethereum } = window as EthereumWindow
+  const navigate = useNavigate()
 
   useEffect(() => {
     localStorage.setItem("last_page_visited", "contribute")
