@@ -9,6 +9,7 @@
     "packages/*"
   ],
   "scripts": {
+    "postinstall": "yarn workspace @pethreon/backend typechain",
     "dev": "yarn workspaces foreach -pi run dev",
     "dev:backend": "yarn workspace @pethreon/backend dev",
     "dev:frontend": "yarn workspace @pethreon/frontend dev",

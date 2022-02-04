@@ -24,9 +24,11 @@ yarn test:backend
 yarn test:frontend
 ```
 
-# How to develop on the Rinkeby test network 
+# How to deploy to the Rinkeby test network 
 
-My contract is currently deployed on the Rinkeby test network at [0xa6Af639091752d535e9B3B826e9B91A575205390](https://rinkeby.etherscan.io/address/0xa6Af639091752d535e9B3B826e9B91A575205390). You can't update smart contracts after they've already been deployed. So you're going to have to deploy a completely new contract and point the frontend to that new contract address. You're going to need "rinkeby ether" to deploy to Rinkeby too, which you can get from a [faucet](https://faucets.chain.link/rinkeby). After you fund your rinkeby account, you need to grab your private key from the metamask settings and put it in a .env file in the backend. You can then deploy it by running yarn deploy:rinkeby at the root. You can find more information in the .env.example files in both the backend and the frontend.
+My contract is currently deployed in the Rinkeby test network at [0xa6Af639091752d535e9B3B826e9B91A575205390](https://rinkeby.etherscan.io/address/0xa6Af639091752d535e9B3B826e9B91A575205390). This is the same test network [my frontend](https://lucid-roentgen-95db25.netlify.app/) is currently pointing to in "production". If you want to try it out, you're going to have to switch your metamask account over to the rinkeby network and fund it using a [rinkeby faucet](https://faucets.chain.link/rinkeby). 
+
+If you want to make any changes to the smart contract, you're going to have to deploy a completely new one and point the frontend to that new address. It requires an account with ether in the rinkeby network. You have to grab the private key for that account (in the metamask settings) and then put it in a .env file in the backend. You also need to sign up at infura and put the link they give you in the same file. You then have to uncomment the rinkeby network configuration in the hardhat.config.ts and deploy using `yarn deploy:rinkeby`
 
 # Common Errors
 

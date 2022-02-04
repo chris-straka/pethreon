@@ -17,10 +17,10 @@ const config: HardhatUserConfig = {
         mnemonic: "test test test test test test test test test test test junk"
       },
     },
-    rinkeby: {
-      url: `${process.env.RINKEBY_INFURA_API}`,
-      accounts: [`0x${process.env.RINKEBY_PRIVATE_KEY}`]
-    }
+    // rinkeby: {
+    //   url: `${process.env.RINKEBY_INFURA_API}`,
+    //   accounts: [`0x${process.env.RINKEBY_PRIVATE_KEY}`]
+    // }
   },
   solidity: "0.8.9",
 }
