@@ -32,6 +32,7 @@ export const Contribute = (
       if (window.location.pathname === "/") return
       try {
         const balance = await getContributorBalanceInWei()
+        console.log(balance)
         const balanceEther = await utils.formatEther(balance)
         const balanceEtherString = await balanceEther.toString()
         console.log(balanceEtherString)

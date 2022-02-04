@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { Pethreon } from "../../frontend/src/types";
-import { PledgeStatus, PledgeType } from "./types"
+import { Pethreon } from "../../../frontend/src/types";
+import { PledgeStatus, PledgeType } from "../types"
 import { ethers, network } from 'hardhat';
 import { ContractFactory, Signer } from 'ethers';
 import "@nomiclabs/hardhat-ethers" // stops the hardhat error
