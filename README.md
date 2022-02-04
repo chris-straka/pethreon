@@ -1,7 +1,5 @@
 # Overview
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/aad6e818-4a8d-4149-bd89-20bb062c3e2c/deploy-status)](https://app.netlify.com/sites/lucid-roentgen-95db25/deploys)
-
 [This dapp](https://github.com/Chris56974/Pethreon) is a decentralized crowdfunding application that runs on ethereum. It's similar to [Patreon](https://www.patreon.com/) except there aren't any third-parties involved. The backend is a modified version of [Sergei's Pethreon Smart Contract](https://github.com/s-tikhomirov/pethreon), and the frontend is my own react project.
 
 ## Backend
