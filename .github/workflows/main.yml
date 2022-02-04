@@ -17,4 +17,5 @@ jobs:
       run: yarn deploy
       env: 
         REACT_APP_CONTRACT_ADDRESS: ${{ secrets.REACT_APP_CONTRACT_ADDRESS }}
+        RINKEBY_PRIVATE_KEY: ${{ secrets.RINKEBY_PRIVATE_KEY }}
         
