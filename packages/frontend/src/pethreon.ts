@@ -3,7 +3,7 @@ import { EthereumWindow } from "./utils";
 import { Pethreon__factory } from "./types/factories/Pethreon__factory"
 
 // localhost 0x5FbDB2315678afecb367f032d93F642f64180aa3
-const PETHREON_CONTRACT_ADDRESS = process.env.REACT_APP_CONTRACT_ADDRESS || "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+const PETHREON_CONTRACT_ADDRESS = process.env.REACT_APP_CONTRACT_ADDRESS || "0x5"
 
 function initWithProvider() {
   const { ethereum } = window as EthereumWindow         // check if they have metamask installed (ethereum)
