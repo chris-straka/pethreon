@@ -12,7 +12,7 @@ jobs:
       with:
         node-version: 16.10
     - name: install dependencies
-      run: yarn ci
+      run: yarn install
     - name: deploy my stuff
       run: yarn deploy
       env: 
