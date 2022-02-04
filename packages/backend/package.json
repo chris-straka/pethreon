@@ -1,7 +1,6 @@
 {
   "name": "@pethreon/backend",
   "scripts": {
-    "postinstall": "yarn typechain",
     "build": "yarn typechain",
     "dev": "hardhat node & yarn deploy:localhost",
     "test": "hardhat test",
