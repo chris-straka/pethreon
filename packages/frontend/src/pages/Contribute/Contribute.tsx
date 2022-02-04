@@ -26,18 +26,16 @@ export const Contribute = (
   const { ethereum } = window as EthereumWindow
 
   useEffect(() => {
-    if (typeof ethereum === undefined || !ethereum.isConnected()) navigate("/")
+    localStorage.setItem("last_page_visited", "contribute")
     ethereum.on("accountsChanged", () => navigate("/"))
     async function init() {
       if (window.location.pathname === "/") return
       try {
         const balance = await getContributorBalanceInWei()
-        console.log(balance)
         const balanceEther = await utils.formatEther(balance)
         const balanceEtherString = await balanceEther.toString()
-        console.log(balanceEtherString)
-        setBalance(balanceEtherString)
         const pledges = await getContributorPledges()
+        setBalance(balanceEtherString)
         setPledges(pledges)
       } catch (error) {
         window.alert((error as MetamaskError).message)
@@ -45,7 +43,6 @@ export const Contribute = (
       }
     }
     init()
-    localStorage.setItem("last_page_visited", "contribute")
   }, [ethereum, navigate])
 
   return (
@@ -58,14 +55,14 @@ export const Contribute = (
         animate={{ opacity: 1, transition: { duration: fadeInDuration, delay: fadeInDelay } }}
         exit={{ opacity: 0, transition: { duration: fadeOutDuration, delay: fadeOutDelay } }}
       >
-          <UserBalance
-            className={styles.userBalance}
-            balance={balance}
-          />
-          <UserAddress
-            className={styles.userAddress}
-            userAccountAddress={ethereum.selectedAddress}
-          />
+        <UserBalance
+          className={styles.userBalance}
+          balance={balance}
+        />
+        <UserAddress
+          className={styles.userAddress}
+          userAccountAddress={ethereum.selectedAddress}
+        />
         <ContributorActionBar
           className={styles.contributorActionBar}
           setModal={setModal}

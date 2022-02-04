@@ -5,7 +5,6 @@ import { EthereumWindow, MetamaskError } from '../../utils';
 import { TypewriterEffect, Features, Video, Pethreon, LoginContainer } from './components';
 import { Footer } from "../../components"
 import styles from "./Login.module.scss"
-
 interface LoginProps {
   fadeInDuration: number,
   fadeInDelay: number,
@@ -24,15 +23,15 @@ export const Login = (
   const [linkUrl, setLinkUrl] = useState("")
 
   useEffect(() => {
-    if (ethereum !== undefined && location.pathname === "/") {
-      setMessage(
-        "This app uses your ethereum wallet to make subscriptions to creators"
-      )
-    }
-    if (ethereum === undefined && location.pathname === "/") {
+    if (location.pathname !== "/") return
+    if (ethereum === undefined) {
       setMessage("This app requires a cryptocurrency wallet to work, ")
       setLinkContent("download metamask!")
       setLinkUrl("https://metamask.io/download")
+    } else {
+      setMessage(
+        "This app uses your ethereum wallet to make subscriptions to creators"
+      )
     }
   }, [ethereum, location])
 
@@ -40,13 +39,8 @@ export const Login = (
     let lastVisited = localStorage.getItem("last_page_visited")
     setMessage("Logging in... You might have to click the metamask extension in your browser")
     try {
-      if (ethereum.isConnected) {
-        await ethereum.request({ method: 'eth_requestAccounts' })
-        lastVisited === "create" ? navigate("create") : navigate("contribute")
-      } else {
-        window.alert("You're not connected to the ethereum chain. I'm going to refresh the page and see if that hooks you back up")
-        window.location.reload()
-      }
+      await ethereum.request({ method: 'eth_requestAccounts' })
+      lastVisited === "create" ? navigate("create") : navigate("contribute")
     } catch (error) {
       if ((error as MetamaskError).code === -32002) {
         setMessage("Request already sent, click the metamask extension in your browser")
