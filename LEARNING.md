@@ -10,9 +10,9 @@ When I started this project, I used to think components were mostly for reusing 
 
 I wasn't exactly sure where to put my CSS media queries. I could've put them in my components, or I could've passed them down as props. If I put them inside my components, then my media queries would apply everywhere I used the component. If I passed them down as props, then I could change them to look better in different places. I'm still finding the right balance of when to do what. I even tried using "spacer" components to add default padding and margin to things.
 
-### The same colors can look great or bad depending on how they're used
+### The exact same colors can look good or bad depending on how you use them
 
-I picked two colors that I really liked (my primary and secondary), but sometimes they don't mesh well and sometimes they do. In my contributor portal, I think the blue background looks great with the pink text. But in my creator portal, I think the pink background looks bad with blue text. I found that with a lighter font-weight a darker color looked better. I was juggling between light and dark theme as well, and the same colors don't look as good if they're on a dark background compared to a white one.
+My primary and secondary colors look good on the same canvas, but sometimes they don't look that great when they overlap. In my contributor portal, I think the blue background looks great with the pink text. But in my creator portal, I think the pink background looks bad with blue text. I found that with a lighter font-weight a darker color looked better. I was juggling between light and dark theme as well, and the same colors don't look as good if they're on a dark background compared to a white one.
 
 ### I fought the scrollbar and the scrollbar won
 

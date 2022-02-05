@@ -1,5 +1,6 @@
 import { useEffect, useState, Dispatch, SetStateAction } from "react"
 import { EthereumWindow } from "../../../../utils";
+import styles from "./TypewriterEffect.module.scss"
 
 interface MetamaskAnimationProps {
   className: string,
@@ -71,11 +72,10 @@ export const TypewriterEffect = ({ className, message, linkUrl, linkContent, cad
   }, [init, linkContent, delay, message, cadence, setTalking, location])
 
   return (
-    <p className={className}>{animatedMessage} {
-      linkContent !== ""
-        ? <a href={linkUrl} target="_blank" rel="noreferrer">{animatedLink}</a>
-        : null
-    }
-    </p>
+    <p className={`${styles.typewriter} ${className}`}>{animatedMessage} {
+      linkContent !== "" ?
+        <a href={linkUrl} target="_blank" rel="noreferrer">{animatedLink}</a> :
+        null
+    } </p>
   )
 }

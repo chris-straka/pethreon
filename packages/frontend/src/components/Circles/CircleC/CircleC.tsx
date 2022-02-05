@@ -58,7 +58,9 @@ export const CircleC = ({
       ref.current?.style.setProperty("border-radius", "0%")
       ref.current?.style.setProperty("border-bottom-left-radius", "50px")
       ref.current?.style.setProperty("background-color", "var(--primary)")
-      ref.current?.style.setProperty("--color", "var(--text)")
+      window.matchMedia("(prefers-color-scheme: dark)").matches ?
+        ref.current?.style.setProperty("--color", "var(--text)") :
+        ref.current?.style.setProperty("--color", "var(--background-color)")
       ref.current?.style.setProperty("--outline-color", "var(--primary)")
       ref.current?.style.setProperty("--hover-color", "var(--secondary)")
       ref.current?.style.setProperty("--circle-animation-duration", `${circleAnimationDuration}s`)
@@ -98,9 +100,13 @@ export const CircleC = ({
       ref.current?.style.setProperty("border-radius", "0%")
       ref.current?.style.setProperty("border-bottom-left-radius", "50px")
       ref.current?.style.setProperty("background-color", "var(--secondary)")
-      ref.current?.style.setProperty("--color", "var(--text)")
+      window.matchMedia("(prefers-color-scheme: dark)").matches ?
+        ref.current?.style.setProperty("--color", "var(--text)") :
+        ref.current?.style.setProperty("--color", "var(--background-color)")
+      window.matchMedia("(prefers-color-scheme: dark)").matches ?
+        ref.current?.style.setProperty("--hover-color", "var(--primary-light)") :
+        ref.current?.style.setProperty("--hover-color", "var(--primary)")
       ref.current?.style.setProperty("--outline-color", "var(--secondary)")
-      ref.current?.style.setProperty("--hover-color", "var(--primary-light)")
       ref.current?.style.setProperty("--circle-animation-duration", `${circleAnimationDuration}s`)
       ref.current?.style.setProperty("--circle-animation-delay", `${circleAnimationDelay}s`)
       ref.current?.style.setProperty("--textColor-animation-duration", `${circleAnimationDuration}s`)

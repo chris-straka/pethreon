@@ -1,0 +1,55 @@
+.loginButton {
+  --login-button-fs: clamp(16px, 1.1vw + 16px, 160px);
+
+  font-size: var(--login-button-fs);
+  border: 0.145em solid var(--primary);
+  background-color: var(--primary);
+  color: var(--background-color);
+  border-radius: 16px;
+  padding-block: 16px;
+  width: 14ch;
+  cursor: pointer;
+  outline: none;
+
+  transition: border-color 0.2s, color 0.2s, background-color 0.2s,
+    transform 0.2s;
+
+  &:focus-visible {
+    transform: rotate(2deg);
+  }
+
+  &:hover { 
+    color: var(--secondary);
+  }
+}
+
+@media (min-width: 390px) {
+  .loginButton {
+    --login-button-fs: clamp(16px, 2.5vw + 16px, 160px);
+  }
+}
+
+@media (min-width: 1280px) and (orientation: landscape) {
+  .loginButton {
+    --login-button-fs: clamp(16px, 1.3vw + 16px, 160px);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .loginButton {
+    background: none;
+    color: var(--text);
+    border-color: var(--primary);
+
+    &:focus-visible {
+      outline: none;
+      color: var(--text);
+      background-color: var(--primary);
+    }
+
+    &:hover {
+      color: var(--text);
+      background-color: var(--primary);
+    }
+  }
+}

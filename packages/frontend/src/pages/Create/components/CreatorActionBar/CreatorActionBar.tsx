@@ -16,7 +16,7 @@ export const CreatorActionBar = (
 ) => {
   return (
     <ActionBar className={`${styles.actionBar} ${className}`}>
-      <ActionButton className={styles.withdrawButton} onClick={() => setModal(
+      <ActionButton className={styles.actionButton} onClick={() => setModal(
         <WithdrawModal
           closeModal={() => setModal(null)}
           setLoading={setLoading}
@@ -26,7 +26,7 @@ export const CreatorActionBar = (
         Withdraw <WithdrawSVG />
       </ActionButton>
 
-      <ActionButton className={styles.extractToCsvButton} onClick={makeCSV}>
+      <ActionButton className={styles.actionButton} onClick={makeCSV}>
         Extract to CSV <CsvSVG />
       </ActionButton>
     </ActionBar>

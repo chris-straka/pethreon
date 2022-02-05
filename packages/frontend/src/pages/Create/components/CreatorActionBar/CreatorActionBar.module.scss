@@ -1,20 +1,9 @@
-.actionBar {
-  --fs-action-bar-button: clamp(0.5rem, 4.5vw, 3rem);
-
-  --action-bar-margin-top: 2vh;
-  --action-bar-margin-bottom: 0;
-
-  --action-button-outline-offset: 4px;
-  --action-button-outline-size: 10px;
-}
-
-.withdrawButton,
-.extractToCsvButton {
+.actionButton {
   width: unset;
   background-color: var(--secondary);
 
   &:hover {
-    color: var(--primary-light);
+    color: var(--primary);
   }
 
   &:focus-visible {
@@ -22,59 +11,8 @@
   }
 }
 
-@media (min-width: 1280px) and (orientation: landscape) {
-  .actionBar {
-    --fs-action-bar-button: clamp(0.5rem, 2vw, 2rem);
-
-    --action-bar-button-width: unset;
-    --action-bar-width: 55vw;
-    --action-bar-margin-top: 0;
-    --action-bar-margin-bottom: 8px;
-  }
-}
-
-@media (min-width: 1280px) and (orientation: landscape) {
-  .actionBar {
-    grid-area: Actions;
-    justify-content: space-around;
-    place-self: end center;
-  }
-}
-
-.actionBar {
-  width: var(--action-bar-width);
-  margin-top: var(--action-bar-margin-top);
-  margin-bottom: var(--action-bar-margin-bottom);
-  display: flex;
-  justify-content: center;
-}
-
-.actionButton {
-  font-size: var(--fs-action-bar-button);
-  width: var(--action-bar-button-width);
-  font-weight: 600;
-  cursor: pointer;
-  padding: 0.7em;
-  border-right: 3px solid white;
-  color: var(--black-text);
-  background-color: var(--secondary);
-
-  outline-offset: var(--action-button-outline-offset);
-  outline: var(--action-button-outline-size) dotted transparent;
-  transition: color 0.3s, outline-color 0.3s, background-color 0.3s;
-
-  &:focus-visible {
-    outline-color: var(--secondary-light);
-    transition: outline-color 0.3s, background-color 0.3s;
-  }
-
-  &:hover {
+@media(prefers-color-scheme: dark) {
+  .actionButton {
     color: var(--primary-light);
-    transition: color 0.3s;
   }
-
-  & > svg {
-    width: 2ch;
-    vertical-align: text-bottom;
-  }
-}
+} 

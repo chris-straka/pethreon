@@ -12,7 +12,7 @@
   padding: 0.7em;
   border-right: 3px solid white;
   background-color: var(--primary);
-  color: var(--black-text);
+  color: var(--background-color);
   outline-offset: var(--action-button-outline-offset);
   outline: var(--action-button-outline-size) dotted transparent;
   transition: outline-color 0.3s, color 0.3s, background-color 0.3s;
@@ -47,5 +47,11 @@
     --action-button-outline-offset: 4px;
     --action-button-outline-size: 10px;
     --action-button-width: unset;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .actionButton {
+    color: var(--text);
   }
 }
