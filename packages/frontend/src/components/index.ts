@@ -7,6 +7,7 @@ import { CurrencyButtons } from "./Currency/CurrencyButtons/CurrencyButtons";
 import { CurrencyField } from "./Currency/CurrencyField/CurrrencyField";
 import { Disclaimer } from "./Disclaimer/Disclaimer";
 import { Footer } from "./Footer/Footer";
+import { Link } from "./Link/Link"
 import { Loading } from "./Loading/Loading";
 import { WithdrawModal } from "./Modals/WithdrawModal";
 import { ModalTemplate } from "./Modals/ModalTemplate/ModalTemplate";
@@ -26,6 +27,7 @@ export {
   CurrencyField,
   Disclaimer,
   Footer,
+  Link,
   Loading,
   WithdrawModal,
   ModalTemplate,

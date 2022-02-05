@@ -1,5 +1,15 @@
 .footer {
-  --fs-footer: clamp(1rem, 1vw + 1rem, 10rem);
+  --footer-fs: clamp(1rem, 1vw + 1rem, 10rem);
+
+  font-size: var(--footer-fs);
+  padding-top: var(--footer-padding-top);
+  margin-bottom: 10px;
+  align-self: flex-end;
+  margin-top: auto;
+
+  & > a:first-child {
+    margin-right: 3vw;
+  }
 }
 
 @media (max-height: 600px) {
@@ -10,7 +20,7 @@
 
 @media (min-width: 390px) {
   .footer {
-    --fs-footer: clamp(1rem, 1vw + 1rem, 10rem);
+    --footer-fs: clamp(1rem, 1vw + 1rem, 10rem);
   }
 }
 
@@ -20,22 +30,5 @@
     place-self: end;
     padding: unset;
     margin-right: 5%;
-  }
-}
-
-.footer {
-  font-size: var(--fs-footer);
-  padding-top: var(--footer-padding-top);
-  margin-bottom: 10px;
-  align-self: flex-end;
-  margin-top: auto;
-  opacity: 1;
-
-  & > a {
-    color: var(--anchor-tag);
-
-    &:first-child {
-      margin-right: 3vw;
-    }
   }
 }

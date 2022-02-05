@@ -11,8 +11,11 @@
   }
 }
 
-@media(prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
   .actionButton {
-    color: var(--primary-light);
+    color: var(--text);
+    &:hover {
+      color: var(--primary-light);
+    }
   }
-} 
+}
