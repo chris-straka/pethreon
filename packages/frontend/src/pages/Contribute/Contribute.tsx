@@ -4,8 +4,8 @@ import { motion, AnimatePresence } from "framer-motion"
 import { UserBalance, UserAddress, Loading, ModalTemplate, PledgeList } from "../../components"
 import { getContributorBalanceInWei, getContributorPledges } from "../../pethreon"
 import { EthereumWindow, PledgeType, MetamaskError } from "../../utils"
-import { utils } from "ethers"
 import { ContributorActionBar } from "./components"
+import { utils } from "ethers"
 import styles from "./Contribute.module.scss"
 
 interface ContributeProps {
