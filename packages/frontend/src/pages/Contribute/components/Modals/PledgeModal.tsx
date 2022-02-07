@@ -15,14 +15,14 @@ interface PledgeProps {
 
 export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: PledgeProps) => {
   const [currency, setCurrency] = useState<Denomination>(Denomination.ETHER)
-  const [amount, setAmount] = useState("")
+  const [amountPerPeriod, setAmountPerPeriod] = useState("")
   const [address, setAddress] = useState("")
   const [period, setPeriod] = useState("")
 
   const submitPledge = async (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
 
-    if (!amount && currency !== Denomination.ALL) return window.alert("Please enter a pledge amount")
+    if (!amountPerPeriod && currency !== Denomination.ALL) return window.alert("Please enter a pledge amount")
     if (!address) return window.alert("Please enter a destination address")
     if (!period) return window.alert("Please set a pledge duration")
     if (+period >= 36525) return window.alert("This pledge would last over 100 years, please pick something smaller")
@@ -31,36 +31,31 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
     if (address.indexOf(" ") >= 0) return window.alert("There is a space in the ethereum address")
     if (address.length !== 42) return window.alert(`Your ethereum address is ${address.length} characters long. It should be 42 characters long`)
 
-    if (currency === Denomination.ALL) {
-      let fullbalance = await getContributorBalanceInWei()
-      setAmount(await fullbalance.toString())
-    }
-
-    const amountPerPeriod = (+amount / +period).toString()
-
-    if (!window.confirm(`The total comes to ${amountPerPeriod} ${currency !== Denomination.ALL ? currency : Denomination.WEI} per day, over ${period} day(s). Do you accept?`)) return
-
     closeModal()
 
-    let amountInWeiPerPeriod: BigNumber;
+    let amountPerPeriodInWei: BigNumber;
 
     switch (currency) {
       case Denomination.ETHER:
-        amountInWeiPerPeriod = utils.parseUnits(amountPerPeriod, "ether")
+        amountPerPeriodInWei = utils.parseUnits(amountPerPeriod, "ether")
         break
       case Denomination.GWEI:
-        amountInWeiPerPeriod = utils.parseUnits(amountPerPeriod, "gwei")
+        amountPerPeriodInWei = utils.parseUnits(amountPerPeriod, "gwei")
         break
       case Denomination.WEI:
-        amountInWeiPerPeriod = BigNumber.from(amountPerPeriod)
+        amountPerPeriodInWei = BigNumber.from(amountPerPeriod)
         break
       case Denomination.ALL:
-        amountInWeiPerPeriod = BigNumber.from(amountPerPeriod)
+        let fullBalance = await getContributorBalanceInWei()
+        let fullBalancePerPeriod = (+fullBalance / +period)
+        amountPerPeriodInWei = BigNumber.from(fullBalancePerPeriod)
     }
+
+    if (!window.confirm(`The total comes to ${amountPerPeriod} ${currency !== Denomination.ALL ? currency : Denomination.WEI} per day, over ${period} day(s). Do you accept?`)) return
 
     try {
       setLoading(true)
-      await createPledge(address, period, amountInWeiPerPeriod)
+      await createPledge(address, amountPerPeriodInWei, period)
       const newBalance = await getContributorBalanceInWei()
       const newBalanceEther = await utils.formatEther(newBalance)
       const newBalanceEtherString = await newBalanceEther.toString()
@@ -78,12 +73,12 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
   return (
     <form className={styles.form}>
 
-      <h3 className={styles.currencyHeading}>How much to pledge?</h3>
+      <h3 className={styles.currencyHeading}>How much to pledge per day?</h3>
       <CurrencyField
         className={styles.currencyField}
         disabled={currency === Denomination.ALL ? true : false}
-        value={amount}
-        setValue={(event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)}
+        value={amountPerPeriod}
+        setValue={(event: ChangeEvent<HTMLInputElement>) => setAmountPerPeriod(event.target.value)}
       />
       <CurrencyButtons
         className={styles.currencyButtons}

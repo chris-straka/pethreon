@@ -3,7 +3,7 @@ import { EthereumWindow } from "./utils";
 import { Pethreon__factory } from "./types/factories/Pethreon__factory"
 
 const PETHREON_CONTRACT_ADDRESS = process.env.NODE_ENV === "development" ?
-  process.env.REACT_APP_LOCALHOST_CONTRACT_ADDRESS as string:
+  process.env.REACT_APP_LOCALHOST_CONTRACT_ADDRESS as string :
   process.env.REACT_APP_RINKEBY_CONTRACT_ADDRESS as string
 
 function init() {
@@ -41,7 +41,7 @@ export async function creatorWithdraw() {
   await transaction.wait()
 }
 
-export async function createPledge(address: string, period: string, amountPerPeriod: BigNumber) {
+export async function createPledge(address: string, amountPerPeriod: BigNumber, period: string) {
   const contract = init()
   const transaction = await contract.createPledge(address, amountPerPeriod, period)
   await transaction.wait()

@@ -46,7 +46,7 @@ export const Pledge = (
     <li className={`${styles.pledge} ${creator && styles.creatorStyles}`}>
       <ul className={styles.pledge__details}>
         <li className={styles.pledge__details__address}>
-          {creator ? `Contributor: ${contributorAddress}` : `Creator ${creatorAddress}`}
+          {creator ? `Contributor: ${contributorAddress}` : `Creator: ${creatorAddress}`}
         </li>
         <li className={styles.pledge__details__weiPerPeriod}>
           Ether: {etherPerPeriod} per day

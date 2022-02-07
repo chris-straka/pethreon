@@ -19,12 +19,18 @@
   cursor: pointer;
   place-self: stretch;
   background-color: transparent;
-  font-size: 0.8rem;
+  font-size: 16px;
   color: var(--text);
 
   &__SVG {
     width: 2ch;
     margin-right: 4px;
     vertical-align: text-bottom;
+  }
+}
+
+@media (min-width: 768px) {
+  .cancelButton {
+    font-size: clamp(16px, 1vw, 40px);
   }
 }

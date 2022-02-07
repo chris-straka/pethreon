@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 import { motion } from "framer-motion"
-import { useNavigate } from 'react-router-dom';
-import { EthereumWindow, MetamaskError } from '../../utils';
-import { TypewriterEffect, Features, Video, Pethreon, LoginButton } from './components';
+import { useNavigate } from 'react-router-dom'
+import { EthereumWindow, MetamaskError } from '../../utils'
+import { TypewriterEffect, Features, Video, Pethreon, LoginButton } from './components'
 import { Footer } from "../../components"
+import { MetamaskSVG } from '../../svgs'
 import styles from "./Login.module.scss"
-import { MetamaskSVG } from '../../svgs';
 
 interface LoginProps {
   fadeInDuration: number,
@@ -20,6 +20,7 @@ const DOWNLOAD_METMASK = "download metamask!"
 const METAMASK_LINK = "https://metamask.io/download"
 const LOGGING_IN = "Logging in... You might have to click the metamask extension in your browser"
 const ERROR_32002 = "Request already sent, click the metamask extension in your browser"
+const RINKEBY_ONLY = "This app is currently only available in the Rinkeby test network, so make sure your cryptowallet is set to the correct network"
 
 export const Login = (
   { fadeInDuration, fadeInDelay, fadeOutDuration, fadeOutDelay }: LoginProps
@@ -43,6 +44,9 @@ export const Login = (
   }, [ethereum, location])
 
   async function login() {
+    if (process.env.NODE_ENV === "production") {
+      if (!window.confirm(RINKEBY_ONLY)) return
+    }
     let lastVisited = localStorage.getItem("last_page_visited")
     setMessage(LOGGING_IN)
     try {
