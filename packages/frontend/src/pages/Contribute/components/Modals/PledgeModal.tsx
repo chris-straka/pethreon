@@ -49,7 +49,10 @@ export const PledgeModal = ({ closeModal, setLoading, setBalance, setPledges }: 
         amountPerPeriodInWei = BigNumber.from(fullBalancePerPeriod)
     }
 
-    if (!window.confirm(`The total comes to ${amountPerPeriod} ${currency !== Denomination.ALL ? currency : Denomination.WEI} per day, over ${period} day(s). Do you accept?`)) return
+    const GRAND_TOTAL = `The total comes to ${currency !== Denomination.ALL ? amountPerPeriod : amountPerPeriodInWei} \
+    ${currency !== Denomination.ALL ? currency : Denomination.WEI} per day, over ${period} day(s). Do you accept?`
+
+    if (!window.confirm(GRAND_TOTAL)) return
 
     closeModal()
 
