@@ -20,7 +20,7 @@ const DOWNLOAD_METMASK = "download metamask!"
 const METAMASK_LINK = "https://metamask.io/download"
 const LOGGING_IN = "Logging in... You might have to click the metamask extension in your browser"
 const ERROR_32002 = "Request already sent, click the metamask extension in your browser"
-const RINKEBY_ONLY = "This app is currently only available in the Rinkeby test network, so make sure your cryptowallet is set to the correct network"
+const RINKEBY_ONLY = "For now this app is only available on the Rinkeby test network. So if you want to use the app, make sure your cryptowallet is set to Rinkeby."
 
 export const Login = (
   { fadeInDuration, fadeInDelay, fadeOutDuration, fadeOutDelay }: LoginProps
