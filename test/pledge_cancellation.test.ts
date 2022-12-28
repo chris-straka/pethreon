@@ -1,5 +1,5 @@
 import { ContractFactory, Signer } from 'ethers';
-import { Pethreon } from "../typechain-types";
+import { Pethreon } from "../frontend/typechain-types";
 import { ethers, network } from 'hardhat';
 import { expect } from 'chai';
 import { PledgeType } from "./types"

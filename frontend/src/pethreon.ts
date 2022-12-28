@@ -1,6 +1,6 @@
 import { providers, BigNumber } from "ethers"
 import { EthereumWindow } from "./utils";
-import { Pethreon__factory } from "../../typechain-types/factories";
+import { Pethreon__factory } from "../typechain-types/factories";
 
 const PETHREON_CONTRACT_ADDRESS = process.env.NODE_ENV === "development" ?
   process.env.REACT_APP_LOCALHOST_CONTRACT_ADDRESS as string :
