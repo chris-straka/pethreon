@@ -1,26 +1,15 @@
 {
   "name": "pethreon",
-  "version": "0.1.0",
-  "packageManager": "yarn@3.1.1",
-  "license": "MIT",
-  "repository": "github:Chris56974/Pethreon",
-  "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
   "scripts": {
-    "postinstall": "yarn workspace @pethreon/backend typechain",
-    "dev": "yarn workspaces foreach -pi run dev",
-    "dev:backend": "yarn workspace @pethreon/backend dev",
-    "dev:frontend": "yarn workspace @pethreon/frontend dev",
-    "build": "yarn workspaces foreach run build",
-    "build:backend": "yarn workspace @pethreon/backend build",
-    "build:frontend": "yarn workspace @pethreon/frontend build",
-    "test": "yarn workspaces foreach -pi run test",
-    "test:backend": "yarn workspace @pethreon/backend test",
-    "test:frontend": "yarn workspace @pethreon/frontend test",
-    "deploy:frontend": "yarn workspace @pethreon/backend build && yarn workspace @pethreon/frontend deploy",
-    "deploy:localhost": "yarn workspace @pethreon/backend deploy:localhost",
-    "deploy:rinkeby": "yarn workspace @pethreon/backend deploy:rinkeby"
+    "preinstall": "npx only-allow npm",
+    "build": "npm run clean && npm run compile",
+    "clean": "npx hardhat clean",
+    "compile": "npx hardhat compile",
+    "test": "npx hardhat test",
+    "coverage": "npm run build && npx hardhat coverage --temp artifacts --network coverage"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.0",
+    "hardhat": "^2.12.4"
   }
 }

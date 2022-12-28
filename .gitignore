@@ -1,12 +1,11 @@
 node_modules
-design
+.env
+coverage
+coverage.json
+.vscode/settings.json
+typechain
+typechain-types
 
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
-# Local Netlify folder
-.netlify
+# Hardhat files
+cache
+artifacts

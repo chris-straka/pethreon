@@ -1,5 +1,0 @@
-deployments/*
-node_modules
-artifacts
-cache
-.env

@@ -1,9 +1,0 @@
-root = true # top most editor-config file
-
-[packages/**.tsx]
-indent_style = space
-indent_size = 2
-
-[*.{sol,yul}]
-indent_style = space
-indent_size = 4
