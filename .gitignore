@@ -4,6 +4,10 @@ coverage
 coverage.json
 .vscode/settings.json
 
+# for my local env files
+*.local
+.env
+
 # Hardhat files
 cache
 artifacts

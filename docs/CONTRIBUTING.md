@@ -6,7 +6,7 @@ After you install metamask, you need to sign in via "Secret Recovery Phrase" wit
 
 To test the pledge feature, all you need to do is donate to one of the accounts in your metamask wallet. If you want to make changes to the smart contract, keep in mind that smart contracts (by design) are immutable. This means you have to redeploy the contract and have the app switch to its new address, or you can restart the development network and it will have the same address as before. It might be easier to just test your contract with hardhat by running tests.
 
-It's **strongly** recommended that use WSL or Linux for this project. It will make things easier for hardhat and for migrating stuff over to my production/CI environments. You also need to have pnpm installed for the frontend.
+It's **strongly** recommended that use WSL or Linux for this project. It will make things easier for hardhat and for migrating stuff over to the production/CI environments. You also need to have pnpm installed for the frontend package manager.
 
 ## Rinkeby 
 
