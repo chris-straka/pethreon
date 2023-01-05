@@ -11,10 +11,10 @@
     "deploy": "npx hardhat run scripts/deploy.ts",
     "node": "npx hardhat node",
     "coverage": "npm run build && npx hardhat coverage --temp artifacts --network coverage",
-    "finstall": "pushd ./frontend && pnpm install && popd",
-    "fdev": "pushd ./frontend && pnpm dev && popd",
-    "fbuild": "pushd ./frontend && pnpm build && popd",
-    "fpreview": "pushd ./frontend && pnpm preview && popd"
+    "finstall": "cd ./frontend && pnpm install && cd ..",
+    "fdev": "cd ./frontend && pnpm dev && cd ..",
+    "fbuild": "cd ./frontend && pnpm build && cd ..",
+    "fpreview": "cd ./frontend && pnpm preview && cd .."
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^2.0.0",
