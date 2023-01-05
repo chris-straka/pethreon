@@ -1,10 +1,21 @@
 # How to develop locally
 
-You need to download the [metamask browser extension](https://metamask.io/). You also might want to use a different [browser profile](https://youtu.be/Ik8-xn4DyCo?t=15) for development (in Chrome, Firefox) to keep your real metamask account separate from your developer metamask account. You don't want to make the mistake of adding real crypto to your fake account.
+# Work in progress
 
-After you install metamask, you need to sign in via "Secret Recovery Phrase" with "test test test test test test test test test test test junk". This will give you a bunch of accounts with 10,000 fake ether for use in the localhost:8545 dev network. Once you're signed in, make sure you go to advanced settings and enable all the developer stuff (test networks, advanced gas controls, hex data, conversion on test networks, customize transaction nonce). 
+If you want npm install to work, you need to create an .env file in the root directory and add a couple of environment variables (a private key for an ethereum wallet and a couple of URLs to an ethereum node that will deploy the application).
 
-To test the pledge feature, all you need to do is donate to one of the accounts in your metamask wallet. If you want to make changes to the smart contract, keep in mind that smart contracts (by design) are immutable. This means you have to redeploy the contract and have the app switch to its new address, or you can restart the development network and it will have the same address as before. It might be easier to just test your contract with hardhat by running tests.
+To get a private key for an ethereum wallet, you can download the [metamask browser extension](https://metamask.io/). If you already have Metamask, you might want to use a different [browser profile](https://youtu.be/Ik8-xn4DyCo?t=15) for development to keep your real metamask account separate from your developer metamask account. You don't want to make the mistake of adding real crypto to your fake developer metamask account.
+
+After you're done installing metamask, you need to create an account, sign in and go to the advanced settings to enable the developer stuff (test networks, gas controls, hex data, conversion on test networks, customize transaction nonce). Grab the private key for the account you want to use and paste it in the your .env file. Then sign up at [infura](https://www.infura.io/) and grab a URL for the sepolia network, and paste it into that same .env file.
+
+```
+METAMASK_PRIVATE_KEY=YOUR_PRIVATE_KEY
+INFURA_SEPOLIA_URL=https://sepolia.infura.io/v3/5934efc92cb841e4ac589e7c070d6975
+```
+
+Then you can run npm install, and then you can create a network.
+
+To test the pledge feature, you need to do is donate to one of the accounts in your metamask wallet. If you want to make changes to the smart contract, keep in mind that smart contracts (by design) are immutable. This means you have to redeploy the contract and have the app switch to its new address, or you can restart the development network and it will have the same address as before. It might be easier to just test your contract with hardhat by running tests.
 
 It's **strongly** recommended that use WSL or Linux for this project. It will make things easier for hardhat and for migrating stuff over to the production/CI environments. You also need to have pnpm installed for the frontend package manager.
 
