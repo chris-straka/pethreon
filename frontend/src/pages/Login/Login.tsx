@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ETHEREUM_FOUND, ETHEREUM_NOT_FOUND, DOWNLOAD_METMASK, METAMASK_LINK, RINKEBY_ONLY, LOGGING_IN, ERROR_32002 } from '../../messages'
+import { ETHEREUM_FOUND, ETHEREUM_NOT_FOUND, DOWNLOAD_METMASK, METAMASK_LINK, LOGGING_IN, ERROR_32002 } from '../../messages'
 import { EthereumWindow, MetamaskError } from '../../utils'
 import { TypewriterEffect, Features, Video, Pethreon, LoginButton } from './components'
 import { Footer } from "../../components"
@@ -28,9 +28,6 @@ export const Login = () => {
   }, [ethereum, location])
 
   async function login() {
-    if (process.env.NODE_ENV === "production") {
-      if (!window.confirm(RINKEBY_ONLY)) return
-    }
     let lastVisited = localStorage.getItem("last_page_visited")
     setMessage(LOGGING_IN)
     try {

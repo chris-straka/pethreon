@@ -4,7 +4,6 @@ export const DOWNLOAD_METMASK = "download metamask!"
 export const METAMASK_LINK = "https://metamask.io/download"
 export const LOGGING_IN = "Logging in... You might have to click the metamask extension in your browser"
 export const ERROR_32002 = "Request already sent, click the metamask extension in your browser"
-export const RINKEBY_ONLY = "For now this app is only available on the Rinkeby test network. So if you want to use the app, make sure your cryptowallet is set to Rinkeby."
 
 export const WARNING_MESSAGE = `
 1. This smart contract hasn't been professionally audited for security vulnerabilities. Please use at your own risk!
