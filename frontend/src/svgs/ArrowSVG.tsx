@@ -2,8 +2,8 @@ const arrowSVGStyles = {
   color: 'inherit',
   fill: 'inherit',
   width: '2ch',
-  'margin-left': '.2ch',
-  'vertical-align': 'bottom'
+  marginLeft: '.2ch',
+  verticalAlign: 'bottom'
 }
 
 export const ArrowSVG = () => {

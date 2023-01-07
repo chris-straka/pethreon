@@ -1,9 +1,9 @@
 const githubSvgStyles = {
   width: '2ch',
-  'margin-left': '3px',
-  'margin-bottom': '3px',
-  'vertical-align': 'text-bottom',
-  'background-color': 'transparent',
+  marginLeft: '3px',
+  marginBottom: '3px',
+  verticalAlign: 'text-bottom',
+  backgroundColor: 'transparent',
   fill: 'var(--text)',
 }
 

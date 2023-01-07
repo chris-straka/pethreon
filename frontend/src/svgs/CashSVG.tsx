@@ -1,6 +1,6 @@
 const cashSvgStyles = {
   width: '2ch',
-  'vertical-align': 'bottom'
+  verticalAlign: 'bottom'
 }
 
 export const CashSVG = () => {
