@@ -2,9 +2,7 @@ import { providers, BigNumber } from "ethers"
 import { EthereumWindow } from "./utils";
 import { Pethreon__factory } from "../typechain-types/factories";
 
-const PETHREON_CONTRACT_ADDRESS = process.env.NODE_ENV === "development" ?
-  process.env.REACT_APP_LOCALHOST_CONTRACT_ADDRESS as string :
-  process.env.REACT_APP_RINKEBY_CONTRACT_ADDRESS as string
+const PETHREON_CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS
 
 function init() {
   const { ethereum } = window as EthereumWindow         // check if they have metamask installed (Ethereum)
