@@ -2,8 +2,9 @@ import { useState, useEffect, ReactNode } from "react"
 import { useNavigate } from "react-router-dom"
 import { UserBalance, UserAddress, Loading, PledgeList } from "../../components"
 import { getContributorBalanceInWei, getContributorPledges } from "../../pethreon"
-import { EthereumWindow, PledgeType, MetamaskError } from "../../utils"
+import { PledgeType, MetamaskError } from "../../utils"
 import { ContributorActionBar } from "./components"
+import { useEthereum } from "../../hooks/useEthereum"
 import { utils } from "ethers"
 import styles from "./Contribute.module.scss"
 
@@ -12,7 +13,7 @@ export const Contribute = () => {
   const [balance, setBalance] = useState("0.0")
   const [pledges, setPledges] = useState<PledgeType[]>([])
   const [modal, setModal] = useState<ReactNode | null>(null)
-  const { ethereum } = window as EthereumWindow
+  const ethereum = useEthereum()
   const navigate = useNavigate()
 
   useEffect(() => {

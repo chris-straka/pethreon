@@ -1,6 +1,6 @@
 export const ETHEREUM_FOUND = "This app uses your ethereum wallet to make subscriptions to creators"
 export const ETHEREUM_NOT_FOUND = "This app requires a cryptocurrency wallet to work, "
-export const DOWNLOAD_METMASK = "download metamask!"
+export const DOWNLOAD_METAMASK = "download metamask!"
 export const METAMASK_LINK = "https://metamask.io/download"
 export const LOGGING_IN = "Logging in... You might have to click the metamask extension in your browser"
 export const ERROR_32002 = "Request already sent, click the metamask extension in your browser"

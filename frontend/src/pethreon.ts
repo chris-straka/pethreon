@@ -1,8 +1,13 @@
 import { providers, BigNumber } from "ethers"
-import { EthereumWindow } from "./utils";
 import { Pethreon__factory } from "../typechain-types/factories";
 
 const PETHREON_CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS
+
+export interface EthereumWindow extends Window {
+  ethereum?: Ethereum
+}
+
+type Ethereum = any
 
 function init() {
   const { ethereum } = window as EthereumWindow         // check if they have metamask installed (Ethereum)

@@ -1,18 +1,19 @@
-import { useEffect, useState, Dispatch, SetStateAction } from "react"
-import { EthereumWindow } from "../../../../utils";
+import { useEffect, useState, Dispatch } from "react"
+import { actionType } from "../../Login"
 import styles from "./TypewriterEffect.module.scss"
 
 interface MetamaskAnimationProps {
   className: string,
+  ethereum: any,
   message: string,
   linkContent: string,
   linkUrl: string,
   cadence: number,
   delay: number,
-  setTalking: Dispatch<SetStateAction<boolean>>
+  dispatch: Dispatch<actionType>
 }
 
-export const TypewriterEffect = ({ className, message, linkUrl, linkContent, cadence, delay, setTalking }: MetamaskAnimationProps) => {
+export const TypewriterEffect = ({ className, ethereum, message, linkUrl, linkContent, cadence, delay, dispatch }: MetamaskAnimationProps) => {
   const [animatedMessage, setAnimatedMessage] = useState("")
   const [animatedLink, setAnimatedLink] = useState("")
   const [init, setInit] = useState(false)
@@ -26,7 +27,7 @@ export const TypewriterEffect = ({ className, message, linkUrl, linkContent, cad
     setTimeout(() => {
       if (location.pathname !== "/") return
       setInit(true)
-      setTalking(true)
+      dispatch({ type: "setTalking", payload: true })
       message.split('').forEach((char, index) => {
         setTimeout(() => {
           if (interrupt) return
@@ -37,16 +38,16 @@ export const TypewriterEffect = ({ className, message, linkUrl, linkContent, cad
 
       setTimeout(() => {
         if (!messageBuilder) return
-        setTalking(false)
+        dispatch({ type: "setTalking", payload: true })
         interrupt = false
       }, message.length * cadence + 1);
 
       if (linkContent) {
         setTimeout(() => {
-          setTalking(true)
+          dispatch({ type: "setTalking", payload: false })
           linkContent.split('').forEach((char, index) => {
             setTimeout(() => {
-              if ((window as EthereumWindow).ethereum) window.location.reload()
+              if (ethereum) window.location.reload()
               if (interrupt) return
               linkBuilder += char
               setAnimatedLink(linkBuilder)
@@ -54,7 +55,7 @@ export const TypewriterEffect = ({ className, message, linkUrl, linkContent, cad
           })
 
           setTimeout(() => {
-            setTalking(false)
+            dispatch({ type: "setTalking", payload: false })
             interrupt = false
           }, (linkContent.length * cadence) + 1);
         }, (message.length * cadence) + 2)
@@ -69,7 +70,7 @@ export const TypewriterEffect = ({ className, message, linkUrl, linkContent, cad
       setAnimatedMessage("")
       setAnimatedLink("")
     }
-  }, [init, linkContent, delay, message, cadence, setTalking, location])
+  }, [init, linkContent, delay, message, cadence, dispatch, location])
 
   return (
     <p className={`${styles.typewriter} ${className}`}>{animatedMessage} {

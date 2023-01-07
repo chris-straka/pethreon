@@ -1,10 +1,6 @@
 import { BigNumber } from "ethers";
 import { extractPledgesToCSV } from "./extractPledgesToCSV";
 
-export interface EthereumWindow extends Window {
-  ethereum?: any
-}
-
 export interface MetamaskError extends Error {
   data: any,
   code: number,

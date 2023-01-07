@@ -1,43 +1,64 @@
-import { useState, useEffect } from 'react'
+import { useReducer, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ETHEREUM_FOUND, ETHEREUM_NOT_FOUND, DOWNLOAD_METMASK, METAMASK_LINK, LOGGING_IN, ERROR_32002 } from '../../messages'
-import { EthereumWindow, MetamaskError } from '../../utils'
+import { useEthereum } from "../../hooks/useEthereum"
+import { ETHEREUM_FOUND, ETHEREUM_NOT_FOUND, DOWNLOAD_METAMASK, METAMASK_LINK, LOGGING_IN } from '../../messages'
 import { TypewriterEffect, Features, Video, Pethreon, LoginButton } from './components'
 import { Footer } from "../../components"
 import { MetamaskSVG } from '../../svgs'
-
 import styles from "./Login.module.scss"
 
+const initialState = {
+  message: "",
+  talking: false,
+  linkContent: "",
+  linkUrl: ""
+}
+
+export type actionType =
+  | { type: "wallet not found" }
+  | { type: "wallet found" }
+  | { type: "logging in" }
+  | { type: "setTalking", payload: boolean }
+  | { type: "error", payload: unknown }
+
+const reducer = (state: typeof initialState, action: actionType) => {
+  switch (action.type) {
+    case "wallet not found":
+      return { ...state, message: ETHEREUM_NOT_FOUND, linkContent: DOWNLOAD_METAMASK, linkUrl: METAMASK_LINK }
+    case "wallet found":
+      return { ...state, message: ETHEREUM_FOUND }
+    case "logging in":
+      return { ...state, message: LOGGING_IN }
+    case "setTalking":
+      return { ...state, talking: action.payload }
+    case "error":
+      return { ...state, message: `${action.payload}` }
+    default:
+      throw Error("Action does not exist in the reducer")
+  }
+}
+
 export const Login = () => {
+  const [{ message, talking, linkContent, linkUrl }, dispatch] = useReducer(reducer, initialState)
   const navigate = useNavigate()
-  const { ethereum, location } = window as EthereumWindow
-  const [message, setMessage] = useState("")
-  const [talking, setTalking] = useState(false)
-  const [linkContent, setLinkContent] = useState("")
-  const [linkUrl, setLinkUrl] = useState("")
+  const ethereum = useEthereum()
 
   useEffect(() => {
-    if (location.pathname !== "/") return
-    if (ethereum === undefined) {
-      setMessage(ETHEREUM_NOT_FOUND)
-      setLinkContent(DOWNLOAD_METMASK)
-      setLinkUrl(METAMASK_LINK)
-    } else {
-      setMessage(ETHEREUM_FOUND)
-    }
-  }, [ethereum, location])
+    if (window.location.pathname !== "/") return 
+    if (!ethereum) dispatch({ type: "wallet not found" })
+    else dispatch({ type: "wallet found" })
+  }, [])
 
   async function login() {
-    let lastVisited = localStorage.getItem("last_page_visited")
-    setMessage(LOGGING_IN)
+    dispatch({ type: "logging in" }) // this is just for asthetics
+    if (!ethereum) return window.alert("Ethereum wallet not found")
     try {
       await ethereum.request({ method: 'eth_requestAccounts' })
-      lastVisited === "create" ?
+      localStorage.getItem("last_page_visited") === "create" ?
         navigate("create") :
         navigate("contribute")
     } catch (error) {
-      if ((error as MetamaskError).code === -32002) { setMessage(ERROR_32002) }
-      else { setMessage("Error... " + (error as MetamaskError).message) }
+      dispatch({ type: "error", payload: error })
     }
   }
 
@@ -46,13 +67,14 @@ export const Login = () => {
       <Pethreon className={styles.pethreon} />
       <Features className={styles.features} />
       <TypewriterEffect
+        ethereum={ethereum}
         className={styles.typewriter}
         cadence={60}
         delay={1000}
         message={message}
         linkContent={linkContent}
         linkUrl={linkUrl}
-        setTalking={setTalking}
+        dispatch={dispatch}
       />
       <div className={styles.loginContainer}>
         <MetamaskSVG className={styles.metamaskSVG} isTalking={talking} />

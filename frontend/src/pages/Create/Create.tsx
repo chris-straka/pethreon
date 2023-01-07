@@ -3,18 +3,18 @@ import { useNavigate } from "react-router-dom"
 import { UserBalance, UserAddress, Loading, PledgeList, } from "../../components"
 import { CreatorActionBar } from "./components/CreatorActionBar"
 import { getCreatorBalanceInWei, getCreatorPledges } from "../../pethreon"
-import { EthereumWindow, PledgeType, extractPledgesToCSV, MetamaskError } from "../../utils"
+import { PledgeType, extractPledgesToCSV, MetamaskError } from "../../utils"
+import { useEthereum } from "../../hooks/useEthereum"
 import { utils } from "ethers"
 import styles from "./Create.module.scss"
-
 
 export const Create = () => {
   const [loading, setLoading] = useState(false)
   const [balance, setBalance] = useState("0.0")
   const [pledges, setPledges] = useState<PledgeType[]>([])
   const [modal, setModal] = useState<ReactNode | null>(null)
-  const { ethereum } = window as EthereumWindow
   const navigate = useNavigate()
+  const ethereum = useEthereum()
 
   useEffect(() => {
     localStorage.setItem("last_page_visited", "create")
