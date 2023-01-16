@@ -44,7 +44,7 @@ export const Login = () => {
   const ethereum = useEthereum()
 
   useEffect(() => {
-    if (window.location.pathname !== "/") return 
+    if (window.location.pathname !== "/") return
     if (!ethereum) dispatch({ type: "wallet not found" })
     else dispatch({ type: "wallet found" })
   }, [])
@@ -78,10 +78,7 @@ export const Login = () => {
       />
       <div className={styles.loginContainer}>
         <MetamaskSVG className={styles.metamaskSVG} isTalking={talking} />
-        <LoginButton
-          className={styles.loginButton}
-          onClick={login}
-        >Login With Metamask</LoginButton>
+        <LoginButton onClick={login}>Login With Metamask</LoginButton>
       </div>
       <Video className={styles.video} />
       <Footer />

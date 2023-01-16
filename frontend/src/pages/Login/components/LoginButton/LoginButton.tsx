@@ -1,14 +1,13 @@
 import styles from "./LoginButton.module.scss"
 
 interface LoginButtonProps {
-  className: string,
   children: string,
   onClick: (() => void)
 }
 
-export const LoginButton = ({ className, onClick, children }: LoginButtonProps) => {
+export const LoginButton = ({ onClick, children }: LoginButtonProps) => {
   return <button
-    className={`${styles.loginButton} ${className}`}
+    className={styles.loginButton}
     onClick={onClick}
   >{children}</button>
 }
