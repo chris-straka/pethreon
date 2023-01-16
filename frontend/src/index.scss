@@ -1,0 +1,82 @@
+// I want this stuff to be accessible everywhere, therefore I'm not making it a CSS module
+
+@font-face {
+  font-family: Cutesy;
+  src: url(./assets/fonts/Cutesy.woff2) format("woff2");
+}
+
+@font-face {
+  font-family: aileron;
+  src: url(./assets/fonts/Aileron-UltraLight.woff2) format("woff2");
+  font-weight: 200;
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: inherit;
+}
+
+:root {
+  --primary-color: hsl(215, 50%, 68%);
+  --primary-light-color: hsl(215, 50%, 79%);
+  --primary-dark-color: hsl(215, 50%, 57%);
+
+  --secondary-color: hsl(328, 41%, 72%);
+  --secondary-light-color: hsl(328, 41%, 80%);
+  --secondary-dark-color: hsl(328, 41%, 59%);
+
+  --anchor-tag-color: default;
+  --anchor-tag-hover-color: var(--secondary-color);
+  --background-color: hsl(0, 0%, 100%);
+  --modal-background-color: hsl(0, 0%, 100%);
+  --text-color: hsl(0, 0%, 20%);
+  --text-color: #141823;
+  --login-button-color: var(--primary-color);
+  --modal-backdrop-color: hsla(0, 0%, 0%, 0.882);
+  --modal-background-color: hsl(200, 7%, 18%);
+  --text-color-hover-duration: 0.3s;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  color-scheme: light dark;
+  background-color: var(--background-color);
+  color: var(--text-color);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+a {
+  color: var(--anchor-tag-color);
+
+  &:focus {
+    color: var(--anchor-tag-hover-color);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-color: hsla(216, 49%, 29%, 1);
+    --primary-light-color: hsl(216, 49%, 54%);
+    --primary-dark-color: hsl(216, 49%, 20%);
+
+    --secondary-color: hsl(267, 95%, 76%);
+    --secondary-light-color: hsl(267, 95%, 80%);
+    --secondary-dark-color: hsl(260, 95%, 70%);
+
+    --anchor-tag-color: hsl(220, 50%, 70%);
+    --background-color: hsl(200, 7%, 8%);
+    --modal-background-color: hsl(200, 7%, 18%);
+    --text-color: hsl(36, 10%, 90%);
+    --login-button-color: hsl(36, 10%, 90%);
+    --action-button-color: hsl(200, 7%, 5%);
+  }
+}

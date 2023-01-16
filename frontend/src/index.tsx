@@ -1,9 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { Login } from "./pages/Login/Login";
-import { Create } from './pages/Create/Create'
-import { Contribute } from './pages/Contribute/Contribute'
+import { Login, Create, Contribute } from "./pages"
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import "./index.scss"
 
 /** 
  * https://reactrouter.com/en/main/routers/create-browser-router
