@@ -1,21 +1,21 @@
 .actionButton {
   width: unset;
-  background-color: var(--secondary);
+  background-color: var(--secondary-color);
 
   &:hover {
-    color: var(--primary);
+    color: var(--primary-color);
   }
 
   &:focus-visible {
-    outline-color: var(--secondary);
+    outline-color: var(--secondary-color);
   }
 }
 
 @media (prefers-color-scheme: dark) {
   .actionButton {
-    color: var(--text);
+    color: var(--text-color);
     &:hover {
-      color: var(--primary-light);
+      color: var(--primary-light-color);
     }
   }
 }

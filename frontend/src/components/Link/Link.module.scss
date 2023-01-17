@@ -1,13 +1,13 @@
 .link {
   transition: all 0.3s;
-  color: var(--primary-dark);
+  color: var(--primary-dark-color);
   &:hover {
-    color: var(--secondary);
+    color: var(--secondary-color);
   }
 }
 
 @media (prefers-color-scheme: dark) {
   .link {
-    color: var(--primary-light);
+    color: var(--primary-light-color);
   }
 }

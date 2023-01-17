@@ -18,7 +18,7 @@
   --fs: clamp(10px, 6vw, 30px);
   --outline-offset: 3px;
   --outline-size: 5px;
-  --outline-color: var(--primary);
+  --outline-color: var(--primary-color);
   --color: transparent;
 
   outline: none;
@@ -29,7 +29,7 @@
   font-size: var(--fs);
   outline-offset: var(--outline-offset);
   outline: var(--outline-size) dotted transparent;
-  background-color: var(--primary);
+  background-color: var(--primary-color);
   border-radius: 50%;
   color: var(--color);
   fill: var(--color);

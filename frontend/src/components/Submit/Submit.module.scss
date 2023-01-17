@@ -1,7 +1,7 @@
 .button {
   cursor: pointer;
-  color: var(--text);
-  background-color: var(--secondary);
+  color: var(--text-color);
+  background-color: var(--secondary-color);
   border-radius: 30px;
   padding: 13px;
   outline: none;
@@ -11,7 +11,7 @@
   &:hover:enabled,
   &:focus:enabled {
     transform: translateY(-0.06em);
-    box-shadow: 0 0.2em 0 0 var(--primary);
+    box-shadow: 0 0.2em 0 0 var(--primary-color);
   }
 
   &:active:enabled {

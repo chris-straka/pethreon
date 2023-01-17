@@ -2,8 +2,8 @@
   --login-button-fs: clamp(16px, 1.1vw + 16px, 160px);
 
   font-size: var(--login-button-fs);
-  border: 0.145em solid var(--primary);
-  background-color: var(--primary);
+  border: 0.145em solid var(--primary-color);
+  background-color: var(--primary-color);
   color: var(--background-color);
   border-radius: 16px;
   padding-block: 16px;
@@ -42,18 +42,18 @@
 @media (prefers-color-scheme: dark) {
   .loginButton {
     background: none;
-    color: var(--text);
-    border-color: var(--primary);
+    color: var(--text-color);
+    border-color: var(--primary-color);
 
     &:focus-visible {
       outline: none;
-      color: var(--text);
-      background-color: var(--primary);
+      color: var(--text-color);
+      background-color: var(--primary-color);
     }
 
     &:hover {
-      color: var(--text);
-      background-color: var(--primary);
+      color: var(--text-color);
+      background-color: var(--primary-color);
       box-shadow: none;
     }
   }

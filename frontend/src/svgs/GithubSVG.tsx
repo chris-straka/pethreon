@@ -4,7 +4,7 @@ const githubSvgStyles = {
   marginBottom: '3px',
   verticalAlign: 'text-bottom',
   backgroundColor: 'transparent',
-  fill: 'var(--text)',
+  fill: 'var(--text-color)',
 }
 
 export const GithubSVG = () => (

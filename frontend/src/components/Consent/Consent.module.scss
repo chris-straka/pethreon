@@ -25,11 +25,11 @@
   }
 
   &:hover &__span {
-    background-color: var(--primary-light);
+    background-color: var(--primary-light-color);
   }
 
   &__input:focus-visible + &__span {
-    outline-color: var(--secondary);
+    outline-color: var(--secondary-color);
     transition: all 0.3s;
   }
 
@@ -44,7 +44,7 @@
   }
 
   &__input:checked + &__span {
-    background-color: var(--primary-light);
+    background-color: var(--primary-light-color);
     &::after {
       opacity: 1;
       transition: all 0.2s;

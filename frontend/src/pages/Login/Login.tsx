@@ -66,7 +66,7 @@ export const Login = () => {
     <div className={styles.loginLayout}>
       <Pethreon className={styles.pethreon} />
       <Features className={styles.features} />
-      <TypewriterEffect
+      {/* <TypewriterEffect
         ethereum={ethereum}
         className={styles.typewriter}
         cadence={60}
@@ -75,7 +75,7 @@ export const Login = () => {
         linkContent={linkContent}
         linkUrl={linkUrl}
         dispatch={dispatch}
-      />
+      /> */}
       <div className={styles.loginContainer}>
         <MetamaskSVG className={styles.metamaskSVG} isTalking={talking} />
         <LoginButton onClick={login}>Login With Metamask</LoginButton>

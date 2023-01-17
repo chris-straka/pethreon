@@ -11,7 +11,7 @@
   width: var(--action-button-width);
   padding: 0.7em;
   border-right: 3px solid white;
-  background-color: var(--primary);
+  background-color: var(--primary-color);
   color: var(--background-color);
   outline-offset: var(--action-button-outline-offset);
   outline: var(--action-button-outline-size) dotted transparent;
@@ -19,11 +19,11 @@
 
   &:hover {
     transition: color 0.3s;
-    color: var(--secondary);
+    color: var(--secondary-color);
   }
 
   &:focus-visible {
-    outline-color: var(--primary);
+    outline-color: var(--primary-color);
     transition: color 0.3s, outline-color 0.3s, background-color 0.3s;
   }
 
@@ -52,6 +52,6 @@
 
 @media (prefers-color-scheme: dark) {
   .actionButton {
-    color: var(--text);
+    color: var(--text-color);
   }
 }

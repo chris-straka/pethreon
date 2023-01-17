@@ -6,7 +6,7 @@
   align-content: center;
   cursor: pointer;
   font-size: inherit; // grabs its font size from its container
-  color: var(--text);
+  color: var(--text-color);
   margin-right: 0.3rem;
 }
 
@@ -17,27 +17,27 @@
 
   &:not(:checked):hover {
     & + .radioButtonTextSpan {
-      background-color: var(--primary);
+      background-color: var(--primary-color);
     }
   }
 
   &:checked {
     &:hover + .radioButtonTextSpan {
-      background-color: var(--primary-light);
+      background-color: var(--primary-light-color);
     }
 
     & + .radioButtonTextSpan {
-      background-color: var(--primary); // background for the whole radio button
+      background-color: var(--primary-color); // background for the whole radio button
     }
 
     & + .radioButtonTextSpan::before {
-      box-shadow: inset 0 0 0 0.4375em var(--primary-dark); // dark circle that goes inside the radio button
+      box-shadow: inset 0 0 0 0.4375em var(--primary-dark-color); // dark circle that goes inside the radio button
     }
   }
 
   &:focus-visible + .radioButtonTextSpan {
     transform: translateY(-0.05em);
-    box-shadow: 0 0.2em 0 0 var(--secondary);
+    box-shadow: 0 0.2em 0 0 var(--secondary-color);
   }
 }
 
@@ -61,6 +61,6 @@
     border-radius: 50%;
     margin-right: 0.375em;
     transition: 0.25s ease;
-    box-shadow: inset 0 0 0 0.125em var(--darktheme-primary-light);
+    box-shadow: inset 0 0 0 0.125em var(--darktheme-primary-light-color);
   }
 }

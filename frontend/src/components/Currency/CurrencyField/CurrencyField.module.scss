@@ -1,14 +1,18 @@
 .transitioningBorder {
-  border-image: linear-gradient(to right, var(--secondary), transparent 80%) 1;
+  border-image: linear-gradient(
+      to right,
+      var(--secondary-color),
+      transparent 80%
+    )
+    1;
   border-style: solid;
   border-bottom-width: 5px;
   margin-bottom: 15px;
 }
 
-// var(--modal-background)
 .currencyContainer {
   display: flex;
-  border-bottom: 5px solid var(--modal-background);
+  border-bottom: 5px solid var(--modal-background-color);
   padding-bottom: 5px;
   margin-bottom: -5px;
   transition: border-color 0.3s;
@@ -25,12 +29,12 @@
 }
 
 .currencyField {
-  color: var(--text);
+  color: var(--text-color);
   background-color: transparent;
   outline: none;
   width: 100%;
   font-size: inherit;
-  caret-color: var(--text);
+  caret-color: var(--text-color);
   margin-left: 10px;
 
   &::-webkit-outer-spin-button,
