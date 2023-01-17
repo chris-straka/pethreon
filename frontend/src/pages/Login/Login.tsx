@@ -1,64 +1,62 @@
-import { useReducer, useEffect } from 'react'
+import { useEffect, useReducer } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useEthereum } from "../../hooks/useEthereum"
-import { ETHEREUM_FOUND, ETHEREUM_NOT_FOUND, DOWNLOAD_METAMASK, METAMASK_LINK, LOGGING_IN } from '../../messages'
-import { TypewriterEffect, Features, Video, Pethreon, LoginButton } from './components'
-import { Footer } from "../../components"
+import { WALLET_FOUND, WALLET_NOT_FOUND, LOGGING_IN, DOWNLOAD_METAMASK, METAMASK_LINK } from '../../messages'
+import { ERROR_32002 } from '../../errors'
+import { TypewriterEffect, Features, Video, Pethreon, LoginButton, Footer } from './components'
 import { MetamaskSVG } from '../../svgs'
 import styles from "./Login.module.scss"
 
 const initialState = {
   message: "",
-  talking: false,
   linkContent: "",
-  linkUrl: ""
+  linkUrl: "",
+  talking: false,
 }
 
-export type actionType =
-  | { type: "wallet not found" }
+export type ACTIONTYPE =
   | { type: "wallet found" }
+  | { type: "wallet not found" }
   | { type: "logging in" }
-  | { type: "setTalking", payload: boolean }
-  | { type: "error", payload: unknown }
+  | { type: "error", payload: string }
+  | { type: "talking", payload: boolean }
 
-const reducer = (state: typeof initialState, action: actionType) => {
+function reducer(state: typeof initialState, action: ACTIONTYPE) {
   switch (action.type) {
-    case "wallet not found":
-      return { ...state, message: ETHEREUM_NOT_FOUND, linkContent: DOWNLOAD_METAMASK, linkUrl: METAMASK_LINK }
     case "wallet found":
-      return { ...state, message: ETHEREUM_FOUND }
+      return { ...state, message: WALLET_FOUND, linkContent: "", linkUrl: "" }
+    case "wallet not found":
+      return { ...state, message: WALLET_NOT_FOUND, linkContent: DOWNLOAD_METAMASK, linkUrl: METAMASK_LINK }
     case "logging in":
-      return { ...state, message: LOGGING_IN }
-    case "setTalking":
+      return { ...state, message: LOGGING_IN, linkContent: "", linkUrl: "" }
+    case "talking":
       return { ...state, talking: action.payload }
     case "error":
-      return { ...state, message: `${action.payload}` }
-    default:
-      throw Error("Action does not exist in the reducer")
+      return { ...state, message: action.payload, linkContent: "", linkUrl: "" }
   }
 }
 
 export const Login = () => {
-  const [{ message, talking, linkContent, linkUrl }, dispatch] = useReducer(reducer, initialState)
+  const [{ message, linkContent, linkUrl, talking }, dispatch] = useReducer(reducer, initialState)
   const navigate = useNavigate()
   const ethereum = useEthereum()
 
   useEffect(() => {
     if (window.location.pathname !== "/") return
-    if (!ethereum) dispatch({ type: "wallet not found" })
-    else dispatch({ type: "wallet found" })
+    ethereum ? dispatch({ type: "wallet found" }) : dispatch({ type: "wallet not found" })
   }, [])
 
   async function login() {
-    dispatch({ type: "logging in" }) // this is just for asthetics
-    if (!ethereum) return window.alert("Ethereum wallet not found")
+    dispatch({ type: "logging in" })
+    if (!ethereum) return dispatch({ type: "wallet not found" })
     try {
       await ethereum.request({ method: 'eth_requestAccounts' })
       localStorage.getItem("last_page_visited") === "create" ?
         navigate("create") :
         navigate("contribute")
     } catch (error) {
-      dispatch({ type: "error", payload: error })
+      if ((error as any).code === -32002) dispatch({ type: "error", payload: ERROR_32002 })
+      else dispatch({ type: "error", payload: (error as any).message })
     }
   }
 
@@ -66,18 +64,15 @@ export const Login = () => {
     <div className={styles.loginLayout}>
       <Pethreon className={styles.pethreon} />
       <Features className={styles.features} />
-      {/* <TypewriterEffect
-        ethereum={ethereum}
+      <TypewriterEffect
         className={styles.typewriter}
-        cadence={60}
-        delay={1000}
         message={message}
-        linkContent={linkContent}
-        linkUrl={linkUrl}
+        linkContent={DOWNLOAD_METAMASK}
+        linkUrl={METAMASK_LINK}
         dispatch={dispatch}
-      /> */}
+      />
       <div className={styles.loginContainer}>
-        <MetamaskSVG className={styles.metamaskSVG} isTalking={talking} />
+        <MetamaskSVG className={styles.metamaskSVG} talking={talking} />
         <LoginButton onClick={login}>Login With Metamask</LoginButton>
       </div>
       <Video className={styles.video} />

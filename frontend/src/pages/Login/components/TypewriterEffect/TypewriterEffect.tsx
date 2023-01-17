@@ -1,67 +1,79 @@
 import { useEffect, useState, Dispatch } from "react"
-import { actionType } from "../../Login"
+import { ACTIONTYPE } from "../../Login"
 import styles from "./TypewriterEffect.module.scss"
+
+const CADENCE = 60
+const DELAY = 1000
 
 interface MetamaskAnimationProps {
   className: string,
-  ethereum: any,
   message: string,
   linkContent: string,
   linkUrl: string,
-  cadence: number,
-  delay: number,
-  dispatch: Dispatch<actionType>
+  dispatch: Dispatch<ACTIONTYPE>
 }
 
-export const TypewriterEffect = ({ className, ethereum, message, linkUrl, linkContent, cadence, delay, dispatch }: MetamaskAnimationProps) => {
+/** 
+ * Links will only work when they're passed separately and at the end of a string
+ */
+export const TypewriterEffect = (
+  { className, message, linkUrl, linkContent, dispatch }: MetamaskAnimationProps
+) => {
   const [animatedMessage, setAnimatedMessage] = useState("")
   const [animatedLink, setAnimatedLink] = useState("")
   const [init, setInit] = useState(false)
-  const { location } = window
 
   useEffect(() => {
-    let interrupt: boolean;
+    let interrupt = false
     let messageBuilder = ""
     let linkBuilder = ""
 
     setTimeout(() => {
-      if (location.pathname !== "/") return
+      if (window.location.pathname !== "/") return
       setInit(true)
-      dispatch({ type: "setTalking", payload: true })
-      message.split('').forEach((char, index) => {
+      dispatch({ type: "talking", payload: true })
+
+      const chars = message.split('')
+
+      // Type out the normal message
+      chars.forEach((char, index) => {
+        const timeBeforeEachWord = CADENCE * index
         setTimeout(() => {
           if (interrupt) return
           messageBuilder += char
           setAnimatedMessage(messageBuilder)
-        }, cadence * index);
+        }, timeBeforeEachWord)
       })
 
+
+      const msgIsDone = message.length * CADENCE + 1
+      // This makes sure I stop talking after I'm done with my message
       setTimeout(() => {
         if (!messageBuilder) return
-        dispatch({ type: "setTalking", payload: true })
-        interrupt = false
-      }, message.length * cadence + 1);
+        dispatch({ type: "talking", payload: false })
+      }, msgIsDone);
 
+      // if the message has a link to go with it
       if (linkContent) {
-        setTimeout(() => {
-          dispatch({ type: "setTalking", payload: false })
-          linkContent.split('').forEach((char, index) => {
-            setTimeout(() => {
-              if (ethereum) window.location.reload()
-              if (interrupt) return
-              linkBuilder += char
-              setAnimatedLink(linkBuilder)
-            }, (cadence * index));
-          })
-
+        // same as before, except I have to make sure everything happens after the original msg
+        const linkChars = linkContent.split('')
+        linkChars.forEach((char, index) => {
           setTimeout(() => {
-            dispatch({ type: "setTalking", payload: false })
-            interrupt = false
-          }, (linkContent.length * cadence) + 1);
-        }, (message.length * cadence) + 2)
+            dispatch({ type: "talking", payload: true })
+            if (interrupt) return
+            linkBuilder += char
+            setAnimatedLink(linkBuilder)
+          }, ((msgIsDone) + (CADENCE * index)));
+        })
+
+        const linkIsDone = linkContent.length * CADENCE + 80
+        setTimeout(() => {
+          if (!linkBuilder) return
+          dispatch({ type: "talking", payload: false })
+        }, ((msgIsDone) + (linkIsDone)));
       }
 
-    }, init ? 0 : delay)
+    }, init ? 0 : DELAY)
 
     return () => {
       messageBuilder = ""
@@ -70,13 +82,12 @@ export const TypewriterEffect = ({ className, ethereum, message, linkUrl, linkCo
       setAnimatedMessage("")
       setAnimatedLink("")
     }
-  }, [init, linkContent, delay, message, cadence, dispatch, location])
+  }, [init, linkContent, message])
 
   return (
-    <p className={`${styles.typewriter} ${className}`}>{animatedMessage} {
-      linkContent !== "" ?
-        <a href={linkUrl} target="_blank" rel="noreferrer">{animatedLink}</a> :
-        null
-    } </p>
+    <p className={`${styles.typewriter} ${className}`}>
+      {animatedMessage}
+      {linkContent !== "" ? <a href={linkUrl} target="_blank" rel="noreferrer">{animatedLink}</a> : null}
+    </p>
   )
 }

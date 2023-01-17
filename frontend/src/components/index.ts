@@ -8,7 +8,7 @@ import { CurrencyButton } from "./Currency/CurrencyButton/CurrencyButton";
 import { CurrencyButtons } from "./Currency/CurrencyButtons/CurrencyButtons";
 import { CurrencyField } from "./Currency/CurrencyField/CurrrencyField";
 import { Disclaimer } from "./Disclaimer/Disclaimer";
-import { Footer } from "./Footer/Footer";
+import { Footer } from "../pages/Login/components/Footer/Footer";
 import { Link } from "./Link/Link"
 import { Loading } from "./Loading/Loading";
 import { WithdrawModal } from "./Modals/WithdrawModal";

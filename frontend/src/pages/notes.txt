@@ -1,0 +1,1 @@
+I have an Angular frontend and a Spring backend. Does it make sense to host my Angular frontend on Kubernetes along with my Spring backend? Shouldn't I just host my angular app on a static hosting website like Netlify or Vercel instead?

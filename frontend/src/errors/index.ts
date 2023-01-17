@@ -1,0 +1,1 @@
+export const ERROR_32002 = "Request already sent, click the metamask extension in your browser"
