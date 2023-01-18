@@ -5,7 +5,7 @@ import styles from "./TypewriterEffect.module.scss"
 const CADENCE = 60
 const DELAY = 1000
 
-interface MetamaskAnimationProps {
+interface TypewriterEffectProps {
   className: string,
   message: string,
   linkContent: string,
@@ -17,7 +17,7 @@ interface MetamaskAnimationProps {
  * Links will only work when they're passed separately and at the end of a string
  */
 export const TypewriterEffect = (
-  { className, message, linkUrl, linkContent, dispatch }: MetamaskAnimationProps
+  { className, message, linkUrl, linkContent, dispatch }: TypewriterEffectProps
 ) => {
   const [animatedMessage, setAnimatedMessage] = useState("")
   const [animatedLink, setAnimatedLink] = useState("")

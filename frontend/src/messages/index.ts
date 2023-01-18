@@ -1,6 +1,6 @@
 /** 
  * If you include a link, make sure the href is the only attribute in that link
- * Otherwise my typewriter effect "parseLinks" algorithm needs to be rewritten
+ * Otherwise my typewriter effect's "parseLinks" algorithm needs to be rewritten
  */
 
 export const WALLET_FOUND = "This app uses your ethereum wallet to make subscriptions to creators"
