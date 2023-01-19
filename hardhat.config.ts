@@ -15,8 +15,12 @@ const config: HardhatUserConfig = {
     outDir: "frontend/typechain-types"
   },
   networks: {
+    mainnet: {
+      url: `https://mainnet.infura.io/v3/${process.env.INFURA_ID}`,
+      accounts: [`0x${process.env.METAMASK_PRIVATE_KEY}`],
+    },
     sepolia: {
-      url: `${process.env.INFURA_SEPOLIA_URL}`,
+      url: `https://sepolia.infura.io/v3/${process.env.INFURA_ID}`,
       accounts: [`0x${process.env.METAMASK_PRIVATE_KEY}`],
     }
   }

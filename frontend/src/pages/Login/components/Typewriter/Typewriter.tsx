@@ -81,7 +81,7 @@ function typeMessage(
 
 /**
  * This is a much more complicated typewriter effect that prints links as well
- * It can only handle one link at a time
+ * It can only handle one link inside one message currently
  */
 function typeMessageWithLinks(
   status: { interrupt: boolean },
@@ -115,7 +115,7 @@ function typeMessageWithLinks(
           if (index >= linkLowerBound && index <= linkUpperBound) {
             linkBuilder = linkBuilder + char
             setDisplayMsg(<p>{messageBuilder} <a href={href}>{linkBuilder}</a></p>)
-            if (index <= linkUpperBound) linkBuilder = ""
+            if (index > linkUpperBound) linkBuilder = ""
             return
           }
           messageBuilder += char
