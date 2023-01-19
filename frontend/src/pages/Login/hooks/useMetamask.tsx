@@ -6,11 +6,7 @@ export interface EthereumWindow extends Window {
 
 type Ethereum = any
 
-/** 
- * This hook has been deprecated for https://onboard.blocknative.com/
- * This is another alternative https://docs.walletconnect.com/2.0/
- */
-export function useEthereum() {
+export function useMetamask() {
   const [ethereum, setEthereum] = useState<Ethereum | null>(null)
 
   useEffect(() => {

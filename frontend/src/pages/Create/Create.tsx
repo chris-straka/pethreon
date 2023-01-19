@@ -4,7 +4,7 @@ import { UserBalance, UserAddress, Loading, PledgeList, } from "../../components
 import { CreatorActionBar } from "./components/CreatorActionBar"
 import { getCreatorBalanceInWei, getCreatorPledges } from "../../pethreon"
 import { PledgeType, extractPledgesToCSV, MetamaskError } from "../../utils"
-import { useEthereum } from "../../hooks/useEthereum"
+import { useEthereum } from "../Login/hooks/useMetamask"
 import { utils } from "ethers"
 import styles from "./Create.module.scss"
 
@@ -14,7 +14,6 @@ export const Create = () => {
   const [pledges, setPledges] = useState<PledgeType[]>([])
   const [modal, setModal] = useState<ReactNode | null>(null)
   const navigate = useNavigate()
-  const ethereum = useEthereum()
 
   console.log(modal)
 

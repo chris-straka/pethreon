@@ -4,7 +4,7 @@ import { UserBalance, UserAddress, Loading, PledgeList } from "../../components"
 import { getContributorBalanceInWei, getContributorPledges } from "../../pethreon"
 import { PledgeType, MetamaskError } from "../../utils"
 import { ContributorActionBar } from "./components"
-import { useEthereum } from "../../hooks/useEthereum"
+import { useEthereum } from "../Login/hooks/useMetamask"
 import { utils } from "ethers"
 import styles from "./Contribute.module.scss"
 

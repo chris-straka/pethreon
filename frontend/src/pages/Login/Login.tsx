@@ -1,35 +1,32 @@
 import { useEffect, useState } from 'react'
 import { MetamaskSVG } from '../../svgs'
-import { useNavigate } from 'react-router-dom'
-import { useEthereum } from "../../hooks/useEthereum"
 import { useConnectWallet } from '@web3-onboard/react'
 import { Features, Footer, LoginButton, Pethreon, Typewriter, Video } from './components'
-import { WALLET_FOUND, WALLET_NOT_FOUND, LOGGING_IN } from '../../messages'
-import { ERROR_32002 } from '../../errors'
+import { LOGGING_IN } from '../../messages'
 import styles from "./Login.module.scss"
 
 export const Login = () => {
   const [message, setMessage] = useState("")
   const [talking, setTalking] = useState(false)
-  const [{ wallet, connecting }, connect, disconnect] = useConnectWallet()
-  const navigate = useNavigate()
-  const ethereum = useEthereum()
+  const [{ wallet, connecting }, connect] = useConnectWallet()
+  // const metamask = useMetamask()
 
+  // if the wallet has a provider then the wallet is connected
   useEffect(() => {
-    if (window.location.pathname !== "/") return
-    ethereum ? setMessage(WALLET_FOUND) : setMessage(WALLET_NOT_FOUND)
+    if (wallet?.provider) console.log("hi")
   }, [wallet])
 
-  async function login() {
+  // This is just for aesthetics
+  // useEffect(() => {
+  // }, [metamask])
+
+  // console.log("testing")
+  // metamask ? setMessage(WALLET_FOUND) : setMessage(WALLET_NOT_FOUND)
+
+
+  function login() {
     setMessage(LOGGING_IN)
-    if (!ethereum) return setMessage(WALLET_NOT_FOUND)
-    try {
-      await ethereum.request({ method: 'eth_requestAccounts' })
-      navigate("contribute")
-    } catch (error) {
-      if ((error as any).code === -32002) setMessage(ERROR_32002)
-      else setMessage((error as any).message)
-    }
+    connect()
   }
 
   return (
