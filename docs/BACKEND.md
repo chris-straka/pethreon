@@ -1,5 +1,7 @@
 # Backend Notes
 
+commit SHA of old version of this app before rewrite 5ad2bc974173f816b3da0303068785ffbe2ae440
+
 ## Recurring payments
 
 Implementing [recurring payments](https://ethereum.stackexchange.com/questions/49596) on Ethereum is not as easy as I thought it'd be. It's hard to create recurring payments because in Ethereum, only EOAs "Externally Owned Accounts" (humans) can create transactions. A CA "Contract Account" like Pethreon, can't create a transaction. In ethereum, a "transaction" is any action from an EOA that changes the state of the ethereum network. Sending ethereum from one person to another is the simplest form of transaction. The more complicated form of transaction is when an EOA sends a transaction to a CA. 
@@ -104,6 +106,3 @@ I thought it would be a good idea to read and understand other people's code and
 
 I'm going to make it easier for contributors & creators to see the pledges they've made by showing their current pledges in the UI as well as extracting data in excel spreadsheets. 
 
-## My alternate contract idea
-
-I came up with a cool idea on the alternative_contract branch, but unfortunately it doesn't work. In my alternative smart contract, I needed to build a dynamic array in memory because that was the easiest way to return all the pledges to a user. But apparently it's [not allowed in Solidity](https://stackoverflow.com/questions/68010434). I could return a static array of pledges instead, and the user could keep calling that function with different pointers each time like a sliding window, but this would result in a lot more API calls to my node at infura. There might be another thing I'm missing that's painfully obvious that would have made it possible, but I couldn't figure it out. 

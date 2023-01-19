@@ -1,29 +1,14 @@
 # How to develop locally
 
-# Work in progress
+It's **strongly** recommended that use WSL or Linux/Unix for this project. It will make things easier for hardhat and also for migrating code over to production/CI environments. 
 
-If you want npm install to work, you need to create an .env file in the root directory and add a couple of environment variables (a private key for an ethereum wallet and a couple of URLs to an ethereum node that will deploy the application).
+`npm install` is not going to work until you setup some environment variables (you'll also need to install [pnpm](https://pnpm.io/) on your machine). Please refer to the .env.example file in the root dir.
 
-To get a private key for an ethereum wallet, you can download the [metamask browser extension](https://metamask.io/). If you already have Metamask, you might want to use a different [browser profile](https://youtu.be/Ik8-xn4DyCo?t=15) for development to keep your real metamask account separate from your developer metamask account. You don't want to make the mistake of adding real crypto to your fake developer metamask account.
+If you want to make changes to the smart contract, please keep in mind that smart contracts (by design) are immutable. This means you have to redeploy the contract everytime you want to make changes. I strongly recommend using tests with hardhat when developing smart contracts.
 
-After you're done installing metamask, you need to create an account, sign in and go to the advanced settings to enable the developer stuff (test networks, gas controls, hex data, conversion on test networks, customize transaction nonce). Grab the private key for the account you want to use and paste it in the your .env file. Then sign up at [infura](https://www.infura.io/) and grab a URL for the sepolia network, and paste it into that same .env file.
+## [Sepolia](https://sepolia.dev/)
 
-```
-METAMASK_PRIVATE_KEY=YOUR_PRIVATE_KEY
-INFURA_SEPOLIA_URL=https://sepolia.infura.io/v3/5934efc92cb841e4ac589e7c070d6975
-```
-
-Then you can run npm install, and then you can create a network.
-
-To test the pledge feature, you need to do is donate to one of the accounts in your metamask wallet. If you want to make changes to the smart contract, keep in mind that smart contracts (by design) are immutable. This means you have to redeploy the contract and have the app switch to its new address, or you can restart the development network and it will have the same address as before. It might be easier to just test your contract with hardhat by running tests.
-
-It's **strongly** recommended that use WSL or Linux for this project. It will make things easier for hardhat and for migrating stuff over to the production/CI environments. You also need to have pnpm installed for the frontend package manager.
-
-## Rinkeby 
-
-My contract is currently deployed on the Rinkeby test network at [0xa6Af639091752d535e9B3B826e9B91A575205390](https://rinkeby.etherscan.io/address/0xa6Af639091752d535e9B3B826e9B91A575205390). [My frontend](https://lucid-roentgen-95db25.netlify.app/) is currently pointing to it. If you want to try it out as a user, you're going to have to switch your metamask account over to the rinkeby test network and fund it via a [rinkeby faucet](https://faucets.chain.link/rinkeby). You can them make calls to it from my frontend, or from your own app.
-
-If you want to change the smart contract itself, you're going to have to deploy a whole new contract to rinkeby and point to that new address in your frontend. To do this, you're going to need an account that has fake ether on the rinkeby test network. You then have to grab the private key for that account (in the metamask settings). Then you need someway of deploying that smart contract, I recommend you sign up at [infura](https://www.infura.io/) and grab a URL from them so that they can deploy it for you. The alternative is setting up your own ETH node that runs Geth or something. Once you have your private key and your Infura link, you can deploy to Rinkeby or wherever else using a deployment script. 
+Sepolia is one of the two test networks supported by ethereum. You can get fake sepolia ether from a [sepolia faucet](https://sepolia-faucet.pk910.de/). I already deployed a smart contract to sepolia, and I have included the address for it in the env files. You can deploy your own version and replace the address.
 
 ## Troubleshooting 
 

@@ -17,11 +17,11 @@ const config: HardhatUserConfig = {
   networks: {
     mainnet: {
       url: `https://mainnet.infura.io/v3/${process.env.INFURA_ID}`,
-      accounts: [`0x${process.env.METAMASK_PRIVATE_KEY}`],
+      accounts: [`0x${process.env.WALLET_PRIVATE_KEY}`],
     },
     sepolia: {
       url: `https://sepolia.infura.io/v3/${process.env.INFURA_ID}`,
-      accounts: [`0x${process.env.METAMASK_PRIVATE_KEY}`],
+      accounts: [`0x${process.env.WALLET_PRIVATE_KEY}`],
     }
   }
 };

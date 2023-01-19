@@ -1,44 +1,34 @@
 # Overview
 
-[This dapp](https://github.com/Chris56974/Pethreon) is a decentralized crowdfunding application that runs on ethereum. It's similar to [Patreon](https://www.patreon.com/) except there aren't any third-parties involved. The backend is a modified version of [Sergei's Pethreon Smart Contract](https://github.com/s-tikhomirov/pethreon), and the frontend is my own react project.
+[This dapp](https://github.com/Chris56974/Pethreon) is a decentralized crowdfunding application that runs on ethereum. It's similar to [Patreon](https://www.patreon.com/) except there's no third-parties. The backend is a modified (and working) version of [Sergei's Pethreon Smart Contract](https://github.com/s-tikhomirov/pethreon). The frontend is my own react project.
 
-## Backend
+For information on how to run this locally, please see [CONTRIBUTING.md](https://github.com/chris56974/pethreon/blob/main/docs/CONTRIBUTING.md)
 
-- [Solidity](https://docs.soliditylang.org/)
-- [Hardhat](https://hardhat.org/)
-- [Infura](https://infura.io/)
-- [Typechain](https://github.com/dethcrypto/TypeChain)
+## Tech Stack
 
-## Frontend
+Backend uses [Solidity](https://docs.soliditylang.org/), [Hardhat](https://hardhat.org/), [Typechain](https://github.com/dethcrypto/TypeChain), [Infura](https://infura.io/).
 
-- [React](https://reactjs.org/)
-- [Vite](https://vitejs.dev/)
-- [Ethers](https://docs.ethers.io/v5/)
-- [Framer-motion](https://www.framer.com/motion/)
-- [Typescript](https://www.typescriptlang.org/)
+Frontend uses [React](https://reactjs.org/), [Ethers](https://docs.ethers.io/v5/), [Framer-motion](https://www.framer.com/motion/), [Typescript](https://www.typescriptlang.org/), [OnboardJS](https://onboard.blocknative.com/), [Vite](https://vitejs.dev/), [Vitest](https://vitest.dev/), [ESlint](https://eslint.org/)
 
-### What does the user flow look like?
+The frontend was made using [these design mockups](https://www.figma.com/file/dwPfF2lhw84J4PZdZTIQvL/Pethreon?node-id=0%3A1).
 
-commit SHA of old version 5ad2bc974173f816b3da0303068785ffbe2ae440
+## User Flow
 
-In Pethreon, every user is a both "contributor" and a "creator". When a user signs in with their cryptowallet, they're immediately brought to the contributor page. From there, they can deposit funds into the Pethreon smart contract to accrue a balance. The user (as a contributor) can then "pledge" this balance to any creator of their choice so long as they know the creator's ethereum address. Each pledge is paid for in full upfront by the contributor, but the payments are spread out and sent to the creator periodically over a duration specified by the contributor. The contributor can cancel their pledge at any time to receive a refund for the remaining amount. 
+In Pethreon, every user is a both "contributor" and a "creator". When a user signs in with their cryptowallet, they're immediately brought to the contributor page. From there, they can deposit funds into the Pethreon smart contract to accrue a balance. The user (as a contributor) can then "pledge" this balance to any creator of their choice so long as they know the creator's ethereum address. Each pledge is paid in full upfront by the contributor, payments are then spread out and sent to the creator periodically over a duration specified by the contributor. The contributor can cancel their pledge at any time to receive a refund for the remaining amount. 
 
-To receive money as a creator, the user must navigate to the creator page. Unlike a traditional ethereum payment, the creator must know about the app to receive anything. The advantages of using Pethreon are similar to that of Patreon, with a few twists. There is no personal data that you have to give up in order to use the app (besides your ethereum address). There are also no middle-men involved and no commissions (just gas fees). 
+To receive money as a creator, the user must navigate to the creator page. Unlike a traditional ethereum payment, the creator must know about this app to receive any payment. The advantages of using Pethreon are similar to that of Patreon, with a few twists. There is no personal data that you have to give up in order to use the app (besides your ethereum address). There are also no middle-men involved and no commissions (just gas fees). 
 
-### How does it all work?
+## How does it work?
 
-I basically have a react app that talks to a remote server @ [Infura](https://infura.io/). This server is special in that it's also an "ethereum node", which means it can read and write to the blockchain. Whenever my react app needs to do something with the Pethreon smart contract, it will reach out to this server to make it happen. 
+I basically have a react app that talks to a remote server @ [Infura](https://infura.io/). This server is special in that it's also an "ethereum node", which means it can read and write data to the blockchain. Whenever my react app needs to do something with the Pethreon smart contract, it will reach out to this server to make it happen. 
 
-My react app doesn't communicate via a library like axios though, it uses ethersJS which uses [JSON-RPC](https://en.wikipedia.org/wiki/JSON-RPC) (a protocol built on top of HTTP). The "RPC" in JSON-RPC refers to the type of calls my react app can make when reaching out to my infura node `contract.example()`. And the JSON part refers to the output I get back whenever I compile my [Pethreon.sol](https://github.com/Chris56974/Pethreon/blob/main/packages/backend/contracts/Pethreon.sol) into a [Pethreon.json](https://github.com/Chris56974/Pethreon/blob/main/packages/backend/deployments/localhost/Pethreon.json) with the solc compiler (which is baked into hardhat). The pethreon.json file has two important pieces of information. It has the EVM "bytecode" for the smart contract, which is what I deploy to ethereum. And it has the "abi" for the smart contract, which is basically an instruction sheet that tells my react app how to use the smart contract. It lists stuff like what functions exist on the smart contract as well as any arguments that it takes.
+My react app doesn't communicate via a library like axios though, it uses ethersJS which uses [JSON-RPC](https://en.wikipedia.org/wiki/JSON-RPC) (a protocol built on top of HTTP) under the hood. The "RPC" in JSON-RPC refers to the type of calls my react app can make when reaching out to my infura node `contract.example()`. And the JSON part refers to the output I get back whenever I compile my [Pethreon.sol](https://github.com/Chris56974/Pethreon/blob/main/packages/backend/contracts/Pethreon.sol) smart contract into a [Pethreon.json](https://github.com/Chris56974/Pethreon/blob/main/packages/backend/deployments/localhost/Pethreon.json) via the solc compiler (which is baked into hardhat). 
 
-Some of those smart contract functions cost real money (like creating a pledge) because they require verification from every other node in the ethereum network ([~6,000 nodes](https://www.ethernodes.org/history)). Others are require no verification at all and are otherwise free, subject to my agreement @ infura -> [I get 100,000 free calls a day](https://infura.io/pricing)). 
+The pethreon.json file has two important pieces of information. The EVM "bytecode" for the smart contract, which is what I deploy to ethereum. And the "abi" for the smart contract, an instruction sheet that tells my react app how to use the smart contract (what functions exist). 
 
-### Misc 
+Some of those smart contract functions cost real money (like creating a pledge) because they require verification from every other node in the ethereum network ([~6,000 nodes](https://www.ethernodes.org/history)). Others require no verification at all and are otherwise free, subject to my agreement @ infura -> [I get 100,000 free calls a day](https://infura.io/pricing)). 
 
-The react app was made under a mobile first approach using [these design mockups](https://www.figma.com/file/dwPfF2lhw84J4PZdZTIQvL/Pethreon?node-id=0%3A1).
-
-- For more information on how to run this locally, please see CONTRIBUTING.md.
-- For more information on the license for this project, please see [LICENSE](https://github.com/Chris56974/Pethreon/blob/main/LICENSE)
+## [LICENSE](https://github.com/chris56974/pethreon/blob/main/LICENSE)
 
 ## Attribution
 
