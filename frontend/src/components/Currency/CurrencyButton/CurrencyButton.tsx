@@ -1,12 +1,12 @@
 import { Denomination } from "../../../utils"
 import styles from "./CurrencyButton.module.scss"
 
-interface CurrencyButton {
+interface CurrencyButtonProps {
   denomination: Denomination,
   checked?: boolean,
 };
 
-export const CurrencyButton = ({ denomination, checked = false }: CurrencyButton) => {
+export const CurrencyButton = ({ denomination, checked = false }: CurrencyButtonProps) => {
   return (
     <label className={styles.currencyContainer}>
       <input

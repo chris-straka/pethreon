@@ -8,7 +8,7 @@ type Ethereum = any
 
 /** 
  * Currently only compatible with metamask wallets
- * I should use this https://docs.walletconnect.com/2.0/
+ * I could also use this https://docs.walletconnect.com/2.0/
  */
 export function useEthereum() {
   const [ethereum, setEthereum] = useState<Ethereum | null>(null)

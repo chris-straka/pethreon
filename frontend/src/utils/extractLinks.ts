@@ -1,4 +1,4 @@
-const foo = `T <a href="foo">a b c</a> and <a href="bar">d e</a>`
+type LinkMap = Map<[number, number], string>
 
 /** 
  * Grabs a string that has anchor tags in it and returns two things...
@@ -10,8 +10,8 @@ const foo = `T <a href="foo">a b c</a> and <a href="bar">d e</a>`
  * input  = "a <a href="eg">foo</a> b"
  * output = "a foo b", Map [[2, 4] => "eg"]
  */
-export function extractLinks(str: string) {
-  const linkMap = new Map<[number, number], string>()
+export function extractLinks(str: string): [string, LinkMap] {
+  const linkMap = new Map() as LinkMap
   const newStr: string[] = []
 
   for (let i = 0; i < str.length; i++) {
@@ -58,6 +58,3 @@ export function extractLinks(str: string) {
 
   return [newStr.join(''), linkMap]
 }
-
-const a = extractLinks(foo)
-console.log(a)

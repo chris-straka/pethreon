@@ -4,7 +4,7 @@ import { ActionBar } from "./ActionBar/ActionBar";
 import { ActionButton } from "./ActionButton/ActionButton";
 import { Circles } from "./Circles/Circles"
 import { Consent } from "./Consent/Consent";
-import { CurrencyButton } from "./Currency/CurrencyButton/CurrencyButton";
+import { CurrencyButton} from "./Currency/CurrencyButton/CurrencyButton";
 import { CurrencyButtons } from "./Currency/CurrencyButtons/CurrencyButtons";
 import { CurrencyField } from "./Currency/CurrencyField/CurrrencyField";
 import { Disclaimer } from "./Disclaimer/Disclaimer";

@@ -1,8 +1,8 @@
 import { Features } from "./Features/Features";
+import { Footer } from "./Footer/Footer";
 import { LoginButton } from "./LoginButton/LoginButton";
 import { Pethreon } from "./Pethreon/Pethreon";
-import { TypewriterEffect } from "./TypewriterEffect/TypewriterEffect";
+import { Typewriter } from "./Typewriter/Typewriter";
 import { Video } from "./Video/Video";
-import { Footer } from "./Footer/Footer";
 
-export { Features, LoginButton, Pethreon, TypewriterEffect, Video, Footer }
+export { Features, Footer, LoginButton, Pethreon, Typewriter, Video }

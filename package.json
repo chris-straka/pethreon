@@ -13,6 +13,7 @@
     "coverage": "npm run build && npx hardhat coverage --temp artifacts --network coverage",
     "finstall": "cd ./frontend && pnpm install && cd -",
     "fdev": "cd ./frontend && pnpm dev && cd -",
+    "flint": "cd ./frontend && pnpm lint && cd -",
     "fbuild": "cd ./frontend && pnpm build && cd -",
     "fpreview": "cd ./frontend && pnpm preview && cd -"
   },

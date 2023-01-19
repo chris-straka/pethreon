@@ -26,22 +26,26 @@ Components made my code much more readable, even if I never reused them (the dec
 
 Originally, I didn't want the user to scroll on my app because I wanted a "native-app" single screen feel. I also positioned my circles relative to the screen and wasn't sure how I would position them if the user could scroll. I also used pixels for all my font sizes instead of REM to prevent scrolling as well. However, it ended up being too difficult for me because my TypewriterEffect created dynamic text that wrapped in unpredictable ways. Finding the font size for every possible screen without it looking too big on some and too small on others was also tricky. The media queries were too high maintenance so I gave up and allowed the user to scroll. It ended up not being such a big deal.
 
-### Typewriter Effect Issues
+### Typewriter Issues
 
 In hindsight, forcing the user to wait on a typewriter effect for the info they need (errors, instructions) seems like a really bad UX.
 Having the metamask logo talk, the typewriter effect go off and the video play all at the same time seems ridiculous as well.
 Printing a hyperlink char-by-char in a typewriter effect was also strange to implement, because the only way I could figure this out is by recreating the same link multiple times (once for every character) instead of using the same link and editing the text inside it. Any attempts to do the former would print the markup for the anchor tag as well.
 
-###  Tips
+### Component Rerender Tip
+
+Child components don't rerender on new props, they only rerender when their state changes or their parent component changes.
+
+##  Tips
 
 - [Certain animations can hurt a11y](https://developer.mozilla.org/en-US/docs/Web/CSS/animation#accessibility_concerns)
 - [window.opener() weirdness](https://stackoverflow.com/questions/57628890)
 - [Opacity slows down rendering](https://stackoverflow.com/questions/38523826) so use RGBA instead
 - [Responsive screen sizes](https://www.browserstack.com/guide/ideal-screen-sizes-for-responsive-design)
 - [All the new iphone sizes](https://stackoverflow.com/questions/58087446)
-- The login button should be the same color as [the primary color](https://ux.stackexchange.com/questions/104224)
-- innerHTML is only scary when it's in the user's hand, not yours (don't @ me)
-- In ethers, to get a lower denomination you "parse". Higher denomination you "format"
+- [The login button should be the same color as the primary color](https://ux.stackexchange.com/questions/104224)
+- innerHTML is only scary when it's in the user's hand, not yours 
+- In ethers, to get a lower denomination you "parse" and to get a higher denomination you "format"
 
 You can't zoom in/out on any text that's been sized with viewport units. 
 You have to use[calc(vw + 1em) or clamp(vw + 1em)](https://www.youtube.com/watch?v=wARbgs5Fmuw) instead. 

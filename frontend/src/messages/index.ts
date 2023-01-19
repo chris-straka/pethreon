@@ -1,14 +1,10 @@
 /** 
- * If you include a link, make sure the href is the only attribute in that link
- * Otherwise my typewriter effect's "parseLinks" algorithm needs to be rewritten
+ * My typewriter can only handle one link in a single message at a time
  */
 
 export const WALLET_FOUND = "This app uses your ethereum wallet to make subscriptions to creators"
-export const WALLET_NOT_FOUND = "This app requires a metamask wallet to work, "
 export const LOGGING_IN = "Logging in... You might have to click the metamask extension in your browser"
-
-export const DOWNLOAD_METAMASK = "download metamask!"
-export const METAMASK_LINK = "https://metamask.io/download"
+export const WALLET_NOT_FOUND = "This app requires a metamask wallet to work, <a href=\"https://metamask.io/download\">download metamask!</a>"
 
 export const WARNING_MESSAGE = `
 1. This smart contract hasn't been professionally audited for security vulnerabilities. Please use at your own risk!

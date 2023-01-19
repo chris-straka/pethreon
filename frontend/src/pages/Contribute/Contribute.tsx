@@ -16,6 +16,8 @@ export const Contribute = () => {
   const ethereum = useEthereum()
   const navigate = useNavigate()
 
+  console.log(modal)
+
   useEffect(() => {
     localStorage.setItem("last_page_visited", "contribute")
     ethereum.on("accountsChanged", () => navigate("/"))
