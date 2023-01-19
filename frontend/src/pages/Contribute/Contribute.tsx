@@ -1,26 +1,35 @@
 import { useState, useEffect, ReactNode } from "react"
 import { useNavigate } from "react-router-dom"
+import { motion, AnimatePresence } from "framer-motion"
 import { UserBalance, UserAddress, Loading, PledgeList } from "../../components"
 import { getContributorBalanceInWei, getContributorPledges } from "../../pethreon"
 import { PledgeType, MetamaskError } from "../../utils"
 import { ContributorActionBar } from "./components"
-import { useEthereum } from "../Login/hooks/useMetamask"
+import { ModalTemplate } from "../../components"
 import { utils } from "ethers"
 import styles from "./Contribute.module.scss"
 
-export const Contribute = () => {
+interface ContributeProps {
+  fadeInDuration: number,
+  fadeInDelay: number,
+  fadeOutDuration: number,
+  fadeOutDelay: number
+}
+
+export const Contribute = (
+  { fadeInDuration, fadeInDelay, fadeOutDuration, fadeOutDelay }: ContributeProps
+) => {
   const [loading, setLoading] = useState(false)
   const [balance, setBalance] = useState("0.0")
   const [pledges, setPledges] = useState<PledgeType[]>([])
   const [modal, setModal] = useState<ReactNode | null>(null)
-  const ethereum = useEthereum()
   const navigate = useNavigate()
 
   console.log(modal)
 
   useEffect(() => {
     localStorage.setItem("last_page_visited", "contribute")
-    ethereum.on("accountsChanged", () => navigate("/"))
+    // ethereum.on("accountsChanged", () => navigate("/"))
     async function init() {
       if (window.location.pathname === "/") return
       try {
@@ -36,19 +45,24 @@ export const Contribute = () => {
       }
     }
     init()
-  }, [ethereum, navigate])
+  }, [navigate])
 
   return (
     <>
       {loading && <Loading />}
-      <div className={styles.contributeLayout} >
+      <motion.div
+        className={styles.contributeLayout}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, transition: { duration: fadeInDuration, delay: fadeInDelay } }}
+        exit={{ opacity: 0, transition: { duration: fadeOutDuration, delay: fadeOutDelay } }}
+      >
         <UserBalance
           className={styles.userBalance}
           balance={balance}
         />
         <UserAddress
           className={styles.userAddress}
-          userAccountAddress={ethereum.selectedAddress}
+          userAccountAddress="USER ETHEREUM ADDRESS"
         />
         <ContributorActionBar
           className={styles.contributorActionBar}
@@ -65,7 +79,13 @@ export const Contribute = () => {
           textForWhenItsEmpty="You need to make a pledge first..."
           pledges={pledges}
         />
-      </div>
+      </motion.div>
+      <AnimatePresence
+        initial={false}
+        mode="wait"
+      >
+        {modal !== null && <ModalTemplate closeModal={() => setModal(null)} children={modal} />}
+      </AnimatePresence>
     </>
   )
 }

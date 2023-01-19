@@ -1,5 +1,5 @@
 import { BigNumber } from "ethers";
-import { extractPledgesToCSV } from "./extractPledgesToCSV";
+import { extractPledgesToCsv } from "./extractPledgesToCsv";
 
 export interface MetamaskError extends Error {
   data: any,
@@ -30,4 +30,4 @@ export type PledgeType = {
   weiPerPeriod: BigNumber,
 }
 
-export { extractPledgesToCSV }
+export { extractPledgesToCsv }

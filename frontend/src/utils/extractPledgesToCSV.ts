@@ -1,8 +1,8 @@
 import { getExpiredPledges } from "../pethreon"
-import { PledgeType, PledgeStatus } from "./";
+import { PledgeType, PledgeStatus } from ".";
 import { utils } from "ethers"
 
-export const extractPledgesToCSV = async (active?: PledgeType[]) => {
+export const extractPledgesToCsv = async (active?: PledgeType[]) => {
   let csv: string = "data:text/csv;charset=utf-8,";
   let creatorAddress: string = ""
   let activePledges: string[][] = []
@@ -10,8 +10,8 @@ export const extractPledgesToCSV = async (active?: PledgeType[]) => {
 
   const expired = await getExpiredPledges()
 
-  if (active !== undefined && active.length !== 0) activePledges = processForCSV(active)
-  if (expired === undefined) expiredPledges = processForCSV(expired)
+  if (active !== undefined && active.length !== 0) activePledges = processForCsv(active)
+  if (expired === undefined) expiredPledges = processForCsv(expired)
 
   const rows = [
     [`Creator Address: ${creatorAddress}`, "Start date", "End date", "Duration (days)", "Ether per day", "Status"],
@@ -25,7 +25,7 @@ export const extractPledgesToCSV = async (active?: PledgeType[]) => {
   window.open(encodedUri)
 }
 
-const processForCSV = (pledges: PledgeType[]): string[][] => {
+const processForCsv = (pledges: PledgeType[]): string[][] => {
   return pledges.map(pledge => {
     const contributorAddress = pledge.contributorAddress
     const etherPerPeriod = utils.formatEther(pledge.weiPerPeriod)

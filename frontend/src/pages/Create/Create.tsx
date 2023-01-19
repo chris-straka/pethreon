@@ -1,14 +1,23 @@
 import { useState, useEffect, ReactNode } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import { useNavigate } from "react-router-dom"
-import { UserBalance, UserAddress, Loading, PledgeList, } from "../../components"
+import { UserBalance, UserAddress, Loading, PledgeList, ModalTemplate } from "../../components"
 import { CreatorActionBar } from "./components/CreatorActionBar"
 import { getCreatorBalanceInWei, getCreatorPledges } from "../../pethreon"
-import { PledgeType, extractPledgesToCSV, MetamaskError } from "../../utils"
-import { useEthereum } from "../Login/hooks/useMetamask"
+import { PledgeType, MetamaskError } from "../../utils"
 import { utils } from "ethers"
 import styles from "./Create.module.scss"
 
-export const Create = () => {
+interface CreateProps {
+  fadeInDuration: number,
+  fadeInDelay: number,
+  fadeOutDuration: number,
+  fadeOutDelay: number
+}
+
+export const Create = (
+  { fadeInDuration, fadeInDelay, fadeOutDuration, fadeOutDelay }: CreateProps
+) => {
   const [loading, setLoading] = useState(false)
   const [balance, setBalance] = useState("0.0")
   const [pledges, setPledges] = useState<PledgeType[]>([])
@@ -19,7 +28,7 @@ export const Create = () => {
 
   useEffect(() => {
     localStorage.setItem("last_page_visited", "create")
-    ethereum.on("accountsChanged", () => navigate("/"))
+    // ethereum.on("accountsChanged", () => navigate("/"))
     async function init() {
       if (window.location.pathname === "/") return
       try {
@@ -37,23 +46,28 @@ export const Create = () => {
       }
     }
     init()
-  }, [ethereum, navigate])
+  }, [navigate])
 
   return (
     <>
       {loading && <Loading />}
-      <div className={styles.createLayout}>
+      <motion.div
+        className={styles.createLayout}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, transition: { duration: fadeInDuration, delay: fadeInDelay } }}
+        exit={{ opacity: 0, transition: { duration: fadeOutDuration, delay: fadeOutDelay } }}
+      >
         <UserBalance
           className={styles.userBalance}
           balance={balance}
         />
         <UserAddress
           className={styles.userAddress}
-          userAccountAddress={ethereum.selectedAddress}
+          userAccountAddress={"USER ETHEREUM ADDRESS"}
         />
         <CreatorActionBar
           className={styles.creatorActionBar}
-          makeCSV={() => extractPledgesToCSV(pledges)}
+          pledges={pledges}
           setModal={setModal}
           setBalance={setBalance}
           setLoading={setLoading}
@@ -67,7 +81,13 @@ export const Create = () => {
           setLoading={setLoading}
           setPledges={setPledges}
         />
-      </div>
+      </motion.div>
+      <AnimatePresence
+        initial={false}
+        mode="wait"
+      >
+        {modal !== null && <ModalTemplate closeModal={() => setModal(null)} children={modal} />}
+      </AnimatePresence>
     </>
   )
 }
