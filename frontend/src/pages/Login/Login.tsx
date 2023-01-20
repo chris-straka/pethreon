@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import { useNavigate } from "react-router-dom"
 import { MetamaskSVG } from '../../svgs'
 import { useConnectWallet } from '@web3-onboard/react'
 import { Features, Footer, LoginButton, Pethreon, Typewriter, Video } from './components'
 import { LOGGING_IN, WALLET_FOUND, WALLET_NOT_FOUND } from '../../messages'
-import { useCurrentWeb3Provider } from '../../context/CurrentProviderContext'
+import { useWeb3 } from '../../context/Web3Context'
 import { ethers } from 'ethers'
 import styles from "./Login.module.scss"
+import { Pethreon__factory } from '../../../typechain-types'
 
 interface LoginProps {
   fadeInDuration: number,
@@ -15,24 +17,38 @@ interface LoginProps {
   fadeOutDelay: number
 }
 
+const PETHREON_CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS
+
 export const Login = (
   { fadeInDuration, fadeInDelay, fadeOutDuration, fadeOutDelay }: LoginProps
 ) => {
   const [message, setMessage] = useState("")
   const [talking, setTalking] = useState(false)
   const [{ wallet, connecting }, connect] = useConnectWallet()
-  const { setCurrentWeb3Provider } = useCurrentWeb3Provider()
+  const { setCurrentWeb3Provider, setContract } = useWeb3()
   const metamask = useMetamask()
+  const navigate = useNavigate()
 
   // if the wallet has a provider then the wallet is connected
   useEffect(() => {
-    if (wallet?.provider) setCurrentWeb3Provider(new ethers.providers.Web3Provider(wallet.provider, 'any'))
-  }, [wallet, setCurrentWeb3Provider])
+    if (wallet?.provider) {
 
-  // This is just for aesthetics
-  useEffect(() => {
-    metamask ? setMessage(WALLET_FOUND) : setMessage(WALLET_NOT_FOUND)
-  }, [metamask])
+      const web3Provider = new ethers.providers.Web3Provider(wallet.provider, 'any')
+      setCurrentWeb3Provider(web3Provider)
+
+      const signer = web3Provider.getSigner()
+      const contract = Pethreon__factory.connect(PETHREON_CONTRACT_ADDRESS, signer)
+      setContract(contract)
+
+      const lastVisited = localStorage.getItem('last_page_visited')
+      lastVisited === "create" ? navigate("/create") : navigate("/contribute")
+
+    } else {
+      // this is just for aesthetics
+      metamask ? setMessage(WALLET_FOUND) : setMessage(WALLET_NOT_FOUND)
+    }
+  }, [wallet, setCurrentWeb3Provider, navigate, metamask, setContract])
+
 
   function signIn() {
     setMessage(LOGGING_IN)

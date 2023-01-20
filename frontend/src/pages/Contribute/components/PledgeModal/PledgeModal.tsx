@@ -1,7 +1,7 @@
 import { BigNumber, utils } from "ethers"
 import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from "react"
 import { CurrencyButton, CurrencyButtons, CurrencyField, Submit } from "../../../../components"
-import { createPledge, getContributorBalanceInWei, getContributorPledges } from "../../../../pethreon"
+import { createPledge } from "../../../../pethreon"
 import { DateSVG, PersonSVG, PledgeSVG } from "../../../../svgs"
 import { Denomination, MetamaskError, PledgeType } from "../../../../utils"
 import styles from "./PledgeModal.module.scss"

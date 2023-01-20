@@ -1,6 +1,7 @@
 import { ChangeEvent, Dispatch, ReactNode, SetStateAction } from "react"
-import { Denomination } from "../../../utils"
 import styles from "./CurrencyButtons.module.scss"
+
+type Denomination = "Ether" | "Gwei" | "Wei"
 
 interface CurrencyButtonProps {
   className?: string,

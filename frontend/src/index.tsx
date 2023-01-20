@@ -1,20 +1,20 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { App } from "./App"
 import { Web3OnboardProvider, init } from "@web3-onboard/react"
 import injectedModule from '@web3-onboard/injected-wallets'
-import { App } from "./App"
 import "./index.scss"
 
 const injected = injectedModule()
 const wallets = [injected]
 
 const chains = [
-  {
-    id: '0x1',
-    token: 'ETH',
-    label: 'Ethereum Mainnet',
-    rpcUrl: `https://mainnet.infura.io/v3/${import.meta.env.VITE_INFURA_ID}`
-  },
+  // {
+  //   id: '0x1',
+  //   token: 'ETH',
+  //   label: 'Ethereum Mainnet',
+  //   rpcUrl: `https://mainnet.infura.io/v3/${import.meta.env.VITE_INFURA_ID}`
+  // },
   {
     id: '0x11155111',
     token: 'ETH',

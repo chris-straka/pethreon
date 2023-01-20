@@ -1,8 +1,7 @@
-import { Denomination } from "../../../utils"
 import styles from "./CurrencyButton.module.scss"
 
 interface CurrencyButtonProps {
-  denomination: Denomination,
+  denomination: "Ether" | "Gwei" | "Wei" | "All",
   checked?: boolean,
 };
 

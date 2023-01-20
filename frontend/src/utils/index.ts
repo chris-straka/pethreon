@@ -1,5 +1,5 @@
 import { BigNumber } from "ethers";
-import { extractPledgesToCsv } from "./extractPledgesToCsv";
+import { extractPledgesToCsv } from "./extractPledgesToCSV";
 
 export interface MetamaskError extends Error {
   data: any,

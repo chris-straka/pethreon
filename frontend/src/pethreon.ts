@@ -1,35 +1,9 @@
-import { providers, BigNumber } from "ethers"
-import { Pethreon__factory } from "../typechain-types/factories";
-
-const PETHREON_CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS
-
-export interface EthereumWindow extends Window {
-  ethereum?: Ethereum
-}
-
-type Ethereum = any
-
-function init() {
-  const { ethereum } = window as EthereumWindow         // check if they have metamask installed (Ethereum)
-  const provider = new providers.Web3Provider(ethereum) // grab their connection to ethereum     (Provider)
-  const signer = provider.getSigner()                   // grab their current account            (Signer)
-  return Pethreon__factory.connect(PETHREON_CONTRACT_ADDRESS, signer)
-}
+import { BigNumber } from "ethers"
 
 export async function deposit(amount: BigNumber) {
   const contract = init()
   const transaction = await contract.deposit({ value: amount })
   return await transaction.wait()
-}
-
-export async function getContributorBalanceInWei() {
-  const contract = init()
-  return await contract.getContributorBalanceInWei()
-}
-
-export async function getCreatorBalanceInWei() {
-  const contract = init()
-  return await contract.getCreatorBalanceInWei()
 }
 
 export async function contributorWithdraw(amount: BigNumber) {
@@ -48,16 +22,6 @@ export async function createPledge(address: string, amountPerPeriod: BigNumber, 
   const contract = init()
   const transaction = await contract.createPledge(address, amountPerPeriod, period)
   await transaction.wait()
-}
-
-export async function getContributorPledges() {
-  const contract = init()
-  return await contract.getContributorPledges()
-}
-
-export async function getCreatorPledges() {
-  const contract = init()
-  return await contract.getCreatorPledges()
 }
 
 export async function getExpiredPledges() {

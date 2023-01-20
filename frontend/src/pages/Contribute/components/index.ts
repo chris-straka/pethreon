@@ -1,5 +1,4 @@
-import { ContributorActionBar } from "./ContributorActionBar/ContributorActionBar"
-import { DepositModal } from "./Modals/DepositModal"
-import { PledgeModal } from "./Modals/PledgeModal"
+import { DepositModal } from "./DepositModal/DepositModal"
+import { PledgeModal } from "./PledgeModal/PledgeModal"
 
-export { ContributorActionBar, DepositModal, PledgeModal }
+export { DepositModal, PledgeModal }

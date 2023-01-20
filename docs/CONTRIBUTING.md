@@ -8,7 +8,7 @@ If you want to make changes to the smart contract, please keep in mind that smar
 
 ## [Sepolia](https://sepolia.dev/)
 
-Sepolia is one of the two test networks supported by ethereum. You can get fake sepolia ether from a [sepolia faucet](https://sepolia-faucet.pk910.de/). I already deployed a smart contract to sepolia, and I have included the address for it in the env files. You can deploy your own version and replace the address.
+Sepolia is one of the two test networks supported by ethereum. You can get fake sepolia ether from a [sepolia faucet](https://sepolia-faucet.pk910.de/). [I already deployed a smart contract to sepolia](https://sepolia.etherscan.io/address/0xfe63e035a1bba894a614409371a0eb5726eec09e), and I have included the address for it in the env files. You can deploy your own version and replace the address.
 
 ## Troubleshooting 
 

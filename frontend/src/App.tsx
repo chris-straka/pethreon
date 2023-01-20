@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { CurrentWeb3ProviderContext, Web3Provider } from './context/CurrentProviderContext'
+import { PethreonContract, Web3Context, Web3Provider } from './context/Web3Context'
 import { AnimatePresence } from "framer-motion";
 import { Login } from './pages/Login/Login';
 import { Contribute } from './pages/Contribute/Contribute';
@@ -14,10 +14,11 @@ const CIRCLE_ANIMATION_DURATION = .5
 
 export const App = () => {
   const [currentWeb3Provider, setCurrentWeb3Provider] = useState<Web3Provider>(null)
+  const [contract, setContract] = useState<PethreonContract>(null)
   const location = useLocation()
 
   return (
-    <CurrentWeb3ProviderContext.Provider value={{ currentWeb3Provider, setCurrentWeb3Provider }}>
+    <Web3Context.Provider value={{ currentWeb3Provider, setCurrentWeb3Provider, contract, setContract }}>
       <Circles
         circleAnimationDuration={CIRCLE_ANIMATION_DURATION}
         pageFadeInDuration={PAGE_FADE_IN_DURATION}
@@ -54,7 +55,7 @@ export const App = () => {
           />
         </Routes>
       </AnimatePresence>
-    </CurrentWeb3ProviderContext.Provider>
+    </Web3Context.Provider>
   );
 }
 

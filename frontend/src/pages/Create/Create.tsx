@@ -3,8 +3,9 @@ import { motion, AnimatePresence } from "framer-motion"
 import { useNavigate } from "react-router-dom"
 import { UserBalance, UserAddress, Loading, PledgeList, ModalTemplate } from "../../components"
 import { CreatorActionBar } from "./components/CreatorActionBar"
-import { getCreatorBalanceInWei, getCreatorPledges } from "../../pethreon"
-import { PledgeType, MetamaskError } from "../../utils"
+import { PledgeType } from "../../utils"
+import { useContract } from "../../hooks/useContract"
+import { useWeb3 } from "../../context/Web3Context"
 import { utils } from "ethers"
 import styles from "./Create.module.scss"
 
@@ -22,31 +23,32 @@ export const Create = (
   const [balance, setBalance] = useState("0.0")
   const [pledges, setPledges] = useState<PledgeType[]>([])
   const [modal, setModal] = useState<ReactNode | null>(null)
+  const { currentWeb3Provider } = useWeb3()
+  const contract = useContract(currentWeb3Provider.getSigner())
   const navigate = useNavigate()
-
-  console.log(modal)
 
   useEffect(() => {
     localStorage.setItem("last_page_visited", "create")
-    // ethereum.on("accountsChanged", () => navigate("/"))
+
+    if (!currentWeb3Provider) navigate("/")
+
     async function init() {
-      if (window.location.pathname === "/") return
       try {
-        let balance = await getCreatorBalanceInWei()
-        let balanceEther = await utils.formatEther(balance)
-        let balanceEtherString = await balanceEther.toString()
-        let pledges = await getCreatorPledges()
+        const balance = await contract.getCreatorBalanceInWei()
+        const balanceEther = await utils.formatEther(balance)
+        const balanceEtherString = await balanceEther.toString()
         setBalance(balanceEtherString)
+
+        const pledges = await contract.getCreatorPledges()
         setPledges(pledges)
       } catch (error) {
-        window.alert((error as MetamaskError).message)
-        navigate("/")
-        window.alert(`${error}`)
+        window.alert(error)
         navigate("/")
       }
     }
+
     init()
-  }, [navigate])
+  }, [navigate, currentWeb3Provider, contract])
 
   return (
     <>

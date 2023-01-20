@@ -1,12 +1,13 @@
-import { useState, useEffect, ReactNode } from "react"
+import { useState, useEffect, useCallback, ReactNode } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { UserBalance, UserAddress, Loading, PledgeList } from "../../components"
-import { getContributorBalanceInWei, getContributorPledges } from "../../pethreon"
-import { PledgeType, MetamaskError } from "../../utils"
-import { ContributorActionBar } from "./components"
-import { ModalTemplate } from "../../components"
+import { PledgeType } from "../../utils"
+import { UserBalance, UserAddress, Loading, PledgeList, ModalTemplate, WithdrawModal, ActionBar, ActionButton } from "../../components"
+import { DepositModal, PledgeModal } from "./components"
 import { utils } from "ethers"
+import { useWeb3 } from "../../context/Web3Context"
+import { DepositSVG, WithdrawSVG, PledgeSVG } from "../../svgs"
+import { Pethreon } from "../../../typechain-types"
 import styles from "./Contribute.module.scss"
 
 interface ContributeProps {
@@ -23,29 +24,36 @@ export const Contribute = (
   const [balance, setBalance] = useState("0.0")
   const [pledges, setPledges] = useState<PledgeType[]>([])
   const [modal, setModal] = useState<ReactNode | null>(null)
+  const { contract } = useWeb3()
   const navigate = useNavigate()
-
-  console.log(modal)
 
   useEffect(() => {
     localStorage.setItem("last_page_visited", "contribute")
-    // ethereum.on("accountsChanged", () => navigate("/"))
+
+    if (!contract) navigate("/")
+
     async function init() {
-      if (window.location.pathname === "/") return
       try {
-        const balance = await getContributorBalanceInWei()
-        const balanceEther = await utils.formatEther(balance)
-        const balanceEtherString = await balanceEther.toString()
-        const pledges = await getContributorPledges()
-        setBalance(balanceEtherString)
+        const balance = await grabContributorBalance(contract)
+        setBalance(balance)
+
+        const pledges = await contract.getContributorPledges()
         setPledges(pledges)
+
       } catch (error) {
-        window.alert((error as MetamaskError).message)
+        window.alert(error)
         navigate("/")
       }
     }
+
     init()
-  }, [navigate])
+  }, [navigate, contract])
+
+  const closeModal = useCallback(() => setModal(null), [])
+
+  const depositModal = <DepositModal closeModal={closeModal} setBalance={setBalance} setLoading={setLoading} />
+  const withdrawModal = <WithdrawModal closeModal={closeModal} setBalance={setBalance} setLoading={setLoading} />
+  const pledgeModal = <PledgeModal closeModal={closeModal} setBalance={setBalance} setLoading={setLoading} setPledges={setPledges} />
 
   return (
     <>
@@ -56,28 +64,20 @@ export const Contribute = (
         animate={{ opacity: 1, transition: { duration: fadeInDuration, delay: fadeInDelay } }}
         exit={{ opacity: 0, transition: { duration: fadeOutDuration, delay: fadeOutDelay } }}
       >
-        <UserBalance
-          className={styles.userBalance}
-          balance={balance}
-        />
-        <UserAddress
-          className={styles.userAddress}
-          userAccountAddress="USER ETHEREUM ADDRESS"
-        />
-        <ContributorActionBar
-          className={styles.contributorActionBar}
-          setModal={setModal}
-          setBalance={setBalance}
-          setLoading={setLoading}
-          setPledges={setPledges}
-        />
+        <UserBalance className={styles.userBalance} balance={balance} />
+        <UserAddress className={styles.userAddress} userAccountAddress={"PLACEHOLDER"} />
+        <ActionBar className={styles.contributorActionBar}>
+          <ActionButton onClick={() => setModal(depositModal)}>Deposit <DepositSVG /></ActionButton>
+          <ActionButton onClick={() => setModal(withdrawModal)}>Withdraw <WithdrawSVG /></ActionButton>
+          <ActionButton onClick={() => setModal(pledgeModal)}>Pledge <PledgeSVG /></ActionButton>
+        </ActionBar >
         <PledgeList
           className={styles.pledgeList}
+          pledges={pledges}
+          textForWhenItsEmpty="You need to make a pledge first..."
           setBalance={setBalance}
           setLoading={setLoading}
           setPledges={setPledges}
-          textForWhenItsEmpty="You need to make a pledge first..."
-          pledges={pledges}
         />
       </motion.div>
       <AnimatePresence
@@ -88,4 +88,10 @@ export const Contribute = (
       </AnimatePresence>
     </>
   )
+}
+
+async function grabContributorBalance(contract: Pethreon) {
+  const balance = await contract.getContributorBalanceInWei()
+  const balanceEther = await utils.formatEther(balance)
+  return await balanceEther.toString()
 }
