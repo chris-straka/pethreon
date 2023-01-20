@@ -51,7 +51,6 @@ function typeMessage(
   setDisplayMsg: Dispatch<SetStateAction<JSX.Element>>,
   setInit: Dispatch<SetStateAction<boolean>>,
 ) {
-  console.log("no link")
   setTimeout(() => {
     if (window.location.pathname !== "/") return
 

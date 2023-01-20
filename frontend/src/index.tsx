@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { BrowserRouter } from "react-router-dom"
 import { App } from "./App"
 import { Web3OnboardProvider, init } from "@web3-onboard/react"
 import injectedModule from '@web3-onboard/injected-wallets'
@@ -41,8 +42,10 @@ const web3Onboard = init({
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <Web3OnboardProvider web3Onboard={web3Onboard}>
-      <App />
-    </Web3OnboardProvider>
+    <BrowserRouter>
+      <Web3OnboardProvider web3Onboard={web3Onboard}>
+        <App />
+      </Web3OnboardProvider>
+    </BrowserRouter>
   </React.StrictMode>,
 )

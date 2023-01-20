@@ -55,7 +55,6 @@ export const PledgeModal = (
 
     } catch (error) {
       setLoading(false)
-      console.log(error)
       window.alert(error)
     }
   }
