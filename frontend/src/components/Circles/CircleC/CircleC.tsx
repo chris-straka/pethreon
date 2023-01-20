@@ -26,6 +26,8 @@ export const CircleC = ({
   const donateRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
+    const prefersDarkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
     if (location.pathname === "/") {
       ref.current?.style.setProperty("top", "var(--top-login)")
       ref.current?.style.setProperty("left", "var(--left-login)")
@@ -58,7 +60,7 @@ export const CircleC = ({
       ref.current?.style.setProperty("border-radius", "0%")
       ref.current?.style.setProperty("border-bottom-left-radius", "50px")
       ref.current?.style.setProperty("background-color", "var(--primary-color)")
-      window.matchMedia("(prefers-color-scheme: dark)").matches ?
+      prefersDarkTheme ?
         ref.current?.style.setProperty("--color", "var(--text-color)") :
         ref.current?.style.setProperty("--color", "var(--background-color)")
       ref.current?.style.setProperty("--outline-color", "var(--primary-color)")
@@ -100,10 +102,10 @@ export const CircleC = ({
       ref.current?.style.setProperty("border-radius", "0%")
       ref.current?.style.setProperty("border-bottom-left-radius", "50px")
       ref.current?.style.setProperty("background-color", "var(--secondary-color)")
-      window.matchMedia("(prefers-color-scheme: dark)").matches ?
+      prefersDarkTheme ?
         ref.current?.style.setProperty("--color", "var(--text-color)") :
         ref.current?.style.setProperty("--color", "var(--background-color)")
-      window.matchMedia("(prefers-color-scheme: dark)").matches ?
+      prefersDarkTheme ?
         ref.current?.style.setProperty("--hover-color", "var(--primary-light-color)") :
         ref.current?.style.setProperty("--hover-color", "var(--primary-color)")
       ref.current?.style.setProperty("--outline-color", "var(--secondary-color)")

@@ -3,7 +3,7 @@
   outline: none;
   z-index: -1;
   border-radius: 50%;
-  background-color: var(--primary-color);
+  background-color: var(--primary-light-color);
   transition-property: top, left, width, height, background-color;
 
   --top-login: -5vh;
@@ -52,5 +52,11 @@
     --top-create: 51vh;
     --left-create: 20vw;
     --size-create: 25vh;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .circleA {
+    background-color: var(--primary-color);
   }
 }

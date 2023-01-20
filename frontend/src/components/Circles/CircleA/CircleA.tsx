@@ -49,9 +49,7 @@ export const CircleA = ({ duration, delay }: CircleAProps) => {
       aria-hidden // idk if divs are included in the a11y tree but I don't want screen readers to read this
       className={styles.circleA}
       ref={ref}
-      animate={{
-        scale: 1.2
-      }}
+      animate={{ scale: 1.2 }}
       transition={
         window.matchMedia("(prefers-reduced-motion)").matches ? {} : { // a11y
           duration: 5,
