@@ -8,9 +8,9 @@ export const LOGGING_IN = "Logging in..."
 export const WALLET_NOT_FOUND = "This app requires a metamask wallet to work, <a href=\"https://metamask.io/download\">download metamask!</a>"
 
 export const WARNING_MESSAGE = `
-1. This smart contract hasn't been professionally audited for security vulnerabilities. Please use at your own risk!
+1. This smart contract has not been professionally audited for security vulnerabilities. Please use at your own risk!
 
-2. It will take time for this transaction to be mined on the blockchain, please be patient.
+2. It will take time for your transaction to be mined on the blockchain, please be patient.
 
 3. Creators might not get their payment on time (they might get it earlier or later). This is because Pethreon makes payments using "blocktime".
 

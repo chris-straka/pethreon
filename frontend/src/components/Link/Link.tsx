@@ -1,16 +1,19 @@
-import { ReactNode } from "react"
+import { ReactNode, MouseEventHandler } from "react"
 import styles from "./Link.module.scss"
 
 interface LinkProps {
   href: string,
-  children: ReactNode
+  children: ReactNode,
+  onClick?: MouseEventHandler<HTMLAnchorElement> | undefined,
+  target?: "_blank" | "_self" | "_parent" | "_top"
 }
 
-export const Link = ({ href, children }: LinkProps) => {
+export const Link = ({ href, children, onClick, target }: LinkProps) => {
   return <a
     className={styles.link}
     href={href}
-    target="_blank"
+    target={target ? target : "_blank"}
     rel="noreferrer"
+    onClick={onClick}
   >{children}</a>
 }

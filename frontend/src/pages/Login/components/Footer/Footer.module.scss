@@ -3,12 +3,20 @@
 
   font-size: var(--footer-fs);
   padding-top: var(--footer-padding-top);
-  margin-bottom: 10px;
+  margin-bottom: 22px;
   align-self: flex-end;
   margin-top: auto;
 
-  & > a:first-child {
+  & > a {
     margin-right: 3vw;
+
+    // warning
+    &:first-child {
+      color: red;
+      &:hover {
+        color: orangered;
+      }
+    }
   }
 }
 
@@ -38,7 +46,6 @@
   }
 }
 
-
 @media (max-height: 600px) {
   .footer {
     --footer-padding-top: 10vh;
@@ -57,5 +64,18 @@
     place-self: end;
     padding: unset;
     margin-right: 5%;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .footer {
+    & > a {
+      &:first-child {
+        color: yellow;
+        &:hover {
+          color: yellowgreen;
+        }
+      }
+    }
   }
 }
