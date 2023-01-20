@@ -20,6 +20,7 @@ interface ContributeProps {
 export const Contribute = (
   { fadeInDuration, fadeInDelay, fadeOutDuration, fadeOutDelay }: ContributeProps
 ) => {
+  const [address, setAddress] = useState("0x0000000000000000000000000000000000000000")
   const [loading, setLoading] = useState(false)
   const [balance, setBalance] = useState("0.0")
   const [pledges, setPledges] = useState<PledgeType[]>([])
@@ -40,6 +41,8 @@ export const Contribute = (
         const pledges = await contract.getContributorPledges()
         setPledges(pledges)
 
+        const address = await contract.signer.getAddress()
+        setAddress(address)
       } catch (error) {
         window.alert(error)
         navigate("/")
@@ -65,7 +68,7 @@ export const Contribute = (
         exit={{ opacity: 0, transition: { duration: fadeOutDuration, delay: fadeOutDelay } }}
       >
         <UserBalance className={styles.userBalance} balance={balance} />
-        <UserAddress className={styles.userAddress} userAccountAddress={"PLACEHOLDER"} />
+        <UserAddress className={styles.userAddress} userAccountAddress={address} />
         <ActionBar className={styles.contributorActionBar}>
           <ActionButton onClick={() => setModal(depositModal)}>Deposit <DepositSVG /></ActionButton>
           <ActionButton onClick={() => setModal(withdrawModal)}>Withdraw <WithdrawSVG /></ActionButton>

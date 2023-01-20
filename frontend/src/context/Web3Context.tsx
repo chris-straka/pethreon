@@ -3,9 +3,8 @@ import { ethers } from "ethers"
 import { Pethreon } from "../../typechain-types";
 
 /** 
- * All these nulls look crazy ugly, might need work later
+ * Null spam kinda ugly but useWeb3 really helps
  */
-
 export type Web3Provider = ethers.providers.Web3Provider | null
 export type PethreonContract = Pethreon | null
 

@@ -19,6 +19,7 @@ interface CreateProps {
 export const Create = (
   { fadeInDuration, fadeInDelay, fadeOutDuration, fadeOutDelay }: CreateProps
 ) => {
+  const [address, setAddress] = useState("")
   const [loading, setLoading] = useState(false)
   const [balance, setBalance] = useState("0.0")
   const [pledges, setPledges] = useState<PledgeType[]>([])
@@ -41,6 +42,9 @@ export const Create = (
 
         const pledges = await contract.getCreatorPledges()
         setPledges(pledges)
+
+        const address = await contract.signer.getAddress()
+        setAddress(address)
       } catch (error) {
         window.alert(error)
         navigate("/")
@@ -65,7 +69,7 @@ export const Create = (
         />
         <UserAddress
           className={styles.userAddress}
-          userAccountAddress={"USER ETHEREUM ADDRESS"}
+          userAccountAddress={address}
         />
         <CreatorActionBar
           className={styles.creatorActionBar}
