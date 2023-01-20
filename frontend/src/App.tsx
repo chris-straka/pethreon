@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { PethreonContract, Web3Context, Web3Provider } from './context/Web3Context'
+import { Web3Context, Web3Provider } from './context/Web3Context'
 import { AnimatePresence } from "framer-motion";
 import { Login } from './pages/Login/Login';
 import { Contribute } from './pages/Contribute/Contribute';
 import { Create } from './pages/Create/Create';
 import { Circles } from './components';
+import { Pethreon } from '../typechain-types';
 
 const PAGE_FADE_IN_DURATION = .5
 const PAGE_FADE_OUT_DURATION = .5
@@ -13,8 +14,8 @@ const PAGE_FADE_OUT_DELAY = 0
 const CIRCLE_ANIMATION_DURATION = .5
 
 export const App = () => {
-  const [currentWeb3Provider, setCurrentWeb3Provider] = useState<Web3Provider>(null)
-  const [contract, setContract] = useState<PethreonContract>(null)
+  const [currentWeb3Provider, setCurrentWeb3Provider] = useState<Web3Provider | null>(null)
+  const [contract, setContract] = useState<Pethreon | null>(null)
   const location = useLocation()
 
   return (

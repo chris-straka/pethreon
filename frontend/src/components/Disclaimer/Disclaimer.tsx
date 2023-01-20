@@ -10,10 +10,7 @@ export const Disclaimer = ({ className }: DisclaimerProps) => {
 
   const warning = (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
-    setTimeout(() => {
-      window.alert(WARNING_MESSAGE)
-    }, 100);
-
+    setTimeout(() => { window.alert(WARNING_MESSAGE) }, 100);
   }
 
   return (
