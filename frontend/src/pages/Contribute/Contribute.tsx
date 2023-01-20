@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, ReactNode } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { PledgeType } from "../../utils"
+import { PledgeType } from "../../types"
 import { UserBalance, UserAddress, Loading, PledgeList, ModalTemplate, WithdrawModal, ActionBar, ActionButton } from "../../components"
 import { DepositModal, PledgeModal } from "./components"
 import { utils } from "ethers"
@@ -54,9 +54,21 @@ export const Contribute = (
 
   const closeModal = useCallback(() => setModal(null), [])
 
-  const depositModal = <DepositModal closeModal={closeModal} setBalance={setBalance} setLoading={setLoading} />
-  const withdrawModal = <WithdrawModal closeModal={closeModal} setBalance={setBalance} setLoading={setLoading} />
-  const pledgeModal = <PledgeModal closeModal={closeModal} setBalance={setBalance} setLoading={setLoading} setPledges={setPledges} />
+  const depositModal = <DepositModal
+    closeModal={closeModal}
+    setBalance={setBalance}
+    setLoading={setLoading} />
+
+  const withdrawModal = <WithdrawModal
+    closeModal={closeModal}
+    setBalance={setBalance}
+    setLoading={setLoading} />
+
+  const pledgeModal = <PledgeModal
+    closeModal={closeModal}
+    setBalance={setBalance}
+    setLoading={setLoading}
+    setPledges={setPledges} />
 
   return (
     <>
@@ -87,7 +99,7 @@ export const Contribute = (
         initial={false}
         mode="wait"
       >
-        {modal !== null && <ModalTemplate closeModal={() => setModal(null)} children={modal} />}
+        {modal !== null && <ModalTemplate closeModal={closeModal} children={modal} />}
       </AnimatePresence>
     </>
   )

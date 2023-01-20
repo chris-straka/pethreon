@@ -1,5 +1,5 @@
 import { SetStateAction, useEffect, useState, Dispatch } from "react"
-import { extractLinks } from "../../../../utils/extractLinks"
+import { extractLinks } from "./extractLinks"
 import styles from "./Typewriter.module.scss"
 
 const CADENCE = 60

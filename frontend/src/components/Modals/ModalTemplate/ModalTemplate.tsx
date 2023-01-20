@@ -1,4 +1,4 @@
-import { ReactNode } from "react"
+import { useEffect, ReactNode } from "react"
 import { motion } from "framer-motion"
 import { ModalBackdrop } from "./ModalBackdrop"
 import styles from "./ModalTemplate.module.scss"
@@ -15,6 +15,19 @@ interface ModalProps {
  * @param children - I pass in the modal I want here
  */
 export const ModalTemplate = ({ closeModal, children }: ModalProps) => {
+
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') closeModal()
+    }
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [closeModal]);
+
   return (
     <ModalBackdrop onClick={closeModal}>
       <motion.div

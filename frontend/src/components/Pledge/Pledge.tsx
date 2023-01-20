@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react"
-import { getContributorPledges, getContributorBalanceInWei, cancelPledge } from "../../pethreon"
-import { PledgeType, MetamaskError } from "../../utils"
+import { PledgeType } from "../../types"
+import { useWeb3 } from "../../context/Web3Context"
 import { TrashSVG } from "../../svgs"
 import { utils } from "ethers"
 import styles from "./Pledge.module.scss"
@@ -16,29 +16,31 @@ interface PledgeProps {
 export const Pledge = (
   { pledge, creator = false, setLoading, setBalance, setPledges, }: PledgeProps
 ) => {
-  const creatorAddress = pledge.creatorAddress
-  const contributorAddress = pledge.contributorAddress
-  const etherPerPeriod = utils.formatEther(pledge.weiPerPeriod)
+  const { contract } = useWeb3()
+  const { creatorAddress, contributorAddress } = pledge
   const duration = pledge.duration.toNumber()
+
+  const etherPerPeriod = utils.formatEther(pledge.weiPerPeriod)
   const startDate = new Date(+pledge.dateCreated * 1000).toDateString()
   const endDate = new Date((+pledge.dateCreated + (duration * 86400)) * 1000).toDateString()
 
-  const cancelPledgeHandler = async () => {
+  async function cancelPledgeHandler() {
     setLoading(true)
     try {
-      await cancelPledge(creatorAddress)
-      const newBalance = await getContributorBalanceInWei()
+
+      await contract.cancelPledge(creatorAddress)
+      const newBalance = await contract.getContributorBalanceInWei()
       const newBalanceEther = await utils.formatEther(newBalance)
       const newBalanceEtherString = await newBalanceEther.toString()
       setBalance(newBalanceEtherString)
-      const newPledges = await getContributorPledges()
+
+      const newPledges = await contract.getContributorPledges()
       setPledges(newPledges)
       setLoading(false)
     }
     catch (error) {
       setLoading(false)
-      console.log((error as MetamaskError).message)
-      window.alert((error as MetamaskError).message)
+      window.alert(error)
     }
   }
 

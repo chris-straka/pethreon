@@ -4,7 +4,7 @@ import { Pethreon } from "../../../../../typechain-types"
 import { CurrencyButton, CurrencyButtons, CurrencyField, Submit } from "../../../../components"
 import { useWeb3 } from "../../../../context/Web3Context"
 import { DateSVG, PersonSVG, PledgeSVG } from "../../../../svgs"
-import { Denomination, PledgeType } from "../../../../utils"
+import { Denomination, PledgeType } from "../../../../types"
 import styles from "./PledgeModal.module.scss"
 
 interface PledgeProps {

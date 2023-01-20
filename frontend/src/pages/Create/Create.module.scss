@@ -1,3 +1,16 @@
+.actionButton {
+  width: unset;
+  background-color: var(--secondary-color);
+
+  &:hover {
+    color: var(--primary-color);
+  }
+
+  &:focus-visible {
+    outline-color: var(--secondary-color);
+  }
+}
+
 .createLayout {
   --create-layout-height: 60vh;
   --create-layout-margin-top: 15vh;
@@ -64,5 +77,14 @@
   .pledgeList {
     grid-area: pledgeList;
     place-self: start center;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .actionButton {
+    color: var(--text-color);
+    &:hover {
+      color: var(--primary-light-color);
+    }
   }
 }

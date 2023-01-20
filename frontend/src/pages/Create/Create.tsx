@@ -1,12 +1,13 @@
-import { useState, useEffect, ReactNode } from "react"
+import { useState, useEffect, useCallback, ReactNode } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { UserBalance, UserAddress, Loading, PledgeList, ModalTemplate } from "../../components"
-import { CreatorActionBar } from "./components/CreatorActionBar"
-import { PledgeType } from "../../utils"
-import { useContract } from "../../hooks/useContract"
+import { ActionBar, ActionButton, WithdrawModal, UserBalance, UserAddress, Loading, PledgeList, ModalTemplate } from "../../components"
+import { PledgeType } from "../../types"
+import { Pethreon } from "../../../typechain-types"
 import { useWeb3 } from "../../context/Web3Context"
+import { WithdrawSVG, CsvSVG } from "../../svgs"
 import { utils } from "ethers"
+
 import styles from "./Create.module.scss"
 
 interface CreateProps {
@@ -24,14 +25,13 @@ export const Create = (
   const [balance, setBalance] = useState("0.0")
   const [pledges, setPledges] = useState<PledgeType[]>([])
   const [modal, setModal] = useState<ReactNode | null>(null)
-  const { currentWeb3Provider } = useWeb3()
-  const contract = useContract(currentWeb3Provider.getSigner())
+  const { contract } = useWeb3()
   const navigate = useNavigate()
 
   useEffect(() => {
     localStorage.setItem("last_page_visited", "create")
 
-    if (!currentWeb3Provider) navigate("/")
+    if (!contract) navigate("/")
 
     async function init() {
       try {
@@ -52,7 +52,14 @@ export const Create = (
     }
 
     init()
-  }, [navigate, currentWeb3Provider, contract])
+  }, [navigate, contract])
+
+  const closeModal = useCallback(() => setModal(null), [])
+
+  const withdrawModal = <WithdrawModal
+    closeModal={closeModal}
+    setLoading={setLoading}
+    setBalance={setBalance} />
 
   return (
     <>
@@ -71,13 +78,20 @@ export const Create = (
           className={styles.userAddress}
           userAccountAddress={address}
         />
-        <CreatorActionBar
-          className={styles.creatorActionBar}
-          pledges={pledges}
-          setModal={setModal}
-          setBalance={setBalance}
-          setLoading={setLoading}
-        />
+        <ActionBar className={`${styles.actionBar} ${styles.creatorActionBar}`}>
+          <ActionButton
+            className={styles.actionButton}
+            onClick={() => setModal(withdrawModal)}>
+            Withdraw <WithdrawSVG />
+          </ActionButton>
+
+          <ActionButton
+            className={styles.actionButton}
+            onClick={async () => await extractPledgesToCsv(contract, pledges)}
+          >
+            Extract to CSV <CsvSVG />
+          </ActionButton>
+        </ActionBar>
         <PledgeList
           creator
           className={styles.pledgeList}
@@ -92,8 +106,48 @@ export const Create = (
         initial={false}
         mode="wait"
       >
-        {modal !== null && <ModalTemplate closeModal={() => setModal(null)} children={modal} />}
+        {modal !== null && <ModalTemplate closeModal={closeModal} children={modal} />}
       </AnimatePresence>
     </>
   )
+}
+
+async function extractPledgesToCsv(contract: Pethreon, active?: PledgeType[]) {
+  let csv: string = "data:text/csv;charset=utf-8,";
+  let creatorAddress: string = ""
+  let activePledges: string[][] = []
+  let expiredPledges: string[][] = []
+
+  const expired = await contract.getExpiredPledges()
+
+  if (active !== undefined && active.length !== 0) activePledges = processForCsv(active)
+  if (expired === undefined) expiredPledges = processForCsv(expired)
+
+  const rows = [
+    [`Creator Address: ${creatorAddress}`, "Start date", "End date", "Duration (days)", "Ether per day", "Status"],
+    ...activePledges,
+    ...expiredPledges
+  ]
+
+  csv += rows.map(e => e.join(",")).join("\n")
+
+  let encodedUri = encodeURI(csv)
+  window.open(encodedUri)
+}
+
+function processForCsv(pledges: PledgeType[]): string[][] {
+  return pledges.map(pledge => {
+    const contributorAddress = pledge.contributorAddress
+    const etherPerPeriod = utils.formatEther(pledge.weiPerPeriod)
+    const duration = pledge.duration.toString()
+    const startDate = new Date(+pledge.dateCreated * 1000).toDateString()
+    const endDate = new Date((+pledge.dateCreated + (+duration * 86400)) * 1000).toDateString()
+
+    let status: string;
+    if (pledge.status === 0) status = "ACTIVE"
+    else if (pledge.status === 1) status = "CANCELLED"
+    else status = "EXPIRED"
+
+    return [contributorAddress, etherPerPeriod, duration, startDate, endDate, status]
+  })
 }

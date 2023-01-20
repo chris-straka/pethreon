@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react"
-import { PledgeType } from "../../utils";
 import { Pledge } from "../Pledge/Pledge"
+import { PledgeType } from "../../types"
 import styles from "./PledgeList.module.scss"
 
 interface PledgeListProps {
