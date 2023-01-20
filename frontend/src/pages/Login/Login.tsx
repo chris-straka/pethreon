@@ -5,7 +5,7 @@ import { MetamaskSVG } from '../../svgs'
 import { useConnectWallet } from '@web3-onboard/react'
 import { Features, Footer, LoginButton, Pethreon, Typewriter, Video } from './components'
 import { LOGGING_IN, WALLET_FOUND, WALLET_NOT_FOUND } from '../../messages'
-import { useWeb3, useWeb3Setup } from '../../context/Web3Context'
+import { useWeb3Setup } from '../../context/Web3Context'
 import { ethers } from 'ethers'
 import styles from "./Login.module.scss"
 import { Pethreon__factory } from '../../../typechain-types'
@@ -70,7 +70,7 @@ export const Login = (
       />
       <div className={styles.loginContainer}>
         <MetamaskSVG className={styles.metamaskSVG} talking={talking} />
-        <LoginButton onClick={signIn} disabled={connecting}>Login With Metamask</LoginButton>
+        <LoginButton onClick={signIn} disabled={connecting} />
       </div>
       <Video className={styles.video} />
       <Footer />
