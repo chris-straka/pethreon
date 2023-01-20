@@ -27,7 +27,10 @@ export const CreatorActionBar = (
         Withdraw <WithdrawSVG />
       </ActionButton>
 
-      <ActionButton className={styles.actionButton} onClick={() => extractPledgesToCsv(pledges)}>
+      <ActionButton
+        className={styles.actionButton}
+        onClick={() => extractPledgesToCsv(pledges)}
+      >
         Extract to CSV <CsvSVG />
       </ActionButton>
     </ActionBar>

@@ -1,5 +1,6 @@
 import { BigNumber } from "ethers";
 import { extractPledgesToCsv } from "./extractPledgesToCSV";
+import { extractLinks } from "./extractLinks";
 
 export interface MetamaskError extends Error {
   data: any,
@@ -7,12 +8,8 @@ export interface MetamaskError extends Error {
   message: string
 }
 
-export enum Denomination {
-  ETHER = "Ether",
-  GWEI = "Gwei",
-  WEI = "Wei",
-  ALL = "All",
-}
+
+export type Denomination = "Ether" | "Gwei" | "Wei" | "All"
 
 export enum PledgeStatus {
   ACTIVE,
@@ -30,4 +27,4 @@ export type PledgeType = {
   weiPerPeriod: BigNumber,
 }
 
-export { extractPledgesToCsv }
+export { extractPledgesToCsv, extractLinks }

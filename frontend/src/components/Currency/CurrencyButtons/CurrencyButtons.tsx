@@ -1,7 +1,7 @@
 import { ChangeEvent, Dispatch, ReactNode, SetStateAction } from "react"
 import styles from "./CurrencyButtons.module.scss"
 
-type Denomination = "Ether" | "Gwei" | "Wei"
+type Denomination = "Ether" | "Gwei" | "Wei" | "All"
 
 interface CurrencyButtonProps {
   className?: string,
