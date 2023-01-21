@@ -10,10 +10,16 @@ const web3Onboard = init({
   wallets: [injectedModule()],
   chains: [
     {
+      id: '0x5',
+      token: 'ETH',
+      label: 'Goerli',
+      rpcUrl: `https://goerli.infura.io/v3/${import.meta.env.VITE_INFURA_ID}`
+    },
+    {
       id: '0x11155111',
       token: 'ETH',
       label: 'Sepolia',
-      rpcUrl: `https://sepolia.infura.io/v3/${import.meta.env.VITE_INFURA_ID}`,
+      rpcUrl: `https://sepolia.infura.io/v3/${import.meta.env.VITE_INFURA_ID}`
     }
   ],
   appMetadata: {

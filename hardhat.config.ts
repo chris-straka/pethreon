@@ -22,6 +22,10 @@ const config: HardhatUserConfig = {
     sepolia: {
       url: `https://sepolia.infura.io/v3/${process.env.INFURA_ID}`,
       accounts: [`0x${process.env.WALLET_PRIVATE_KEY}`],
+    },
+    goerli: {
+      url: `https://goerli.infura.io/v3/${process.env.INFURA_ID}`,
+      accounts: [`0x${process.env.WALLET_PRIVATE_KEY}`],
     }
   }
 };

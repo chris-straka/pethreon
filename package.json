@@ -10,13 +10,15 @@
     "test": "npx hardhat test",
     "deploy": "npx hardhat run scripts/deploy.ts",
     "deploy-sepolia": "npx hardhat run --network sepolia scripts/deploy.ts",
+    "deploy-goerli": "npx hardhat run --network goerli scripts/deploy.ts",
     "node": "npx hardhat node",
     "coverage": "npm run build && npx hardhat coverage --temp artifacts --network coverage",
     "finstall": "cd ./frontend && pnpm install && cd -",
     "fdev": "cd ./frontend && pnpm dev && cd -",
     "flint": "cd ./frontend && pnpm lint && cd -",
     "fbuild": "cd ./frontend && pnpm build && cd -",
-    "fpreview": "cd ./frontend && pnpm preview && cd -"
+    "fpreview": "cd ./frontend && pnpm preview && cd -",
+    "fcert": "sh ./scripts/generateCertificate.sh"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^2.0.0",
