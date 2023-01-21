@@ -11,6 +11,7 @@
     "deploy": "npx hardhat run scripts/deploy.ts",
     "deploy-sepolia": "npx hardhat run --network sepolia scripts/deploy.ts",
     "deploy-goerli": "npx hardhat run --network goerli scripts/deploy.ts",
+    "deploy-netlify": "npm run fbuild",
     "node": "npx hardhat node",
     "coverage": "npm run build && npx hardhat coverage --temp artifacts --network coverage",
     "finstall": "cd ./frontend && pnpm install && cd -",
