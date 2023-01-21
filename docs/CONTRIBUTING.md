@@ -4,8 +4,6 @@ It's **strongly** recommended that use WSL or Linux/Unix for this project. It wi
 
 `npm install` is not going to work until you setup some environment variables (you'll also need to install [pnpm](https://pnpm.io/)). Please refer to the .env.example file in the root directory for information on what you need to do.
 
-To develop things locally on the frontend you'll need to create your own 
-
 ## P.S 
 
 If you want to make changes to the smart contract, please keep in mind that smart contracts (by design) are immutable. This means you have to redeploy the contract everytime you want to make changes. When working with smart contracts, I strongly recommend using tests with hardhat.

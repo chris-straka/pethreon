@@ -24,8 +24,8 @@ export const Login = (
 ) => {
   const [message, setMessage] = useState("")
   const [talking, setTalking] = useState(false)
-  const [{ wallet, connecting }, connect] = useConnectWallet()
-  const [{ chains, connectedChain }, setChain] = useSetChain()
+  const [{ connecting }, connect] = useConnectWallet()
+  const [, setChain] = useSetChain()
   const { setCurrentWeb3Provider, setContract } = useWeb3Setup()
   const metamask = useMetamask()
   const navigate = useNavigate()
@@ -48,8 +48,8 @@ export const Login = (
       const contract = Pethreon__factory.connect(PETHREON_CONTRACT_ADDRESS, signer)
       setContract(contract)
 
-      // const lastVisited = localStorage.getItem('last_page_visited')
-      // lastVisited === "create" ? navigate("/create") : navigate("/contribute")
+      const lastVisited = localStorage.getItem('last_page_visited')
+      lastVisited === "create" ? navigate("/create") : navigate("/contribute")
     }
   }
 
