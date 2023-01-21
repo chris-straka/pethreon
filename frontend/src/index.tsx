@@ -24,7 +24,7 @@ const web3Onboard = init({
   ],
   appMetadata: {
     name: 'Pethreon',
-    icon: '<svg>My App Icon</svg>',
+    icon: '<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>Ξ</text></svg>',
     description: 'Allow contributers to make payments to creators in monthly payments',
     recommendedInjectedWallets: [
       { name: 'MetaMask', url: 'https://metamask.io' },
