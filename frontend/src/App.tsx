@@ -27,7 +27,7 @@ export const App = () => {
     <Web3Context.Provider value={{ currentWeb3Provider, setCurrentWeb3Provider, contract, setContract }}>
       <Backdrop
         backdropAnimationDelay={PAGE_FADE_OUT_DURATION + PAGE_FADE_OUT_DELAY}
-        backdropAnimationDuration={CIRCLE_ANIMATION_DURATION}
+        backdropAnimationDuration={CIRCLE_ANIMATION_DURATION + PAGE_FADE_IN_DURATION}
       />
       <Circles
         circleAnimationDuration={CIRCLE_ANIMATION_DURATION}
