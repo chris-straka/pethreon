@@ -1,14 +1,16 @@
 import { useState, useEffect, useCallback, ReactNode } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
+import { utils } from "ethers"
+import { useConnectWallet } from "@web3-onboard/react"
 import { PledgeType } from "../../types"
 import { UserBalance, UserAddress, Loading, PledgeList, ModalTemplate, WithdrawModal, ActionBar, ActionButton } from "../../components"
 import { DepositModal, PledgeModal } from "./components"
-import { utils } from "ethers"
-import { useWeb3 } from "../../context/Web3Context"
 import { DepositSVG, WithdrawSVG, PledgeSVG } from "../../svgs"
 import { Pethreon } from "../../../typechain-types"
+
 import styles from "./Contribute.module.scss"
+import { useContract } from "../../hooks/useContract"
 
 interface ContributeProps {
   fadeInDuration: number,
@@ -25,13 +27,14 @@ export const Contribute = (
   const [balance, setBalance] = useState("0.0")
   const [pledges, setPledges] = useState<PledgeType[]>([])
   const [modal, setModal] = useState<ReactNode | null>(null)
-  const { contract } = useWeb3()
+  const [{ wallet }] = useConnectWallet()
+  const contract = useContract(wallet?.provider)
   const navigate = useNavigate()
 
   useEffect(() => {
     localStorage.setItem("last_page_visited", "contribute")
 
-    if (!contract) navigate("/")
+    if (!wallet) navigate("/")
 
     async function init() {
       try {
@@ -50,7 +53,7 @@ export const Contribute = (
     }
 
     init()
-  }, [navigate, contract])
+  }, [contract, navigate, wallet])
 
   const closeModal = useCallback(() => setModal(null), [])
 

@@ -2,9 +2,6 @@ import { createContext, Dispatch, SetStateAction, useContext } from "react";
 import { ethers } from "ethers"
 import { Pethreon } from "../../typechain-types";
 
-/** 
- * Null spam kinda ugly but useWeb3 really helps
- */
 export type Web3Provider = ethers.providers.Web3Provider
 
 type ProviderContextType = {

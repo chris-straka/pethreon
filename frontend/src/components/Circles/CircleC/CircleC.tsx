@@ -11,6 +11,10 @@ interface CircleCProps {
   pageFadeInDuration: number
 }
 
+/** 
+ * It's ugly, but you MUST keep the ref.current?.style stuff
+ * Or the animation WILL NOT WORK!
+ */
 export const CircleC = ({
   circleAnimationDuration,
   circleAnimationDelay,
@@ -21,81 +25,74 @@ export const CircleC = ({
   const { pathname } = useLocation()
   const navigate = useNavigate()
   const [disabled, setDisabled] = useState(true)
-  const buttonRef = useRef<HTMLButtonElement>(null)
-  const createSpanRef = useRef<HTMLSpanElement>(null)
-  const donateSpanRef = useRef<HTMLSpanElement>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const createSpanRef = useRef<HTMLSpanElement>(null);
+  const donateSpanRef = useRef<HTMLSpanElement>(null);
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion)").matches
 
   useEffect(() => {
-    const prefersDarkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
-    const buttonRefStyle = buttonRef.current?.style
-    const createSpanRefStyle = createSpanRef.current?.style
-    const donateSpanRefStyle = donateSpanRef.current?.style
-    if (!buttonRefStyle || !createSpanRefStyle || !donateSpanRefStyle) return
+    const prefersDarkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
     if (pathname === "/") {
-      buttonRefStyle.top = "var(--top-login)"
-      buttonRefStyle.left = "var(--left-login)"
-      buttonRefStyle.width = "var(--width-login)"
-      buttonRefStyle.height = "var(--height-login)"
-      buttonRefStyle.borderRadius = "50%"
-      buttonRefStyle.backgroundColor = "var(--primary-color)"
+      buttonRef.current?.style.setProperty("top", "var(--top-login)")
+      buttonRef.current?.style.setProperty("left", "var(--left-login)")
+      buttonRef.current?.style.setProperty("width", "var(--width-login)")
+      buttonRef.current?.style.setProperty("height", "var(--height-login)")
+      buttonRef.current?.style.setProperty("border-radius", "50%")
+      buttonRef.current?.style.setProperty("background-color", "var(--primary-color)")
+      buttonRef.current?.style.setProperty("--color", "transparent")
+      buttonRef.current?.style.setProperty("--circle-animation-duration", `${circleAnimationDuration}s`)
+      buttonRef.current?.style.setProperty("--circle-animation-delay", `${circleAnimationDelay}s`)
+      buttonRef.current?.style.setProperty("--textColor-animation-duration", `${circleAnimationDuration}s`)
+      buttonRef.current?.style.setProperty("--textColor-animation-delay", `0s`)
 
-      // CSS Variables
-      buttonRefStyle.setProperty("--color", "transparent")
-      buttonRefStyle.setProperty("--circle-animation-duration", `${circleAnimationDuration}s`)
-      buttonRefStyle.setProperty("--circle-animation-delay", `${circleAnimationDelay}s`)
-      buttonRefStyle.setProperty("--textColor-animation-duration", `${circleAnimationDuration}s`)
-      buttonRefStyle.setProperty("--textColor-animation-delay", `0s`)
+      createSpanRef.current!.style.display = "block"
+      createSpanRef.current!.style.transition = "unset"
+      createSpanRef.current!.style.opacity = "1"
 
-      createSpanRefStyle.display = "block"
-      createSpanRefStyle.transition = "unset"
-      createSpanRefStyle.opacity = "1"
-
-      donateSpanRefStyle.display = "none"
-      donateSpanRefStyle.transition = "unset"
-      donateSpanRefStyle.opacity = "0"
+      donateSpanRef.current!.style.display = "none"
+      donateSpanRef.current!.style.transition = "unset"
+      donateSpanRef.current!.style.opacity = "0"
 
       setDisabled(true)
     }
 
     if (pathname === "/contribute") {
-      buttonRefStyle.top = "var(--top-contribute)"
-      buttonRefStyle.left = "var(--left-contribute)"
-      buttonRefStyle.width = "var(--width-contribute)"
-      buttonRefStyle.height = "var(--height-contribute)"
-      buttonRefStyle.borderRadius = "0%"
-      buttonRefStyle.borderBottomLeftRadius = "50px"
-      buttonRefStyle.backgroundColor = "var(--primary-color)"
-
-      // CSS variables
+      buttonRef.current?.style.setProperty("top", "var(--top-contribute)")
+      buttonRef.current?.style.setProperty("left", "var(--left-contribute)")
+      buttonRef.current?.style.setProperty("width", "var(--width-contribute)")
+      buttonRef.current?.style.setProperty("height", "var(--height-contribute)")
+      buttonRef.current?.style.setProperty("border-radius", "0%")
+      buttonRef.current?.style.setProperty("border-bottom-left-radius", "50px")
+      buttonRef.current?.style.setProperty("background-color", "var(--primary-color)")
       prefersDarkTheme ?
-        buttonRefStyle.setProperty("--color", "var(--text-color)") :
-        buttonRefStyle.setProperty("--color", "var(--background-color)")
-      buttonRefStyle.setProperty("--outline-color", "var(--primary-color)")
-      buttonRefStyle.setProperty("--hover-color", "var(--secondary-color)")
-      buttonRefStyle.setProperty("--circle-animation-duration", `${circleAnimationDuration}s`)
-      buttonRefStyle.setProperty("--circle-animation-delay", `${circleAnimationDelay}s`)
-      buttonRefStyle.setProperty("--textColor-animation-duration", `${circleAnimationDuration}s`)
-      buttonRefStyle.setProperty("--textColor-animation-delay", `${pageFadeInDuration + pageFadeOutDuration}s`)
+        buttonRef.current?.style.setProperty("--color", "var(--text-color)") :
+        buttonRef.current?.style.setProperty("--color", "var(--background-color)")
+      buttonRef.current?.style.setProperty("--outline-color", "var(--primary-color)")
+      buttonRef.current?.style.setProperty("--hover-color", "var(--secondary-color)")
+      buttonRef.current?.style.setProperty("--circle-animation-duration", `${circleAnimationDuration}s`)
+      buttonRef.current?.style.setProperty("--circle-animation-delay", `${circleAnimationDelay}s`)
+      buttonRef.current?.style.setProperty("--textColor-animation-duration", `${circleAnimationDuration}s`)
+      buttonRef.current?.style.setProperty("--textColor-animation-delay", `${pageFadeInDuration + pageFadeOutDuration}s`)
 
-      donateSpanRefStyle.transition = `opacity ${pageFadeOutDuration}s 0s`
-      donateSpanRefStyle.opacity = "0"
-
-      setTimeout(() => {
-        donateSpanRefStyle.display = "none"
-        createSpanRefStyle.display = "block"
-        createSpanRefStyle.transition = `opacity ${pageFadeInDuration}s 0s`
-      }, pageFadeOutDuration * 1000)
+      donateSpanRef.current!.style.transition = `opacity ${pageFadeOutDuration}s 0s`
+      donateSpanRef.current!.style.opacity = "0"
 
       setTimeout(() => {
-        createSpanRefStyle.opacity = "1"
-      }, (pageFadeOutDuration + circleAnimationDuration) * 1000)
+        donateSpanRef.current!.style.display = "none"
+        createSpanRef.current!.style.display = "block"
+        createSpanRef.current!.style.transition = `opacity ${pageFadeInDuration}s 0s`
+      }, pageFadeOutDuration * 1000);
 
+      setTimeout(() => {
+        createSpanRef.current!.style.opacity = "1"
+      }, (pageFadeOutDuration + circleAnimationDuration) * 1000);
+
+      // HERE
       setTimeout(() => {
         if (pathname === "/contribute") {
-          buttonRefStyle.setProperty("--textColor-animation-duration", ".3s")
-          buttonRefStyle.setProperty("--textColor-animation-delay", "0s")
+          buttonRef.current?.style.setProperty("--textColor-animation-duration", ".3s")
+          buttonRef.current?.style.setProperty("--textColor-animation-delay", "0s")
         }
       })
 
@@ -103,44 +100,42 @@ export const CircleC = ({
     }
 
     if (pathname === "/create") {
-      buttonRefStyle.top = "var(--top-create)"
-      buttonRefStyle.left = "var(--left-create)"
-      buttonRefStyle.width = "var(--width-create)"
-      buttonRefStyle.height = "var(--height-create)"
-      buttonRefStyle.borderRadius = "0%"
-      buttonRefStyle.borderBottomLeftRadius = "50px"
-      buttonRefStyle.backgroundColor = "var(--secondary-color)"
-
-      // CSS Variables
+      buttonRef.current?.style.setProperty("top", "var(--top-create)")
+      buttonRef.current?.style.setProperty("left", "var(--left-create)")
+      buttonRef.current?.style.setProperty("width", "var(--width-create)")
+      buttonRef.current?.style.setProperty("height", "var(--height-create)")
+      buttonRef.current?.style.setProperty("border-radius", "0%")
+      buttonRef.current?.style.setProperty("border-bottom-left-radius", "50px")
+      buttonRef.current?.style.setProperty("background-color", "var(--secondary-color)")
       prefersDarkTheme ?
-        buttonRefStyle.setProperty("--color", "var(--text-color)") :
-        buttonRefStyle.setProperty("--color", "var(--background-color)")
+        buttonRef.current?.style.setProperty("--color", "var(--text-color)") :
+        buttonRef.current?.style.setProperty("--color", "var(--background-color)")
       prefersDarkTheme ?
-        buttonRefStyle.setProperty("--hover-color", "var(--primary-light-color)") :
-        buttonRefStyle.setProperty("--hover-color", "var(--primary-color)")
-      buttonRefStyle.setProperty("--outline-color", "var(--secondary-color)")
-      buttonRefStyle.setProperty("--circle-animation-duration", `${circleAnimationDuration}s`)
-      buttonRefStyle.setProperty("--circle-animation-delay", `${circleAnimationDelay}s`)
-      buttonRefStyle.setProperty("--textColor-animation-duration", `${circleAnimationDuration}s`)
-      buttonRefStyle.setProperty("--textColor-animation-delay", `${pageFadeInDuration + pageFadeOutDuration}s`)
+        buttonRef.current?.style.setProperty("--hover-color", "var(--primary-light-color)") :
+        buttonRef.current?.style.setProperty("--hover-color", "var(--primary-color)")
+      buttonRef.current?.style.setProperty("--outline-color", "var(--secondary-color)")
+      buttonRef.current?.style.setProperty("--circle-animation-duration", `${circleAnimationDuration}s`)
+      buttonRef.current?.style.setProperty("--circle-animation-delay", `${circleAnimationDelay}s`)
+      buttonRef.current?.style.setProperty("--textColor-animation-duration", `${circleAnimationDuration}s`)
+      buttonRef.current?.style.setProperty("--textColor-animation-delay", `${pageFadeInDuration + pageFadeOutDuration}s`)
 
-      createSpanRefStyle.transition = `opacity ${pageFadeOutDuration}s 0s`
-      createSpanRefStyle.opacity = "0"
+      createSpanRef.current!.style.transition = `opacity ${pageFadeOutDuration}s 0s`
+      createSpanRef.current!.style.opacity = "0"
 
       setTimeout(() => {
-        createSpanRefStyle.display = "none"
-        donateSpanRefStyle.display = "block"
-        donateSpanRefStyle.transition = `opacity ${pageFadeInDuration}s 0s`
-      }, pageFadeOutDuration * 1000)
+        createSpanRef.current!.style.display = "none"
+        donateSpanRef.current!.style.display = "block"
+        donateSpanRef.current!.style.transition = `opacity ${pageFadeInDuration}s 0s`
+      }, pageFadeOutDuration * 1000);
 
       setTimeout(() => {
-        donateSpanRefStyle.opacity = "1"
-      }, (pageFadeOutDuration + pageFadeInDuration) * 1000)
+        donateSpanRef.current!.style.opacity = "1"
+      }, (pageFadeOutDuration + pageFadeInDuration) * 1000);
 
       setTimeout(() => {
         if (pathname === "/create") {
-          buttonRefStyle.setProperty("--textColor-animation-duration", ".3s")
-          buttonRefStyle.setProperty("--textColor-animation-delay", "0s")
+          buttonRef.current?.style.setProperty("--textColor-animation-duration", ".3s")
+          buttonRef.current?.style.setProperty("--textColor-animation-delay", "0s")
         }
       })
 

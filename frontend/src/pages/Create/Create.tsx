@@ -1,14 +1,15 @@
 import { useState, useEffect, useCallback, ReactNode } from "react"
 import { useNavigate } from "react-router-dom"
+import { useConnectWallet } from "@web3-onboard/react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ActionBar, ActionButton, WithdrawModal, UserBalance, UserAddress, Loading, PledgeList, ModalTemplate } from "../../components"
 import { PledgeType } from "../../types"
 import { Pethreon } from "../../../typechain-types"
-import { useWeb3 } from "../../context/Web3Context"
 import { WithdrawSVG, CsvSVG } from "../../svgs"
 import { utils } from "ethers"
 
 import styles from "./Create.module.scss"
+import { useContract } from "../../hooks/useContract"
 
 interface CreateProps {
   fadeInDuration: number,
@@ -25,13 +26,14 @@ export const Create = (
   const [balance, setBalance] = useState("0.0")
   const [pledges, setPledges] = useState<PledgeType[]>([])
   const [modal, setModal] = useState<ReactNode | null>(null)
-  const { contract } = useWeb3()
+  const [{ wallet }] = useConnectWallet()
+  const contract = useContract(wallet?.provider)
   const navigate = useNavigate()
 
   useEffect(() => {
     localStorage.setItem("last_page_visited", "create")
 
-    if (!contract) navigate("/")
+    if (!wallet) navigate("/")
 
     async function init() {
       try {
