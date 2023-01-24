@@ -4,7 +4,9 @@
   --typewriter-margin-bottom: min(29px, 4vh);
 
   font-family: Cutesy;
+  position: relative;
   font-size: var(--typewriter-fs);
+  z-index: var(--login-page-content-z-index);
   min-height: var(--typewriter-min-height);
   margin-bottom: var(--typewriter-margin-bottom);
   text-align: center;

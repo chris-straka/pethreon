@@ -2,6 +2,8 @@
   --login-button-fs: clamp(16px, 1.1vw + 16px, 160px);
 
   font-size: var(--login-button-fs);
+  position: relative;
+  z-index: var(--login-page-content-z-index);
   border: 0.145em solid var(--primary-color);
   background-color: var(--primary-dark-color);
   color: var(--background-color);
@@ -15,10 +17,6 @@
 
   &:focus-visible {
     transform: rotate(2deg);
-  }
-
-  &:hover {
-
   }
 
   &:active {

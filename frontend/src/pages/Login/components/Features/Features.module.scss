@@ -2,6 +2,8 @@
   --features-fs: clamp(16px, 1vw + 16px, 32px);
   --features-margin-bottom: min(30px, 5vh);
 
+  position: relative;
+  z-index: var(--login-page-content-z-index);
   font-size: var(--features-fs);
   margin-bottom: var(--features-margin-bottom);
   line-height: 1.5;

@@ -2,6 +2,8 @@
   --footer-fs: clamp(1rem, 1vw + 1rem, 10rem);
 
   font-size: var(--footer-fs);
+  position: relative;
+  z-index: var(--login-page-content-z-index);
   padding-top: var(--footer-padding-top);
   margin-bottom: 22px;
   align-self: flex-end;

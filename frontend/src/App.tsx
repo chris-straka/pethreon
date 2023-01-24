@@ -5,7 +5,7 @@ import { AnimatePresence } from "framer-motion";
 import { Login } from './pages/Login/Login';
 import { Contribute } from './pages/Contribute/Contribute';
 import { Create } from './pages/Create/Create';
-import { Circles } from './components';
+import { Circles, Backdrop } from './components';
 import { Pethreon } from '../typechain-types';
 
 const PAGE_FADE_IN_DURATION = .5
@@ -18,8 +18,17 @@ export const App = () => {
   const [contract, setContract] = useState<Pethreon | null>(null)
   const location = useLocation()
 
+  /** 
+   * The order in which things are laid out here is critical.
+   * From bottom to top these things need to overlap 
+   * web3-account-center > Backdrop > Circles > Pages
+   */
   return (
     <Web3Context.Provider value={{ currentWeb3Provider, setCurrentWeb3Provider, contract, setContract }}>
+      <Backdrop
+        backdropAnimationDelay={PAGE_FADE_OUT_DURATION + PAGE_FADE_OUT_DELAY}
+        backdropAnimationDuration={CIRCLE_ANIMATION_DURATION}
+      />
       <Circles
         circleAnimationDuration={CIRCLE_ANIMATION_DURATION}
         pageFadeInDuration={PAGE_FADE_IN_DURATION}

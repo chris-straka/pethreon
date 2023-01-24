@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
+import { ethers } from 'ethers'
 import { motion } from 'framer-motion'
 import { useNavigate } from "react-router-dom"
-import { MetamaskSVG } from '../../svgs'
 import { useConnectWallet, useSetChain } from '@web3-onboard/react'
+import { MetamaskSVG } from '../../svgs'
 import { Features, Footer, LoginButton, Pethreon, Typewriter, Video } from './components'
 import { LOGGING_IN, WALLET_FOUND, WALLET_NOT_FOUND } from '../../messages'
 import { useWeb3Setup } from '../../context/Web3Context'
-import { ethers } from 'ethers'
-import styles from "./Login.module.scss"
 import { Pethreon__factory } from '../../../typechain-types'
+import styles from "./Login.module.scss"
 
 interface LoginProps {
   fadeInDuration: number,

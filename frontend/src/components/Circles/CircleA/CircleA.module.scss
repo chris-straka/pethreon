@@ -1,57 +1,62 @@
 .circleA {
   position: fixed;
   outline: none;
-  z-index: -1;
   border-radius: 50%;
   background-color: var(--primary-light-color);
+
+  // these properties are the same no matter what page we're on
+  // the duration and the delay is all different though
   transition-property: top, left, width, height, background-color;
 
   --top-login: -5vh;
   --left-login: -5vw;
-  --size-login: 15vh;
-  --width-login: var(--size-login);
-  --height-login: var(--size-login);
+  --width-login: 15vh;
+  --height-login: 15vh;
 
   --top-contribute: 82vh;
   --left-contribute: 16vw;
-  --size-contribute: 15vw;
-  --width-contribute: var(--size-contribute);
-  --height-contribute: var(--size-contribute);
+  --width-contribute: 15vw;
+  --height-contribute: 15vw;
 
   --top-create: 78vh;
   --left-create: 59vw;
-  --size-create: 25vw;
-  --width-create: var(--size-create);
-  --height-create: var(--size-create);
+  --width-create: 25vw;
+  --height-create: 25vw;
 }
 
 @media (min-width: 600px) and (orientation: portrait) {
   .circleA {
     --top-login: -4vh;
     --left-login: -4vw;
-    --size-login: clamp(224px, 7vw, 650px);
+    --width-login: clamp(224px, 7vw, 650px);
+    --height-login: clamp(224px, 7vw, 650px);
   }
 }
 
 @media (max-width: 1279px) and (orientation: landscape) {
   .circleA {
-    --size-contribute: 0;
-    --size-create: 0;
     position: absolute;
+    --width-contribute: 0;
+    --height-contribute: 0;
+    --width-create: 0;
+    --height-create: 0;
   }
 }
 
 @media (min-width: 1280px) and (orientation: landscape) {
   .circleA {
-    --size-login: 240px;
+    --width-login: 240px;
+    --height-login: 240px;
 
     --top-contribute: 75vh;
     --left-contribute: 6vw;
-    --size-contribute: 12vh;
+    --width-contribute: 12vw;
+    --height-contribute: 12vw;
 
     --top-create: 51vh;
     --left-create: 20vw;
-    --size-create: 25vh;
+    --width-create: 25vh;
+    --height-create: 25vh;
   }
 }
 

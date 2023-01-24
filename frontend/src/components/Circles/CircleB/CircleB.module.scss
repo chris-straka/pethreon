@@ -1,41 +1,40 @@
 .circleB {
   position: fixed;
   outline: none;
-  z-index: -1;
   border-radius: 50%;
   background-color: var(--primary-color);
   transition-property: top, left, width, height, background-color;
 
   --top-login: 40vh;
   --left-login: 92vw;
-  --size-login: 128px;
-  --width-login: var(--size-login);
-  --height-login: var(--size-login);
+  --width-login: 128px;
+  --height-login: 128px;
 
   --top-contribute: 78vh;
   --left-contribute: 59vw;
-  --size-contribute: 25vw;
-  --width-contribute: var(--size-contribute);
-  --height-contribute: var(--size-contribute);
+  --width-contribute: 25vw;
+  --height-contribute: 25vw;
 
   --top-create: 82vh;
   --left-create: 16vw;
-  --size-create: 15vw;
-  --width-create: var(--size-create);
-  --height-create: var(--size-create);
+  --width-create: 15vw;
+  --height-create: 15vw;
 }
 
 @media (min-width: 600px) and (orientation: portrait) {
   .circleB {
-    --size-login: 200px;
+    --width-login: 200px;
+    --height-login: 200px;
   }
 }
 
 @media (max-width: 1279px) and (orientation: landscape) {
   .circleB {
-    --size-contribute: 0;
-    --size-create: 0;
     position: absolute;
+    --width-contribute: 0;
+    --height-contribute: 0;
+    --width-create: 0;
+    --height-create: 0;
   }
 }
 
@@ -44,14 +43,17 @@
   .circleB {
     --top-login: 85vh;
     --left-login: 50vw;
-    --size-login: 300px;
+    --width-login: 300px;
+    --height-login: 300px;
 
     --top-contribute: 51vh;
     --left-contribute: 20vw;
-    --size-contribute: 25vh;
+    --width-contribute: 25vh;
+    --height-contribute: 25vh;
 
     --top-create: 75vh;
     --left-create: 6vw;
-    --size-create: 12vh;
+    --width-create: 12vh
+    --height-create: 12vh
   }
 }

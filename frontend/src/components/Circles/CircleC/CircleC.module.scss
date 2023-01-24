@@ -1,9 +1,8 @@
 .circleC {
   --top-login: 80vh;
   --left-login: 25vw;
-  --size-login: 45vh;
-  --width-login: var(--size-login);
-  --height-login: var(--size-login);
+  --width-login: 45vh;
+  --height-login: 45vh;
 
   --top-contribute: 0vh;
   --left-contribute: 60vw;
@@ -22,7 +21,6 @@
   --color: transparent;
 
   outline: none;
-  z-index: -1;
   position: fixed;
   cursor: pointer;
   font-weight: bold;
@@ -87,7 +85,8 @@
   .circleC {
     --left-login: 80vw;
     --top-login: 3vh;
-    --size-login: 490px;
+    --width-login: 490px;
+    --height-login: 490px;
 
     --top-contribute: 0vh;
     --left-contribute: 80vw;

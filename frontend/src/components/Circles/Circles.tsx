@@ -11,8 +11,14 @@ interface CirclesProps {
 export const Circles = ({ circleAnimationDuration, pageFadeOutDuration, pageFadeInDuration }: CirclesProps) => {
   return (
     <>
-      <CircleA duration={circleAnimationDuration} delay={pageFadeOutDuration} />
-      <CircleB duration={circleAnimationDuration} delay={pageFadeOutDuration} />
+      <CircleA
+        circleAnimationDuration={circleAnimationDuration}
+        circleAnimationDelay={pageFadeOutDuration}
+      />
+      <CircleB
+        circleAnimationDuration={circleAnimationDuration}
+        circleAnimationDelay={pageFadeOutDuration}
+      />
       <CircleC
         circleAnimationDuration={circleAnimationDuration}
         circleAnimationDelay={pageFadeOutDuration}

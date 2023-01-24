@@ -20,6 +20,10 @@
   box-sizing: inherit;
 }
 
+body {
+  z-index: 1;
+}
+
 :root {
   --primary-color: hsl(215, 50%, 68%);
   --primary-light-color: hsl(215, 50%, 79%);
@@ -31,7 +35,9 @@
 
   --anchor-tag-color: default;
   --anchor-tag-hover-color: var(--secondary-color);
+
   --background-color: hsl(0, 0%, 100%);
+
   --modal-background-color: hsl(0, 0%, 100%);
   --text-color: hsl(0, 0%, 20%);
   --text-color: #141823;
@@ -60,6 +66,10 @@ a {
   &:focus {
     color: var(--anchor-tag-hover-color);
   }
+}
+
+:root {
+
 }
 
 @media (prefers-color-scheme: dark) {

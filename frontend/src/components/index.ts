@@ -2,6 +2,7 @@
 
 import { ActionBar } from "./ActionBar/ActionBar";
 import { ActionButton } from "./ActionButton/ActionButton";
+import { Backdrop } from "./Backdrop/Backdrop";
 import { Circles } from "./Circles/Circles"
 import { Consent } from "./Consent/Consent";
 import { CurrencyButton} from "./Currency/CurrencyButton/CurrencyButton";
@@ -22,6 +23,7 @@ import { UserBalance } from "./User/UserBalance";
 export {
   ActionBar,
   ActionButton,
+  Backdrop,
   Circles,
   Consent,
   CurrencyButton,

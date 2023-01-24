@@ -1,5 +1,7 @@
 .video {
   display: none;
+  position: relative;
+  z-index: var(--login-page-content-z-index);
 }
 
 @media (min-width: 1280px) and (orientation: landscape) {

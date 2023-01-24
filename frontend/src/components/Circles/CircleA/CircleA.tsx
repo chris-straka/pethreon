@@ -4,45 +4,51 @@ import { motion } from "framer-motion"
 import styles from "./CircleA.module.scss"
 
 interface CircleAProps {
-  duration: number,
-  delay: number
+  circleAnimationDuration: number,
+  circleAnimationDelay: number
 }
 
-export const CircleA = ({ duration, delay }: CircleAProps) => {
-  const location = useLocation()
+export const CircleA = ({ circleAnimationDuration, circleAnimationDelay }: CircleAProps) => {
+  const { pathname } = useLocation()
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (location.pathname === "/") {
-      ref.current?.style.setProperty("top", "var(--top-login)")
-      ref.current?.style.setProperty("left", "var(--left-login)")
-      ref.current?.style.setProperty("width", "var(--width-login)")
-      ref.current?.style.setProperty("height", "var(--height-login)")
-      ref.current?.style.setProperty("background-color", "var(--primary-color)")
-      ref.current?.style.setProperty("transition-duration", `${duration}s`)
-      ref.current?.style.setProperty("transition-delay", `${delay}s`)
+    const refStyle = ref.current?.style
+    if (!refStyle) return
+
+    /** 
+     * I didn't inline the CSS vars because they change depending on the screen size (@media)
+     */
+    if (pathname === "/") {
+      refStyle.top = "var(--top-login)"
+      refStyle.left = "var(--left-login)"
+      refStyle.width = "var(--width-login)"
+      refStyle.height = "var(--height-login)"
+      refStyle.backgroundColor = "var(--primary-color)"
+      refStyle.transitionDuration = `${circleAnimationDuration}s`
+      refStyle.transitionDelay = `${circleAnimationDelay}s`
     }
 
-    if (location.pathname === "/contribute") {
-      ref.current?.style.setProperty("top", "var(--top-contribute)")
-      ref.current?.style.setProperty("left", "var(--left-contribute)")
-      ref.current?.style.setProperty("width", "var(--width-contribute)")
-      ref.current?.style.setProperty("height", "var(--height-contribute)")
-      ref.current?.style.setProperty("background-color", "var(--secondary-dark-color)")
-      ref.current?.style.setProperty("transition-duration", `${duration}s`)
-      ref.current?.style.setProperty("transition-delay", `${delay}s`)
+    if (pathname === "/contribute") {
+      refStyle.top = "var(--top-contribute)"
+      refStyle.left = "var(--left-contribute)"
+      refStyle.width = "var(--width-contribute)"
+      refStyle.height = "var(--height-contribute)"
+      refStyle.backgroundColor = "var(--secondary-dark-color)"
+      refStyle.transitionDuration = `${circleAnimationDuration}s`
+      refStyle.transitionDelay = `${circleAnimationDelay}s`
     }
 
-    if (location.pathname === "/create") {
-      ref.current?.style.setProperty("top", "var(--top-create)")
-      ref.current?.style.setProperty("left", "var(--left-create)")
-      ref.current?.style.setProperty("width", "var(--width-create)")
-      ref.current?.style.setProperty("height", "var(--height-create)")
-      ref.current?.style.setProperty("background-color", "var(--primary-color)")
-      ref.current?.style.setProperty("transition-duration", `${duration}s`)
-      ref.current?.style.setProperty("transition-delay", `${delay}s`)
+    if (pathname === "/create") {
+      refStyle.top = "var(--top-create)"
+      refStyle.left = "var(--left-create)"
+      refStyle.width = "var(--width-create)"
+      refStyle.height = "var(--height-create)"
+      refStyle.backgroundColor = "var(--primary-color)"
+      refStyle.transitionDuration = `${circleAnimationDuration}s`
+      refStyle.transitionDelay = `${circleAnimationDelay}s`
     }
-  }, [location, duration, delay])
+  }, [pathname, circleAnimationDuration, circleAnimationDelay])
 
   return (
     <motion.div
