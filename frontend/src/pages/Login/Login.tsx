@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react'
+import { ethers } from 'ethers'
 import { motion } from 'framer-motion'
 import { useNavigate } from "react-router-dom"
 import { useConnectWallet, useSetChain } from '@web3-onboard/react'
 import { MetamaskSVG } from '../../svgs'
 import { Features, Footer, LoginButton, Pethreon, Typewriter, Video } from './components'
 import { LOGGING_IN, WALLET_FOUND, WALLET_NOT_FOUND } from '../../messages'
+import { useWeb3Setup } from '../../context/Web3Context'
+import { Pethreon__factory } from '../../../typechain-types'
 import styles from "./Login.module.scss"
 
 interface LoginProps {
@@ -14,6 +17,8 @@ interface LoginProps {
   fadeOutDelay: number
 }
 
+const PETHREON_CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS
+
 export const Login = (
   { fadeInDuration, fadeInDelay, fadeOutDuration, fadeOutDelay }: LoginProps
 ) => {
@@ -21,6 +26,7 @@ export const Login = (
   const [talking, setTalking] = useState(false)
   const [{ connecting }, connect] = useConnectWallet()
   const [, setChain] = useSetChain()
+  const { setCurrentWeb3Provider, setContract } = useWeb3Setup()
   const metamask = useMetamask()
   const navigate = useNavigate()
 
@@ -36,6 +42,13 @@ export const Login = (
     await setChain({ chainId: '0x5' }) // switch to Goerli
 
     if (wallet?.provider) {
+      const web3Provider = new ethers.providers.Web3Provider(wallet.provider, 'any')
+      setCurrentWeb3Provider(web3Provider)
+
+      const signer = web3Provider.getSigner()
+      const contract = Pethreon__factory.connect(PETHREON_CONTRACT_ADDRESS, signer)
+      setContract(contract)
+
       localStorage.getItem('last_page_visited') === "create" ?
         navigate("/create") :
         navigate("/contribute")

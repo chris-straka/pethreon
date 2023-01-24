@@ -1,5 +1,6 @@
 import { createContext, Dispatch, SetStateAction, useContext } from "react";
 import { ethers } from "ethers"
+import { useNavigate } from "react-router-dom";
 import { Pethreon } from "../../typechain-types";
 
 export type Web3Provider = ethers.providers.Web3Provider
@@ -21,8 +22,12 @@ export const Web3Context = createContext<ProviderContextType>({
 
 export const useWeb3 = () => {
   const { currentWeb3Provider, contract } = useContext(Web3Context)
+  const navigate = useNavigate()
 
-  if (!currentWeb3Provider || !contract) throw new Error("currentWeb3Provider or contract was used outside the <CurrentWeb3ProviderContext.Provider>")
+  if (!currentWeb3Provider || !contract) {
+    navigate("/")
+    throw new Error("currentWeb3Provider or contract was used outside the <CurrentWeb3ProviderContext.Provider>")
+  }
 
   return { currentWeb3Provider, contract }
 }

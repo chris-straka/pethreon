@@ -1,16 +1,14 @@
 import { useState, useEffect, useCallback, ReactNode } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { utils } from "ethers"
-import { useConnectWallet } from "@web3-onboard/react"
+import { ethers } from "ethers"
 import { PledgeType } from "../../types"
 import { UserBalance, UserAddress, Loading, PledgeList, ModalTemplate, WithdrawModal, ActionBar, ActionButton } from "../../components"
 import { DepositModal, PledgeModal } from "./components"
 import { DepositSVG, WithdrawSVG, PledgeSVG } from "../../svgs"
-import { Pethreon } from "../../../typechain-types"
 
 import styles from "./Contribute.module.scss"
-import { useContract } from "../../hooks/useContract"
+import { useWeb3 } from "../../context/Web3Context"
 
 interface ContributeProps {
   fadeInDuration: number,
@@ -27,25 +25,28 @@ export const Contribute = (
   const [balance, setBalance] = useState("0.0")
   const [pledges, setPledges] = useState<PledgeType[]>([])
   const [modal, setModal] = useState<ReactNode | null>(null)
-  const [{ wallet }] = useConnectWallet()
-  const contract = useContract(wallet?.provider)
+  const { contract } = useWeb3()
   const navigate = useNavigate()
 
   useEffect(() => {
     localStorage.setItem("last_page_visited", "contribute")
 
-    if (!wallet) navigate("/")
-
     async function init() {
       try {
-        const balance = await grabContributorBalance(contract)
+        // Grab the user's balance as a contributor
+        const balanceInWei = await contract.getContributorBalanceInWei()
+        const balanceInEther = await ethers.utils.formatEther(balanceInWei)
+        const balance = balanceInEther.toString()
         setBalance(balance)
 
+        // Grab the pledges they made
         const pledges = await contract.getContributorPledges()
         setPledges(pledges)
 
+        // Set their address in the UI
         const address = await contract.signer.getAddress()
         setAddress(address)
+
       } catch (error) {
         window.alert(error)
         navigate("/")
@@ -53,7 +54,7 @@ export const Contribute = (
     }
 
     init()
-  }, [contract, navigate, wallet])
+  }, [contract, navigate])
 
   const closeModal = useCallback(() => setModal(null), [])
 
@@ -106,10 +107,4 @@ export const Contribute = (
       </AnimatePresence>
     </>
   )
-}
-
-async function grabContributorBalance(contract: Pethreon) {
-  const balance = await contract.getContributorBalanceInWei()
-  const balanceEther = await utils.formatEther(balance)
-  return await balanceEther.toString()
 }
