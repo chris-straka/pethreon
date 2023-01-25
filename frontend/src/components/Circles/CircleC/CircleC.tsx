@@ -30,7 +30,7 @@ export const CircleC = ({
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion)").matches
 
   useEffect(() => {
-    const prefersDarkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const prefersLightTheme = window.matchMedia("(prefers-color-scheme: light)").matches;
     const buttonRefStyles = buttonRef.current?.style
     const createSpanRefStyles = createSpanRef.current?.style
     const donateSpanRefStyles = donateSpanRef.current?.style
@@ -46,8 +46,9 @@ export const CircleC = ({
       buttonRefStyles?.setProperty("--color", "transparent")
       buttonRefStyles?.setProperty("--circle-animation-duration", `${circleAnimationDuration}s`)
       buttonRefStyles?.setProperty("--circle-animation-delay", `${circleAnimationDelay}s`)
+
       buttonRefStyles?.setProperty("--textColor-animation-duration", `${circleAnimationDuration}s`)
-      buttonRefStyles?.setProperty("--textColor-animation-delay", `0s`)
+      buttonRefStyles?.setProperty("--textColor-animation-delay", "0s")
 
       createSpanRefStyles!.display = "block"
       createSpanRefStyles!.transition = "unset"
@@ -68,9 +69,6 @@ export const CircleC = ({
       buttonRefStyles?.setProperty("border-radius", "0%")
       buttonRefStyles?.setProperty("border-bottom-left-radius", "50px")
       buttonRefStyles?.setProperty("background-color", "var(--primary-color)")
-      prefersDarkTheme ?
-        buttonRefStyles?.setProperty("--color", "var(--text-color)") :
-        buttonRefStyles?.setProperty("--color", "var(--background-color)")
       buttonRefStyles?.setProperty("--outline-color", "var(--primary-color)")
       buttonRefStyles?.setProperty("--hover-color", "var(--secondary-color)")
       buttonRefStyles?.setProperty("--circle-animation-duration", `${circleAnimationDuration}s`)
@@ -80,6 +78,10 @@ export const CircleC = ({
 
       donateSpanRefStyles!.transition = `opacity ${pageFadeOutDuration}s 0s`
       donateSpanRefStyles!.opacity = "0"
+
+      prefersLightTheme ?
+        buttonRefStyles?.setProperty("--color", "var(--background-color)") :
+        buttonRefStyles?.setProperty("--color", "var(--text-color)")
 
       setTimeout(() => {
         donateSpanRefStyles!.display = "none"
@@ -110,12 +112,7 @@ export const CircleC = ({
       buttonRefStyles?.setProperty("border-radius", "0%")
       buttonRefStyles?.setProperty("border-bottom-left-radius", "50px")
       buttonRefStyles?.setProperty("background-color", "var(--secondary-color)")
-      prefersDarkTheme ?
-        buttonRefStyles?.setProperty("--color", "var(--text-color)") :
-        buttonRefStyles?.setProperty("--color", "var(--background-color)")
-      prefersDarkTheme ?
-        buttonRefStyles?.setProperty("--hover-color", "var(--primary-light-color)") :
-        buttonRefStyles?.setProperty("--hover-color", "var(--primary-color)")
+
       buttonRefStyles?.setProperty("--outline-color", "var(--secondary-color)")
       buttonRefStyles?.setProperty("--circle-animation-duration", `${circleAnimationDuration}s`)
       buttonRefStyles?.setProperty("--circle-animation-delay", `${circleAnimationDelay}s`)
@@ -124,6 +121,14 @@ export const CircleC = ({
 
       createSpanRefStyles!.transition = `opacity ${pageFadeOutDuration}s 0s`
       createSpanRefStyles!.opacity = "0"
+
+      prefersLightTheme ?
+        buttonRefStyles?.setProperty("--color", "var(--background-color)") :
+        buttonRefStyles?.setProperty("--color", "var(--text-color)")
+
+      prefersLightTheme ?
+        buttonRefStyles?.setProperty("--hover-color", "var(--primary-color)") :
+        buttonRefStyles?.setProperty("--hover-color", "var(--primary-light-color)")
 
       setTimeout(() => {
         createSpanRefStyles!.display = "none"

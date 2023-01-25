@@ -14,6 +14,7 @@ export const CircleB = ({ circleAnimationDelay, circleAnimationDuration }: Circl
 
   useEffect(() => {
     const refStyle = ref.current?.style
+    const prefersLightTheme = window.matchMedia("(prefers-color-scheme: light)").matches;
     if (!refStyle) return
 
     /** 
@@ -24,9 +25,13 @@ export const CircleB = ({ circleAnimationDelay, circleAnimationDuration }: Circl
       refStyle.left = "var(--left-login)"
       refStyle.width = "var(--width-login)"
       refStyle.height = "var(--height-login)"
-      refStyle.backgroundColor = "var(--primary-color)"
+
       refStyle.transitionDuration = `${circleAnimationDuration}s`
       refStyle.transitionDelay = `${circleAnimationDelay}s`
+
+      prefersLightTheme ?
+        refStyle.backgroundColor = "var(--primary-color)" :
+        refStyle.backgroundColor = "var(--primary-color)"
     }
 
     if (pathname === "/contribute") {
@@ -34,9 +39,13 @@ export const CircleB = ({ circleAnimationDelay, circleAnimationDuration }: Circl
       refStyle.left = "var(--left-contribute)"
       refStyle.width = "var(--width-contribute)"
       refStyle.height = "var(--height-contribute)"
-      refStyle.backgroundColor = "var(--secondary-color)"
+
       refStyle.transitionDuration = `${circleAnimationDuration}s`
       refStyle.transitionDelay = `${circleAnimationDelay}s`
+
+      prefersLightTheme ?
+        refStyle.backgroundColor = "var(--secondary-color)" :
+        refStyle.backgroundColor = "var(--secondary-color)"
     }
 
     if (pathname === "/create") {
@@ -44,9 +53,13 @@ export const CircleB = ({ circleAnimationDelay, circleAnimationDuration }: Circl
       refStyle.left = "var(--left-create)"
       refStyle.width = "var(--width-create)"
       refStyle.height = "var(--height-create)"
-      refStyle.backgroundColor = "var(--primary-dark-color)"
+
       refStyle.transitionDuration = `${circleAnimationDuration}s`
       refStyle.transitionDelay = `${circleAnimationDelay}s`
+
+      prefersLightTheme ?
+        refStyle.backgroundColor = "var(--primary-dark-color)" :
+        refStyle.backgroundColor = "var(--primary-dark-color)"
     }
   }, [pathname, circleAnimationDuration, circleAnimationDelay])
 

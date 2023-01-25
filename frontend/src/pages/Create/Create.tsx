@@ -69,10 +69,6 @@ export const Create = (
         exit={{ opacity: 0, transition: { duration: fadeOutDuration, delay: fadeOutDelay } }}
       >
         {loading ? <Loading /> : <UserBalance className={styles.userBalance} balance={balance} />}
-        <UserBalance
-          className={styles.userBalance}
-          balance={balance}
-        />
         <UserAddress
           className={styles.userAddress}
           userAccountAddress={address}
