@@ -2,11 +2,10 @@
   font-size: clamp(16px, 1.1vw + 16px, 160px);
   position: relative;
   z-index: var(--login-page-content-z-index);
-  border: 0.145em solid var(--primary-color);
   background-color: var(--primary-dark-color);
   color: var(--background-color);
   border-radius: 16px;
-  padding-block: 16px;
+  padding-block: 26px;
   width: 14ch;
   cursor: pointer;
   outline: none;
@@ -36,19 +35,16 @@
 
 @media (prefers-color-scheme: dark) {
   .loginButton {
-    background: none;
     color: var(--text-color);
-    border-color: var(--primary-color);
+    background-color: var(--primary-color);
 
     &:focus-visible {
-      outline: none;
       color: var(--text-color);
-      background-color: var(--primary-color);
     }
 
     &:hover {
       color: var(--text-color);
-      background-color: var(--primary-color);
+      background-color: var(--primary-dark-color);
       box-shadow: none;
     }
   }

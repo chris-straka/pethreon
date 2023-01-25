@@ -9,5 +9,5 @@ export const LoginButton = ({ onClick }: LoginButtonProps) => {
   return <button
     className={styles.loginButton}
     onClick={onClick}
-  >Login to Pethreon</button>
+  >Login</button>
 }

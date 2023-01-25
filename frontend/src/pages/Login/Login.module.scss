@@ -5,19 +5,16 @@
   margin-inline: max(1.5em, 6vw);
 }
 
-.metamaskSVG {
-  width: clamp(5em, 30vw, 16em);
-}
+// .metamaskSVG {
+//   width: clamp(5em, 30vw, 16em);
+// }
 
 .loginContainer {
   display: flex;
   justify-content: space-around;
   align-items: center;
-
-  & > svg {
-    width: clamp(5em, 30vw, 16em);
-  }
 }
+
 
 @media (min-width: 1280px) and (orientation: landscape) {
   .metamaskSVG {

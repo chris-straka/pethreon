@@ -1,6 +1,6 @@
 # Overview
 
-[This dapp](https://github.com/Chris56974/Pethreon) is a decentralized crowdfunding application that runs on ethereum. It's similar to [Patreon](https://www.patreon.com/) except there's no third-parties. The backend is a modified (and working) version of [Sergei's Pethreon Smart Contract](https://github.com/s-tikhomirov/pethreon). The frontend is my own react project.
+[This dapp](https://github.com/chris56974/pethreon) is a decentralized crowdfunding application that runs on ethereum. It's similar to [Patreon](https://www.patreon.com/) except there's no third-parties. The backend is a modified (and working) version of [Sergei's Pethreon Smart Contract](https://github.com/s-tikhomirov/pethreon). The frontend is my own react project.
 
 For information on how to run this locally, please see [CONTRIBUTING.md](https://github.com/chris56974/pethreon/blob/main/docs/CONTRIBUTING.md)
 
