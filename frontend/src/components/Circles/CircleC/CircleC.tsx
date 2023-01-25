@@ -57,6 +57,7 @@ export const CircleC = ({
       donateSpanRefStyles!.transition = "unset"
       donateSpanRefStyles!.opacity = "0"
 
+      buttonRef.current!.disabled = true
     }
 
     if (pathname === "/contribute") {
@@ -98,6 +99,7 @@ export const CircleC = ({
         }
       })
 
+      buttonRef.current!.disabled = false
     }
 
     if (pathname === "/create") {
@@ -139,7 +141,7 @@ export const CircleC = ({
           buttonRefStyles?.setProperty("--textColor-animation-delay", "0s")
         }
       })
-
+      buttonRef.current!.disabled = false
     }
   }, [pathname, circleAnimationDuration, circleAnimationDelay, pageFadeInDuration, pageFadeOutDuration])
 

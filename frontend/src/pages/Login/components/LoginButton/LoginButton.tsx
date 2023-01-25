@@ -6,8 +6,5 @@ interface LoginButtonProps {
 }
 
 export const LoginButton = ({ onClick }: LoginButtonProps) => {
-  return <button
-    className={styles.loginButton}
-    onClick={onClick}
-  >Login</button>
+  return <button className={styles.loginButton} onClick={onClick}>Login</button>
 }

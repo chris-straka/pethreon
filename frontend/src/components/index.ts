@@ -5,15 +5,15 @@ import { ActionButton } from "./ActionButton/ActionButton";
 import { Backdrop } from "./Backdrop/Backdrop";
 import { Circles } from "./Circles/Circles"
 import { Consent } from "./Consent/Consent";
-import { CurrencyButton} from "./Currency/CurrencyButton/CurrencyButton";
-import { CurrencyButtons } from "./Currency/CurrencyButtons/CurrencyButtons";
-import { CurrencyField } from "./Currency/CurrencyField/CurrrencyField";
+import { CurrencyButton} from "./CurrencyButton/CurrencyButton";
+import { CurrencyButtons } from "./CurrencyButtons/CurrencyButtons";
+import { CurrencyField } from "./CurrencyField/CurrrencyField";
 import { Disclaimer } from "./Disclaimer/Disclaimer";
 import { Footer } from "../pages/Login/components/Footer/Footer";
 import { Link } from "./Link/Link"
 import { Loading } from "./Loading/Loading";
-import { WithdrawModal } from "./Modals/WithdrawModal";
-import { ModalTemplate } from "./Modals/ModalTemplate/ModalTemplate";
+import { WithdrawModal } from "./WithdrawModal/WithdrawModal";
+import { ModalTemplate } from "./ModalTemplate/ModalTemplate";
 import { Pledge } from "./Pledge/Pledge";
 import { PledgeList } from "./PledgeList/PledgeList";
 import { Submit } from "./Submit/Submit";

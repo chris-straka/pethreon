@@ -1,8 +1,17 @@
+.modal {
+  width: auto;
+  min-height: auto;
+  margin: auto;
+  padding: 30px;
+  border-radius: 12px;
+  background-color: var(--modal-background-color);
+}
+
 .modalBackdrop {
   position: absolute;
   top: 0;
   left: 0;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
   background-color: var(--modal-backdrop-color);
   display: flex;

@@ -2,7 +2,8 @@
 .emptyPledgeBox {
   overflow: auto;
   list-style: none;
-  height: 30vh;
+    // might have to be min-height
+  min-height: 30vh;
   margin-top: 3vh;
 }
 
@@ -25,7 +26,8 @@
 @media (max-width: 1280px) and (orientation: landscape) {
   .pledgeBox,
   .emptyPledgeBox {
-    height: 90vh;
+    // might have to be min-height
+    min-height: 90vh;
     margin-top: 8vh;
   }
 }
@@ -34,7 +36,8 @@
   .pledgeBox,
   .emptyPledgeBox {
     font-size: clamp(0.5rem, 4vw, 5rem);
-    height: 40vh;
+    // might have to be min-height
+    min-height: 40vh;
     width: 50vw;
   }
 }

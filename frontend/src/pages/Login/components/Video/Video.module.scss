@@ -1,11 +1,11 @@
-.video {
+video {
   display: none;
   position: relative;
   z-index: var(--login-page-content-z-index);
 }
 
 @media (min-width: 1280px) and (orientation: landscape) {
-  .video {
+  video {
     display: block;
     border-radius: 0.6em;
     aspect-ratio: 256 / 135;

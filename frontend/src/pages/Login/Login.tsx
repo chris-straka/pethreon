@@ -62,21 +62,23 @@ export const Login = (
       animate={{ opacity: 1, transition: { delay: fadeInDelay, duration: fadeInDuration } }}
       exit={{ opacity: 0, transition: { delay: fadeOutDelay, duration: fadeOutDuration } }}
     >
-      <Pethreon className={styles.pethreon} />
-      <Features className={styles.features} />
-      <Typewriter
-        className={styles.typewriter}
-        message={message}
-        setTalking={setTalking}
-      />
-      <div className={styles.loginContainer}>
-        <MetamaskSVG className={styles.metamaskSVG} talking={talking} />
-        <LoginButton onClick={signIn} disabled={connecting} />
+      <div className={styles.loginContent}>
+        <Pethreon />
+        <Features />
+        <Typewriter
+          className={styles.typewriter}
+          message={message}
+          setTalking={setTalking}
+        />
+        <div className={styles.loginContainer}>
+          <MetamaskSVG talking={talking} />
+          <LoginButton onClick={signIn} disabled={connecting} />
+        </div>
       </div>
-      <Video className={styles.video} />
+      <Video />
       <Footer />
     </motion.div>
-  );
+  )
 }
 
 export interface EthereumWindow extends Window {

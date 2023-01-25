@@ -1,13 +1,9 @@
 import "./MetamaskSVG.scss"
 
-interface MetamaskSVGProps {
-  talking: boolean,
-  className: string
-}
-
-export const MetamaskSVG = ({ talking, className }: MetamaskSVGProps) => (
+export const MetamaskSVG = ({ talking }: { talking: boolean }) => (
   <svg
-    className={`${className} ${talking ? "talking" : "floating"}`}
+    className={`${talking ? "talking" : "floating"}`}
+    width="100%"
     viewBox="0 0 154 154"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

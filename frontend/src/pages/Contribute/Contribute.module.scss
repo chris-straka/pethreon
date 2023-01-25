@@ -1,12 +1,14 @@
 .contributeLayout {
-  height: 60vh;
+  // might have to be min-height
+  min-height: 60vh;
   margin-top: 15vh;
   margin-inline: clamp(23px, 9vw, 80px);
 }
 
 @media (max-width: 1280px) and (orientation: landscape) {
   .contributeLayout {
-    height: auto;
+    // might have to be min-height
+    min-height: auto;
     margin-top: 35vh;
   }
 }
@@ -28,7 +30,8 @@
 
     grid-gap: 10px;
 
-    height: 85vh;
+    // might have to be height
+    min-height: 85vh;
     margin-top: 15vh;
     margin-inline: 0;
   }

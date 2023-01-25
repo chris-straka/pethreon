@@ -1,36 +1,13 @@
 .loginButton {
   font-size: clamp(16px, 1.1vw + 16px, 160px);
-  position: relative;
   z-index: var(--login-page-content-z-index);
-  background-color: var(--primary-dark-color);
   color: var(--background-color);
+  background-color: var(--primary-dark-color);
   border-radius: 16px;
-  padding-block: 26px;
   width: 14ch;
   cursor: pointer;
-  outline: none;
 
   transition: all 0.3s;
-
-  &:focus-visible {
-    transform: rotate(2deg);
-  }
-
-  &:active {
-    box-shadow: none;
-  }
-}
-
-@media (min-width: 390px) {
-  .loginButton {
-    font-size: clamp(16px, 2.5vw + 16px, 160px);
-  }
-}
-
-@media (min-width: 1280px) and (orientation: landscape) {
-  .loginButton {
-    font-size: clamp(16px, 1.3vw + 16px, 160px);
-  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -45,7 +22,6 @@
     &:hover {
       color: var(--text-color);
       background-color: var(--primary-dark-color);
-      box-shadow: none;
     }
   }
 }

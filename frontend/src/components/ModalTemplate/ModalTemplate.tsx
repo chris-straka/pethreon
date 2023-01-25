@@ -1,6 +1,5 @@
 import { useEffect, ReactNode } from "react"
 import { motion } from "framer-motion"
-import { ModalBackdrop } from "./ModalBackdrop"
 import styles from "./ModalTemplate.module.scss"
 
 interface ModalProps {
@@ -29,7 +28,7 @@ export const ModalTemplate = ({ closeModal, children }: ModalProps) => {
   }, [closeModal]);
 
   return (
-    <ModalBackdrop onClick={closeModal}>
+    <ModalBackdrop closeModal={closeModal}>
       <motion.div
         onClick={e => e.stopPropagation()}
         className={styles.modal}
@@ -40,5 +39,24 @@ export const ModalTemplate = ({ closeModal, children }: ModalProps) => {
         {children}
       </motion.div>
     </ModalBackdrop >
+  )
+}
+
+interface ModalProps {
+  children: ReactNode,
+  closeModal: (() => void)
+}
+
+function ModalBackdrop({ children, closeModal }: ModalProps) {
+  return (
+    <motion.div
+      className={styles.modalBackdrop}
+      onClick={closeModal}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      {children}
+    </motion.div>
   )
 }

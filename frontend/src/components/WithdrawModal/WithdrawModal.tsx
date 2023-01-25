@@ -1,6 +1,6 @@
 import { useState, Dispatch, SetStateAction, ChangeEvent, FormEvent } from "react"
 import { MetamaskError, Denomination } from "../../types"
-import { CurrencyField, CurrencyButtons, CurrencyButton, Submit } from "../"
+import { CurrencyField, CurrencyButtons, CurrencyButton, Submit } from ".."
 import { BigNumber, utils } from "ethers"
 import { WithdrawSVG } from "../../svgs"
 import { useWeb3 } from "../../context/Web3Context"

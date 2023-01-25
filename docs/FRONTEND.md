@@ -1,12 +1,12 @@
 # Frontend Notes
 
-These notes list *some* of the many lessons I took away from building this project. I trimmed it down because I spend to much time editing it (I change it every time I look at it) and I don't want to spend any more time on it. But you're free to checkout my git history if you want to read more.
+These notes list _some_ of the many lessons I took away from building this project. I trimmed it down because I spend to much time editing it (I change it every time I look at it) and I don't want to spend any more time on it. But you're free to checkout my git history if you want to read more.
 
 ## Figma
 
 ### A good wireframe AND a good prototype is a good idea
 
-[The final design mockups](https://www.figma.com/file/dwPfF2lhw84J4PZdZTIQvL/Pethreon?node-id=0%3A1) I made ignore a lot of detail. They don't include any modals and there are grey boxes everywhere. I ended up doing a lot more refactoring in development, and my modals don't look like they fit the application. It was an important lesson in building better drafts. 
+[The final design mockups](https://www.figma.com/file/dwPfF2lhw84J4PZdZTIQvL/Pethreon?node-id=0%3A1) I made ignore a lot of detail. They don't include any modals and there are grey boxes everywhere. I ended up doing a lot more refactoring in development, and my modals don't look like they fit the application. It was an important lesson in building better drafts.
 
 ### I should view my designs in fullscreen more
 
@@ -18,7 +18,7 @@ I picked a color palette that I thought looked good, but it ended up not being e
 
 ## React
 
-### Components 
+### Components
 
 Components made my code much more readable, even if I never reused them (the declarative style is nice). I'm still figuring out how to make components reusable, and at the same time tailor them to my specific needs. I've experimented with things like spacer components, styles as props, and stuff like that.
 
@@ -32,20 +32,43 @@ In hindsight, forcing the user to wait on a typewriter effect for the info they 
 Having the metamask logo talk, the typewriter effect go off and the video play all at the same time seems ridiculous as well.
 Printing a hyperlink char-by-char in a typewriter effect was also strange to implement, because the only way I could figure this out is by recreating the same link multiple times (once for every character) instead of using the same link and editing the text inside it. Any attempts to do the former would print the markup for the anchor tag as well.
 
-### Component Rerender Tip
+## Tips
 
-Child components don't rerender on new props, they only rerender when their state changes or their parent component changes.
+### CSS
 
-##  Tips
+Desktop-first is like writing CSS twice. You write complex CSS by default, and then you write CSS again to remove that complex CSS.
+Mobile-first, is you write hardly any CSS for mobile screens because HTML is responsive by default, then you add complexity w/ @media.
 
-- [Certain animations can hurt a11y](https://developer.mozilla.org/en-US/docs/Web/CSS/animation#accessibility_concerns)
-- [window.opener() weirdness](https://stackoverflow.com/questions/57628890)
-- [Opacity slows down rendering](https://stackoverflow.com/questions/38523826) so use RGBA instead
-- [Responsive screen sizes](https://www.browserstack.com/guide/ideal-screen-sizes-for-responsive-design)
-- [All the new iphone sizes](https://stackoverflow.com/questions/58087446)
-- [The login button should be the same color as the primary color](https://ux.stackexchange.com/questions/104224)
-- innerHTML is only scary when it's in the user's hand, not yours 
-- In ethers, to get a lower denomination you "parse" and to get a higher denomination you "format"
+CSS grid -> children live within the rigid grid that you create (top down enforcement)
+Flexbox -> children keep their intrinsic sizing
 
-You can't zoom in/out on any text that's been sized with viewport units. 
-You have to use[calc(vw + 1em) or clamp(vw + 1em)](https://www.youtube.com/watch?v=wARbgs5Fmuw) instead. 
+Use min-height and max-height over height.
+Use min-width and max-width over width.
+
+[The login button should be primary color](https://ux.stackexchange.com/questions/104224)
+
+[Certain animations can hurt a11y](https://developer.mozilla.org/en-US/docs/Web/CSS/animation#accessibility_concerns)
+
+[Opacity slows down rendering, rgba doesn't](https://stackoverflow.com/questions/38523826)
+
+### Typography
+
+[You can get fluid type scales from here](https://www.fluid-type-scale.com/)
+
+[You have to use calc(vw + 1em) or clamp(vw + 1em)](https://www.youtube.com/watch?v=wARbgs5Fmuw) instead.
+
+You can't zoom in/out on text that's been sized with viewport units (you need + 1 something)
+
+### React
+
+Child components don't rerender on new props. They only rerender when their state changes or the parent component changes.
+
+### JS
+
+innerHTML is (usually) only scary when it's in the user's hand, not yours
+
+[window.opener() weirdness](https://stackoverflow.com/questions/57628890)
+
+### Ethers
+
+In ethers, to get a lower denomination you "parse" and to get a higher denomination you "format"

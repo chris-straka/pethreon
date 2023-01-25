@@ -5,21 +5,10 @@
   margin-inline: max(1.5em, 6vw);
 }
 
-// .metamaskSVG {
-//   width: clamp(5em, 30vw, 16em);
-// }
-
 .loginContainer {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-
-@media (min-width: 1280px) and (orientation: landscape) {
-  .metamaskSVG {
-    width: clamp(1em, 13vw, 29em);
-  }
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8em;
 }
 
 /* DESKTOP DESIGN */
@@ -27,39 +16,28 @@
   .loginLayout {
     display: grid;
     grid:
-      [Pethreon-row-start] "Pethreon Video" [Pethreon-row-end]
-      [Features-row-start] "Features Video" [Features-row-end]
-      [Message-row-start] "Typewriter Video" [Message-row-end]
-      [Login-row-start] "Login Video" [Login-row-end]
-      [Circles-row-start] "None Footer" [Circles-row-end];
+      [Pethreon-row-start] "LoginContent Video" [Pethreon-row-end]
+      [Features-row-start] "LoginContent Video" [Features-row-end]
+      [Message-row-start] "LoginContent Video" [Message-row-end]
+      [Login-row-start] "LoginContent Video" [Login-row-end]
+      [Footer-row-start] ". Footer" [Footer-row-end];
     margin-inline: 0;
   }
 
-  .pethreon,
-  .features,
-  .typewriter,
-  .loginContainer {
+  .loginContent {
+    grid-area: LoginContent;
     margin-left: max(32px, 3vw);
     width: 40vw;
   }
 
-  .pethreon {
-    grid-area: Pethreon;
-  }
-
-  .features {
-    grid-area: Features;
-  }
-
-  .typewriter {
-    grid-area: Typewriter;
-  }
-
-  .loginContainer {
-    grid-area: Login;
-  }
-
-  .video {
+  video {
     grid-area: Video;
+  }
+
+  footer {
+    grid-area: Footer;
+    place-self: end;
+    padding: unset;
+    margin-right: 5%;
   }
 }
