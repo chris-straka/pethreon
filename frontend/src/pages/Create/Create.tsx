@@ -62,13 +62,13 @@ export const Create = (
 
   return (
     <>
-      {loading && <Loading />}
       <motion.div
         className={styles.createLayout}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { duration: fadeInDuration, delay: fadeInDelay } }}
         exit={{ opacity: 0, transition: { duration: fadeOutDuration, delay: fadeOutDelay } }}
       >
+        {loading ? <Loading /> : <UserBalance className={styles.userBalance} balance={balance} />}
         <UserBalance
           className={styles.userBalance}
           balance={balance}

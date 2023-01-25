@@ -76,14 +76,13 @@ export const Contribute = (
 
   return (
     <>
-      {loading && <Loading />}
       <motion.div
         className={styles.contributeLayout}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { duration: fadeInDuration, delay: fadeInDelay } }}
         exit={{ opacity: 0, transition: { duration: fadeOutDuration, delay: fadeOutDelay } }}
       >
-        <UserBalance className={styles.userBalance} balance={balance} />
+        {loading ? <Loading /> : <UserBalance className={styles.userBalance} balance={balance} />}
         <UserAddress className={styles.userAddress} userAccountAddress={address} />
         <ActionBar className={styles.contributorActionBar}>
           <ActionButton onClick={() => setModal(depositModal)}>Deposit <DepositSVG /></ActionButton>

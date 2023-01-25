@@ -29,12 +29,16 @@ export function Backdrop({
 
     if (pathname === "/contribute") {
       refStyle.opacity = "0"
-      refStyle.display = "none"
+      setTimeout(() => {
+        refStyle.display = "none"
+      }, 1000 * (backdropAnimationDelay + backdropAnimationDuration))
     }
 
     if (pathname === "/create") {
       refStyle.opacity = "0"
-      refStyle.display = "none"
+      setTimeout(() => {
+        refStyle.display = "none"
+      }, 1000 * (backdropAnimationDelay + backdropAnimationDuration))
     }
 
   }, [backdropAnimationDelay, backdropAnimationDuration, pathname])
