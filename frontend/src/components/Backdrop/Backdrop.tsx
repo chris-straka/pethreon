@@ -22,9 +22,20 @@ export function Backdrop({
     refStyle.transitionDuration = `${backdropAnimationDuration}s`
     refStyle.transitionDelay = `${backdropAnimationDelay}s`
 
-    if (pathname === "/") refStyle.opacity = "1"
-    if (pathname === "/contribute") refStyle.opacity = "0"
-    if (pathname === "/create") refStyle.opacity = "0"
+    if (pathname === "/") {
+      refStyle.opacity = "1"
+      refStyle.display = "block"
+    }
+
+    if (pathname === "/contribute") {
+      refStyle.opacity = "0"
+      refStyle.display = "none"
+    }
+
+    if (pathname === "/create") {
+      refStyle.opacity = "0"
+      refStyle.display = "none"
+    }
 
   }, [backdropAnimationDelay, backdropAnimationDuration, pathname])
 
