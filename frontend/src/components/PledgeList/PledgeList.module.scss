@@ -1,14 +1,9 @@
 .pledgeBox,
 .emptyPledgeBox {
-  --fs-empty-pledge-text: clamp(0.5rem, 10vw, 5rem);
-  --pledge-box-height: 30vh;
-  --pledge-box-margin-top: 3vh;
-
   overflow: auto;
   list-style: none;
-  width: var(--pledge-box-width);
-  height: var(--pledge-box-height);
-  margin-top: var(--pledge-box-margin-top);
+  height: 30vh;
+  margin-top: 3vh;
 }
 
 .emptyPledgeBox {
@@ -22,7 +17,7 @@
 
 .emptyPledgeText {
   font-family: Cutesy;
-  font-size: var(--fs-empty-pledge-text);
+  font-size: clamp(0.5rem, 10vw, 5rem);
   width: 15ch;
 }
 
@@ -30,23 +25,16 @@
 @media (max-width: 1280px) and (orientation: landscape) {
   .pledgeBox,
   .emptyPledgeBox {
-    --pledge-box-height: 90vh;
-    --pledge-box-margin-top: 8vh;
-  }
-}
-
-@media (min-width: 600px) {
-  .pledgeBox,
-  .emptyPledgeBox {
-    --contribute-layout-margin-inline: clamp(3rem, 9vw, 9rem);
+    height: 90vh;
+    margin-top: 8vh;
   }
 }
 
 @media (min-width: 1280px) and (orientation: landscape) {
   .pledgeBox,
   .emptyPledgeBox {
-    --fs-empty-pledge-text: clamp(0.5rem, 4vw, 5rem);
-    --pledge-box-height: 40vh;
-    --pledge-box-width: 50vw;
+    font-size: clamp(0.5rem, 4vw, 5rem);
+    height: 40vh;
+    width: 50vw;
   }
 }

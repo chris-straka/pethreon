@@ -1,11 +1,8 @@
 .features {
-  --features-fs: clamp(16px, 1vw + 16px, 32px);
-  --features-margin-bottom: min(30px, 5vh);
-
+  font-size: clamp(16px, 1vw + 16px, 32px);
   position: relative;
   z-index: var(--login-page-content-z-index);
-  font-size: var(--features-fs);
-  margin-bottom: var(--features-margin-bottom);
+  margin-bottom: min(30px, 5vh);
   line-height: 1.5;
   list-style-type: none;
 
@@ -16,20 +13,20 @@
 
 @media (min-width: 390px) {
   .features {
-    --features-fs: clamp(16px, 2vw + 16px, 112px);
-    --features-margin-bottom: max(50px, 6vh);
+    font-size: clamp(16px, 2vw + 16px, 112px);
+    margin-bottom: max(50px, 6vh);
   }
 }
 
 @media (min-width: 1280px) and (orientation: landscape) {
   .features {
-    --features-fs: clamp(24px, 0.9vw + 16px, 160px);
-    --features-margin-bottom: max(25px, 3vh);
+    font-size: clamp(24px, 0.9vw + 16px, 160px);
+    margin-bottom: max(25px, 3vh);
   }
 }
 
 @media (min-width: 3840px) and (orientation: landscape) {
   .features {
-    --features-fs: clamp(24px, 1.4vw + 16px, 160px);
+    font-size: clamp(24px, 1.4vw + 16px, 160px);
   }
 }

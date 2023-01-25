@@ -1,7 +1,5 @@
 .loginButton {
-  --login-button-fs: clamp(16px, 1.1vw + 16px, 160px);
-
-  font-size: var(--login-button-fs);
+  font-size: clamp(16px, 1.1vw + 16px, 160px);
   position: relative;
   z-index: var(--login-page-content-z-index);
   border: 0.145em solid var(--primary-color);
@@ -26,13 +24,13 @@
 
 @media (min-width: 390px) {
   .loginButton {
-    --login-button-fs: clamp(16px, 2.5vw + 16px, 160px);
+    font-size: clamp(16px, 2.5vw + 16px, 160px);
   }
 }
 
 @media (min-width: 1280px) and (orientation: landscape) {
   .loginButton {
-    --login-button-fs: clamp(16px, 1.3vw + 16px, 160px);
+    font-size: clamp(16px, 1.3vw + 16px, 160px);
   }
 }
 

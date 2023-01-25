@@ -2,7 +2,6 @@
   position: fixed;
   outline: none;
   border-radius: 50%;
-  background-color: var(--primary-light-color);
 
   // these properties are the same no matter what page we're on
   // the duration and the delay is all different though
@@ -57,11 +56,5 @@
     --left-create: 20vw;
     --width-create: 25vh;
     --height-create: 25vh;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .circleA {
-    background-color: var(--primary-color);
   }
 }

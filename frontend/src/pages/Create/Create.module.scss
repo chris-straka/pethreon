@@ -1,6 +1,11 @@
+.createLayout {
+  height: 60vh;
+  margin-top: 15vh;
+  margin-inline: clamp(23px, 9vw, 80px);
+}
+
 .actionButton {
   width: unset;
-  background-color: var(--secondary-color);
 
   &:hover {
     color: var(--primary-color);
@@ -11,30 +16,20 @@
   }
 }
 
-.createLayout {
-  --create-layout-height: 60vh;
-  --create-layout-margin-top: 15vh;
-  --create-layout-margin-inline: clamp(23px, 9vw, 80px);
-
-  height: var(--create-layout-height);
-  margin-top: var(--create-layout-margin-top);
-  margin-inline: var(--create-layout-margin-inline);
-}
-
 .pledgeList {
   border-color: var(--secondary-color);
 }
 
 @media (max-width: 1280px) and (orientation: landscape) {
   .createLayout {
-    --create-layout-height: auto;
-    --create-layout-margin-top: 35vh;
+    height: auto;
+    margin-top: 35vh;
   }
 }
 
 @media (min-width: 600px) {
   .createLayout {
-    --create-layout-margin-inline: clamp(3rem, 9vw, 9rem);
+    margin-inline: clamp(3rem, 9vw, 9rem);
   }
 }
 
@@ -49,9 +44,9 @@
 
     grid-gap: 10px;
 
-    --create-layout-height: 85vh;
-    --create-layout-margin-top: 15vh;
-    --create-layout-margin-inline: 0;
+    height: 85vh;
+    margin-top: 15vh;
+    margin-inline: 0;
   }
 
   .userBalance {

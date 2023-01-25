@@ -2,7 +2,9 @@
   position: fixed;
   outline: none;
   border-radius: 50%;
-  background-color: var(--primary-color);
+
+  // these properties are the same no matter what page we're on
+  // the duration and the delay is all different though
   transition-property: top, left, width, height, background-color;
 
   --top-login: 40vh;

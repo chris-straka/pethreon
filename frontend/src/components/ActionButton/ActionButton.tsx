@@ -9,10 +9,7 @@ interface ActionButtonInterface {
 
 export function ActionButton({ className, children, onClick }: ActionButtonInterface) {
   return (
-    <button
-      className={`${styles.actionButton} ${className}`}
-      onClick={onClick}
-    >
+    <button className={`${styles.actionButton} ${className}`} onClick={onClick}>
       {children}
     </button>
   )

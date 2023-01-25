@@ -1,18 +1,13 @@
 .footer {
-  --footer-fs: clamp(1rem, 1vw + 1rem, 10rem);
-
-  font-size: var(--footer-fs);
+  font-size: clamp(1rem, 1vw + 1rem, 10rem);
   position: relative;
   z-index: var(--login-page-content-z-index);
-  padding-top: var(--footer-padding-top);
   margin-bottom: 22px;
   align-self: flex-end;
   margin-top: auto;
 
   & > a {
     margin-right: 3vw;
-
-    // warning
     &:first-child {
       color: red;
       &:hover {
@@ -50,13 +45,13 @@
 
 @media (max-height: 600px) {
   .footer {
-    --footer-padding-top: 10vh;
+    padding-top: 10vh;
   }
 }
 
 @media (min-width: 390px) {
   .footer {
-    --footer-fs: clamp(1rem, 1vw + 1rem, 10rem);
+    font-size: clamp(1rem, 1vw + 1rem, 10rem);
   }
 }
 

@@ -1,36 +1,33 @@
 .typewriter {
-  --typewriter-fs: clamp(16px, 5vw + 16px, 160px);
-  --typewriter-min-height: clamp(120px, 6vh, 120px);
-  --typewriter-margin-bottom: min(29px, 4vh);
-
-  font-family: Cutesy;
+  font-size: clamp(16px, 5vw + 16px, 160px);
   position: relative;
-  font-size: var(--typewriter-fs);
   z-index: var(--login-page-content-z-index);
-  min-height: var(--typewriter-min-height);
-  margin-bottom: var(--typewriter-margin-bottom);
+  font-family: Cutesy;
+
+  min-height: clamp(120px, 6vh, 120px);
+  margin-bottom: min(29px, 4vh);
   text-align: center;
   scrollbar-width: thin;
 }
 
 @media (min-width: 390px) {
   .typewriter {
-    --typewriter-fs: clamp(16px, 6vw + 16px, 160px);
-    --typewriter-min-height: clamp(100px, 17vh, 250px);
+    font-size: clamp(16px, 6vw + 16px, 160px);
+    min-height: clamp(100px, 17vh, 250px);
   }
 }
 
 @media (min-width: 1280px) and (orientation: landscape) {
   .typewriter {
-    --typewriter-fs: clamp(48px, 2.6vw + 16px, 176px);
-    --typewriter-margin-bottom: 0;
-    --typewriter-min-height: 179px;
+    font-size: clamp(48px, 2.6vw + 16px, 176px);
+    margin-bottom: 0;
+    min-height: 179px;
   }
 }
 
 @media (min-width: 3840px) and (orientation: landscape) {
   .typewriter {
-    --typewriter-fs: clamp(48px, 3vw + 16px, 160px);
-    --typewriter-min-height: clamp(360px, 9vh, 450px);
+    font-size: clamp(48px, 3vw + 16px, 160px);
+    min-height: clamp(360px, 9vh, 450px);
   }
 }

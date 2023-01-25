@@ -1,21 +1,14 @@
 .actionButton {
-  --fs: clamp(0.5rem, 4.5vw, 3rem);
-
-  --action-button-width: 8ch;
-  --action-button-outline-offset: 4px;
-  --action-button-outline-size: 5px;
-
-  font-size: var(--fs);
+  font-size: clamp(0.5rem, 4.5vw, 3rem);
   font-weight: 600;
   cursor: pointer;
-  width: var(--action-button-width);
+  width: 8ch;
   padding: 0.7em;
   border-right: 3px solid white;
-  background-color: var(--primary-color);
-  color: var(--background-color);
-  outline-offset: var(--action-button-outline-offset);
-  outline: var(--action-button-outline-size) dotted transparent;
-  transition: outline-color 0.3s, color 0.3s, background-color 0.3s;
+  background-color: transparent;
+  color: var(--text-color);
+  outline: 5px dotted transparent;
+  transition: border-color 0.3s, color 0.3s, background-color 0.3s;
 
   &:hover {
     transition: color 0.3s;
@@ -35,18 +28,15 @@
 
 @media (min-width: 600px) {
   .actionButton {
-    --action-button-outline-offset: 4px;
-    --action-button-outline-size: 10px;
+    outline: 5px dotted transparent;
   }
 }
 
 @media (min-width: 1280px) and (orientation: landscape) {
   .actionButton {
-    --fs: clamp(0.5rem, 2vw, 2rem);
-
-    --action-button-outline-offset: 4px;
-    --action-button-outline-size: 10px;
-    --action-button-width: unset;
+    font-size: clamp(0.5rem, 2vw, 2rem);
+    outline: 10px dotted transparent;
+    width: unset;
   }
 }
 

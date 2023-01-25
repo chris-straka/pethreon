@@ -1,23 +1,19 @@
 .contributeLayout {
-  --contribute-layout-height: 60vh;
-  --contribute-layout-margin-top: 15vh;
-  --contribute-layout-margin-inline: clamp(23px, 9vw, 80px);
-
-  height: var(--contribute-layout-height);
-  margin-top: var(--contribute-layout-margin-top);
-  margin-inline: var(--contribute-layout-margin-inline);
+  height: 60vh;
+  margin-top: 15vh;
+  margin-inline: clamp(23px, 9vw, 80px);
 }
 
 @media (max-width: 1280px) and (orientation: landscape) {
   .contributeLayout {
-    --contribute-layout-height: auto;
-    --contribute-layout-margin-top: 35vh;
+    height: auto;
+    margin-top: 35vh;
   }
 }
 
 @media (min-width: 600px) {
   .contributeLayout {
-    --contribute-layout-margin-inline: clamp(3rem, 9vw, 9rem);
+    margin-inline: clamp(3rem, 9vw, 9rem);
   }
 }
 
@@ -32,9 +28,9 @@
 
     grid-gap: 10px;
 
-    --contribute-layout-height: 85vh;
-    --contribute-layout-margin-top: 15vh;
-    --contribute-layout-margin-inline: 0;
+    height: 85vh;
+    margin-top: 15vh;
+    margin-inline: 0;
   }
 
   .userBalance {
