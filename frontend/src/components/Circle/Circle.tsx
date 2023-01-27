@@ -23,7 +23,7 @@ interface CircleProps {
   circleAnimationDelay: number
 
   /** 
-   * Each className has a different set of values for the CSS variables --top, --left, etc...
+   * Each className is a different circle with its own values for --top, --left...
    */
   className: string
 

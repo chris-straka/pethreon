@@ -1,7 +1,11 @@
 .circleButton {
+  position: fixed;
   font-size: clamp(10px, 6vw, 30px);
+  font-weight: bold;
   outline-offset: 3px;
   outline: 5px dotted transparent;
+
+  cursor: pointer;
 
   transition: outline-color 0.2s,
     top var(--circle-animation-duration) var(--circle-animation-duration),

@@ -50,7 +50,7 @@ export const App = () => {
             <Create
               fadeInDuration={PAGE_FADE_IN_DURATION}
               circleAnimationDuration={CIRCLE_ANIMATION_DURATION}
-              fadeOutDuration={PAGE_FADE_OUT_DURATION}
+              pageFadeOutDuration={PAGE_FADE_OUT_DURATION}
             />
           }
           />

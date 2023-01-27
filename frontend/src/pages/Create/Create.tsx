@@ -1,23 +1,24 @@
 import { useState, useEffect, useCallback, ReactNode } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { ActionBar, ActionButton, WithdrawModal, UserBalance, UserAddress, Loading, PledgeList, ModalTemplate } from "../../components"
+import { ActionBar, ActionButton, Circle, Loading, PledgeList, ModalTemplate, UserBalance, UserAddress, WithdrawModal } from "../../components"
 import { PledgeType } from "../../types"
 import { useWeb3 } from "../../context/Web3Context"
 import { Pethreon } from "../../../typechain-types"
 import { WithdrawSVG, CsvSVG } from "../../svgs"
 import { utils } from "ethers"
 
+import circleStyles from "./Create.circles.module.scss"
 import styles from "./Create.module.scss"
 
 interface CreateProps {
   fadeInDuration: number,
   circleAnimationDuration: number,
-  fadeOutDuration: number,
+  pageFadeOutDuration: number,
 }
 
 export const Create = (
-  { fadeInDuration, circleAnimationDuration, fadeOutDuration }: CreateProps
+  { fadeInDuration, circleAnimationDuration, pageFadeOutDuration }: CreateProps
 ) => {
   const [address, setAddress] = useState("")
   const [loading, setLoading] = useState(false)
@@ -61,11 +62,29 @@ export const Create = (
 
   return (
     <>
+      <Circle
+        className={circleStyles.circleA}
+        circleAnimationDelay={pageFadeOutDuration}
+        circleAnimationDuration={circleAnimationDuration}
+        animate={{ scale: 1.2 }}
+        transition={{ duration: 5, repeat: Infinity, repeatType: "reverse" }}
+      />
+      <Circle
+        className={circleStyles.circleB}
+        circleAnimationDelay={pageFadeOutDuration}
+        circleAnimationDuration={circleAnimationDuration}
+        animate={{ scale: 1.2, x: 2, y: 2 }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          repeatType: "reverse"
+        }}
+      />
       <motion.div
         className={styles.createLayout}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { duration: fadeInDuration, delay: circleAnimationDuration } }}
-        exit={{ opacity: 0, transition: { duration: fadeOutDuration } }}
+        exit={{ opacity: 0, transition: { duration: pageFadeOutDuration } }}
       >
         {loading ? <Loading /> : <UserBalance className={styles.userBalance} balance={balance} />}
         <UserAddress

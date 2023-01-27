@@ -1,21 +1,29 @@
 .circleA {
+  --top: 82vh;
+  --left: 16vw;
+  --width: 15vw;
+  --height: 15vw;
 }
 
 .circleB {
-}
-
-@media (min-width: 600px) and (orientation: portrait) {
-  .circleA {
-  }
-
-  .circleB {
-  }
+  --top: 78vh;
+  --left: 59vw;
+  --width: 25vw;
+  --height: 25vw;
 }
 
 @media (min-width: 1280px) and (orientation: landscape) {
   .circleA {
+    --top: 75vh;
+    --left: 6vw;
+    --width: 12vh;
+    --height: 12vh;
   }
 
   .circleB {
+    --top: 51vh;
+    --left: 20vw;
+    --width: 25vh;
+    --height: 25vh;
   }
 }

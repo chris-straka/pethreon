@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { ethers } from "ethers"
 import { PledgeType } from "../../types"
 import { useWeb3 } from "../../context/Web3Context"
-import { ActionBar, ActionButton, Circle, UserBalance, UserAddress, Loading, PledgeList, ModalTemplate, WithdrawModal } from "../../components"
+import { ActionBar, ActionButton, Circle, CircleButton, UserBalance, UserAddress, Loading, PledgeList, ModalTemplate, WithdrawModal } from "../../components"
 import { DepositModal, PledgeModal } from "."
 import { DepositSVG, WithdrawSVG, PledgeSVG } from "../../svgs"
 
@@ -89,6 +89,9 @@ export const Contribute = (
         circleAnimationDuration={circleAnimationDuration}
         animate={{ scale: 1.2, x: 2, y: 2 }}
         transition={{ duration: 8, repeat: Infinity, repeatType: "reverse" }}
+      />
+      <CircleButton
+        
       />
       <motion.div
         className={styles.contributeLayout}
