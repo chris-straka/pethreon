@@ -1,0 +1,86 @@
+.circleC {
+  --top-login: 80vh;
+  --left-login: 25vw;
+  --width-login: 45vh;
+  --height-login: 45vh;
+
+  --top-contribute: 0vh;
+  --left-contribute: 60vw;
+  --width-contribute: 40vw;
+  --height-contribute: 13vh;
+
+  --top-create: 0vh;
+  --left-create: 60vw;
+  --width-create: 40vw;
+  --height-create: 13vh;
+
+  font-size: clamp(10px, 6vw, 30px);
+  outline-offset: 3px;
+  outline: 5px dotted transparent;
+
+  transition: outline-color 0.2s,
+    top var(--circle-animation-duration) var(--circle-animation-duration),
+    left var(--circle-animation-duration) var(--circle-animation-delay),
+    width var(--circle-animation-duration) var(--circle-animation-delay),
+    height var(--circle-animation-duration) var(--circle-animation-delay),
+    color var(--text-color-animation-duration) var(--text-color-animation-delay),
+    fill var(--text-color-animation-duration) var(--text-color-animation-delay),
+    border-radius var(--circle-animation-duration) var(--circle-animation-delay),
+    background-color var(--circle-animation-duration)
+      var(--circle-animation-delay);
+
+  &:focus-visible {
+    outline-color: var(--primary-color);
+    transition: outline-color 0.15s, color 0.2s, fill 0.2s;
+  }
+}
+
+@media (min-width: 600px) and (orientation: portrait) {
+  .circleC {
+    --top-login: 82vh;
+    --width-login: 440px;
+    --height-login: 440px;
+
+    font-size: clamp(10px, 5vw, 190px);
+    outline-offset: 4px;
+    outline-width: 10px;
+  }
+}
+
+@media (min-width: 600px) and (orientation: landscape) {
+  .circleC {
+    font-size: clamp(10px, 5.6vw, 290px);
+  }
+}
+
+@media (max-width: 1279px) and (orientation: landscape) {
+  .circleC {
+    position: absolute;
+    --height-contribute: 35vh;
+    --height-create: 35vh;
+  }
+}
+
+@media (min-width: 1280px) and (orientation: landscape) {
+  .circleC {
+    --left-login: 80vw;
+    --top-login: 3vh;
+    --width-login: 490px;
+    --height-login: 490px;
+
+    --top-contribute: 0vh;
+    --left-contribute: 80vw;
+    --width-contribute: 20vw;
+    --height-contribute: 15vh;
+
+    --top-create: 0vh;
+    --left-create: 80vw;
+    --width-create: 20vw;
+    --height-create: 15vh;
+
+    font-size: 2.5vw;
+
+    outline-offset: 4px;
+    outline-width: 10px;
+  }
+}

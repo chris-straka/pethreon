@@ -1,0 +1,27 @@
+footer {
+  font-size: clamp(1rem, 1vw + 1rem, 10rem);
+  margin: auto 0 22px auto;
+
+  & > a {
+    margin-right: 3vw;
+  }
+}
+
+@media (min-width: 390px) {
+  footer {
+    font-size: clamp(1rem, 1vw + 1rem, 10rem);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  footer {
+    & > a {
+      &:first-child {
+        color: yellow;
+        &:hover {
+          color: yellowgreen;
+        }
+      }
+    }
+  }
+}

@@ -12,13 +12,12 @@ import styles from "./Create.module.scss"
 
 interface CreateProps {
   fadeInDuration: number,
-  fadeInDelay: number,
+  circleAnimationDuration: number,
   fadeOutDuration: number,
-  fadeOutDelay: number
 }
 
 export const Create = (
-  { fadeInDuration, fadeInDelay, fadeOutDuration, fadeOutDelay }: CreateProps
+  { fadeInDuration, circleAnimationDuration, fadeOutDuration }: CreateProps
 ) => {
   const [address, setAddress] = useState("")
   const [loading, setLoading] = useState(false)
@@ -65,8 +64,8 @@ export const Create = (
       <motion.div
         className={styles.createLayout}
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1, transition: { duration: fadeInDuration, delay: fadeInDelay } }}
-        exit={{ opacity: 0, transition: { duration: fadeOutDuration, delay: fadeOutDelay } }}
+        animate={{ opacity: 1, transition: { duration: fadeInDuration, delay: circleAnimationDuration } }}
+        exit={{ opacity: 0, transition: { duration: fadeOutDuration } }}
       >
         {loading ? <Loading /> : <UserBalance className={styles.userBalance} balance={balance} />}
         <UserAddress

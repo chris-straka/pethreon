@@ -1,0 +1,31 @@
+.circleB {
+  position: fixed;
+  outline: none;
+  border-radius: 50%;
+
+  // these properties are the same no matter what page we're on
+  // the duration and the delay is all different though
+  transition-property: top, left, width, height, background-color;
+
+  --top-login: 40vh;
+  --left-login: 92vw;
+  --width-login: 128px;
+  --height-login: 128px;
+}
+
+@media (min-width: 600px) and (orientation: portrait) {
+  .circleB {
+    --width-login: 200px;
+    --height-login: 200px;
+  }
+}
+
+// Desktop Styles
+@media (min-width: 1280px) and (orientation: landscape) {
+  .circleB {
+    --top-login: 85vh;
+    --left-login: 50vw;
+    --width-login: 300px;
+    --height-login: 300px;
+  }
+}

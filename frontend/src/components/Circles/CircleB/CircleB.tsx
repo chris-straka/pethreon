@@ -30,7 +30,7 @@ export const CircleB = ({ circleAnimationDelay, circleAnimationDuration }: Circl
       refStyle.transitionDelay = `${circleAnimationDelay}s`
 
       prefersLightTheme ?
-        refStyle.backgroundColor = "var(--primary-color)" :
+        refStyle.backgroundColor = "var(--primary-light-color)" :
         refStyle.backgroundColor = "var(--primary-color)"
     }
 

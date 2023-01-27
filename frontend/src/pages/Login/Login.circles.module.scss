@@ -1,0 +1,62 @@
+.circleA {
+  --top: -5vh;
+  --left: -5vw;
+  --width: 15vh;
+  --height: 15vh;
+}
+
+.circleB {
+  --top: 40vh;
+  --left: 92vw;
+  --width: 128px;
+  --height: 128px;
+}
+
+.circleC {
+  --top: 80vh;
+  --left: 25vw;
+  --width: 45vh;
+  --height: 45vh;
+}
+
+@media (min-width: 600px) and (orientation: portrait) {
+  .circleA {
+    --top: -4vh;
+    --left: -4vw;
+    --width: clamp(224px, 7vw, 650px);
+    --height: clamp(224px, 7vw, 650px);
+  }
+
+  .circleB {
+    --width: 200px;
+    --height: 200px;
+  }
+
+  .circleC {
+    --top: 82vh;
+    --width: 440px;
+    --height: 440px;
+  }
+}
+
+// DESKTOP
+@media (min-width: 1280px) and (orientation: landscape) {
+  .circleA {
+    --width: 240px;
+    --height: 240px;
+  }
+
+  .circleB {
+    --top: 85vh;
+    --left: 50vw;
+    --width: 300px;
+    --height: 300px;
+  }
+
+  .circleC {
+    --left: 80vw;
+    --top: 3vh;
+    --width: 490px;
+    --height: 490px;
+  }
+}

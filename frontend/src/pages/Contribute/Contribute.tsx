@@ -3,22 +3,22 @@ import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { ethers } from "ethers"
 import { PledgeType } from "../../types"
-import { UserBalance, UserAddress, Loading, PledgeList, ModalTemplate, WithdrawModal, ActionBar, ActionButton } from "../../components"
-import { DepositModal, PledgeModal } from "./components"
+import { useWeb3 } from "../../context/Web3Context"
+import { ActionBar, ActionButton, Circle, UserBalance, UserAddress, Loading, PledgeList, ModalTemplate, WithdrawModal } from "../../components"
+import { DepositModal, PledgeModal } from "."
 import { DepositSVG, WithdrawSVG, PledgeSVG } from "../../svgs"
 
+import circleStyles from "./Contribute.circles.module.scss"
 import styles from "./Contribute.module.scss"
-import { useWeb3 } from "../../context/Web3Context"
 
 interface ContributeProps {
-  fadeInDuration: number,
-  fadeInDelay: number,
-  fadeOutDuration: number,
-  fadeOutDelay: number
+  circleAnimationDuration: number,
+  pageFadeInDuration: number,
+  pageFadeOutDuration: number,
 }
 
 export const Contribute = (
-  { fadeInDuration, fadeInDelay, fadeOutDuration, fadeOutDelay }: ContributeProps
+  { pageFadeInDuration, circleAnimationDuration, pageFadeOutDuration }: ContributeProps
 ) => {
   const [address, setAddress] = useState("0x0000000000000000000000000000000000000000")
   const [loading, setLoading] = useState(false)
@@ -76,11 +76,25 @@ export const Contribute = (
 
   return (
     <>
+      <Circle
+        className={circleStyles.circleA}
+        circleAnimationDelay={pageFadeOutDuration}
+        circleAnimationDuration={circleAnimationDuration}
+        animate={{ scale: 1.2 }}
+        transition={{ duration: 5, repeat: Infinity, repeatType: "reverse" }}
+      />
+      <Circle
+        className={circleStyles.circleB}
+        circleAnimationDelay={pageFadeOutDuration}
+        circleAnimationDuration={circleAnimationDuration}
+        animate={{ scale: 1.2, x: 2, y: 2 }}
+        transition={{ duration: 8, repeat: Infinity, repeatType: "reverse" }}
+      />
       <motion.div
         className={styles.contributeLayout}
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1, transition: { duration: fadeInDuration, delay: fadeInDelay } }}
-        exit={{ opacity: 0, transition: { duration: fadeOutDuration, delay: fadeOutDelay } }}
+        animate={{ opacity: 1, transition: { duration: pageFadeInDuration, delay: circleAnimationDuration } }}
+        exit={{ opacity: 0, transition: { duration: pageFadeOutDuration } }}
       >
         {loading ? <Loading /> : <UserBalance className={styles.userBalance} balance={balance} />}
         <UserAddress className={styles.userAddress} userAccountAddress={address} />

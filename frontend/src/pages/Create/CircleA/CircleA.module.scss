@@ -1,0 +1,30 @@
+.circleA {
+  position: fixed;
+  outline: none;
+  border-radius: 50%;
+
+  // these properties are the same no matter what page we're on
+  // the duration and the delay is all different though
+  transition-property: top, left, width, height, background-color;
+
+  --top-login: -5vh;
+  --left-login: -5vw;
+  --width-login: 15vh;
+  --height-login: 15vh;
+}
+
+@media (min-width: 600px) and (orientation: portrait) {
+  .circleA {
+    --top-login: -4vh;
+    --left-login: -4vw;
+    --width-login: clamp(224px, 7vw, 650px);
+    --height-login: clamp(224px, 7vw, 650px);
+  }
+}
+
+@media (min-width: 1280px) and (orientation: landscape) {
+  .circleA {
+    --width-login: 240px;
+    --height-login: 240px;
+  }
+}

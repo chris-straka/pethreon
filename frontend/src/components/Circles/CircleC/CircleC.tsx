@@ -2,7 +2,9 @@ import { useEffect, useRef } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 import { ArrowSVG } from "../../../svgs/ArrowSVG"
-import styles from "./CircleC.module.scss"
+import "./CircleC.colors.scss"
+import "./CircleC.position.scss"
+import "./CircleC.properties.scss"
 
 interface CircleCProps {
   circleAnimationDuration: number,
@@ -12,8 +14,7 @@ interface CircleCProps {
 }
 
 /** 
- * It's ugly, but you MUST keep the ref.current?.style stuff
- * Or the animation WILL NOT WORK!
+ * This is the ugliest component I ever made 
  */
 export const CircleC = ({
   circleAnimationDuration,
@@ -34,47 +35,83 @@ export const CircleC = ({
     const buttonRefStyles = buttonRef.current?.style
     const createSpanRefStyles = createSpanRef.current?.style
     const donateSpanRefStyles = donateSpanRef.current?.style
-    // unlike the other circles, I can't run an if-check here and return if it's not there
+    const lastPageVisited = localStorage.getItem('last_page_visited')
+    // WARNING - unlike other circles, I can't run an if-check on my refs
 
     if (pathname === "/") {
+      // Move it to the correct position
       buttonRefStyles?.setProperty("top", "var(--top-login)")
       buttonRefStyles?.setProperty("left", "var(--left-login)")
       buttonRefStyles?.setProperty("width", "var(--width-login)")
       buttonRefStyles?.setProperty("height", "var(--height-login)")
+
+      // Shape it back into a circle and set the color
       buttonRefStyles?.setProperty("border-radius", "50%")
-      buttonRefStyles?.setProperty("background-color", "var(--primary-color)")
-      buttonRefStyles?.setProperty("--color", "transparent")
+      buttonRefStyles?.setProperty("background-color", "var(--circle-c-login-background-color)")
+
+      // Make sure the circle moves this quickly
       buttonRefStyles?.setProperty("--circle-animation-duration", `${circleAnimationDuration}s`)
       buttonRefStyles?.setProperty("--circle-animation-delay", `${circleAnimationDelay}s`)
 
-      buttonRefStyles?.setProperty("--textColor-animation-duration", `${circleAnimationDuration}s`)
-      buttonRefStyles?.setProperty("--textColor-animation-delay", "0s")
+      // Make the text transparent again
+      buttonRefStyles?.setProperty("color", "transparent")
+      buttonRefStyles?.setProperty("fill", "transparent")
 
-      createSpanRefStyles!.display = "block"
-      createSpanRefStyles!.transition = "unset"
-      createSpanRefStyles!.opacity = "1"
+      // Make sure the text animates this quickly
+      buttonRefStyles?.setProperty("--text-color-animation-duration", `${circleAnimationDuration}s`)
+      buttonRefStyles?.setProperty("--text-color-animation-delay", "0s")
 
-      donateSpanRefStyles!.display = "none"
-      donateSpanRefStyles!.transition = "unset"
-      donateSpanRefStyles!.opacity = "0"
-
+      // Make sure it's disabled so it can't receive focus (it's meant to be decoration again)
       buttonRef.current!.disabled = true
+
+      // Make sure that it's ready to display the correct information for next time
+      if (lastPageVisited === "contribute") {
+        donateSpanRefStyles!.display = "block"
+        donateSpanRefStyles!.transition = "unset"
+        donateSpanRefStyles!.opacity = "1"
+
+        createSpanRefStyles!.display = "none"
+        createSpanRefStyles!.transition = "unset"
+        createSpanRefStyles!.opacity = "0"
+      }
+
+      if (lastPageVisited === "create") {
+        createSpanRefStyles!.display = "block"
+        createSpanRefStyles!.transition = "unset"
+        createSpanRefStyles!.opacity = "1"
+
+        donateSpanRefStyles!.display = "none"
+        donateSpanRefStyles!.transition = "unset"
+        donateSpanRefStyles!.opacity = "0"
+      }
+
     }
 
     if (pathname === "/contribute") {
+      // Move it to the correct position
       buttonRefStyles?.setProperty("top", "var(--top-contribute)")
       buttonRefStyles?.setProperty("left", "var(--left-contribute)")
       buttonRefStyles?.setProperty("width", "var(--width-contribute)")
       buttonRefStyles?.setProperty("height", "var(--height-contribute)")
+
+      // Make sure it's no longer a circle but a button
       buttonRefStyles?.setProperty("border-radius", "0%")
       buttonRefStyles?.setProperty("border-bottom-left-radius", "50px")
-      buttonRefStyles?.setProperty("background-color", "var(--primary-color)")
-      buttonRefStyles?.setProperty("--outline-color", "var(--primary-color)")
-      buttonRefStyles?.setProperty("--hover-color", "var(--secondary-color)")
+
+      // Make sure the button has the correct color 
+      buttonRefStyles?.setProperty("background-color", "var(--circle-c-contributor-background-color)")
+      buttonRefStyles?.setProperty("--outline-color", "var(--circle-c-contributor-background-color)")
+
+      // Make sure the button animates this quickly
       buttonRefStyles?.setProperty("--circle-animation-duration", `${circleAnimationDuration}s`)
       buttonRefStyles?.setProperty("--circle-animation-delay", `${circleAnimationDelay}s`)
-      buttonRefStyles?.setProperty("--textColor-animation-duration", `${circleAnimationDuration}s`)
-      buttonRefStyles?.setProperty("--textColor-animation-delay", `${pageFadeInDuration + pageFadeOutDuration}s`)
+
+      // Make sure the text colors are coorect
+      buttonRefStyles?.setProperty("--hover-text-color", "var(--secondary-color)")
+
+      // Make sure the text animates this quickly
+      buttonRefStyles?.setProperty("--text-color-animation-duration", `${circleAnimationDuration}s`)
+      buttonRefStyles?.setProperty("--text-color-animation-delay", `${pageFadeInDuration + pageFadeOutDuration}s`)
 
       donateSpanRefStyles!.transition = `opacity ${pageFadeOutDuration}s 0s`
       donateSpanRefStyles!.opacity = "0"
@@ -96,8 +133,8 @@ export const CircleC = ({
       // HERE
       setTimeout(() => {
         if (pathname === "/contribute") {
-          buttonRefStyles!.setProperty("--textColor-animation-duration", ".3s")
-          buttonRefStyles!.setProperty("--textColor-animation-delay", "0s")
+          buttonRefStyles!.setProperty("--text-color-animation-duration", ".3s")
+          buttonRefStyles!.setProperty("--text-color-animation-delay", "0s")
         }
       })
 
@@ -111,13 +148,13 @@ export const CircleC = ({
       buttonRefStyles?.setProperty("height", "var(--height-create)")
       buttonRefStyles?.setProperty("border-radius", "0%")
       buttonRefStyles?.setProperty("border-bottom-left-radius", "50px")
-      buttonRefStyles?.setProperty("background-color", "var(--secondary-color)")
+      buttonRefStyles?.setProperty("background-color", "var(--circle-c-creator-background-color)")
 
       buttonRefStyles?.setProperty("--outline-color", "var(--secondary-color)")
       buttonRefStyles?.setProperty("--circle-animation-duration", `${circleAnimationDuration}s`)
       buttonRefStyles?.setProperty("--circle-animation-delay", `${circleAnimationDelay}s`)
-      buttonRefStyles?.setProperty("--textColor-animation-duration", `${circleAnimationDuration}s`)
-      buttonRefStyles?.setProperty("--textColor-animation-delay", `${pageFadeInDuration + pageFadeOutDuration}s`)
+      buttonRefStyles?.setProperty("--text-color-animation-duration", `${circleAnimationDuration}s`)
+      buttonRefStyles?.setProperty("--text-color-animation-delay", `${pageFadeInDuration + pageFadeOutDuration}s`)
 
       createSpanRefStyles!.transition = `opacity ${pageFadeOutDuration}s 0s`
       createSpanRefStyles!.opacity = "0"
@@ -127,8 +164,8 @@ export const CircleC = ({
         buttonRefStyles?.setProperty("--color", "var(--text-color)")
 
       prefersLightTheme ?
-        buttonRefStyles?.setProperty("--hover-color", "var(--primary-color)") :
-        buttonRefStyles?.setProperty("--hover-color", "var(--primary-light-color)")
+        buttonRefStyles?.setProperty("--hover-text-color", "var(--primary-color)") :
+        buttonRefStyles?.setProperty("--hover-text-color", "var(--primary-light-color)")
 
       setTimeout(() => {
         createSpanRefStyles!.display = "none"
@@ -142,8 +179,8 @@ export const CircleC = ({
 
       setTimeout(() => {
         if (pathname === "/create") {
-          buttonRefStyles?.setProperty("--textColor-animation-duration", ".3s")
-          buttonRefStyles?.setProperty("--textColor-animation-delay", "0s")
+          buttonRefStyles?.setProperty("--text-color-animation-duration", ".3s")
+          buttonRefStyles?.setProperty("--text-color-animation-delay", "0s")
         }
       })
       buttonRef.current!.disabled = false
@@ -158,7 +195,7 @@ export const CircleC = ({
 
   return (
     <motion.button
-      className={styles.circleC}
+      className="circleC"
       ref={buttonRef}
       onClick={navigateToNewPage}
       animate={

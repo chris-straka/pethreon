@@ -20,24 +20,33 @@
   box-sizing: inherit;
 }
 
+.circle {
+  position: fixed;
+  outline: none;
+  border-radius: 50%;
+}
+
 :root {
-  --primary-color: hsl(215, 50%, 68%);
-  --primary-light-color: hsl(215, 50%, 79%);
-  --primary-dark-color: hsl(215, 50%, 57%);
+  --primary-very-light-color: hsl(215, 50%, 90%);
+  --primary-light-color: hsl(215, 50%, 80%);
+  --primary-color: hsl(215, 50%, 70%);
+  --primary-dark-color: hsl(215, 50%, 60%);
+  --primary-very-dark-color: hsl(215, 50%, 50%);
+  --primary-very-very-dark-color: hsl(215, 50%, 40%);
 
-  --secondary-color: hsl(328, 41%, 72%);
+  --secondary-very-light-color: hsl(328, 41%, 90%);
   --secondary-light-color: hsl(328, 41%, 80%);
-  --secondary-dark-color: hsl(328, 41%, 59%);
-
-  --anchor-tag-color: default;
-  --anchor-tag-hover-color: var(--secondary-color);
+  --secondary-color: hsl(328, 41%, 70%);
+  --secondary-dark-color: hsl(328, 41%, 60%);
+  --secondary-very-dark-color: hsl(328, 41%, 50%);
+  --secondary-very-very-dark-color: hsl(328, 41%, 40%);
 
   --background-color: hsl(0, 0%, 100%);
 
-  --modal-background-color: hsl(0, 0%, 100%);
-  --text-color: hsl(0, 0%, 20%);
-  --text-color: #141823;
-  --login-button-color: var(--primary-color);
+  --text-white-color: hsl(36, 10%, 90%);
+  --text-black-color: #141823;
+  --text-color: var(--text-black-color);
+
   --modal-backdrop-color: hsla(0, 0%, 0%, 0.882);
   --modal-background-color: hsl(200, 7%, 18%);
   --text-color-hover-duration: 0.3s;
@@ -56,14 +65,6 @@
   -webkit-text-size-adjust: 100%;
 }
 
-a {
-  color: var(--anchor-tag-color);
-
-  &:focus {
-    color: var(--anchor-tag-hover-color);
-  }
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
     --primary-color: hsla(216, 49%, 29%, 1);
@@ -77,7 +78,7 @@ a {
     --anchor-tag-color: hsl(220, 50%, 70%);
     --background-color: hsl(200, 7%, 8%);
     --modal-background-color: hsl(200, 7%, 18%);
-    --text-color: hsl(36, 10%, 90%);
+    --text-color: var(--text-white-color);
     --login-button-color: hsl(36, 10%, 90%);
     --action-button-color: hsl(200, 7%, 5%);
   }
