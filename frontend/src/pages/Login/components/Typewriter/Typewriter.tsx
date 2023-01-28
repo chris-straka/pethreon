@@ -11,8 +11,9 @@ interface TypewriterProps {
   setTalking: Dispatch<SetStateAction<boolean>>
 }
 
-export const Typewriter = (
-  { className, message, setTalking }: TypewriterProps
+export const Typewriter = ({
+  className, message, setTalking
+}: TypewriterProps
 ) => {
   const [displayMsg, setDisplayMsg] = useState(<p />)
   const [init, setInit] = useState(false)
@@ -40,7 +41,7 @@ export const Typewriter = (
 
 
 /** 
- * This is just a regular typewriter effect with a lot of state stuff
+ * This is just a regular typewriter effect with a lot of state stuff thrown in
  * https://www.w3schools.com/howto/howto_js_typewriter.asp
  */
 function typeMessage(

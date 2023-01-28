@@ -1,6 +1,6 @@
 # How to develop locally
 
-It's **strongly** recommended that use WSL or Linux/Unix for this project. It will make things easier for hardhat and also for migrating code over to production/CI environments. 
+It's **strongly** recommended that use WSL or Linux/Unix for this project. It will make things easier for hardhat. It'll also match the developoment environment with the production/CI environment. 
 
 `npm install` is not going to work until you setup some environment variables (you'll also need to install [pnpm](https://pnpm.io/)). Please refer to the .env.example file in the root directory for information on what you need to do.
 

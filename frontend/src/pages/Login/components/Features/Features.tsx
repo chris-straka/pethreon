@@ -1,4 +1,4 @@
-import { Link } from "../../../components"
+import { Link } from "../../../../components"
 import styles from "./Features.module.scss"
 
 export const Features = () => {

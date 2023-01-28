@@ -1,17 +1,24 @@
 import { useContext } from "react"
 import { Web3Context } from "../context/Web3Context"
-import { useWallet } from "./useWallet"
+import { useLocalWallet, useWeb3Dispatch } from "./"
+import { Web3Provider, Pethreon } from "../types"
 
-export const useWeb3 = () => {
-    const { web3Provider, contract } = useContext(Web3Context)
-    const wallet = useWallet()
+interface useWeb3Props {
+  provider: Web3Provider,
+  contract: Pethreon
+}
 
-    if (!web3Provider || !contract) {
-      // TODO
-      if (wallet) console.log("useWeb3Setup(wallet)")
+export function useWeb3(): useWeb3Props {
+  const { provider, contract } = useContext(Web3Context)
+  const dispatch = useWeb3Dispatch()
+  const wallet = useLocalWallet()
 
-      throw new Error("Couldn't find the currentWeb3Provider or the contract. The user likely refreshed the page")
-    }
+  if (!provider || !contract) {
+    if (!wallet?.provider) throw new Error("Couldn't find the provider. No wallet found in localStorage")
+    dispatch({ type: "setWeb3", payload: wallet.provider })
+    if (!provider || !contract) throw new Error("Couldn't find the provider")
+    return { provider, contract }
+  }
 
-    return { web3Provider, contract }
+  return { provider, contract }
 }

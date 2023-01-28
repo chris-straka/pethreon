@@ -1,0 +1,3 @@
+export const PAGE_FADE_IN_DURATION = .5
+export const PAGE_FADE_OUT_DURATION = .5
+export const CIRCLE_ANIMATION_DURATION = .5

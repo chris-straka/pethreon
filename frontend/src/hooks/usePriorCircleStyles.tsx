@@ -1,7 +1,7 @@
 /** 
  * 
  */
-export const useCircleStyles = () => {
+export const usePriorCircleStyles = () => {
 
   return {
     circleAStyles: {},

@@ -3,31 +3,25 @@ import { ethers } from 'ethers'
 import { motion } from 'framer-motion'
 import { useNavigate } from "react-router-dom"
 import { useConnectWallet, useSetChain } from '@web3-onboard/react'
-import { MetamaskSVG } from '../../svgs'
 import { Features, Footer, LoginButton, Pethreon, Typewriter, Video } from './components'
+import { MetamaskSVG } from '../../svgs'
 import { GREETINGS, LOGGING_IN } from '../../messages'
-import { useWeb3Setup } from '../../context/Web3Context'
-import { Pethreon__factory } from '../../../typechain-types'
+import { useWeb3Dispatch } from '../../hooks/useWeb3Dispatch'
+
+import {
+  CIRCLE_ANIMATION_DURATION as PAGE_FADE_IN_DELAY,
+  PAGE_FADE_IN_DURATION,
+  PAGE_FADE_OUT_DURATION
+} from '../../constants'
 
 import styles from "./Login.module.scss"
 
-interface LoginProps {
-  circleAnimationDuration: number,
-  pageFadeInDuration: number,
-  pageFadeOutDuration: number
-}
-
-export const Login = ({
-  pageFadeInDuration,
-  circleAnimationDuration,
-  pageFadeOutDuration
-}: LoginProps
-) => {
+export const Login = () => {
   const [message, setMessage] = useState(GREETINGS)
   const [talking, setTalking] = useState(false)
-  const { setWeb3Provider, setContract } = useWeb3Setup()
   const [{ connecting }, connect] = useConnectWallet()
-  const [chain, setChain] = useSetChain()
+  const [, setChain] = useSetChain()
+  const dispatch = useWeb3Dispatch()
   const navigate = useNavigate()
 
   async function signIn() {
@@ -37,15 +31,19 @@ export const Login = ({
     const wallet = wallets[0]
 
     // switch to georli
-    if (chain.connectedChain?.id !== '0x5') await setChain({ chainId: '0x5' })
+    await setChain({ chainId: '0x5' })
 
+    // if the user is connected properly
     if (wallet?.provider) {
-      const web3Provider = new ethers.providers.Web3Provider(wallet.provider, 'any')
-      const signer = web3Provider.getSigner()
-      const contract = Pethreon__factory.connect(import.meta.env.VITE_CONTRACT_ADDRESS, signer)
+      
+      // save it for later in case they refresh the page
+      localStorage.setItem('wallet', JSON.stringify(wallet))
 
-      setWeb3Provider(web3Provider)
-      setContract(contract)
+      // create an ethers provider
+      const provider = new ethers.providers.Web3Provider(wallet.provider, 'any')
+
+      // save the provider so we can do stuff with it later
+      dispatch({ type: "setWeb3", payload: provider })
 
       localStorage.getItem('last_page_visited') === "create" ?
         navigate("/create") :
@@ -58,8 +56,8 @@ export const Login = ({
       <motion.div
         className={styles.loginLayout}
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1, transition: { delay: circleAnimationDuration, duration: pageFadeInDuration } }}
-        exit={{ opacity: 0, transition: { duration: pageFadeOutDuration } }}
+        animate={{ opacity: 1, transition: { delay: PAGE_FADE_IN_DELAY, duration: PAGE_FADE_IN_DURATION } }}
+        exit={{ opacity: 0, transition: { duration: PAGE_FADE_OUT_DURATION } }}
       >
         <div className={styles.loginContent}>
           <Pethreon />

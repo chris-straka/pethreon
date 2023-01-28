@@ -1,5 +1,7 @@
+import { useLocalWallet } from "./useLocalWallet";
 import { useMetamask } from "./useMetamask";
-import { useCircleStyles } from "./usePreviousCirclePositioning";
-import { useWallet } from "./useWallet";
+import { usePriorCircleStyles } from "./usePriorCircleStyles";
+import { useWeb3 } from "./useWeb3";
+import { useWeb3Dispatch } from "./useWeb3Dispatch";
 
-export { useMetamask, useCircleStyles, useWallet }
+export { useMetamask, useLocalWallet, usePriorCircleStyles, useWeb3, useWeb3Dispatch }

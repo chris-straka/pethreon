@@ -13,11 +13,10 @@ interface PledgeListProps {
   setPledges: Dispatch<SetStateAction<PledgeType[]>>
 }
 
-export const PledgeList = (
-  {
-    creator = false, className, pledges, textForWhenItsEmpty,
-    setLoading, setBalance, setPledges
-  }: PledgeListProps
+export const PledgeList = ({
+  creator = false, className, pledges, textForWhenItsEmpty,
+  setLoading, setBalance, setPledges
+}: PledgeListProps
 ) => {
   return (
     <ul className={`${pledges.length === 0 ? styles.emptyPledgeBox : styles.pledgeBox} ${className}`}

@@ -1,17 +1,17 @@
 import { useEffect, useRef } from "react"
 import { useLocation } from "react-router-dom";
+import { PAGE_FADE_IN_DURATION, CIRCLE_ANIMATION_DURATION, PAGE_FADE_OUT_DURATION } from "../../constants";
 import styles from "./Backdrop.module.scss"
 
-interface BackdropProps {
-  backdropAnimationDuration: number,
-  backdropAnimationDelay: number,
-}
+const backdropAnimationDelay = PAGE_FADE_OUT_DURATION
+const backdropAnimationDuration = CIRCLE_ANIMATION_DURATION + PAGE_FADE_IN_DURATION
 
-export function Backdrop({
-  backdropAnimationDuration,
-  backdropAnimationDelay,
-}: BackdropProps
-) {
+/** 
+ * This backdrop is meant to hide blocknative's onboard web3 account center modal on my login page
+ * There was no way to set the opacity on it, only the z-index so I put it behind a modal
+ * https://onboard.blocknative.com/docs/getting-started/customization
+ */
+export function Backdrop() {
   const divRef = useRef<HTMLDivElement>(null);
   const { pathname } = useLocation()
 
@@ -41,7 +41,7 @@ export function Backdrop({
       }, 1000 * (backdropAnimationDelay + backdropAnimationDuration))
     }
 
-  }, [backdropAnimationDelay, backdropAnimationDuration, pathname])
+  }, [pathname])
 
   return <div id={styles.backdrop} ref={divRef} />
 }

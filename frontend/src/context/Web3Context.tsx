@@ -1,44 +1,46 @@
-import { createContext, Dispatch, SetStateAction, useContext } from "react";
-import { Web3Provider } from "../types";
-import { useWallet } from "../hooks/useWallet";
-import { Pethreon } from "../../typechain-types";
+import { createContext, Dispatch, ReactNode, useReducer } from "react";
+import { Pethreon__factory, Pethreon } from "../../typechain-types";
+import { ethers } from "ethers"
 
-type ProviderContextType = {
-  web3Provider: Web3Provider | null,
-  setWeb3Provider: Dispatch<SetStateAction<Web3Provider | null>> | null,
-  contract: Pethreon | null,
-  setContract: Dispatch<SetStateAction<Pethreon | null>> | null
+type Web3Provider = ethers.providers.Web3Provider
+
+type Web3ContextType = {
+  provider: Web3Provider | null
+  contract: Pethreon | null
 }
 
-export const Web3Context = createContext<ProviderContextType>({
-  web3Provider: null,
-  setWeb3Provider: null,
+const initialState = {
+  provider: null,
   contract: null,
-  setContract: null
-});
-
-
-export const useWeb3 = () => {
-  const { web3Provider, contract } = useContext(Web3Context)
-  const wallet = useWallet()
-
-  if (!web3Provider || !contract) {
-    // TODO
-    if (wallet) console.log("useWeb3Setup(wallet)")
-
-    throw new Error("Couldn't find the currentWeb3Provider or the contract. The user likely refreshed the page")
-  }
-
-  return { web3Provider, contract }
 }
 
-export const useWeb3Setup = () => {
-  const { setWeb3Provider, setContract } = useContext(Web3Context)
+export const Web3Context = createContext<Web3ContextType>(initialState);
+export const Web3DispatchContext = createContext<Dispatch<ACTIONTYPE> | null>(null);
 
-  if (!setWeb3Provider || !setContract) {
-    throw new Error("Couldn't find setCurrentWeb3Provider or setContract. Did you use it outside of <Web3Context.Provider>?")
+type ACTIONTYPE = { type: "setWeb3", payload: Web3Provider };
+
+function web3Reducer(_: Web3ContextType, action: ACTIONTYPE): Web3ContextType {
+  switch (action.type) {
+    case "setWeb3": {
+      const provider = action.payload
+      const signer = provider.getSigner()
+      const contract = Pethreon__factory.connect(import.meta.env.VITE_CONTRACT_ADDRESS, signer)
+      return { provider, contract }
+    }
+    default: {
+      throw new Error("Action not found")
+    }
   }
-
-  return { setWeb3Provider, setContract }
 }
 
+export const Web3ContextProvider = ({ children }: { children: ReactNode }) => {
+  const [web3, dispatch] = useReducer(web3Reducer, initialState)
+
+  return (
+    <Web3Context.Provider value={web3}>
+      <Web3DispatchContext.Provider value={dispatch}>
+        {children}
+      </Web3DispatchContext.Provider>
+    </Web3Context.Provider>
+  )
+}

@@ -1,26 +1,24 @@
 import { useState, useEffect, useCallback, ReactNode } from "react"
+import { utils } from "ethers"
 import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { ActionBar, ActionButton, Circle, CircleButton, Loading, PledgeList, ModalTemplate, UserBalance, UserAddress, WithdrawModal} from "../../components"
+import { ActionBar, ActionButton, Loading, PledgeList, ModalTemplate, UserBalance, UserAddress, WithdrawModal } from "../../components"
 import { PledgeType } from "../../types"
-import { useWeb3 } from "../../context/Web3Context"
-import { Pethreon } from "../../../typechain-types"
 import { WithdrawSVG, CsvSVG } from "../../svgs"
-import { utils } from "ethers"
+import { useWeb3 } from "../../hooks"
+import { extractPledgesToCsv } from "./utils"
+import { Circles } from "./components"
+import {
+  CIRCLE_ANIMATION_DURATION as PAGE_FADE_IN_DELAY,
+  PAGE_FADE_IN_DURATION,
+  PAGE_FADE_OUT_DURATION
+} from "../../constants"
 
-import circleStyles from "./Create.circles.module.scss"
 import styles from "./Create.module.scss"
 
-interface CreateProps {
-  fadeInDuration: number,
-  circleAnimationDuration: number,
-  pageFadeOutDuration: number,
-}
 
-export const Create = (
-  { fadeInDuration, circleAnimationDuration, pageFadeOutDuration }: CreateProps
-) => {
-  const [address, setAddress] = useState("")
+export const Create = () => {
+  const [address, setAddress] = useState("0x0000000000000000000000000000000000000000")
   const [loading, setLoading] = useState(false)
   const [balance, setBalance] = useState("0.0")
   const [pledges, setPledges] = useState<PledgeType[]>([])
@@ -62,34 +60,12 @@ export const Create = (
 
   return (
     <>
-      <Circle
-        className={circleStyles.circleA}
-        circleAnimationDelay={pageFadeOutDuration}
-        circleAnimationDuration={circleAnimationDuration}
-        animate={{ scale: 1.2 }}
-        transition={{ duration: 5, repeat: Infinity, repeatType: "reverse" }}
-      />
-      <Circle
-        className={circleStyles.circleB}
-        circleAnimationDelay={pageFadeOutDuration}
-        circleAnimationDuration={circleAnimationDuration}
-        animate={{ scale: 1.2, x: 2, y: 2 }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          repeatType: "reverse"
-        }}
-      />
-      <CircleButton
-        className={circleStyles.circleC}
-        circleAnimationDelay={pageFadeOutDuration}
-        circleAnimationDuration={circleAnimationDuration}
-      />
+      <Circles />
       <motion.div
         className={styles.createLayout}
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1, transition: { duration: fadeInDuration, delay: circleAnimationDuration } }}
-        exit={{ opacity: 0, transition: { duration: pageFadeOutDuration } }}
+        animate={{ opacity: 1, transition: { delay: PAGE_FADE_IN_DELAY, duration: PAGE_FADE_IN_DURATION } }}
+        exit={{ opacity: 0, transition: { duration: PAGE_FADE_OUT_DURATION } }}
       >
         {loading ? <Loading /> : <UserBalance className={styles.userBalance} balance={balance} />}
         <UserAddress
@@ -102,7 +78,6 @@ export const Create = (
             onClick={() => setModal(withdrawModal)}>
             Withdraw <WithdrawSVG />
           </ActionButton>
-
           <ActionButton
             className={styles.actionButton}
             onClick={async () => await extractPledgesToCsv(contract, pledges)}
@@ -120,52 +95,9 @@ export const Create = (
           setPledges={setPledges}
         />
       </motion.div>
-      <AnimatePresence
-        initial={false}
-        mode="wait"
-      >
+      <AnimatePresence initial={false} mode="wait">
         {modal !== null && <ModalTemplate closeModal={closeModal} children={modal} />}
       </AnimatePresence>
     </>
   )
-}
-
-async function extractPledgesToCsv(contract: Pethreon, active?: PledgeType[]) {
-  let csv: string = "data:text/csv;charset=utf-8,";
-  let creatorAddress: string = ""
-  let activePledges: string[][] = []
-  let expiredPledges: string[][] = []
-
-  const expired = await contract.getExpiredPledges()
-
-  if (active !== undefined && active.length !== 0) activePledges = processForCsv(active)
-  if (expired === undefined) expiredPledges = processForCsv(expired)
-
-  const rows = [
-    [`Creator Address: ${creatorAddress}`, "Start date", "End date", "Duration (days)", "Ether per day", "Status"],
-    ...activePledges,
-    ...expiredPledges
-  ]
-
-  csv += rows.map(e => e.join(",")).join("\n")
-
-  let encodedUri = encodeURI(csv)
-  window.open(encodedUri)
-}
-
-function processForCsv(pledges: PledgeType[]): string[][] {
-  return pledges.map(pledge => {
-    const contributorAddress = pledge.contributorAddress
-    const etherPerPeriod = utils.formatEther(pledge.weiPerPeriod)
-    const duration = pledge.duration.toString()
-    const startDate = new Date(+pledge.dateCreated * 1000).toDateString()
-    const endDate = new Date((+pledge.dateCreated + (+duration * 86400)) * 1000).toDateString()
-
-    let status: string;
-    if (pledge.status === 0) status = "ACTIVE"
-    else if (pledge.status === 1) status = "CANCELLED"
-    else status = "EXPIRED"
-
-    return [contributorAddress, etherPerPeriod, duration, startDate, endDate, status]
-  })
 }

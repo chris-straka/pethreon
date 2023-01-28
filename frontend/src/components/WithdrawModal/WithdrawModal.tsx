@@ -3,7 +3,7 @@ import { MetamaskError, Denomination } from "../../types"
 import { CurrencyField, CurrencyButtons, CurrencyButton, Submit } from ".."
 import { BigNumber, utils } from "ethers"
 import { WithdrawSVG } from "../../svgs"
-import { useWeb3 } from "../../context/Web3Context"
+import { useWeb3 } from "../../hooks"
 import { Pethreon } from "../../../typechain-types"
 import styles from "./WithdrawModal.module.scss"
 

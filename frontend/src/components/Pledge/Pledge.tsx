@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react"
 import { PledgeType } from "../../types"
-import { useWeb3 } from "../../context/Web3Context"
+import { useWeb3 } from "../../hooks"
 import { TrashSVG } from "../../svgs"
 import { utils } from "ethers"
 import styles from "./Pledge.module.scss"

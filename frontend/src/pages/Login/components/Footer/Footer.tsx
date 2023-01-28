@@ -1,6 +1,6 @@
 import { MouseEvent } from "react"
-import { DISCLAIMER } from "../../../messages"
-import { Link } from "../../../components/Link/Link"
+import { DISCLAIMER } from "../../../../messages"
+import { Link } from "../../../../components"
 import styles from "./Footer.module.scss"
 
 const viewDisclaimer = (e: MouseEvent<HTMLAnchorElement>) => {

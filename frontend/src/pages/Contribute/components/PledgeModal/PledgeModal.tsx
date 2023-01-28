@@ -1,10 +1,10 @@
 import { BigNumber, utils } from "ethers"
 import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from "react"
-import { Pethreon } from "../../../../typechain-types"
-import { CurrencyButton, CurrencyButtons, CurrencyField, Submit } from "../../../components"
-import { useWeb3 } from "../../../context/Web3Context"
-import { DateSVG, PersonSVG, PledgeSVG } from "../../../svgs"
-import { Denomination, PledgeType } from "../../../types"
+import { CurrencyButton, CurrencyButtons, CurrencyField, Submit } from "../../../../components"
+import { DateSVG, PersonSVG, PledgeSVG } from "../../../../svgs"
+import { Denomination, PledgeType, Pethreon } from "../../../../types"
+import { useWeb3 } from "../../../../hooks"
+
 import styles from "./PledgeModal.module.scss"
 
 interface PledgeProps {
