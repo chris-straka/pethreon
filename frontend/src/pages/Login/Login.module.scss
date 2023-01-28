@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  margin-inline: max(1.5em, 6vw);
+  padding-inline: max(1.5em, 6vw);
 }
 
 .loginContainer {
@@ -21,7 +21,7 @@
       [Message-row-start] "LoginContent Video" [Message-row-end]
       [Login-row-start] "LoginContent Video" [Login-row-end]
       [Footer-row-start] ". Footer" [Footer-row-end];
-    margin-inline: 0;
+    padding-inline: 0;
   }
 
   .loginContent {

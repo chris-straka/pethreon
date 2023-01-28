@@ -1,6 +1,5 @@
 import { ActionBar } from "./ActionBar/ActionBar";
 import { ActionButton } from "./ActionButton/ActionButton";
-import { Backdrop } from "./Backdrop/Backdrop";
 import { Circle } from "./Circle/Circle";
 import { CircleButton } from "./CircleButton/CircleButton"
 import { Circles } from "./Circles/Circles"
@@ -25,7 +24,6 @@ import { WithdrawModal } from "./WithdrawModal/WithdrawModal";
 export {
   ActionBar,
   ActionButton,
-  Backdrop,
   Circle,
   CircleButton,
   Circles,

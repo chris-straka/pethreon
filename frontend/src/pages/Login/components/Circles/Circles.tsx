@@ -1,41 +1,40 @@
-import { CSSProperties, memo } from "react"
+import { memo } from "react"
 import { motion } from "framer-motion"
-import { usePriorCircleStyles } from "../../../../hooks"
+import { circleAVariants, circleBVariants, circleCVariants } from "./Circles.variants"
 import styles from "./Circles.module.scss"
 
-// In the event where the user is browsing this page for the first time
-const defaultStyles: CSSProperties = {
+const defaultStyles = {
   top: 'var(--top)',
   left: 'var(--left)',
   height: 'var(--height)',
   width: 'var(--width)',
-  color: 'var(--color)',
-  fill: 'var(--color)',
   backgroundColor: 'var(--background-color)',
 }
 
 export const Circles = memo(() => {
-  const { circleAStyles, circleBStyles, circleCStyles } = usePriorCircleStyles()
 
   return (
     <>
       <motion.div
-        className={`${styles.circleA} ${styles.circle}`}
-        initial={circleAStyles || defaultStyles}
-        animate={{ scale: 2 }}
-        transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
+        aria-hidden
+        className={`${styles.circle} ${styles.circleA}`}
+        style={defaultStyles}
+        variants={circleAVariants}
+        animate="idle"
       />
       <motion.div
-        className={`${styles.circleB} ${styles.circle}`}
-        initial={circleBStyles || defaultStyles}
-        animate={{ scale: 2 }}
-        transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
+        aria-hidden
+        className={`${styles.circle} ${styles.circleB}`}
+        style={defaultStyles}
+        variants={circleBVariants}
+        animate="idle"
       />
       <motion.div
-        className={`${styles.circleC} ${styles.circle}`}
-        initial={circleCStyles || defaultStyles}
-        animate={{ scale: 2 }}
-        transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
+        aria-hidden
+        className={`${styles.circle} ${styles.circleC}`}
+        style={defaultStyles}
+        variants={circleCVariants}
+        animate="idle"
       />
     </>
   )
