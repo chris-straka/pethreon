@@ -1,40 +1,44 @@
 import { createContext, Dispatch, SetStateAction, useContext } from "react";
-import { ethers } from "ethers"
+import { Web3Provider } from "../types";
+import { useWallet } from "../hooks/useWallet";
 import { Pethreon } from "../../typechain-types";
 
-export type Web3Provider = ethers.providers.Web3Provider
-
 type ProviderContextType = {
-  currentWeb3Provider: Web3Provider | null,
-  setCurrentWeb3Provider: Dispatch<SetStateAction<Web3Provider | null>> | null,
+  web3Provider: Web3Provider | null,
+  setWeb3Provider: Dispatch<SetStateAction<Web3Provider | null>> | null,
   contract: Pethreon | null,
   setContract: Dispatch<SetStateAction<Pethreon | null>> | null
 }
 
 export const Web3Context = createContext<ProviderContextType>({
-  currentWeb3Provider: null,
-  setCurrentWeb3Provider: null,
+  web3Provider: null,
+  setWeb3Provider: null,
   contract: null,
   setContract: null
 });
 
 
 export const useWeb3 = () => {
-  const { currentWeb3Provider, contract } = useContext(Web3Context)
+  const { web3Provider, contract } = useContext(Web3Context)
+  const wallet = useWallet()
 
-  if (!currentWeb3Provider || !contract) {
+  if (!web3Provider || !contract) {
+    // TODO
+    if (wallet) console.log("useWeb3Setup(wallet)")
+
     throw new Error("Couldn't find the currentWeb3Provider or the contract. The user likely refreshed the page")
   }
 
-  return { currentWeb3Provider, contract }
+  return { web3Provider, contract }
 }
 
 export const useWeb3Setup = () => {
-  const { setCurrentWeb3Provider, setContract } = useContext(Web3Context)
+  const { setWeb3Provider, setContract } = useContext(Web3Context)
 
-  if (!setCurrentWeb3Provider || !setContract) {
+  if (!setWeb3Provider || !setContract) {
     throw new Error("Couldn't find setCurrentWeb3Provider or setContract. Did you use it outside of <Web3Context.Provider>?")
   }
 
-  return { setCurrentWeb3Provider, setContract }
+  return { setWeb3Provider, setContract }
 }
+

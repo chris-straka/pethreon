@@ -5,7 +5,7 @@ import { ethers } from "ethers"
 import { PledgeType } from "../../types"
 import { useWeb3 } from "../../context/Web3Context"
 import { ActionBar, ActionButton, Circle, CircleButton, UserBalance, UserAddress, Loading, PledgeList, ModalTemplate, WithdrawModal } from "../../components"
-import { DepositModal, PledgeModal } from "."
+import { DepositModal, PledgeModal } from "./components"
 import { DepositSVG, WithdrawSVG, PledgeSVG } from "../../svgs"
 
 import circleStyles from "./Contribute.circles.module.scss"
@@ -91,7 +91,9 @@ export const Contribute = (
         transition={{ duration: 8, repeat: Infinity, repeatType: "reverse" }}
       />
       <CircleButton
-        
+        className={circleStyles.circleC}
+        circleAnimationDelay={pageFadeOutDuration}
+        circleAnimationDuration={circleAnimationDuration}
       />
       <motion.div
         className={styles.contributeLayout}

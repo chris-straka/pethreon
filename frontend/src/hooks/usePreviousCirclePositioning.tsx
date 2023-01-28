@@ -1,3 +1,11 @@
-export const usePreviousCirclePositioning = () => {
+/** 
+ * 
+ */
+export const useCircleStyles = () => {
 
+  return {
+    circleAStyles: {},
+    circleBStyles: {},
+    circleCStyles: {},
+  }
 }

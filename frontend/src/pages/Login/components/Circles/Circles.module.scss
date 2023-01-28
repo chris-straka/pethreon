@@ -1,8 +1,19 @@
+.circle {
+  position: fixed;
+  outline: none;
+  border-radius: 50%;
+  transition-property: top, left, width, height, background-color;
+}
+
 .circleA {
   --top: -5vh;
   --left: -5vw;
   --width: 15vh;
   --height: 15vh;
+  --background-color: var(--primary-light-color);
+
+  // I only put this here to make sure the circle is visible when the user first visits the page
+  background-color: var(--background-color);
 }
 
 .circleB {
@@ -10,6 +21,8 @@
   --left: 92vw;
   --width: 128px;
   --height: 128px;
+  --background-color: var(--primary-light-color);
+  background-color: var(--background-color);
 }
 
 .circleC {
@@ -17,6 +30,8 @@
   --left: 25vw;
   --width: 45vh;
   --height: 45vh;
+  --background-color: var(--primary-very-light-color);
+  background-color: var(--background-color);
 }
 
 @media (min-width: 600px) and (orientation: portrait) {
@@ -44,6 +59,7 @@
   .circleA {
     --width: 240px;
     --height: 240px;
+    --background-color: var(--primary-color);
   }
 
   .circleB {
@@ -51,6 +67,7 @@
     --left: 50vw;
     --width: 300px;
     --height: 300px;
+    --background-color: var(--primary-color);
   }
 
   .circleC {
@@ -58,5 +75,20 @@
     --top: 3vh;
     --width: 490px;
     --height: 490px;
+    --background-color: var(--primary-color);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .circleA {
+    --background-color: var(--primary-color);
+  }
+
+  .circleB {
+    --background-color: var(--primary-color);
+  }
+
+  .circleC {
+    --background-color: var(--primary-color);
   }
 }

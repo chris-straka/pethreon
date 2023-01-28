@@ -11,17 +11,13 @@ interface CircleButtonProps {
   circleAnimationDuration: number,
   circleAnimationDelay: number,
   className: string,
-  pageFadeOutDuration: number,
-  pageFadeInDuration: number
 }
 
 export const CircleButton = ({
   startingStyles,
   circleAnimationDuration,
   circleAnimationDelay,
-  className,
-  pageFadeOutDuration,
-  pageFadeInDuration,
+  className
 }: CircleButtonProps) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const createSpanRef = useRef<HTMLSpanElement>(null);

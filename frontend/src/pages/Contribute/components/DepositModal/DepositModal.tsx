@@ -1,9 +1,9 @@
 import { BigNumber, BigNumberish, utils } from "ethers"
 import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from "react"
-import { Consent, CurrencyButton, CurrencyButtons, CurrencyField, Disclaimer, Submit } from "../../../components"
-import { useWeb3 } from "../../../context/Web3Context"
-import { DepositSVG } from "../../../svgs"
-import { Denomination } from "../../../types"
+import { Consent, CurrencyButton, CurrencyButtons, CurrencyField, Disclaimer, Submit } from "../../../../components"
+import { useWeb3 } from "../../../../context/Web3Context"
+import { DepositSVG } from "../../../../svgs"
+import { Denomination } from "../../../../types"
 import styles from "./DepositModal.module.scss"
 
 interface DepositProps {

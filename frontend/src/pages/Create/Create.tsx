@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, ReactNode } from "react"
 import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { ActionBar, ActionButton, Circle, Loading, PledgeList, ModalTemplate, UserBalance, UserAddress, WithdrawModal } from "../../components"
+import { ActionBar, ActionButton, Circle, CircleButton, Loading, PledgeList, ModalTemplate, UserBalance, UserAddress, WithdrawModal} from "../../components"
 import { PledgeType } from "../../types"
 import { useWeb3 } from "../../context/Web3Context"
 import { Pethreon } from "../../../typechain-types"
@@ -79,6 +79,11 @@ export const Create = (
           repeat: Infinity,
           repeatType: "reverse"
         }}
+      />
+      <CircleButton
+        className={circleStyles.circleC}
+        circleAnimationDelay={pageFadeOutDuration}
+        circleAnimationDuration={circleAnimationDuration}
       />
       <motion.div
         className={styles.createLayout}

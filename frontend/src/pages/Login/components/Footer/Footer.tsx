@@ -1,10 +1,10 @@
 import { MouseEvent } from "react"
-import { WARNING_MESSAGE } from "../../../messages"
+import { DISCLAIMER } from "../../../messages"
 import { Link } from "../../../components/Link/Link"
 import styles from "./Footer.module.scss"
 
 const viewDisclaimer = (e: MouseEvent<HTMLAnchorElement>) => {
-  window.confirm(WARNING_MESSAGE)
+  window.confirm(DISCLAIMER)
   e.preventDefault()
 }
 

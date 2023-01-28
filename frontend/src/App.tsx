@@ -1,12 +1,10 @@
-import { useState } from 'react';
+import { Web3Context } from './context/Web3Context';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from "framer-motion";
 import { Login } from './pages/Login/Login';
 import { Contribute } from './pages/Contribute/Contribute';
 import { Create } from './pages/Create/Create';
 import { Backdrop } from './components';
-import { Web3Context, Web3Provider } from "./context/Web3Context"
-import { Pethreon } from '../typechain-types';
 
 const PAGE_FADE_IN_DURATION = .5
 const PAGE_FADE_OUT_DURATION = .5
@@ -14,8 +12,6 @@ const CIRCLE_ANIMATION_DURATION = .5
 
 export const App = () => {
   const location = useLocation()
-  const [currentWeb3Provider, setCurrentWeb3Provider] = useState<Web3Provider | null>(null)
-  const [contract, setContract] = useState<Pethreon | null>(null)
 
   /** 
    * The order in which things are laid out here is critical.
@@ -23,7 +19,7 @@ export const App = () => {
    * web3-account-center > Backdrop > Circles > Pages
    */
   return (
-    <Web3Context.Provider value={{ currentWeb3Provider, setCurrentWeb3Provider, contract, setContract }}>
+    <Web3Context>
       <Backdrop
         backdropAnimationDelay={PAGE_FADE_OUT_DURATION}
         backdropAnimationDuration={CIRCLE_ANIMATION_DURATION + PAGE_FADE_IN_DURATION}
@@ -56,7 +52,7 @@ export const App = () => {
           />
         </Routes>
       </AnimatePresence>
-    </Web3Context.Provider>
+    </Web3ContextProvider>
   );
 }
 

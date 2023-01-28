@@ -49,8 +49,6 @@ Use min-width and max-width over width.
 
 [Certain animations can hurt a11y](https://developer.mozilla.org/en-US/docs/Web/CSS/animation#accessibility_concerns)
 
-[Opacity slows down rendering, rgba doesn't](https://stackoverflow.com/questions/38523826)
-
 ### Typography
 
 [You can get fluid type scales from here](https://www.fluid-type-scale.com/)
