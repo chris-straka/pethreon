@@ -3,9 +3,9 @@
   outline: none;
   border-radius: 50%;
 
-  // these properties are the same no matter what page we're on
-  // the duration and the delay is all different though
-  transition-property: top, left, width, height, background-color;
+  --background-color-login: var(--primary-light-color);
+  --background-color-contribute: var(--primary-light-color);
+  --background-color-create: var(--primary-light-color);
 
   --top-login: -5vh;
   --left-login: -5vw;
@@ -21,6 +21,11 @@
   --left-create: 59vw;
   --width-create: 25vw;
   --height-create: 25vw;
+
+  top: var(--top-login);
+  left: var(--left-login);
+  width: var(--width-login);
+  height: var(--height-login);
 }
 
 @media (min-width: 600px) and (orientation: portrait) {

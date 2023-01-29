@@ -1,4 +1,9 @@
 .circleC {
+  position: fixed;
+  cursor: pointer;
+  border-radius: 50%;
+  font-weight: bold;
+
   --top-login: 80vh;
   --left-login: 25vw;
   --width-login: 45vh;
@@ -13,6 +18,10 @@
   --left-create: 60vw;
   --width-create: 40vw;
   --height-create: 13vh;
+
+  --background-color-login: var(--primary-light-color);
+  --background-color-contribute: var(--primary-light-color);
+  --background-color-create: var(--primary-light-color);
 
   font-size: clamp(10px, 6vw, 30px);
   outline-offset: 3px;
@@ -32,6 +41,14 @@
   &:focus-visible {
     outline-color: var(--primary-color);
     transition: outline-color 0.15s, color 0.2s, fill 0.2s;
+  }
+
+  // This makes sure the text inside the button changes color when the user hovers over it on the contributor/creator pages
+  @media (hover: hover) {
+    &:hover {
+      color: var(--hover-text-color) !important;
+      fill: var(--hover-text-color) !important;
+    }
   }
 }
 
@@ -77,6 +94,8 @@
     --left-create: 80vw;
     --width-create: 20vw;
     --height-create: 15vh;
+
+    --login-background-color: var(--primary-color);
 
     font-size: 2.5vw;
 

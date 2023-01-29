@@ -6,9 +6,9 @@
 }
 
 .loginContainer {
+  flex: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8em;
 }
 
 /* DESKTOP DESIGN */
@@ -20,7 +20,7 @@
       [Features-row-start] "LoginContent Video" [Features-row-end]
       [Message-row-start] "LoginContent Video" [Message-row-end]
       [Login-row-start] "LoginContent Video" [Login-row-end]
-      [Footer-row-start] ". Footer" [Footer-row-end];
+      [Footer-row-start] "LoginContent Footer" [Footer-row-end];
     padding-inline: 0;
   }
 

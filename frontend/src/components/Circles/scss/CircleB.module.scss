@@ -7,6 +7,10 @@
   // the duration and the delay is all different though
   transition-property: top, left, width, height, background-color;
 
+  --background-color-login: var(--primary-light-color);
+  --background-color-contribute: var(--primary-light-color);
+  --background-color-create: var(--primary-light-color);
+
   --top-login: 40vh;
   --left-login: 92vw;
   --width-login: 128px;

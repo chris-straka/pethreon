@@ -46,6 +46,8 @@ Some of those smart contract functions cost real money (like creating a pledge) 
 
 - [Håvard Brynjulfsen's Radio Button styles](https://codepen.io/havardob/pen/dyYXBBr)
 
+- [Fluid Type Scale](https://www.fluid-type-scale.com/)
+
 - [Metamask Logo](https://github.com/MetaMask/brand-resources)
 
 - [Github logo](https://github.com/logos)

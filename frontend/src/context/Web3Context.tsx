@@ -24,7 +24,7 @@ function web3Reducer(_: Web3ContextType, action: ACTIONTYPE): Web3ContextType {
     case "setWeb3": {
       const provider = action.payload
       const signer = provider.getSigner()
-      const contract = Pethreon__factory.connect(import.meta.env.VITE_CONTRACT_ADDRESS, signer)
+      const contract = Pethreon__factory.connect(import.meta.env.VITE_PETHREON_CONTRACT_ADDRESS, signer)
       return { provider, contract }
     }
     default: {
