@@ -1,20 +1,15 @@
 .loginButton {
-  font-size: clamp(16px, 1.1vw + 20px, 160px);
+  cursor: pointer;
+  font-size: var(--font-size-md);
   font-weight: 800;
   color: white;
   background-color: var(--primary-dark-color);
   border-radius: 16px;
-  cursor: pointer;
+  padding: 1em 2em 1em 2em;
   transition: all 0.3s;
-  width: auto;
+  margin-left: 1em;
 }
 
-@media (min-width: 1280px) and (orientation: landscape) {
-  .loginButton {
-    color: var(--background-color);
-    background-color: var(--primary-dark-color);
-  }
-}
 
 @media (prefers-color-scheme: dark) {
   .loginButton {

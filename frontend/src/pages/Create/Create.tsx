@@ -7,7 +7,7 @@ import { PledgeType } from "../../types"
 import { WithdrawSVG, CsvSVG } from "../../svgs"
 import { useWeb3 } from "../../hooks"
 import { extractPledgesToCsv } from "./utils"
-import { Circles } from "./components"
+
 import {
   CIRCLE_ANIMATION_DURATION as PAGE_FADE_IN_DELAY,
   PAGE_FADE_IN_DURATION,
@@ -60,7 +60,6 @@ export const Create = () => {
 
   return (
     <>
-      <Circles />
       <motion.div
         className={styles.createLayout}
         initial={{ opacity: 0 }}

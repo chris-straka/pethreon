@@ -1,25 +1,9 @@
 .pethreon {
-  font-size: clamp(16px, 10vw + 16px, 160px);
-  position: relative;
-  margin-top: max(16px, 2vh);
-  margin-bottom: max(16px, 2vh);
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 300;
+  font: 300 var(--font-size-xxxl) Arial, Helvetica, sans-serif;
+  margin-block: max(16px, 2vh);
 
+  // Ξ
   & > span {
-    font-size: smaller; // This makes the Ξ smaller
-  }
-}
-
-@media (min-width: 1280px) and (orientation: landscape) {
-  .pethreon {
-    font-size: clamp(5rem, 5vw + 1rem, 15rem);
-    margin-bottom: 0;
-  }
-}
-
-@media (min-width: 3840px) and (orientation: landscape) {
-  .pethreon {
-    font-size: clamp(9rem, 8vw + 1rem, 20rem);
+    font-size: smaller;
   }
 }

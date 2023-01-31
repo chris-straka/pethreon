@@ -6,13 +6,12 @@ const CADENCE = 60
 const DELAY = 1000
 
 interface TypewriterProps {
-  className: string,
   message: string,
   setTalking: Dispatch<SetStateAction<boolean>>
 }
 
 export const Typewriter = ({
-  className, message, setTalking
+  message, setTalking
 }: TypewriterProps
 ) => {
   const [displayMsg, setDisplayMsg] = useState(<p />)
@@ -32,11 +31,7 @@ export const Typewriter = ({
     }
   }, [init, message, setTalking])
 
-  return (
-    <div className={`${styles.typewriter} ${className}`}>
-      {displayMsg}
-    </div>
-  )
+  return <div className={styles.typewriter}>{displayMsg}</div>
 }
 
 

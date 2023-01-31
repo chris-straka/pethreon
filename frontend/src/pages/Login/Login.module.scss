@@ -6,12 +6,19 @@
 }
 
 .loginContainer {
-  flex: 1;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 35% 65%;
+  place-items: center;
 }
 
-/* DESKTOP DESIGN */
+footer {
+  margin-top: auto;
+  padding-top: 35px;
+  margin-bottom: 20px;
+  align-self: end;
+}
+
+// DESKTOP DESIGN
 @media (min-width: 1280px) and (orientation: landscape) {
   .loginLayout {
     display: grid;
@@ -28,6 +35,7 @@
     grid-area: LoginContent;
     margin-left: max(32px, 3vw);
     width: 40vw;
+    justify-content: space-between;
   }
 
   video {

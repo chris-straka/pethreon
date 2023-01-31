@@ -4,7 +4,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { Login } from './pages/Login/Login';
 import { Contribute } from './pages/Contribute/Contribute';
 import { Create } from './pages/Create/Create';
-// import { Circles } from './components';
+import { Circles } from './components';
 
 export const App = () => {
   const location = useLocation()
@@ -15,6 +15,7 @@ export const App = () => {
    */
   return (
     <Web3ContextProvider>
+      <Circles />
       <AnimatePresence mode='wait' initial={false}>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Login />} />

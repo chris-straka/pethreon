@@ -59,7 +59,6 @@ export const Login = () => {
           <Pethreon />
           <Features />
           <Typewriter
-            className={styles.typewriter}
             message={message}
             setTalking={setTalking}
           />

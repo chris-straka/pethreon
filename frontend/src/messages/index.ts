@@ -2,7 +2,10 @@
  * My typewriter can only handle one link in a single message at a time
  */
 
-export const GREETINGS = "This app uses your ethereum wallet to make subscriptions to creators"
+export const GREETINGS = `
+This app uses your ethereum wallet to make subscriptions to creators. 
+`
+
 export const LOGGING_IN = "Logging in..."
 export const WALLET_NOT_FOUND = "This app requires a metamask wallet to work, <a href=\"https://metamask.io/download\">download metamask!</a>"
 

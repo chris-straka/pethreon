@@ -34,16 +34,6 @@
   }
 }
 
-@media (max-width: 1279px) and (orientation: landscape) {
-  .circleB {
-    position: absolute;
-    --width-contribute: 0;
-    --height-contribute: 0;
-    --width-create: 0;
-    --height-create: 0;
-  }
-}
-
 // Desktop Styles
 @media (min-width: 1280px) and (orientation: landscape) {
   .circleB {
@@ -60,5 +50,11 @@
     --left-create: 6vw;
     --width-create: 12vh;
     --height-create: 12vh;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .circleB {
+    --background-color-login: var(--primary-dark-color);
   }
 }

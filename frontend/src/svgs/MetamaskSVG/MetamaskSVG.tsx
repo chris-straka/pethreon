@@ -1,9 +1,12 @@
 import "./MetamaskSVG.scss"
 
-export const MetamaskSVG = ({ talking }: { talking: boolean }) => (
+interface MetamaskSVGProps {
+  talking: boolean,
+}
+
+export const MetamaskSVG = ({ talking, }: MetamaskSVGProps) => (
   <svg
     className={`${talking ? "talking" : "floating"}`}
-    width="100%"
     viewBox="0 0 154 154"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -39,5 +42,5 @@ export const MetamaskSVG = ({ talking }: { talking: boolean }) => (
       <path id="rightChin" d="M102.377 119.584L85.9906 111.609L87.2957 122.291L87.1507 126.787L102.377 119.584Z" fill="#D7C1B3" stroke="#D7C1B3" strokeLinecap="round" strokeLinejoin="round" />
       <path id="leftChin" d="M51.6234 119.584L66.8493 126.787L66.7527 122.291L67.9611 111.609L51.6234 119.584Z" fill="#D7C1B3" stroke="#D7C1B3" strokeLinecap="round" strokeLinejoin="round" />
     </g>
-  </svg>
+  </svg >
 )

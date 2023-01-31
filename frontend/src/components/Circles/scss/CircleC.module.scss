@@ -19,7 +19,7 @@
   --width-create: 40vw;
   --height-create: 13vh;
 
-  --background-color-login: var(--primary-light-color);
+  --background-color-login: var(--primary-very-light-color);
   --background-color-contribute: var(--primary-light-color);
   --background-color-create: var(--primary-light-color);
 
@@ -50,6 +50,10 @@
       fill: var(--hover-text-color) !important;
     }
   }
+
+  @media (prefers-color-scheme: dark) {
+    --background-color-login: var(--primary-dark-color);
+  }
 }
 
 @media (min-width: 600px) and (orientation: portrait) {
@@ -72,7 +76,6 @@
 
 @media (max-width: 1279px) and (orientation: landscape) {
   .circleC {
-    position: absolute;
     --height-contribute: 35vh;
     --height-create: 35vh;
   }

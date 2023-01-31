@@ -1,15 +1,14 @@
 footer {
-  font-size: clamp(1rem, 1vw + 1rem, 10rem);
-  margin: auto 0 22px auto;
+  font: var(--font-size-base);
 
   & > a {
     margin-right: 3vw;
   }
 }
 
-@media (min-width: 390px) {
+@media (min-width: 768px) {
   footer {
-    font-size: clamp(1rem, 1vw + 1rem, 10rem);
+    font-size: var(--font-size-md);
   }
 }
 

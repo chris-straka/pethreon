@@ -55,20 +55,21 @@ export const Circles = () => {
   return (
     <>
       <motion.div
-        aria-hidden
+        aria-hidden="true"
         className={aStyles.circleA}
         style={defaultCircleStyles}
         variants={aVariants}
         animate={a}
       />
       <motion.div
-        aria-hidden
+        aria-hidden="true"
         className={bStyles.circleB}
         style={defaultCircleStyles}
         variants={bVariants}
         animate={b}
       />
       <motion.button
+        aria-hidden={path === "/" ? "true" : "false"}
         className={cStyles.circleC}
         onClick={navigateToNewPage}
         style={defaultCircleStyles}
