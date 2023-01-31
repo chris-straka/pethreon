@@ -4,17 +4,18 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { Login } from './pages/Login/Login';
 import { Contribute } from './pages/Contribute/Contribute';
 import { Create } from './pages/Create/Create';
-import { Circles } from './components';
+import { Circles, Backdrop } from './components';
 
 export const App = () => {
   const location = useLocation()
 
   /** 
    * The order in which things are laid out here is critical.
-   * The onboard web3 account center MUST GO BELOW the b
+   * @web3-onboard account-center > Backdrop > Circles > Content
    */
   return (
     <Web3ContextProvider>
+      <Backdrop />
       <Circles />
       <AnimatePresence mode='wait' initial={false}>
         <Routes location={location} key={location.pathname}>

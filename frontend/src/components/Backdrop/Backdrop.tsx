@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { useLocation } from "react-router-dom"
+import { motion, useAnimationControls } from "framer-motion"
 import { CIRCLE_ANIMATION_DURATION, PAGE_FADE_IN_DURATION, PAGE_FADE_OUT_DURATION } from "../../constants"
 
 /** 
@@ -8,13 +9,48 @@ import { CIRCLE_ANIMATION_DURATION, PAGE_FADE_IN_DURATION, PAGE_FADE_OUT_DURATIO
  */
 export function Backdrop() {
   const { pathname: path } = useLocation()
+  const controls = useAnimationControls()
 
   useEffect(() => {
+    if (path === "/") {
+      async function animate() {
+        controls.start({
+          opacity: 1,
+          transition: {}
+        })
+      }
+      animate()
+    }
 
-  })
+    if (path === "/contribute") {
+      async function animate() {
+        controls.start({
+          opacity: 0,
+          transition: {
+            delay: PAGE_FADE_OUT_DURATION + CIRCLE_ANIMATION_DURATION,
+            duration: PAGE_FADE_IN_DURATION
+          }
+        })
+      }
+      animate()
+    }
+
+    if (path === "/create") {
+      async function animate() {
+        controls.start({
+          opacity: 0,
+          transition: {
+            delay: PAGE_FADE_OUT_DURATION + CIRCLE_ANIMATION_DURATION,
+            duration: PAGE_FADE_IN_DURATION
+          }
+        })
+      }
+      animate()
+    }
+  }, [controls, path])
 
   return (
-    <div
+    <motion.div
       style={{
         position: 'fixed',
         width: '100%',
@@ -23,6 +59,7 @@ export function Backdrop() {
         left: 0,
         backgroundColor: "var(--background-color)",
       }}
+      animate={controls}
     />
   )
 }

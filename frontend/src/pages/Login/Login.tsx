@@ -48,28 +48,26 @@ export const Login = () => {
   }
 
   return (
-    <>
-      <motion.div
-        className={styles.loginLayout}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, transition: { delay: PAGE_FADE_IN_DELAY, duration: PAGE_FADE_IN_DURATION } }}
-        exit={{ opacity: 0, transition: { duration: PAGE_FADE_OUT_DURATION } }}
-      >
-        <div className={styles.loginContent}>
-          <Pethreon />
-          <Features />
-          <Typewriter
-            message={message}
-            setTalking={setTalking}
-          />
-          <div className={styles.loginContainer}>
-            <MetamaskSVG talking={talking} />
-            <LoginButton onClick={signIn} disabled={connecting} />
-          </div>
+    <motion.div
+      className={styles.loginLayout}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { delay: PAGE_FADE_IN_DELAY, duration: PAGE_FADE_IN_DURATION } }}
+      exit={{ opacity: 0, transition: { duration: PAGE_FADE_OUT_DURATION } }}
+    >
+      <div className={styles.loginContent}>
+        <Pethreon />
+        <Features />
+        <Typewriter
+          message={message}
+          setTalking={setTalking}
+        />
+        <div className={styles.loginContainer}>
+          <MetamaskSVG talking={talking} />
+          <LoginButton onClick={signIn} disabled={connecting} />
         </div>
-        <Video />
-        <Footer />
-      </motion.div>
-    </>
+      </div>
+      <Video />
+      <Footer />
+    </motion.div>
   )
 }
