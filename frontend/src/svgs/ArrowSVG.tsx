@@ -1,6 +1,6 @@
 const arrowSVGStyles = {
-  color: 'inherit',
-  fill: 'inherit',
+  color: 'var(--text-color)',
+  fill: 'var(--text-color)',
   width: '2ch',
   marginLeft: '.2ch',
   verticalAlign: 'bottom'

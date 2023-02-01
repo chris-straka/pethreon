@@ -11,18 +11,18 @@
   --background-color-contribute: var(--primary-light-color);
   --background-color-create: var(--primary-light-color);
 
-  --top-login: 40vh;
-  --left-login: 92vw;
+  --x-login: 92vw;
+  --y-login: 40vh;
   --width-login: 128px;
   --height-login: 128px;
 
-  --top-contribute: 78vh;
-  --left-contribute: 59vw;
+  --x-contribute: 59vw;
+  --y-contribute: 78vh;
   --width-contribute: 25vw;
   --height-contribute: 25vw;
 
-  --top-create: 82vh;
-  --left-create: 16vw;
+  --x-create: 16vw;
+  --y-create: 82vh;
   --width-create: 15vw;
   --height-create: 15vw;
 }
@@ -37,17 +37,18 @@
 // Desktop Styles
 @media (min-width: 1280px) and (orientation: landscape) {
   .circleB {
-    --top-login: 85vh;
-    --left-login: 50vw;
+    --x-login: 50vw;
+    --y-login: 85vh;
     --width-login: 300px;
     --height-login: 300px;
 
-    --top-contribute: 51vh;
-    --left-contribute: 20vw;
-    --width-contribute: 25vh; --height-contribute: 25vh;
+    --x-contribute: 20vw;
+    --y-contribute: 51vh;
+    --width-contribute: 25vh;
+    --height-contribute: 25vh;
 
-    --top-create: 75vh;
-    --left-create: 6vw;
+    --x-create: 6vw;
+    --y-create: 75vh;
     --width-create: 12vh;
     --height-create: 12vh;
   }
