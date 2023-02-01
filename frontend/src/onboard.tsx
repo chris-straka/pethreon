@@ -29,6 +29,8 @@ export const web3Onboard = init({
       position: 'topLeft',
       enabled: true,
       minimal: true
-    }
-  }
+    },
+  },
+  theme: 'system'
 })
+

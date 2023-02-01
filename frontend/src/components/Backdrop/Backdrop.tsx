@@ -16,6 +16,7 @@ export function Backdrop() {
       async function animate() {
         controls.start({
           opacity: 1,
+          display: 'block',
           transition: {}
         })
       }
@@ -26,6 +27,7 @@ export function Backdrop() {
       async function animate() {
         controls.start({
           opacity: 0,
+          display: 'none',
           transition: {
             delay: PAGE_FADE_OUT_DURATION + CIRCLE_ANIMATION_DURATION,
             duration: PAGE_FADE_IN_DURATION
@@ -39,6 +41,7 @@ export function Backdrop() {
       async function animate() {
         controls.start({
           opacity: 0,
+          display: 'none',
           transition: {
             delay: PAGE_FADE_OUT_DURATION + CIRCLE_ANIMATION_DURATION,
             duration: PAGE_FADE_IN_DURATION
@@ -51,6 +54,7 @@ export function Backdrop() {
 
   return (
     <motion.div
+      animate={controls}
       style={{
         position: 'fixed',
         width: '100%',
@@ -59,7 +63,6 @@ export function Backdrop() {
         left: 0,
         backgroundColor: "var(--background-color)",
       }}
-      animate={controls}
     />
   )
 }

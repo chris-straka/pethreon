@@ -10,6 +10,7 @@ import { Disclaimer } from "./Disclaimer/Disclaimer";
 import { Link } from "./Link/Link"
 import { Loading } from "./Loading/Loading";
 import { ModalTemplate } from "./ModalTemplate/ModalTemplate";
+import { Nav } from "./Nav/Nav"
 import { Pledge } from "./Pledge/Pledge";
 import { PledgeList } from "./PledgeList/PledgeList";
 import { Submit } from "./Submit/Submit";
@@ -33,6 +34,7 @@ export {
   Link,
   Loading,
   ModalTemplate,
+  Nav,
   Pledge,
   PledgeList,
   Submit,

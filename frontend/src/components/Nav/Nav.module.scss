@@ -1,0 +1,51 @@
+.nav {
+  position: fixed;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 60vw;
+  top: 0vh;
+  width: 40vw;
+  height: 15vh;
+
+  border-radius: 0 0 0 50px;
+  background-color: var(--nav-color);
+
+  font-size: var(--font-size-lg);
+  font-weight: bold;
+
+  outline: 5px dotted transparent;
+  outline-offset: 4px;
+
+  color: white;
+  fill: white;
+
+  transition: background-color 0.3s, outline-color 0.15s, color 0.2s, fill 0.2s;
+
+  // focus-visible is only activated when the .link receives focus via the keyboard
+  & .link:focus-visible {
+    outline-color: var(--nav-color);
+    transition: outline-color 0.15s, color 0.2s, fill 0.2s;
+  }
+
+  &:hover {
+    transition: background-color 0.3s;
+  }
+}
+
+.link {
+  color: inherit;
+  fill: inherit;
+  outline: none;
+  text-decoration: none;
+}
+
+@media (min-width: 1280px) and (orientation: landscape) {
+  .nav {
+    left: 80vw;
+    top: 0vh;
+    width: 20vw;
+    height: 15vh;
+  }
+}

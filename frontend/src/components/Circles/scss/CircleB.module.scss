@@ -3,18 +3,14 @@
   outline: none;
   border-radius: 50%;
 
-  // these properties are the same no matter what page we're on
-  // the duration and the delay is all different though
-  transition-property: top, left, width, height, background-color;
-
   --background-color-login: var(--primary-light-color);
   --background-color-contribute: var(--primary-light-color);
   --background-color-create: var(--primary-light-color);
 
-  --x-login: 92vw;
-  --y-login: 40vh;
-  --width-login: 128px;
-  --height-login: 128px;
+  --x-login: 25vw;
+  --y-login: 80vh;
+  --width-login: 45vh;
+  --height-login: 45vh;
 
   --x-contribute: 59vw;
   --y-contribute: 78vh;
@@ -25,13 +21,6 @@
   --y-create: 82vh;
   --width-create: 15vw;
   --height-create: 15vw;
-}
-
-@media (min-width: 600px) and (orientation: portrait) {
-  .circleB {
-    --width-login: 200px;
-    --height-login: 200px;
-  }
 }
 
 // Desktop Styles

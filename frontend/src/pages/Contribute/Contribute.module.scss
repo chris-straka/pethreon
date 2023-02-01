@@ -4,6 +4,14 @@
   margin-inline: clamp(23px, 9vw, 80px);
 }
 
+.nav {
+  --nav-color: var(--secondary-color);
+
+  &:hover {
+    --nav-color: var(--secondary-dark-color);
+  }
+}
+
 @media (max-width: 1280px) and (orientation: landscape) {
   .contributeLayout {
     min-height: auto;

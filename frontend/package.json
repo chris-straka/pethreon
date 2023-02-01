@@ -11,8 +11,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@web3-onboard/injected-wallets": "^2.5.0",
-    "@web3-onboard/react": "^2.5.4",
+    "@web3-onboard/injected-wallets": "^2.6.2",
+    "@web3-onboard/react": "^2.6.1",
     "ethers": "^5.7.2",
     "framer-motion": "^8.5.0",
     "react": "^18.2.0",

@@ -2,11 +2,11 @@ import { useState, useEffect, useCallback, ReactNode } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useNavigate } from "react-router-dom"
 import { ethers } from "ethers"
-import { ActionBar, ActionButton, UserBalance, UserAddress, Loading, PledgeList, ModalTemplate, WithdrawModal } from "../../components"
+import { ActionBar, ActionButton, ModalTemplate, Loading, Nav, PledgeList, UserBalance, UserAddress, WithdrawModal } from "../../components"
 import { CIRCLE_ANIMATION_DURATION, PAGE_FADE_IN_DURATION, PAGE_FADE_OUT_DURATION } from "../../constants"
 import { PledgeType } from "../../types"
 import { DepositModal, PledgeModal } from "./components"
-import { DepositSVG, WithdrawSVG, PledgeSVG } from "../../svgs"
+import { DepositSVG, WithdrawSVG, PledgeSVG, ArrowSVG } from "../../svgs"
 import { useWeb3 } from "../../hooks"
 
 import styles from "./Contribute.module.scss"
@@ -68,12 +68,13 @@ export const Contribute = () => {
 
   return (
     <>
-      <motion.div
+      <motion.main
         className={styles.contributeLayout}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { duration: PAGE_FADE_IN_DURATION, delay: CIRCLE_ANIMATION_DURATION } }}
         exit={{ opacity: 0, transition: { duration: PAGE_FADE_OUT_DURATION } }}
       >
+        <Nav className={styles.nav} to="/create">Create <ArrowSVG /></Nav>
         {loading ? <Loading /> : <UserBalance className={styles.userBalance} balance={balance} />}
         <UserAddress className={styles.userAddress} userAccountAddress={address} />
         <ActionBar className={styles.contributorActionBar}>
@@ -89,7 +90,7 @@ export const Contribute = () => {
           setLoading={setLoading}
           setPledges={setPledges}
         />
-      </motion.div>
+      </motion.main>
       <AnimatePresence
         initial={false}
         mode="wait"

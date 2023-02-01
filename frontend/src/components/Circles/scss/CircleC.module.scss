@@ -1,0 +1,32 @@
+// This circle only shows up on the login page, it disappears after
+.circleC {
+  position: fixed;
+  outline: none;
+  border-radius: 50%;
+
+  font-size: var(--font-size-base);
+  font-weight: bold;
+
+  --x-login: 92vw;
+  --y-login: 40vh;
+  --width-login: 128px;
+  --height-login: 128px;
+
+  --background-color-login: var(--primary-very-light-color);
+}
+
+@media (min-width: 1280px) and (orientation: landscape) {
+  .circleC {
+    --x-login: 80vw;
+    --y-login: -12vh;
+    --width-login: 610px;
+    --height-login: 610px;
+    --login-background-color: var(--primary-color);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .circleC {
+    --background-color-login: var(--primary-dark-color);
+  }
+}

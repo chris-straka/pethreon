@@ -2,9 +2,9 @@ import { useState, useEffect, useCallback, ReactNode } from "react"
 import { utils } from "ethers"
 import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
-import { ActionBar, ActionButton, Loading, PledgeList, ModalTemplate, UserBalance, UserAddress, WithdrawModal } from "../../components"
+import { ActionBar, ActionButton, Loading, ModalTemplate, Nav, PledgeList, UserBalance, UserAddress, WithdrawModal } from "../../components"
 import { PledgeType } from "../../types"
-import { WithdrawSVG, CsvSVG } from "../../svgs"
+import { ArrowSVG, WithdrawSVG, CsvSVG } from "../../svgs"
 import { useWeb3 } from "../../hooks"
 import { extractPledgesToCsv } from "./utils"
 
@@ -15,7 +15,6 @@ import {
 } from "../../constants"
 
 import styles from "./Create.module.scss"
-
 
 export const Create = () => {
   const [address, setAddress] = useState("0x0000000000000000000000000000000000000000")
@@ -60,12 +59,13 @@ export const Create = () => {
 
   return (
     <>
-      <motion.div
+      <motion.main
         className={styles.createLayout}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { delay: PAGE_FADE_IN_DELAY, duration: PAGE_FADE_IN_DURATION } }}
         exit={{ opacity: 0, transition: { duration: PAGE_FADE_OUT_DURATION } }}
       >
+        <Nav to='/contribute'>Donate <ArrowSVG /></Nav>
         {loading ? <Loading /> : <UserBalance className={styles.userBalance} balance={balance} />}
         <UserAddress
           className={styles.userAddress}
@@ -93,7 +93,7 @@ export const Create = () => {
           setLoading={setLoading}
           setPledges={setPledges}
         />
-      </motion.div>
+      </motion.main>
       <AnimatePresence initial={false} mode="wait">
         {modal !== null && <ModalTemplate closeModal={closeModal} children={modal} />}
       </AnimatePresence>

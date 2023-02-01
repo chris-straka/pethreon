@@ -48,7 +48,7 @@ export const Login = () => {
   }
 
   return (
-    <motion.div
+    <motion.main
       className={styles.loginLayout}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1, transition: { delay: PAGE_FADE_IN_DELAY, duration: PAGE_FADE_IN_DURATION } }}
@@ -68,6 +68,6 @@ export const Login = () => {
       </div>
       <Video />
       <Footer />
-    </motion.div>
+    </motion.main>
   )
 }
