@@ -52,6 +52,8 @@ export function Backdrop() {
     }
   }, [controls, path])
 
+  // The backdrop needs to go in front of the account-center but behind the circles 
+  // account-center is -3, circles is -1
   return (
     <motion.div
       animate={controls}
@@ -62,6 +64,7 @@ export function Backdrop() {
         top: 0,
         left: 0,
         backgroundColor: "var(--background-color)",
+        zIndex: -2
       }}
     />
   )

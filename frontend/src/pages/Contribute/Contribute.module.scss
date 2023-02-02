@@ -2,6 +2,11 @@
   min-height: 60vh;
   margin-top: 15vh;
   margin-inline: clamp(23px, 9vw, 80px);
+
+  // These needs to go below the account-center 
+  z-index: -4;
+  // the position needs to be set to non-static for this to work
+  position: relative;
 }
 
 .nav {
