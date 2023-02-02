@@ -14,7 +14,7 @@ export const defaultStyles: MotionStyle = {
   height: "var(--height-login)",
   backgroundColor: "var(--background-color-login)",
   borderRadius: "50%",
-  zIndex: -1
+  zIndex: 3
 }
 
 /** 

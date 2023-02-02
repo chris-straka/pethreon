@@ -64,7 +64,7 @@ export function Backdrop() {
         top: 0,
         left: 0,
         backgroundColor: "var(--background-color)",
-        zIndex: -2
+        zIndex: 2
       }}
     />
   )

@@ -53,6 +53,9 @@ export const Login = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1, transition: { delay: PAGE_FADE_IN_DELAY, duration: PAGE_FADE_IN_DURATION } }}
       exit={{ opacity: 0, transition: { duration: PAGE_FADE_OUT_DURATION } }}
+
+      // everything must go above the backdrop (2) and the circles (3)
+      style={{ zIndex: 4, position: 'relative' }}
     >
       <div className={styles.loginContent}>
         <Pethreon />

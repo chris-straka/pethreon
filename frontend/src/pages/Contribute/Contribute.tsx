@@ -1,22 +1,18 @@
-import { useState, useEffect, useCallback, ReactNode } from "react"
+import { useEffect, useReducer } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useNavigate } from "react-router-dom"
 import { ethers } from "ethers"
 import { ActionBar, ActionButton, ModalTemplate, Loading, Nav, PledgeList, UserBalance, UserAddress, WithdrawModal } from "../../components"
 import { CIRCLE_ANIMATION_DURATION, PAGE_FADE_IN_DURATION, PAGE_FADE_OUT_DURATION } from "../../constants"
-import { PledgeType } from "../../types"
 import { DepositModal, PledgeModal } from "./components"
 import { DepositSVG, WithdrawSVG, PledgeSVG, ArrowSVG } from "../../svgs"
 import { useWeb3 } from "../../hooks"
+import { reducer, initialState } from "./reducers/contribute"
 
 import styles from "./Contribute.module.scss"
 
 export const Contribute = () => {
-  const [address, setAddress] = useState("0x0000000000000000000000000000000000000000")
-  const [loading, setLoading] = useState(false)
-  const [balance, setBalance] = useState("0.0")
-  const [pledges, setPledges] = useState<PledgeType[]>([])
-  const [modal, setModal] = useState<ReactNode | null>(null)
+  const [{ address, loading, balance, pledges, modal }, dispatch] = useReducer(reducer, initialState)
   const { contract } = useWeb3()
   const navigate = useNavigate()
 
@@ -25,46 +21,41 @@ export const Contribute = () => {
 
     async function init() {
       try {
-        // Grab the user's balance as a contributor
-        const balanceInWei = await contract.getContributorBalanceInWei()
-        const balanceInEther = await ethers.utils.formatEther(balanceInWei)
-        const balance = balanceInEther.toString()
-        setBalance(balance)
+        const [balanceInWei, pledges, address] = await Promise.all([
+          contract.getContributorBalanceInWei(),
+          contract.getContributorPledges(),
+          contract.signer.getAddress()
+        ])
 
-        // Grab the pledges they made
-        const pledges = await contract.getContributorPledges()
-        setPledges(pledges)
-
-        // Set their address in the UI
-        const address = await contract.signer.getAddress()
-        setAddress(address)
+        const balance = await ethers.utils.formatEther(balanceInWei).toString();
+        dispatch({ type: "setUI", payload: { balance, pledges, address, loading: false } })
 
       } catch (error) {
-        window.alert(error)
-        navigate("/")
+        throw new Error(error as any)
       }
     }
 
     init()
   }, [contract, navigate])
 
-  const closeModal = useCallback(() => setModal(null), [])
-
   const depositModal = <DepositModal
     closeModal={closeModal}
     setBalance={setBalance}
-    setLoading={setLoading} />
+    setLoading={setLoading}
+  />
 
   const withdrawModal = <WithdrawModal
     closeModal={closeModal}
     setBalance={setBalance}
-    setLoading={setLoading} />
+    setLoading={setLoading}
+  />
 
   const pledgeModal = <PledgeModal
     closeModal={closeModal}
     setBalance={setBalance}
     setLoading={setLoading}
-    setPledges={setPledges} />
+    setPledges={setPledges}
+  />
 
   return (
     <>
@@ -91,10 +82,7 @@ export const Contribute = () => {
           setPledges={setPledges}
         />
       </motion.main>
-      <AnimatePresence
-        initial={false}
-        mode="wait"
-      >
+      <AnimatePresence initial={false} mode="wait">
         {modal !== null && <ModalTemplate closeModal={closeModal} children={modal} />}
       </AnimatePresence>
     </>

@@ -15,7 +15,7 @@ export const web3Onboard = init({
   appMetadata: {
     name: 'Pethreon',
     icon: "data:image/svg+xml;base64, PHN2ZyB2aWV3Qm94PSIwIDAgNjQgNjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPHRleHQgeD0iMzIiIHk9IjUwIiBzdHJva2U9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjQwIiBmaWxsPSIjMDAwMDAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7wn5K4PC90ZXh0Pgo8L3N2Zz4=",
-    description: 'Allow contributers to make daily payments to creators.',
+    description: 'Make daily payments to your favorite creators',
     recommendedInjectedWallets: [
       { name: 'MetaMask', url: 'https://metamask.io' },
       { name: 'Coinbase', url: 'https://wallet.coinbase.com/' }
