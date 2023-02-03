@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, MouseEvent, useState } from "react"
 import { BigNumber, BigNumberish, utils } from "ethers"
-import { CurrencyButton, EtherDenominationSelect, CurrencyField, Disclaimer, Submit, Consent } from ".."
+import { CurrencyField, Disclaimer, EtherDenominationSelect, Submit, Consent } from ".."
 import { useWeb3 } from "../../../../hooks"
 import { DepositSVG } from "../../../../svgs"
 import { Denomination } from "../../../../types"

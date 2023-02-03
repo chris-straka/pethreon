@@ -9,12 +9,14 @@ interface SubmitProps {
 }
 
 export const Submit = ({ children, className, onClick, disabled = false }: SubmitProps) => {
-  return <button
-    type="submit"
-    className={`${styles.button} ${className}`}
-    onClick={onClick}
-    disabled={disabled}
-  >
-    {children}
-  </button>
+  return (
+    <button
+      type="submit"
+      className={`${styles.button} ${className}`}
+      onClick={onClick}
+      disabled={disabled}
+    >
+      {children}
+    </button>
+  )
 }

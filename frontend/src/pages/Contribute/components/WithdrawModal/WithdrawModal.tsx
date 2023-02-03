@@ -3,7 +3,7 @@ import { BigNumber, utils } from "ethers"
 import { MetamaskError, Denomination, Pethreon } from "../../../../types"
 import { WithdrawSVG } from "../../../../svgs"
 import { useWeb3 } from "../../../../hooks"
-import { CurrencyButton, EtherDenominationSelect, CurrencyField, Submit } from ".."
+import { EtherDenominationSelect, CurrencyField, Submit } from ".."
 import styles from "./WithdrawModal.module.scss"
 
 interface WithdrawProps {
@@ -49,12 +49,11 @@ export const WithdrawModal = ({ closeModal, setLoading, setNewBalance }: Withdra
         value={amount}
         setValue={(event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)}
       />
-      <EtherDenominationSelect className={styles.currencyButtons} setEtherDenomination={setCurrency}>
-        <CurrencyButton checked denomination={"Ether"} />
-        <CurrencyButton denomination={"Gwei"} />
-        <CurrencyButton denomination={"Wei"} />
-        <CurrencyButton denomination={"All"} />
-      </EtherDenominationSelect>
+      <EtherDenominationSelect
+        className={styles.currencyButtons}
+        setEtherDenomination={setCurrency}
+        options={["All", "Ether", "Gwei", "Wei"]}
+      />
       <Submit className={styles.submit} onClick={submitWithdraw}>Withdraw <WithdrawSVG className={styles.withdrawSVG} /></Submit>
     </form>
   )

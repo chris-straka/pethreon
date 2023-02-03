@@ -1,6 +1,6 @@
 import { BigNumber, utils } from "ethers"
 import { ChangeEvent, FormEvent, useState } from "react"
-import { CurrencyButton, CurrencyButtons, CurrencyField, Submit } from "../../../../components"
+import { EtherDenominationSelect, CurrencyField, Submit } from "../"
 import { DateSVG, PersonSVG, PledgeSVG } from "../../../../svgs"
 import { Denomination, PledgeType, Pethreon } from "../../../../types"
 import { useWeb3 } from "../../../../hooks"
@@ -65,12 +65,11 @@ export const PledgeModal = (
         value={amountPerPeriod}
         setValue={(event: ChangeEvent<HTMLInputElement>) => setAmountPerPeriod(event.target.value)}
       />
-      <CurrencyButtons className={styles.currencyButtons} setCurrency={setCurrency}>
-        <CurrencyButton checked denomination={"Ether"} />
-        <CurrencyButton denomination={"Gwei"} />
-        <CurrencyButton denomination={"Wei"} />
-        <CurrencyButton denomination={"All"} />
-      </CurrencyButtons>
+      <EtherDenominationSelect
+        className={styles.currencyButtons}
+        setEtherDenomination={setCurrency}
+        options={["All", "Ether", "Gwei", "Wei"]}
+      />
 
       <h3 className={styles.dateHeading}>Across how many days?</h3>
       <CurrencyField
