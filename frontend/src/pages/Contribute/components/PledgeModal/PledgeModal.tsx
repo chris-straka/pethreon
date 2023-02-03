@@ -1,5 +1,5 @@
 import { BigNumber, utils } from "ethers"
-import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from "react"
+import { ChangeEvent, FormEvent, useState } from "react"
 import { CurrencyButton, CurrencyButtons, CurrencyField, Submit } from "../../../../components"
 import { DateSVG, PersonSVG, PledgeSVG } from "../../../../svgs"
 import { Denomination, PledgeType, Pethreon } from "../../../../types"
@@ -9,13 +9,12 @@ import styles from "./PledgeModal.module.scss"
 
 interface PledgeProps {
   closeModal: (() => void),
-  setLoading: Dispatch<SetStateAction<boolean>>,
-  setBalance: Dispatch<SetStateAction<string>>,
-  setPledges: Dispatch<SetStateAction<PledgeType[]>>
+  setLoading: ((loading: boolean) => void),
+  setNewBalanceAndPledges: ((balance: string, pledges: PledgeType[]) => void)
 }
 
 export const PledgeModal = (
-  { closeModal, setLoading, setBalance, setPledges }: PledgeProps
+  { closeModal, setLoading, setNewBalanceAndPledges }: PledgeProps
 ) => {
   const [currency, setCurrency] = useState<Denomination>("Ether")
   const [amountPerPeriod, setAmountPerPeriod] = useState("")
@@ -46,12 +45,10 @@ export const PledgeModal = (
       const newBalance = await contract.getContributorBalanceInWei()
       const newBalanceEther = await utils.formatEther(newBalance)
       const newBalanceEtherString = await newBalanceEther.toString()
-      setBalance(newBalanceEtherString)
 
       const newPledges = await contract.getContributorPledges()
-      setPledges(newPledges)
 
-      setLoading(false)
+      setNewBalanceAndPledges(newBalanceEtherString, newPledges)
 
     } catch (error) {
       setLoading(false)
@@ -95,10 +92,7 @@ export const PledgeModal = (
         svgComponent={<PersonSVG className={styles.addressSVG} />}
       />
 
-      <Submit
-        className={styles.submit}
-        onSubmit={submitPledge}
-      >Pledge <PledgeSVG className={styles.submitSVG} /></Submit>
+      <Submit className={styles.submit} onClick={submitPledge}>Pledge <PledgeSVG className={styles.submitSVG} /></Submit>
     </form>
   )
 }

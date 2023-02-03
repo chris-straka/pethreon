@@ -1,25 +1,25 @@
-import { useState, Dispatch, SetStateAction, ChangeEvent, FormEvent } from "react"
-import { MetamaskError, Denomination } from "../../types"
-import { CurrencyField, CurrencyButtons, CurrencyButton, Submit } from ".."
+import { useState, ChangeEvent, FormEvent } from "react"
 import { BigNumber, utils } from "ethers"
-import { WithdrawSVG } from "../../svgs"
-import { useWeb3 } from "../../hooks"
-import { Pethreon } from "../../../typechain-types"
+import { MetamaskError, Denomination, Pethreon } from "../../../../types"
+import { WithdrawSVG } from "../../../../svgs"
+import { useWeb3 } from "../../../../hooks"
+import { CurrencyButton, EtherDenominationSelect, CurrencyField, Submit } from ".."
 import styles from "./WithdrawModal.module.scss"
 
 interface WithdrawProps {
   closeModal: (() => void),
-  setLoading: Dispatch<SetStateAction<boolean>>,
-  setBalance: Dispatch<SetStateAction<string>>
+  setLoading: ((loading: boolean) => void)
+  setNewBalance: ((balance: string) => void),
 }
 
-export const WithdrawModal = ({ closeModal, setLoading, setBalance }: WithdrawProps) => {
+export const WithdrawModal = ({ closeModal, setLoading, setNewBalance }: WithdrawProps) => {
   const [amount, setAmount] = useState("")
   const [currency, setCurrency] = useState<Denomination>("Ether")
   const { contract } = useWeb3()
 
   async function submitWithdraw(event: FormEvent<HTMLButtonElement>) {
     event.preventDefault()
+
     if (!amount && currency !== "All") return window.alert("Please insert an amount")
 
     const amountInWei = await getAmountInWei(currency, amount, contract)
@@ -32,9 +32,7 @@ export const WithdrawModal = ({ closeModal, setLoading, setBalance }: WithdrawPr
       const newBalance = await contract.getContributorBalanceInWei()
       const newBalanceEther = await utils.formatEther(newBalance)
       const newBalanceEtherString = await newBalanceEther.toString()
-      setBalance(newBalanceEtherString)
-
-      setLoading(false)
+      setNewBalance(newBalanceEtherString)
 
     } catch (error) {
       setLoading(false)
@@ -51,15 +49,13 @@ export const WithdrawModal = ({ closeModal, setLoading, setBalance }: WithdrawPr
         value={amount}
         setValue={(event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)}
       />
-      <CurrencyButtons className={styles.currencyButtons} setCurrency={setCurrency}>
+      <EtherDenominationSelect className={styles.currencyButtons} setEtherDenomination={setCurrency}>
         <CurrencyButton checked denomination={"Ether"} />
         <CurrencyButton denomination={"Gwei"} />
         <CurrencyButton denomination={"Wei"} />
         <CurrencyButton denomination={"All"} />
-      </CurrencyButtons>
-      <Submit
-        className={styles.submit}
-        onSubmit={submitWithdraw}> Withdraw <WithdrawSVG className={styles.withdrawSVG} /></Submit>
+      </EtherDenominationSelect>
+      <Submit className={styles.submit} onClick={submitWithdraw}>Withdraw <WithdrawSVG className={styles.withdrawSVG} /></Submit>
     </form>
   )
 }

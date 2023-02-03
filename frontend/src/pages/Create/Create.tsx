@@ -1,15 +1,15 @@
-import { useState, useEffect, useCallback, ReactNode } from "react"
-import { utils } from "ethers"
-import { useNavigate } from "react-router-dom"
-import { motion, AnimatePresence } from "framer-motion"
-import { ActionBar, ActionButton, Loading, ModalTemplate, Nav, PledgeList, UserBalance, UserAddress, WithdrawModal } from "../../components"
-import { PledgeType } from "../../types"
+import { useEffect, useReducer } from "react"
+import { motion } from "framer-motion"
+import { ethers } from "ethers"
+import { ActionBar, ActionButton, Loading, Nav, PledgeList, UserBalance, UserAddress } from "../../components"
 import { ArrowSVG, WithdrawSVG, CsvSVG } from "../../svgs"
 import { useWeb3 } from "../../hooks"
 import { extractPledgesToCsv } from "./utils"
+import { PledgeType } from "../../types"
+import { UIReducer, initialState } from "../../reducers/UIReducer"
 
 import {
-  CIRCLE_ANIMATION_DURATION as PAGE_FADE_IN_DELAY,
+  CIRCLE_ANIMATION_DURATION,
   PAGE_FADE_IN_DURATION,
   PAGE_FADE_OUT_DURATION
 } from "../../constants"
@@ -17,86 +17,61 @@ import {
 import styles from "./Create.module.scss"
 
 export const Create = () => {
-  const [address, setAddress] = useState("0x0000000000000000000000000000000000000000")
-  const [loading, setLoading] = useState(false)
-  const [balance, setBalance] = useState("0.0")
-  const [pledges, setPledges] = useState<PledgeType[]>([])
-  const [modal, setModal] = useState<ReactNode | null>(null)
+  const [{ address, balance, loading, pledges }, dispatch] = useReducer(UIReducer, initialState)
   const { contract } = useWeb3()
-
-  const navigate = useNavigate()
 
   useEffect(() => {
     localStorage.setItem("last_page_visited", "create")
 
     async function init() {
       try {
-        const balance = await contract.getCreatorBalanceInWei()
-        const balanceEther = await utils.formatEther(balance)
-        const balanceEtherString = await balanceEther.toString()
-        setBalance(balanceEtherString)
+        const [balanceInWei, pledges, address] = await Promise.all([
+          contract.getContributorBalanceInWei(),
+          contract.getContributorPledges(),
+          contract.signer.getAddress()
+        ])
 
-        const pledges = await contract.getCreatorPledges()
-        setPledges(pledges)
+        const balance = await ethers.utils.formatEther(balanceInWei).toString();
+        dispatch({ type: "setUI", payload: { balance, pledges, address } })
 
-        const address = await contract.signer.getAddress()
-        setAddress(address)
       } catch (error) {
         window.alert(error)
-        navigate("/")
       }
     }
 
     init()
-  }, [navigate, contract])
+  }, [contract])
 
-  const closeModal = useCallback(() => setModal(null), [])
+  const setLoading = (loading: boolean) => {
+    dispatch({ type: 'setLoading', payload: loading })
+  }
 
-  const withdrawModal = <WithdrawModal
-    closeModal={closeModal}
-    setLoading={setLoading}
-    setBalance={setBalance} />
+  const setNewBalanceAndPledges = (balance: string, pledges: PledgeType[]) => {
+    dispatch({ type: 'setNewPledgesAndBalance', payload: { balance, pledges } })
+  }
 
   return (
-    <>
-      <motion.main
-        className={styles.createLayout}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, transition: { delay: PAGE_FADE_IN_DELAY, duration: PAGE_FADE_IN_DURATION } }}
-        exit={{ opacity: 0, transition: { duration: PAGE_FADE_OUT_DURATION } }}
-      >
-        <Nav to='/contribute'>Donate <ArrowSVG /></Nav>
-        {loading ? <Loading /> : <UserBalance className={styles.userBalance} balance={balance} />}
-        <UserAddress
-          className={styles.userAddress}
-          userAccountAddress={address}
-        />
-        <ActionBar className={`${styles.actionBar} ${styles.creatorActionBar}`}>
-          <ActionButton
-            className={styles.actionButton}
-            onClick={() => setModal(withdrawModal)}>
-            Withdraw <WithdrawSVG />
-          </ActionButton>
-          <ActionButton
-            className={styles.actionButton}
-            onClick={async () => await extractPledgesToCsv(contract, pledges)}
-          >
-            Extract to CSV <CsvSVG />
-          </ActionButton>
-        </ActionBar>
-        <PledgeList
-          creator
-          className={styles.pledgeList}
-          textForWhenItsEmpty="Nobody has pledged to you yet..."
-          pledges={pledges}
-          setBalance={setBalance}
-          setLoading={setLoading}
-          setPledges={setPledges}
-        />
-      </motion.main>
-      <AnimatePresence initial={false} mode="wait">
-        {modal !== null && <ModalTemplate closeModal={closeModal} children={modal} />}
-      </AnimatePresence>
-    </>
+    <motion.main
+      className={styles.createLayout}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { delay: CIRCLE_ANIMATION_DURATION, duration: PAGE_FADE_IN_DURATION } }}
+      exit={{ opacity: 0, transition: { duration: PAGE_FADE_OUT_DURATION } }}
+    >
+      <Nav className={styles.nav} to='/contribute'>Donate <ArrowSVG /></Nav>
+      {loading ? <Loading /> : <UserBalance className={styles.userBalance} balance={balance} />}
+      <UserAddress className={styles.userAddress} userAccountAddress={address} />
+      <ActionBar className={`${styles.actionBar} ${styles.creatorActionBar}`}>
+        <ActionButton className={styles.actionButton} onClick={() => console.log("hey")}>Withdraw <WithdrawSVG /></ActionButton>
+        <ActionButton className={styles.actionButton} onClick={async () => await extractPledgesToCsv(contract, pledges)}>Extract to CSV <CsvSVG /></ActionButton>
+      </ActionBar>
+      <PledgeList
+        creator
+        className={styles.pledgeList}
+        textForWhenItsEmpty="Nobody has pledged to you yet..."
+        pledges={pledges}
+        setLoading={setLoading}
+        setNewBalanceAndPledges={setNewBalanceAndPledges}
+      />
+    </motion.main>
   )
 }

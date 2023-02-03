@@ -1,5 +1,5 @@
 import { FormEvent } from "react"
-import { DISCLAIMER } from '../../messages'
+import { DISCLAIMER } from '../../../../messages'
 import styles from "./Disclaimer.module.scss"
 
 interface DisclaimerProps {

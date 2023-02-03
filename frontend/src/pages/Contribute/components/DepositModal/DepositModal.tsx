@@ -1,6 +1,6 @@
+import { ChangeEvent, FormEvent, MouseEvent, useState } from "react"
 import { BigNumber, BigNumberish, utils } from "ethers"
-import { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from "react"
-import { Consent, CurrencyButton, CurrencyButtons, CurrencyField, Disclaimer, Submit } from "../../../../components"
+import { CurrencyButton, EtherDenominationSelect, CurrencyField, Disclaimer, Submit, Consent } from ".."
 import { useWeb3 } from "../../../../hooks"
 import { DepositSVG } from "../../../../svgs"
 import { Denomination } from "../../../../types"
@@ -8,14 +8,11 @@ import styles from "./DepositModal.module.scss"
 
 interface DepositProps {
   closeModal: (() => void),
-  setLoading: Dispatch<SetStateAction<boolean>>,
-  setBalance: Dispatch<SetStateAction<string>>,
+  setLoading: ((loading: boolean) => void),
+  setNewBalance: ((newBalance: string) => void)
 }
 
-/** 
- * This is where the contributor can deposit ether from their wallet into the smart contract
- */
-export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositProps) => {
+export const DepositModal = ({ closeModal, setLoading, setNewBalance }: DepositProps) => {
   const [depositAmount, setDepositAmount] = useState("")
   const [currency, setCurrency] = useState<Denomination>("Ether")
   const [disabled, setDisabled] = useState(true)
@@ -34,15 +31,14 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositProp
     try {
       const transaction = await contract.deposit({ value: amountInWei })
       const receipt = await transaction.wait()
-      if (!receipt) throw new Error("Transaction not found")
+
       if (!receipt.events) throw new Error("Transaction Events not found")
       if (!receipt.events[0].args) throw new Error("Transaction Event args not found")
 
       const newBalanceInWei = receipt.events[0].args.newBalance
       const newBalanceInEther = await utils.formatEther(newBalanceInWei)
       const newBalanceInEtherString = await newBalanceInEther.toString()
-      setBalance(newBalanceInEtherString)
-      setLoading(false)
+      setNewBalance(newBalanceInEtherString)
 
     } catch (error) {
       setLoading(false)
@@ -51,29 +47,24 @@ export const DepositModal = ({ closeModal, setLoading, setBalance }: DepositProp
   }
 
   return (
-    <form className={styles.form}>
+    <form className={styles.form} onClick={(e: MouseEvent) => e.stopPropagation()}>
       <h3 className={styles.heading}>How much to deposit?</h3>
       <CurrencyField
         className={styles.currencyField}
         value={depositAmount}
         setValue={(event: ChangeEvent<HTMLInputElement>) => setDepositAmount(event.target.value)}
       />
-      <CurrencyButtons className={styles.currencyButtons} setCurrency={setCurrency}>
-        <CurrencyButton checked denomination={"Ether"} />
-        <CurrencyButton denomination={"Gwei"} />
-        <CurrencyButton denomination={"Wei"} />
-      </CurrencyButtons>
-      <Disclaimer
-        className={styles.disclaimer}
+      <EtherDenominationSelect
+        className={styles.currencyButtons}
+        setEtherDenomination={setCurrency}
+        options={["Ether", "Gwei", "Wei"]}
       />
-      <Consent
-        className={styles.consent}
-        setConsent={setDisabled}
-      />
+      <Disclaimer className={styles.disclaimer} />
+      <Consent className={styles.consent} setConsent={setDisabled} />
       <Submit
         className={styles.submit}
         disabled={disabled}
-        onSubmit={submitDeposit}
+        onClick={submitDeposit}
       >
         Deposit <DepositSVG className={styles.depositSVG} />
       </Submit>
