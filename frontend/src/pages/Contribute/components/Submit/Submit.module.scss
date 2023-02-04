@@ -3,9 +3,9 @@
   color: var(--text-color);
   background-color: var(--secondary-color);
   border-radius: 30px;
-  transition: box-shadow 0.2s, background-color 0.2s, transform 0.2s;
   outline-color: transparent;
   margin-inline: auto;
+  transition: box-shadow 0.2s, background-color 0.2s, transform 0.2s;
 
   // Only apply this style if it's enabled
   &:hover:enabled {

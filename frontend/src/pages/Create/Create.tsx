@@ -1,7 +1,7 @@
 import { useEffect, useReducer } from "react"
 import { motion } from "framer-motion"
 import { ethers } from "ethers"
-import { ActionBar, ActionButton, Loading, Nav, PledgeList, UserBalance, UserAddress } from "../../components"
+import { ActionBar, ActionButton, Loading, Nav, PledgeList, UserBalance } from "../../components"
 import { ArrowSVG, WithdrawSVG, CsvSVG } from "../../svgs"
 import { useWeb3 } from "../../hooks"
 import { extractPledgesToCsv } from "./utils"
@@ -17,7 +17,7 @@ import {
 import styles from "./Create.module.scss"
 
 export const Create = () => {
-  const [{ address, balance, loading, pledges }, dispatch] = useReducer(UIReducer, initialState)
+  const [{ balance, loading, pledges }, dispatch] = useReducer(UIReducer, initialState)
   const { contract } = useWeb3()
 
   useEffect(() => {
@@ -25,14 +25,13 @@ export const Create = () => {
 
     async function init() {
       try {
-        const [balanceInWei, pledges, address] = await Promise.all([
+        const [balanceInWei, pledges] = await Promise.all([
           contract.getContributorBalanceInWei(),
           contract.getContributorPledges(),
-          contract.signer.getAddress()
         ])
 
         const balance = await ethers.utils.formatEther(balanceInWei).toString();
-        dispatch({ type: "setUI", payload: { balance, pledges, address } })
+        dispatch({ type: "setUI", payload: { balance, pledges } })
 
       } catch (error) {
         window.alert(error)
@@ -59,7 +58,6 @@ export const Create = () => {
     >
       <Nav className={styles.nav} to='/contribute'>Donate<ArrowSVG /></Nav>
       {loading ? <Loading /> : <UserBalance className={styles.userBalance} balance={balance} />}
-      <UserAddress className={styles.userAddress} userAccountAddress={address} />
       <ActionBar className={`${styles.actionBar} ${styles.creatorActionBar}`}>
         <ActionButton className={styles.actionButton} onClick={() => console.log("hey")}>Withdraw <WithdrawSVG /></ActionButton>
         <ActionButton className={styles.actionButton} onClick={async () => await extractPledgesToCsv(contract, pledges)}>Extract to CSV <CsvSVG /></ActionButton>
@@ -67,7 +65,7 @@ export const Create = () => {
       <PledgeList
         creator
         className={styles.pledgeList}
-        textForWhenItsEmpty="Nobody has pledged to you yet..."
+        noPledgesText="Nobody has pledged to you yet..."
         pledges={pledges}
         setLoading={setLoading}
         setNewBalanceAndPledges={setNewBalanceAndPledges}

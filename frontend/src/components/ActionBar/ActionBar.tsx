@@ -1,5 +1,4 @@
 import { ReactNode } from "react"
-import styles from "./ActionBar.module.scss"
 
 interface ActionBarProps {
   className?: string,
@@ -8,8 +7,14 @@ interface ActionBarProps {
 
 export const ActionBar = ({ className, children }: ActionBarProps) => {
   return (
-    <div className={`${styles.actionBar} ${className}`}>
-      {children}
-    </div>
+    <div
+      className={className}
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        fontSize: 'var(--font-size-md)',
+        marginTop: '2vh',
+      }}
+    >{children}</div>
   );
 }

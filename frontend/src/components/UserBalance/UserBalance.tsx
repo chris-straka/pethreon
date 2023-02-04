@@ -9,7 +9,6 @@ export const UserBalance = ({ className, balance }: BalanceProps) => {
       className={className}
       style={{
         fontFamily: 'aileron',
-        fontSize: 'clamp(2rem, 8vw + 1rem, 5rem)',
         maxWidth: '100%',
         overflowX: 'auto',
         overflowY: 'hidden',

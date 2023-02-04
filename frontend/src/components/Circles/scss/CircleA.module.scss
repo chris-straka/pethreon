@@ -22,6 +22,13 @@
   --height-create: 25vw;
 }
 
+@media (min-width: 500px) and (max-width: 1025px) {
+  .circleA {
+    --y-contribute: 80vh;
+    --y-create: 76vh;
+  }
+}
+
 @media (min-width: 600px) and (orientation: portrait) {
   .circleA {
     --x-login: -4vw;
@@ -31,7 +38,7 @@
   }
 }
 
-@media (min-width: 1280px) and (orientation: landscape) {
+@media (min-width: 1025px) and (orientation: landscape) {
   .circleA {
     --width-login: 240px;
     --height-login: 240px;

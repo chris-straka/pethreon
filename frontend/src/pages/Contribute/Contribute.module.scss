@@ -1,40 +1,23 @@
 .contributeLayout {
   min-height: 60vh;
   margin-top: 15vh;
+  padding-top: 2vh;
   margin-inline: clamp(23px, 9vw, 80px);
-
-  // These needs to go below the account-center 
-  // the position needs to be set to non-static for this to work
-  position: relative;
 }
 
 .nav {
   --nav-color: var(--secondary-color);
-
   &:hover {
     --nav-color: var(--secondary-dark-color);
   }
 }
 
-@media (max-width: 1280px) and (orientation: landscape) {
-  .contributeLayout {
-    min-height: auto;
-    margin-top: 35vh;
-  }
-}
-
-@media (min-width: 600px) {
-  .contributeLayout {
-    margin-inline: clamp(3rem, 9vw, 9rem);
-  }
-}
-
-@media (min-width: 1280px) and (orientation: landscape) {
+@media (min-width: 1025px) and (orientation: landscape) {
   .contributeLayout {
     display: grid;
     grid:
       [Account-row-start] "userBalance userBalance" [Action-row-end]
-      [Account-row-start] "userAddress contributorActionBar" [Action-row-end]
+      [Account-row-start] "userBalance actionBar" [Action-row-end]
       [Balance-row-start] ". pledgeList" [Balance-row-end]
       [Pledge-row-start] ". pledgeList" [Pledge-row-end];
 
@@ -42,7 +25,6 @@
 
     // might have to be height
     min-height: 85vh;
-    margin-top: 15vh;
     margin-inline: 0;
   }
 
@@ -61,13 +43,19 @@
     font-size: clamp(0.2rem, 0.4vw + 1rem, 5rem);
   }
 
-  .contributorActionBar {
-    grid-area: contributorActionBar;
+  .actionBar {
+    grid-area: actionBar;
     place-self: end center;
+    width: 55vw;
+    margin-top: 0;
+    margin-bottom: 8px;
   }
 
   .pledgeList {
     grid-area: pledgeList;
     place-self: start center;
+
+    min-height: 40vh;
+    width: 50vw;
   }
 }

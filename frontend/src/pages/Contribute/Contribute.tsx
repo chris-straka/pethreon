@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { useNavigate } from "react-router-dom"
 import { ethers } from "ethers"
 import { CIRCLE_ANIMATION_DURATION, PAGE_FADE_IN_DURATION, PAGE_FADE_OUT_DURATION } from "../../constants"
-import { ActionBar, ActionButton, ModalBackdrop, Loading, Nav, PledgeList, UserBalance, UserAddress } from "../../components"
+import { ActionBar, ActionButton, ModalBackdrop, Loading, Nav, PledgeList, UserBalance } from "../../components"
 import { DepositModal, PledgeModal, WithdrawModal } from "./components"
 import { DepositSVG, WithdrawSVG, PledgeSVG, ArrowSVG } from "../../svgs"
 import { UIReducer, initialState } from "../../reducers/UIReducer"
@@ -13,7 +13,7 @@ import { useWeb3 } from "../../hooks"
 import styles from "./Contribute.module.scss"
 
 export const Contribute = () => {
-  const [{ address, loading, balance, pledges, modal }, dispatch] = useReducer(UIReducer, initialState)
+  const [{ loading, balance, pledges, modal }, dispatch] = useReducer(UIReducer, initialState)
   const { contract } = useWeb3()
   const navigate = useNavigate()
 
@@ -22,14 +22,13 @@ export const Contribute = () => {
 
     async function init() {
       try {
-        const [balanceInWei, pledges, address] = await Promise.all([
+        const [balanceInWei, pledges] = await Promise.all([
           contract.getContributorBalanceInWei(),
           contract.getContributorPledges(),
-          contract.signer.getAddress()
         ])
 
         const balance = await ethers.utils.formatEther(balanceInWei).toString();
-        dispatch({ type: "setUI", payload: { balance, pledges, address } })
+        dispatch({ type: "setUI", payload: { balance, pledges } })
 
       } catch (error) {
         throw new Error(error as any)
@@ -78,15 +77,14 @@ export const Contribute = () => {
       >
         <Nav className={styles.nav} to="/create">Create<ArrowSVG /></Nav>
         {loading ? <Loading /> : <UserBalance className={styles.userBalance} balance={balance} />}
-        <UserAddress className={styles.userAddress} userAccountAddress={address} />
-        <ActionBar className={styles.contributorActionBar}>
+        <ActionBar className={styles.actionBar}>
           <ActionButton onClick={() => dispatch({ type: 'setModal', payload: depositModal })}>Deposit <DepositSVG /></ActionButton>
           <ActionButton onClick={() => dispatch({ type: 'setModal', payload: withdrawModal })}>Withdraw <WithdrawSVG /></ActionButton>
           <ActionButton onClick={() => dispatch({ type: 'setModal', payload: pledgeModal })}>Pledge <PledgeSVG /></ActionButton>
         </ActionBar>
         <PledgeList
           className={styles.pledgeList}
-          textForWhenItsEmpty="You need to make a pledge first..."
+          noPledgesText="You need to make a pledge first..."
           pledges={pledges}
           setLoading={setLoading}
           setNewBalanceAndPledges={setNewBalanceAndPledges}

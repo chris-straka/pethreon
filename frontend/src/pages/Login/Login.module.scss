@@ -11,15 +11,50 @@
   place-items: center;
 }
 
+.typewriter {
+  font-family: Cutesy;
+  font-size: var(--font-size-xl);
+  text-align: center;
+
+  // I have to use height for stuff to scroll
+  height: clamp(120px, 13vh, 180px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
 footer {
+  font-size: var(--font-size-base);
   margin-top: auto;
   padding-top: 35px;
   margin-bottom: 20px;
   align-self: end;
+  --disclaimer-link-color: yellow;
+  --link-color: var(--primary-very-very-dark-color);
+
+  &:hover {
+    --disclaimer-link-color: yellowgreen;
+    transition: all 0.15s;
+    text-decoration-color: transparent;
+  }
+}
+
+video {
+  display: none;
+}
+
+@media (min-width: 700px) and (max-width: 1025px) {
+  .loginContainer {
+    width: 70%;
+    margin-inline: auto;
+  }
+
+  footer {
+    font-size: var(--font-size-md);
+  }
 }
 
 // DESKTOP DESIGN
-@media (min-width: 1280px) and (orientation: landscape) {
+@media (min-width: 1025px) and (orientation: landscape) {
   .loginLayout {
     display: grid;
     grid:
@@ -38,8 +73,8 @@ footer {
     justify-content: space-between;
   }
 
-  video {
-    grid-area: Video;
+  .typewriter {
+    height: clamp(180px, 19vh, 280px);
   }
 
   footer {
@@ -47,5 +82,32 @@ footer {
     place-self: end;
     padding: unset;
     margin-right: 5%;
+  }
+
+  video {
+    grid-area: Video;
+    place-self: center;
+    display: block;
+    border-radius: 0.6em;
+    aspect-ratio: 256 / 135;
+    width: 90%;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .link {
+    --link-color: var(--primary-light-color);
+    &:hover {
+      --link-color: var(--secondary-color);
+    }
+  }
+
+  .loginButton {
+    color: var(--text-color);
+    background-color: var(--primary-light-color);
+
+    &:hover {
+      background-color: var(--primary-dark-color);
+    }
   }
 }

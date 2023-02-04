@@ -30,11 +30,11 @@ export const Login = () => {
     const wallets = await connect()
     const wallet = wallets[0]
 
-    // switch to georli
-    await setChain({ chainId: '0x5' })
-
     // check if the user is connected properly
     if (!wallet?.provider) throw new Error("Wallet provider not found")
+
+    // switch to georli
+    await setChain({ chainId: '0x5' })
 
     // create an ethers provider
     const provider = new ethers.providers.Web3Provider(wallet.provider, 'any')
@@ -61,12 +61,13 @@ export const Login = () => {
         <Pethreon />
         <Features />
         <Typewriter
+          className={styles.typewriter}
           message={message}
           setTalking={setTalking}
         />
         <div className={styles.loginContainer}>
           <MetamaskSVG talking={talking} />
-          <LoginButton onClick={signIn} disabled={connecting} />
+          <LoginButton className={styles.loginButton} onClick={signIn} disabled={connecting} />
         </div>
       </div>
       <Video />

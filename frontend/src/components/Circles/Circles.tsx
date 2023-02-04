@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useLocation } from "react-router-dom"
 import { motion, MotionStyle, useAnimationControls } from "framer-motion"
-import { useWindowSize } from "../../hooks"
+import { useWindowSize, usePreferredTheme, usePreferredMotion } from "../../hooks"
 import { variants } from "./Circle.variants"
 
 import circleAStyles from "./scss/CircleA.module.scss"
@@ -18,15 +18,16 @@ export const defaultStyles: MotionStyle = {
   zIndex: 3
 }
 
-/** 
- * Three circles that animate depending on what page you're on
- */
 export const Circles = () => {
   const { pathname: path } = useLocation()
   const a = useAnimationControls()
   const b = useAnimationControls()
   const c = useAnimationControls()
+
+  // I want to run the effect again whenever one of these changes
   const { height, width } = useWindowSize()
+  const preferredTheme = usePreferredTheme()
+  const preferredMotion = usePreferredMotion()
 
   useEffect(() => {
     if (path === "/") {
@@ -56,7 +57,7 @@ export const Circles = () => {
       }
       animate()
     }
-  }, [a, b, c, path, height, width])
+  }, [a, b, c, path, height, width, preferredTheme, preferredMotion])
 
   return (
     <>

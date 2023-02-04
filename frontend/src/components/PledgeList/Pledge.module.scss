@@ -1,0 +1,36 @@
+.pledge {
+  display: flex;
+  background-color: var(--modal-background-color);
+  padding: 20px;
+  margin: 0 auto 16px auto;
+  font-size: 16px;
+  border-radius: 4px;
+
+  &__details {
+    flex: 2;
+    overflow: auto;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.cancelButton {
+  flex: 1;
+  cursor: pointer;
+  place-self: stretch;
+  background-color: transparent;
+  font-size: 16px;
+  color: var(--text-color);
+  transition: all 0.2s;
+
+  & svg {
+    width: 2ch;
+    margin-right: 4px;
+    vertical-align: text-bottom;
+  }
+
+  &:hover {
+    color: var(--secondary-color);
+    transition: all 0.2s;
+  }
+}

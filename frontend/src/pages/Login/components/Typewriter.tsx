@@ -1,17 +1,17 @@
 import { SetStateAction, useEffect, useState, Dispatch } from "react"
-import { extractLinks } from "./extractLinks"
-import styles from "./Typewriter.module.scss"
+import { extractLinks } from "../utils/extractLinks"
 
 const CADENCE = 60
 const DELAY = 1000
 
 interface TypewriterProps {
   message: string,
-  setTalking: Dispatch<SetStateAction<boolean>>
+  setTalking: Dispatch<SetStateAction<boolean>>,
+  className: string
 }
 
 export const Typewriter = ({
-  message, setTalking
+  message, setTalking, className
 }: TypewriterProps
 ) => {
   const [displayMsg, setDisplayMsg] = useState(<p />)
@@ -31,7 +31,7 @@ export const Typewriter = ({
     }
   }, [init, message, setTalking])
 
-  return <div className={styles.typewriter}>{displayMsg}</div>
+  return <div className={className}>{displayMsg}</div>
 }
 
 

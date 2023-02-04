@@ -31,6 +31,7 @@ export const variants: Variants = {
     width: "var(--width-contribute)",
     height: "var(--height-contribute)",
     scale: 1,
+    position: 'absolute',
 
     backgroundColor: "var(--background-color-contribute)",
 
@@ -66,6 +67,14 @@ export const variants: Variants = {
   reappear: {
     display: 'block',
     opacity: 1,
+
+    x: "var(--x-login)",
+    y: "var(--y-login)",
+    width: "var(--width-login)",
+    height: "var(--height-login)",
+    scale: 1,
+
+    backgroundColor: "var(--background-color-login)",
     transition: {
       duration: PAGE_FADE_IN_DURATION,
       delay: PAGE_FADE_OUT_DURATION + CIRCLE_ANIMATION_DURATION,

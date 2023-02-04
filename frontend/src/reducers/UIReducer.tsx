@@ -2,7 +2,6 @@ import { ReactNode } from "react"
 import { PledgeType } from "../types"
 
 export const initialState = {
-  address: "0x0000000000000000000000000000000000000000",
   loading: false,
   balance: "0.0",
   pledges: [] as PledgeType[],
@@ -23,8 +22,8 @@ export type ACTIONTYPE =
 export function UIReducer(state: typeof initialState, action: ACTIONTYPE) {
   switch (action.type) {
     case "setUI": {
-      const { address, balance, pledges } = action.payload
-      return { ...state, address, balance, pledges, loading: false }
+      const { balance, pledges } = action.payload
+      return { ...state, balance, pledges, loading: false }
     }
     case "setNewPledgesAndBalance": {
       const { balance, pledges } = action.payload

@@ -22,8 +22,15 @@
   --height-create: 15vw;
 }
 
+@media (min-width: 500px) and (max-width: 1025px) {
+  .circleB {
+    --y-contribute: 70vh;
+    --y-create: 76vh;
+  }
+}
+
 // Desktop Styles
-@media (min-width: 1280px) and (orientation: landscape) {
+@media (min-width: 1025px) and (orientation: landscape) {
   .circleB {
     --x-login: 50vw;
     --y-login: 85vh;
