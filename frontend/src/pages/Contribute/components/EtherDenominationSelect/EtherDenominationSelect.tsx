@@ -1,15 +1,14 @@
 import { useState, ChangeEvent, Dispatch, SetStateAction } from "react"
 import { Denomination } from "../../../../types"
 
-import styles from "./CurrencySelect.module.scss"
+import styles from "./EtherDenominationSelect.module.scss"
 
 interface EtherDenominationSelectProps {
-  className?: string,
   setEtherDenomination: Dispatch<SetStateAction<Denomination>>,
   options: Denomination[]
 }
 
-export const EtherDenominationSelect = ({ className, setEtherDenomination, options }: EtherDenominationSelectProps) => {
+export const EtherDenominationSelect = ({ setEtherDenomination, options }: EtherDenominationSelectProps) => {
   const [selectedValue, setSelectedValue] = useState("")
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -19,18 +18,18 @@ export const EtherDenominationSelect = ({ className, setEtherDenomination, optio
   }
 
   return (
-    <div className={`${styles.currencyButtons} ${className}`}>
+    <div className={styles.container}>
       {options.map((option) => (
-        <label key={option} className={styles.currencyContainer}>
+        <label key={option} className={styles.label}>
           <input
+            className={styles.input}
             type="radio"
             value={option}
             checked={selectedValue === option}
-            className={styles.radioButtonInput}
             onChange={handleChange}
             required
           />
-          <span className={styles.radioButtonTextSpan}>{option}</span>
+          <span className={styles.span}>{option}</span>
         </label>
       ))}
     </div>

@@ -50,12 +50,11 @@ export const DepositModal = ({ closeModal, setLoading, setNewBalance }: DepositP
     <form className={styles.form} onClick={(e: MouseEvent) => e.stopPropagation()}>
       <h3 className={styles.heading}>How much to deposit?</h3>
       <CurrencyField
-        className={styles.currencyField}
+        className={styles.depositField}
         value={depositAmount}
         setValue={(event: ChangeEvent<HTMLInputElement>) => setDepositAmount(event.target.value)}
       />
       <EtherDenominationSelect
-        className={styles.currencyButtons}
         setEtherDenomination={setCurrency}
         options={["Ether", "Gwei", "Wei"]}
       />

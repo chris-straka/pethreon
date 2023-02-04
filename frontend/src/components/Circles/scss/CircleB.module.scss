@@ -1,11 +1,10 @@
 .circleB {
   position: fixed;
-  outline: none;
   border-radius: 50%;
 
   --background-color-login: var(--primary-light-color);
   --background-color-contribute: var(--primary-light-color);
-  --background-color-create: var(--primary-light-color);
+  --background-color-create: var(--secondary-dark-color);
 
   --x-login: 25vw;
   --y-login: 80vh;
@@ -13,12 +12,12 @@
   --height-login: 45vh;
 
   --x-contribute: 59vw;
-  --y-contribute: 78vh;
+  --y-contribute: 65vh;
   --width-contribute: 25vw;
   --height-contribute: 25vw;
 
   --x-create: 16vw;
-  --y-create: 82vh;
+  --y-create: 68vh;
   --width-create: 15vw;
   --height-create: 15vw;
 }

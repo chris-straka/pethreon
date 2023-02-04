@@ -20,12 +20,6 @@
   box-sizing: inherit;
 }
 
-.circle {
-  position: fixed;
-  outline: none;
-  border-radius: 50%;
-}
-
 :root {
   --primary-very-light-color: hsl(215, 50%, 90%);
   --primary-light-color: hsl(215, 50%, 80%);
@@ -82,6 +76,7 @@
 
     --secondary-color: hsl(267, 95%, 76%);
     --secondary-light-color: hsl(267, 95%, 80%);
+    --secondary-very-light-color: hsl(267, 95%, 85%);
     --secondary-dark-color: hsl(260, 95%, 70%);
 
     --anchor-tag-color: hsl(220, 50%, 70%);

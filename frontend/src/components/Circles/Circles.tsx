@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { useLocation } from "react-router-dom"
 import { motion, MotionStyle, useAnimationControls } from "framer-motion"
+import { useWindowSize } from "../../hooks"
 import { variants } from "./Circle.variants"
 
 import circleAStyles from "./scss/CircleA.module.scss"
@@ -25,6 +26,7 @@ export const Circles = () => {
   const a = useAnimationControls()
   const b = useAnimationControls()
   const c = useAnimationControls()
+  const { height, width } = useWindowSize()
 
   useEffect(() => {
     if (path === "/") {
@@ -54,7 +56,7 @@ export const Circles = () => {
       }
       animate()
     }
-  }, [a, b, c, path])
+  }, [a, b, c, path, height, width])
 
   return (
     <>

@@ -16,8 +16,16 @@
   }
 }
 
+.nav {
+  --nav-color: var(--primary-color);
+
+  &:hover {
+    --nav-color: var(--primary-dark-color);
+  }
+}
+
 .pledgeList {
-  border-color: var(--secondary-color);
+  border-color: var(--secondary-very-light-color);
 }
 
 @media (max-width: 1280px) and (orientation: landscape) {

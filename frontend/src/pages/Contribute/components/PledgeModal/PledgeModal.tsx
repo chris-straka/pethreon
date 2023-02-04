@@ -66,7 +66,6 @@ export const PledgeModal = (
         setValue={(event: ChangeEvent<HTMLInputElement>) => setAmountPerPeriod(event.target.value)}
       />
       <EtherDenominationSelect
-        className={styles.currencyButtons}
         setEtherDenomination={setCurrency}
         options={["All", "Ether", "Gwei", "Wei"]}
       />

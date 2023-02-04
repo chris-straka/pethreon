@@ -57,7 +57,7 @@ export const Create = () => {
       animate={{ opacity: 1, transition: { delay: CIRCLE_ANIMATION_DURATION, duration: PAGE_FADE_IN_DURATION } }}
       exit={{ opacity: 0, transition: { duration: PAGE_FADE_OUT_DURATION } }}
     >
-      <Nav className={styles.nav} to='/contribute'>Donate <ArrowSVG /></Nav>
+      <Nav className={styles.nav} to='/contribute'>Donate<ArrowSVG /></Nav>
       {loading ? <Loading /> : <UserBalance className={styles.userBalance} balance={balance} />}
       <UserAddress className={styles.userAddress} userAccountAddress={address} />
       <ActionBar className={`${styles.actionBar} ${styles.creatorActionBar}`}>

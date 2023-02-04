@@ -3,5 +3,11 @@
   --account-center-position-left: clamp(30px - 16px, 4vw - 16px, 64px - 16px);
 
   // make it further down from the top
-  --account-center-position-top: 16px;
+  --account-center-position-top: 6px;
+}
+
+@media (min-width: 1280px) and (orientation: landscape) {
+  :root {
+    --account-center-position-top: 16px;
+  }
 }

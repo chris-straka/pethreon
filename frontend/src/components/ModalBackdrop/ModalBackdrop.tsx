@@ -32,6 +32,7 @@ export const ModalBackdrop = ({ closeModal, children }: ModalProps) => {
         minHeight: '100%',
         width: '100%',
         backgroundColor: 'var(--modal-backdrop-color)',
+        zIndex: '5'
       }}
     >
       {children}

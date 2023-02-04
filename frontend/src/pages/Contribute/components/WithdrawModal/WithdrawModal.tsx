@@ -50,7 +50,6 @@ export const WithdrawModal = ({ closeModal, setLoading, setNewBalance }: Withdra
         setValue={(event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)}
       />
       <EtherDenominationSelect
-        className={styles.currencyButtons}
         setEtherDenomination={setCurrency}
         options={["All", "Ether", "Gwei", "Wei"]}
       />

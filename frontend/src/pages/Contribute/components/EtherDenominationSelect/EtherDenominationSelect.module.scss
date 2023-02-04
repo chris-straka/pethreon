@@ -1,69 +1,52 @@
-.currencyButtons {
+.container {
   display: flex;
   margin-bottom: 20px;
+  font-size: var(--font-size-sm);
 }
 
-.currencyContainer {
+.label {
   display: flex;
   position: relative;
   align-content: center;
   cursor: pointer;
-  font-size: inherit; // grabs its font size from its container
+  // font-size: inherit; 
   color: var(--text-color);
   margin-right: 0.3rem;
 }
 
-.radioButtonInput {
+.input {
   position: absolute;
   left: -9999px; // make it disappear so I can create my own radio button
   outline: none;
 
   &:not(:checked):hover {
-    & + .radioButtonTextSpan {
+    & + .span {
       background-color: var(--primary-color);
     }
   }
 
   &:checked {
-    &:hover + .radioButtonTextSpan {
+    &:hover + .span {
       background-color: var(--primary-light-color);
     }
 
-    & + .radioButtonTextSpan {
+    & + .span {
       background-color: var(--primary-color); // background for the whole radio button
-    }
-
-    & + .radioButtonTextSpan::before {
-      box-shadow: inset 0 0 0 0.4375em var(--primary-dark-color); // dark circle that goes inside the radio button
     }
   }
 
-  &:focus-visible + .radioButtonTextSpan {
+  &:focus-visible + .span {
     transform: translateY(-0.05em);
     box-shadow: 0 0.2em 0 0 var(--secondary-color);
   }
 }
 
-.radioButtonTextSpan {
+.span {
   user-select: none;
   display: flex;
   align-items: center;
   padding: 0.375em 0.75em 0.375em 0.375em;
   border-radius: 99em;
   font-weight: bolder;
-  font-size: inherit;
   transition: box-shadow 0.3s, background-color 0.3s, transform 0.3s;
-
-  &:before {
-    display: flex;
-    flex-shrink: 0;
-    content: "";
-    background-color: #fff;
-    width: 1.5em;
-    min-height: 1.5em;
-    border-radius: 50%;
-    margin-right: 0.375em;
-    transition: 0.25s ease;
-    box-shadow: inset 0 0 0 0.125em var(--darktheme-primary-light-color);
-  }
 }

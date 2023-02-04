@@ -1,11 +1,10 @@
 .circleA {
   position: fixed;
-  outline: none;
   border-radius: 50%;
 
   --background-color-login: var(--primary-very-light-color);
-  --background-color-contribute: var(--primary-light-color);
-  --background-color-create: var(--primary-light-color);
+  --background-color-contribute: var(--primary-color);
+  --background-color-create: var(--secondary-color);
 
   --x-login: -5vw;
   --y-login: -4vh;
@@ -13,12 +12,12 @@
   --height-login: 15vh;
 
   --x-contribute: 16vw;
-  --y-contribute: 67vh;
+  --y-contribute: 60vh;
   --width-contribute: 15vw;
   --height-contribute: 15vw;
 
-  --x-create: 59vw;
-  --y-create: 78vh;
+  --x-create: 60vw;
+  --y-create: 56vh;
   --width-create: 25vw;
   --height-create: 25vw;
 }
