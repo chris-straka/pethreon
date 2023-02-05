@@ -2,7 +2,7 @@ import { useEffect, useReducer } from "react"
 import { motion } from "framer-motion"
 import { ethers } from "ethers"
 import { ActionButton, Loading, Nav, PledgeList, UserBalance } from "../../components"
-import { ArrowSVG, WithdrawSVG, CsvSVG } from "../../svgs"
+import { WithdrawSVG, CsvSVG } from "../../svgs"
 import { useWeb3 } from "../../hooks"
 import { extractPledgesToCsv } from "./utils"
 import { PledgeType } from "../../types"
@@ -56,7 +56,7 @@ export const Create = () => {
       animate={{ opacity: 1, transition: { delay: CIRCLE_ANIMATION_DURATION, duration: PAGE_FADE_IN_DURATION } }}
       exit={{ opacity: 0, transition: { duration: PAGE_FADE_OUT_DURATION } }}
     >
-      <Nav className={styles.nav} to='/contribute'>Donate<ArrowSVG /></Nav>
+      <Nav className={styles.nav} to='/contribute'>Donate</Nav>
       {loading ? <Loading /> : <UserBalance className={styles.balance} balance={balance} />}
       <div className={styles.actions}>
         <ActionButton
@@ -75,7 +75,7 @@ export const Create = () => {
       <PledgeList
         creator
         className={styles.pledges}
-        noPledgesText="Nobody has pledged to you yet..."
+        noPledgesText={<span className={styles.noPledgesText}>Nobody has pledged to you yet...</span>}
         pledges={pledges}
         setLoading={setLoading}
         setNewBalanceAndPledges={setNewBalanceAndPledges}

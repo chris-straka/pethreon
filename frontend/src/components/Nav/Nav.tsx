@@ -13,7 +13,7 @@ interface NavProps {
 export const Nav = ({ className, to = "/", children }: NavProps) => {
   return (
     <nav className={`${styles.nav} ${className}`}>
-      <Link to={to} className={styles.link}>
+      <Link to={to} className={styles.link} replace={true}>
         <motion.span style={{ color: 'inherit', fill: 'inherit' }}>
           {children}
         </motion.span>

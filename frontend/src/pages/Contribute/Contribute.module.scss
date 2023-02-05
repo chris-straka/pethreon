@@ -76,7 +76,7 @@
       ".  ."
       / 1fr 1.5fr;
 
-    grid-template-rows: max-content max-content 1fr .1fr;
+    grid-template-rows: max-content max-content 1fr 0.1fr;
     row-gap: 2em;
 
     // nav is 18vh
@@ -112,13 +112,20 @@
   }
 }
 
-
 @media (prefers-color-scheme: dark) {
   .nav {
     color: var(--text-color-white);
+    background-color: var(--secondary-color);
+    &:hover {
+      background-color: var(--secondary-dark-color);
+    }
   }
 
   .actionButton {
     color: var(--text-color-white);
+    background-color: var(--secondary-color);
+    &:hover {
+      background-color: var(--secondary-dark-color);
+    }
   }
 }
