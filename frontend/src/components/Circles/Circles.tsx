@@ -30,6 +30,8 @@ export const Circles = () => {
   const preferredMotion = usePreferredMotion()
 
   useEffect(() => {
+    if (preferredMotion === "reduced") return
+
     if (path === "/") {
       async function animate() {
         await Promise.all([a.start("login"), b.start("login"), c.start("reappear")])

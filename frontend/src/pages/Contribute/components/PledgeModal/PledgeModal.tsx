@@ -57,7 +57,7 @@ export const PledgeModal = (
   }
 
   return (
-    <form className={styles.form}>
+    <form className={styles.modal}>
       <h3 className={styles.currencyHeading}>How much to pledge per day?</h3>
       <CurrencyField
         className={styles.currencyField}

@@ -4,13 +4,14 @@ import styles from "./ActionButton.module.scss"
 interface ActionButtonInterface {
   className?: string,
   children: ReactNode,
+  svg: ReactNode,
   onClick: FormEventHandler<HTMLButtonElement>
 }
 
-export function ActionButton({ className, children, onClick }: ActionButtonInterface) {
+export function ActionButton({ className, children, svg, onClick }: ActionButtonInterface) {
   return (
     <button className={`${styles.actionButton} ${className}`} onClick={onClick}>
-      {children}
+      {children} {svg}
     </button>
   )
 }

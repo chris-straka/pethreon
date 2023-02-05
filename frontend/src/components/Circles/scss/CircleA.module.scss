@@ -2,7 +2,7 @@
   position: fixed;
   border-radius: 50%;
 
-  --background-color-login: var(--primary-very-light-color);
+  --background-color-login: var(--primary-light-color);
   --background-color-contribute: var(--primary-color);
   --background-color-create: var(--secondary-color);
 
@@ -24,7 +24,7 @@
 
 @media (min-width: 500px) and (max-width: 1025px) {
   .circleA {
-    --y-contribute: 80vh;
+    --y-contribute: 66vh;
     --y-create: 76vh;
   }
 }

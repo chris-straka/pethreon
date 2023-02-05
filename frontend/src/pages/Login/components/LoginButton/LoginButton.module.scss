@@ -1,0 +1,20 @@
+.login {
+  cursor: pointer;
+  color: var(--background-color);
+  background-color: var(--primary-dark-color);
+  border-radius: 16px;
+  padding: 1em 2em;
+  transition: all 0.3s;
+  outline-offset: 4px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .login {
+    color: var(--text-color);
+    background-color: var(--primary-light-color);
+
+    &:hover {
+      background-color: var(--primary-dark-color);
+    }
+  }
+}

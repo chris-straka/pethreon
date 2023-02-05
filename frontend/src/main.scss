@@ -28,6 +28,7 @@
   --primary-very-dark-color: hsl(215, 50%, 50%);
   --primary-very-very-dark-color: hsl(215, 50%, 40%);
 
+  --secondary-very-very-light-color: hsl(328, 41%, 94%);
   --secondary-very-light-color: hsl(328, 41%, 90%);
   --secondary-light-color: hsl(328, 41%, 80%);
   --secondary-color: hsl(328, 41%, 70%);
@@ -70,8 +71,11 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --primary-color: hsla(216, 49%, 29%, 1);
-    --primary-light-color: hsl(216, 49%, 54%);
+    --primary-very-very-very-light-color: hsl(216, 49%, 70%);
+    --primary-very-very-light-color: hsl(216, 49%, 60%);
+    --primary-very-light-color: hsl(216, 49%, 50%);
+    --primary-light-color: hsl(216, 49%, 40%);
+    --primary-color: hsla(216, 49%, 30%);
     --primary-dark-color: hsl(216, 49%, 20%);
 
     --secondary-color: hsl(267, 95%, 76%);
@@ -79,11 +83,8 @@
     --secondary-very-light-color: hsl(267, 95%, 85%);
     --secondary-dark-color: hsl(260, 95%, 70%);
 
-    --anchor-tag-color: hsl(220, 50%, 70%);
     --background-color: hsl(200, 7%, 8%);
     --modal-background-color: hsl(200, 7%, 18%);
     --text-color: var(--text-white-color);
-    --login-button-color: hsl(36, 10%, 90%);
-    --action-button-color: hsl(200, 7%, 5%);
   }
 }

@@ -1,5 +1,4 @@
-import { ActionBar } from "./ActionBar/ActionBar";
-import { ActionButton } from "./ActionBar/ActionButton";
+import { ActionButton } from "./ActionButton/ActionButton";
 import { Backdrop } from "./Backdrop/Backdrop";
 import { Circles } from "./Circles/Circles"
 import { Loading } from "./Loading/Loading";
@@ -12,7 +11,6 @@ import { UserBalance } from "./UserBalance/UserBalance";
  * These components are shared across all pages
  */
 export {
-  ActionBar,
   ActionButton,
   Backdrop,
   Circles,

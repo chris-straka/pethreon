@@ -1,21 +1,3 @@
-.createLayout {
-  min-height: 60vh;
-  margin-top: 15vh;
-  margin-inline: clamp(23px, 9vw, 80px);
-}
-
-.actionButton {
-  width: unset;
-
-  &:hover {
-    color: var(--primary-color);
-  }
-
-  &:focus-visible {
-    outline-color: var(--secondary-color);
-  }
-}
-
 .nav {
   --nav-color: var(--primary-color);
 
@@ -24,71 +6,64 @@
   }
 }
 
-.pledgeList {
+.layout {
+  min-height: 60vh;
+  margin-top: 15vh;
+  margin-inline: clamp(23px, 9vw, 80px);
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+}
+
+.pledges {
   border-color: var(--secondary-very-light-color);
 }
 
 @media (max-width: 1280px) and (orientation: landscape) {
-  .createLayout {
+  .layout {
     min-height: auto;
     margin-top: 35vh;
   }
 }
 
 @media (min-width: 600px) {
-  .createLayout {
+  .layout {
     margin-inline: clamp(3rem, 9vw, 9rem);
   }
 }
 
 @media (min-width: 1280px) and (orientation: landscape) {
-  .createLayout {
+  .layout {
     display: grid;
     grid:
-      [Account-row-start] "userBalance userBalance" [Action-row-end]
-      [Account-row-start] "userAddress creatorActionBar" [Action-row-end]
-      [Balance-row-start] ". pledgeList" [Balance-row-end]
-      [Pledge-row-start] ". pledgeList" [Pledge-row-end];
+      [Account-row-start] "balance balance" [Action-row-end]
+      [Account-row-start] ". actions" [Action-row-end]
+      [Balance-row-start] ". pledges" [Balance-row-end]
+      [Pledge-row-start] ". pledges" [Pledge-row-end];
 
     grid-gap: 10px;
 
-    // Might have to be height
     min-height: 85vh;
     margin-top: 15vh;
     margin-inline: 0;
   }
 
-  .userBalance {
-    grid-area: userBalance;
+  .balance {
+    grid-area: balance;
     align-self: end;
     margin-left: clamp(30px, 4vw, 64px);
     font-size: clamp(24px, 3vw + 16px, 144px);
   }
 
-  .userAddress {
-    grid-area: userAddress;
-    display: block;
-    place-self: center start;
-    margin-left: clamp(30px, 4vw, 64px);
-    font-size: clamp(0.2rem, 0.4vw + 1rem, 5rem);
-  }
-
-  .creatorActionBar {
-    grid-area: creatorActionBar;
+  .actions {
+    grid-area: actions;
     place-self: end center;
   }
 
-  .pledgeList {
-    grid-area: pledgeList;
+  .pledges {
+    grid-area: pledges;
     place-self: start center;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .actionButton {
-    color: var(--text-color);
-    &:hover {
-      color: var(--primary-light-color);
-    }
   }
 }

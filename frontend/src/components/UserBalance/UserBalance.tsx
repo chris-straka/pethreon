@@ -9,15 +9,15 @@ export const UserBalance = ({ className, balance }: BalanceProps) => {
       className={className}
       style={{
         fontFamily: 'aileron',
-        maxWidth: '100%',
+        maxWidth: '90%',
+        whiteSpace: 'nowrap',
         overflowX: 'auto',
-        overflowY: 'hidden',
         color: 'var(--text-color)',
       }}
     ><span
       style={{
         fontWeight: 200,
-        marginRight: '14px',
+        marginRight: '.4em',
         userSelect: 'none',
       }}
     >ETH</span>{balance}</h1 >

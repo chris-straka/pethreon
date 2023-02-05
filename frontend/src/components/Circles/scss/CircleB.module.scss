@@ -2,7 +2,7 @@
   position: fixed;
   border-radius: 50%;
 
-  --background-color-login: var(--primary-light-color);
+  --background-color-login: var(--primary-very-light-color);
   --background-color-contribute: var(--primary-light-color);
   --background-color-create: var(--secondary-dark-color);
 
@@ -24,7 +24,7 @@
 
 @media (min-width: 500px) and (max-width: 1025px) {
   .circleB {
-    --y-contribute: 70vh;
+    --y-contribute: 60vh;
     --y-create: 76vh;
   }
 }

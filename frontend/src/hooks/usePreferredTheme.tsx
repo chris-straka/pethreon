@@ -11,7 +11,7 @@ export const usePreferredTheme = () => {
     const handleMediaChange = (event: MediaQueryListEvent) => {
       const updatedTheme = event.matches ? 'dark' : 'light'
       setTheme(updatedTheme)
-    };
+    }
 
     prefersDarkQuery.addEventListener('change', handleMediaChange)
 
@@ -20,5 +20,5 @@ export const usePreferredTheme = () => {
     }
   }, [])
 
-  return [theme] as const
-};
+  return theme
+}

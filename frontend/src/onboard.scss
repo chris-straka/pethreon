@@ -6,8 +6,9 @@
   --account-center-position-top: 6px;
 }
 
-@media (min-width: 1280px) and (orientation: landscape) {
+@media (min-width: 700px) {
   :root {
-    --account-center-position-top: 16px;
+    --account-center-position-top: 2vh;
+    --account-center-position-left: calc(2vw - 16px);
   }
 }

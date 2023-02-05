@@ -2,8 +2,6 @@
 .noPledges {
   overflow: auto;
   list-style: none;
-  min-height: 30vh;
-  margin-top: 3vh;
 }
 
 .noPledges {
@@ -12,10 +10,4 @@
   justify-content: center;
   border: 0.3em solid var(--primary-light-color);
   border-radius: 2em;
-}
-
-.noPledgesText {
-  font-family: Cutesy;
-  font-size: var(--font-size-md);
-  width: 15ch;
 }

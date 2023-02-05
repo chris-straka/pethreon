@@ -1,61 +1,124 @@
-.contributeLayout {
-  min-height: 60vh;
-  margin-top: 15vh;
-  padding-top: 2vh;
+.nav {
+  font-size: var(--font-size-lg);
+  color: var(--background-color);
+  background-color: var(--secondary-color);
+  font-weight: 800;
+
+  &:hover {
+    background-color: var(--secondary-dark-color);
+  }
+}
+
+.layout {
+  display: grid;
+  grid-template-rows: 1fr 1fr 5fr;
+  row-gap: 20px;
+  height: 55vh;
+  margin-top: 18vh; // 15 for the nav + 3 for margin
   margin-inline: clamp(23px, 9vw, 80px);
 }
 
-.nav {
-  --nav-color: var(--secondary-color);
-  &:hover {
-    --nav-color: var(--secondary-dark-color);
+.balance {
+  font-size: var(--font-size-xl);
+  height: fit-content;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-around;
+}
+
+.actionButton {
+  font-size: calc(var(--font-size-sm) + 1px);
+
+  color: var(--background-color);
+  background-color: var(--secondary-color);
+  font-weight: 800;
+}
+
+.noPledgesText {
+  font-family: Cutesy;
+  font-size: var(--font-size-xl);
+  width: 15ch;
+}
+
+// TABLET DESIGN
+@media (min-width: 700px) and (max-width: 1024px) {
+  .balance {
+    font-size: var(--font-size-xxl);
+  }
+  .nav {
+    font-size: var(--font-size-xl);
+  }
+
+  .actionButton {
+    font-size: var(--font-size-md);
+  }
+
+  .noPledgesText {
+    font-size: var(--font-size-xxl);
   }
 }
 
-@media (min-width: 1025px) and (orientation: landscape) {
-  .contributeLayout {
+// DESKTOP DESIGN
+@media (min-width: 1024px) and (orientation: landscape) {
+  .nav {
+    left: 80vw;
+    width: 20vw;
+  }
+
+  .layout {
     display: grid;
-    grid:
-      [Account-row-start] "userBalance userBalance" [Action-row-end]
-      [Account-row-start] "userBalance actionBar" [Action-row-end]
-      [Balance-row-start] ". pledgeList" [Balance-row-end]
-      [Pledge-row-start] ". pledgeList" [Pledge-row-end];
+    grid-template:
+      "balance balance"
+      ". actions"
+      ". pledges"
+      ".  ."
+      / 1fr 1.5fr;
 
-    grid-gap: 10px;
+    grid-template-rows: max-content max-content 1fr .1fr;
+    row-gap: 2em;
 
-    // might have to be height
-    min-height: 85vh;
+    // nav is 18vh
+    min-height: 82vh;
     margin-inline: 0;
   }
 
-  .userBalance {
-    grid-area: userBalance;
-    align-self: end;
-    margin-left: clamp(30px, 4vw, 64px);
-    font-size: clamp(24px, 3vw + 16px, 144px);
+  .balance {
+    grid-area: balance;
+    margin-left: 2vw;
+    height: 100%;
   }
 
-  .userAddress {
-    grid-area: userAddress;
-    display: block;
-    place-self: center start;
-    margin-left: clamp(30px, 4vw, 64px);
-    font-size: clamp(0.2rem, 0.4vw + 1rem, 5rem);
-  }
-
-  .actionBar {
-    grid-area: actionBar;
+  .actions {
+    grid-area: actions;
     place-self: end center;
-    width: 55vw;
-    margin-top: 0;
-    margin-bottom: 8px;
   }
 
-  .pledgeList {
-    grid-area: pledgeList;
-    place-self: start center;
+  .actionButton {
+    width: unset;
+    margin-right: 2vw;
 
-    min-height: 40vh;
-    width: 50vw;
+    &:hover {
+      background-color: var(--secondary-dark-color);
+    }
+  }
+
+  .pledges {
+    grid-area: pledges;
+    place-self: start center;
+    width: 80%;
+    height: 100%;
+  }
+}
+
+
+@media (prefers-color-scheme: dark) {
+  .nav {
+    color: var(--text-color-white);
+  }
+
+  .actionButton {
+    color: var(--text-color-white);
   }
 }

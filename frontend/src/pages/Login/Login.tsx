@@ -27,24 +27,28 @@ export const Login = () => {
   async function signIn() {
     setMessage(LOGGING_IN)
 
-    const wallets = await connect()
-    const wallet = wallets[0]
+    try {
+      const wallets = await connect()
+      const wallet = wallets[0]
 
-    // check if the user is connected properly
-    if (!wallet?.provider) throw new Error("Wallet provider not found")
+      // check if the user is connected properly
+      if (!wallet) throw new Error("Wallet provider not found")
 
-    // switch to georli
-    await setChain({ chainId: '0x5' })
+      // switch to georli
+      await setChain({ chainId: '0x5' })
 
-    // create an ethers provider
-    const provider = new ethers.providers.Web3Provider(wallet.provider, 'any')
+      // create an ethers provider
+      const provider = new ethers.providers.Web3Provider(wallet.provider, 'goerli')
 
-    // save it as the "authenticated user"
-    dispatch({ type: "setWeb3", payload: provider })
+      // save it as the "authenticated user"
+      dispatch({ type: "setWeb3", payload: provider })
 
-    localStorage.getItem('last_page_visited') === "create" ?
-      navigate("/create") :
-      navigate("/contribute");
+      localStorage.getItem('last_page_visited') === "create" ?
+        navigate("/create") :
+        navigate("/contribute");
+    } catch (error) {
+      throw new Error("error")
+    }
   }
 
   return (
@@ -58,8 +62,8 @@ export const Login = () => {
       style={{ zIndex: 4, position: 'relative' }}
     >
       <div className={styles.loginContent}>
-        <Pethreon />
-        <Features />
+        <Pethreon className={styles.pethreon}/>
+        <Features className={styles.features} />
         <Typewriter
           className={styles.typewriter}
           message={message}

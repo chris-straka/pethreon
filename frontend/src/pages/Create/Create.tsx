@@ -1,7 +1,7 @@
 import { useEffect, useReducer } from "react"
 import { motion } from "framer-motion"
 import { ethers } from "ethers"
-import { ActionBar, ActionButton, Loading, Nav, PledgeList, UserBalance } from "../../components"
+import { ActionButton, Loading, Nav, PledgeList, UserBalance } from "../../components"
 import { ArrowSVG, WithdrawSVG, CsvSVG } from "../../svgs"
 import { useWeb3 } from "../../hooks"
 import { extractPledgesToCsv } from "./utils"
@@ -51,20 +51,30 @@ export const Create = () => {
 
   return (
     <motion.main
-      className={styles.createLayout}
+      className={styles.layout}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1, transition: { delay: CIRCLE_ANIMATION_DURATION, duration: PAGE_FADE_IN_DURATION } }}
       exit={{ opacity: 0, transition: { duration: PAGE_FADE_OUT_DURATION } }}
     >
       <Nav className={styles.nav} to='/contribute'>Donate<ArrowSVG /></Nav>
-      {loading ? <Loading /> : <UserBalance className={styles.userBalance} balance={balance} />}
-      <ActionBar className={`${styles.actionBar} ${styles.creatorActionBar}`}>
-        <ActionButton className={styles.actionButton} onClick={() => console.log("hey")}>Withdraw <WithdrawSVG /></ActionButton>
-        <ActionButton className={styles.actionButton} onClick={async () => await extractPledgesToCsv(contract, pledges)}>Extract to CSV <CsvSVG /></ActionButton>
-      </ActionBar>
+      {loading ? <Loading /> : <UserBalance className={styles.balance} balance={balance} />}
+      <div className={styles.actions}>
+        <ActionButton
+          className={styles.actionButton}
+          onClick={() => console.log("hey")}
+          svg={<WithdrawSVG />}
+          children="Withdraw"
+        />
+        <ActionButton
+          className={styles.actionButton}
+          onClick={async () => await extractPledgesToCsv(contract, pledges)}
+          svg={<CsvSVG />}
+          children="Extract to CSV"
+        />
+      </div>
       <PledgeList
         creator
-        className={styles.pledgeList}
+        className={styles.pledges}
         noPledgesText="Nobody has pledged to you yet..."
         pledges={pledges}
         setLoading={setLoading}

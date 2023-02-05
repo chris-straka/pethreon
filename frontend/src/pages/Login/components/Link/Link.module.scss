@@ -1,0 +1,19 @@
+.link {
+  color: var(--primary-very-very-dark-color);
+  transition: all 0.12s;
+  outline-offset: 4px;
+
+  &:hover {
+    text-decoration-color: transparent;
+    transition: all 0.12s;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .link {
+    color: var(--primary-very-very-very-light-color);
+    &:hover {
+      color: var(--secondary-color);
+    }
+  }
+}

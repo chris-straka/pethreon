@@ -3,9 +3,9 @@ import { motion, AnimatePresence } from "framer-motion"
 import { useNavigate } from "react-router-dom"
 import { ethers } from "ethers"
 import { CIRCLE_ANIMATION_DURATION, PAGE_FADE_IN_DURATION, PAGE_FADE_OUT_DURATION } from "../../constants"
-import { ActionBar, ActionButton, ModalBackdrop, Loading, Nav, PledgeList, UserBalance } from "../../components"
+import { ActionButton, ModalBackdrop, Loading, Nav, PledgeList, UserBalance } from "../../components"
 import { DepositModal, PledgeModal, WithdrawModal } from "./components"
-import { DepositSVG, WithdrawSVG, PledgeSVG, ArrowSVG } from "../../svgs"
+import { DepositSVG, WithdrawSVG, PledgeSVG } from "../../svgs"
 import { UIReducer, initialState } from "../../reducers/UIReducer"
 import { PledgeType } from "../../types"
 import { useWeb3 } from "../../hooks"
@@ -70,24 +70,39 @@ export const Contribute = () => {
   return (
     <>
       <motion.main
-        className={styles.contributeLayout}
+        className={styles.layout}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { duration: PAGE_FADE_IN_DURATION, delay: CIRCLE_ANIMATION_DURATION } }}
         exit={{ opacity: 0, transition: { duration: PAGE_FADE_OUT_DURATION } }}
       >
-        <Nav className={styles.nav} to="/create">Create<ArrowSVG /></Nav>
-        {loading ? <Loading /> : <UserBalance className={styles.userBalance} balance={balance} />}
-        <ActionBar className={styles.actionBar}>
-          <ActionButton onClick={() => dispatch({ type: 'setModal', payload: depositModal })}>Deposit <DepositSVG /></ActionButton>
-          <ActionButton onClick={() => dispatch({ type: 'setModal', payload: withdrawModal })}>Withdraw <WithdrawSVG /></ActionButton>
-          <ActionButton onClick={() => dispatch({ type: 'setModal', payload: pledgeModal })}>Pledge <PledgeSVG /></ActionButton>
-        </ActionBar>
+        <Nav className={styles.nav} to="/create">Create</Nav>
+        {loading ? <Loading /> : <UserBalance className={styles.balance} balance={balance} />}
+        <div className={styles.actions}>
+          <ActionButton
+            className={styles.actionButton}
+            onClick={() => dispatch({ type: 'setModal', payload: depositModal })}
+            svg={<DepositSVG />}
+            children="Deposit"
+          />
+          <ActionButton
+            className={styles.actionButton}
+            onClick={() => dispatch({ type: 'setModal', payload: withdrawModal })}
+            svg={<WithdrawSVG />}
+            children="Withdraw"
+          />
+          <ActionButton
+            className={styles.actionButton}
+            onClick={() => dispatch({ type: 'setModal', payload: pledgeModal })}
+            svg={<PledgeSVG />}
+            children="Pledge"
+          />
+        </div>
         <PledgeList
-          className={styles.pledgeList}
-          noPledgesText="You need to make a pledge first..."
+          className={styles.pledges}
           pledges={pledges}
           setLoading={setLoading}
           setNewBalanceAndPledges={setNewBalanceAndPledges}
+          noPledgesText={<span className={styles.noPledgesText}>You need to make a pledge first...</span>}
         />
       </motion.main>
       <AnimatePresence initial={false} mode="wait">

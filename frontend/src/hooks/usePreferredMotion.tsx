@@ -21,5 +21,5 @@ export const usePreferredMotion = () => {
 
   }, [])
 
-  return [motion] as const
+  return motion
 }

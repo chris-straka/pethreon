@@ -1,3 +1,4 @@
+import { ReactNode } from "react"
 import { ContributorPledge, CreatorPledge } from "./Pledge"
 import { PledgeType } from "../../types"
 
@@ -7,7 +8,7 @@ interface PledgeListProps {
   className?: string,
   creator?: boolean,
   pledges: PledgeType[],
-  noPledgesText: string,
+  noPledgesText: ReactNode,
   setLoading: ((loading: boolean) => void)
   setNewBalanceAndPledges: ((balance: string, pledges: PledgeType[]) => void)
 }
@@ -23,13 +24,13 @@ export const PledgeList = ({
 ) => {
 
   if (pledges.length === 0) return (
-    <div className={styles.noPledges}>
+    <div className={`${className} ${styles.noPledges}`}>
       {noPledgesText}
     </div>
   )
 
   if (creator) return (
-    <ul className={`${styles.pledges} ${className}`}>
+    <ul className={`${className} ${styles.pledges}`}>
       {pledges
         .map((pledge: PledgeType) =>
           <CreatorPledge
@@ -42,7 +43,7 @@ export const PledgeList = ({
   )
 
   return (
-    <ul className={`${styles.pledges} ${className}`}>
+    <ul className={`${className} ${styles.pledges}`}>
       {pledges
         .map((pledge: PledgeType) =>
           <ContributorPledge
