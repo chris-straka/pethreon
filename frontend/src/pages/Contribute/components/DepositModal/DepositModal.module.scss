@@ -1,35 +1,35 @@
 .heading {
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-md);
+  color: var(--text-color);
   margin-bottom: 0.7em;
 }
 
-
 .disclaimer {
   display: flex;
-  
+  align-items: center;
+  margin-bottom: 1.4em;
+
   &__checkbox {
     cursor: pointer;
-    font-size: var(--font-size-sm);
     vertical-align: center;
-    height: 20px;
-    width: 20px;
+    height: 40px;
+    width: 40px;
   }
 
   &__label {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     margin-left: 0.9em;
-    margin-bottom: 1.4em;
+    line-height: 1.5;
   }
 
   &__button {
     cursor: pointer;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     background-color: transparent;
     padding: 0;
     margin: 0;
     outline-offset: 5px;
-    color: var(--primary-very-light-color);
-    border-bottom: 3px solid var(--primary-very-light-color);
+    color: var(--secondary-very-very-dark-color);
 
     &:hover {
       border-color: transparent;
@@ -40,4 +40,12 @@
 .submit {
   display: block;
   font-size: var(--font-size-base);
+}
+
+@media (prefers-color-scheme: dark) {
+  .disclaimer {
+    &__button {
+      color: yellow;
+    }
+  }
 }

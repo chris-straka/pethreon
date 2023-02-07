@@ -3,7 +3,7 @@
   border-radius: 50%;
 
   --background-color-login: var(--primary-light-color);
-  --background-color-contribute: var(--primary-color);
+  --background-color-contribute: var(--primary-dark-color);
   --background-color-create: var(--secondary-color);
 
   --x-login: -5vw;
@@ -43,14 +43,13 @@
     --width-login: 240px;
     --height-login: 240px;
 
-    --x-contribute: 10vw;
-    --y-contribute: 50vh;
-
+    --x-contribute: 9vw;
+    --y-contribute: 51vh;
     --width-contribute: 12vh;
     --height-contribute: 12vh;
 
     --x-create: 22vw;
-    --y-create: 21vh;
+    --y-create: 26vh;
     --width-create: 25vh;
     --height-create: 25vh;
   }
@@ -59,5 +58,7 @@
 @media (prefers-color-scheme: dark) {
   .circleA {
     --background-color-login: var(--primary-dark-color);
+    --background-color-contribute: var(--primary-color);
+    --background-color-create: var(--secondary-color);
   }
 }

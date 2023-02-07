@@ -37,13 +37,13 @@
     --width-login: 300px;
     --height-login: 300px;
 
-    --x-contribute: 17vw;
-    --y-contribute: 30vh;
+    --x-contribute: 22vw;
+    --y-contribute: 26vh;
     --width-contribute: 25vh;
     --height-contribute: 25vh;
 
-    --x-create: 5vw;
-    --y-create: 50vh;
+    --x-create: 9vw;
+    --y-create: 51vh;
     --width-create: 12vh;
     --height-create: 12vh;
   }
@@ -52,5 +52,7 @@
 @media (prefers-color-scheme: dark) {
   .circleB {
     --background-color-login: var(--primary-dark-color);
+    --background-color-contribute: var(--primary-light-color);
+    --background-color-create: var(--secondary-dark-color);
   }
 }

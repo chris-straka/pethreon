@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 
 export const usePreferredTheme = () => {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light')
+  const [theme, setTheme] = useState<'light' | 'dark'>('dark')
 
   useEffect(() => {
     const prefersDarkQuery = window.matchMedia('(prefers-color-scheme: dark)')

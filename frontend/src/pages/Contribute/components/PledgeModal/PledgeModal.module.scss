@@ -1,4 +1,46 @@
-.etherHeading {
+.heading {
   font-size: var(--font-size-md);
-  margin-bottom: 1em;
+  margin-bottom: 0.7em;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  & svg {
+    width: 3ch;
+  }
+  margin-bottom: 2em;
+}
+
+.field {
+  display: block;
+  font-size: var(--font-size-base);
+  margin-left: 0.5em;
+  padding: 0.3em;
+  outline-offset: 5px;
+}
+
+.svg {
+  color: black;
+  fill: black;
+}
+
+.submit {
+  display: block;
+  font-size: var(--font-size-base);
+}
+
+@media (min-width: 1024px) and (orientation: landscape) {
+  .container {
+    & svg {
+      width: 5ch;
+    }
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .svg {
+    color: white;
+    fill: white;
+  }
 }

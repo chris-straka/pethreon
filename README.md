@@ -52,4 +52,4 @@ Some of those smart contract functions cost real money (like creating a pledge) 
 
 - [Github logo](https://github.com/logos)
 
-- [ionicons](https://ionic.io/ionicons)
+- [ionicons for the svgs](https://ionic.io/ionicons)

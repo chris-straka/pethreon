@@ -1,7 +1,8 @@
 .button {
+  font-weight: 800;
   cursor: pointer;
-  color: var(--text-color);
-  background-color: var(--secondary-color);
+  color: var(--text-white-color);
+  background-color: var(--primary-very-dark-color);
   border-radius: 10px;
   margin-inline: auto;
   padding: 1em;
@@ -10,7 +11,7 @@
 
   // only apply this hover style if it's enabled
   &:hover:enabled {
-    background-color: var(--secondary-dark-color);
+    background-color: var(--primary-very-very-dark-color);
   }
 
   &:active:enabled {
@@ -27,4 +28,15 @@
 .button svg {
   width: 1.2em;
   vertical-align: bottom;
+}
+
+@media (prefers-color-scheme: dark) {
+  .button {
+    color: var(--text-color);
+    background-color: var(--primary-light-color);
+
+    &:hover:enabled {
+      background-color: var(--primary-color);
+    }
+  }
 }

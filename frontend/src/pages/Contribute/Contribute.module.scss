@@ -30,10 +30,14 @@
 
 .actionButton {
   font-size: calc(var(--font-size-sm) + 1px);
+  font-weight: 800;
 
   color: var(--background-color);
-  background-color: var(--secondary-color);
-  font-weight: 800;
+  background-color: var(--secondary-dark-color);
+
+  &:hover {
+    background-color: var(--secondary-very-dark-color);
+  }
 }
 
 .noPledgesText {
@@ -86,7 +90,8 @@
 
   .balance {
     grid-area: balance;
-    margin-left: 2vw;
+    margin-left: 3vw;
+
     height: 100%;
   }
 
@@ -98,10 +103,6 @@
   .actionButton {
     width: unset;
     margin-right: 2vw;
-
-    &:hover {
-      background-color: var(--secondary-dark-color);
-    }
   }
 
   .pledges {

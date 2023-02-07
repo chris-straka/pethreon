@@ -58,8 +58,8 @@ export const DepositModal = ({ closeModal, setLoading, setNewBalance }: DepositP
 
   return (
     <form onClick={(e: MouseEvent) => e.stopPropagation()}>
-      <h2 className={styles.heading}>How much to deposit?</h2>
 
+      <h2 className={styles.heading}>How much to deposit?</h2>
       <EtherAmount
         etherAmount={depositAmount}
         setEtherAmount={setDepositAmount}
@@ -77,9 +77,9 @@ export const DepositModal = ({ closeModal, setLoading, setNewBalance }: DepositP
           onChange={() => setConsent(!consent)}
         />
         <label className={styles.disclaimer__label} htmlFor="consent">
-          I've read the &nbsp;
+          I've read the&nbsp;
           <button className={styles.disclaimer__button} onClick={disclaimer}>disclaimer</button>
-          &nbsp; and I accept the risks.
+          &nbsp;and I accept the risks.
         </label>
       </div>
 
@@ -90,6 +90,7 @@ export const DepositModal = ({ closeModal, setLoading, setNewBalance }: DepositP
         disabled={!consent}
         children="Deposit"
       />
+
     </form>
   );
 }

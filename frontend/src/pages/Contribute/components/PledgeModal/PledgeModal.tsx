@@ -59,7 +59,7 @@ export const PledgeModal = (
 
   return (
     <form onClick={(e: MouseEvent) => e.stopPropagation()}>
-      <h2 className={styles.etherHeading}>How much to pledge per day?</h2>
+      <h2 className={styles.heading}>How much to pledge per day?</h2>
       <EtherAmount
         etherAmount={amountPerPeriod}
         setEtherAmount={setAmountPerPeriod}
@@ -69,22 +69,22 @@ export const PledgeModal = (
         disabled={denomination === "All" ? true : false}
       />
 
-      <h2 className={styles.dateHeading}>Across how many days?</h2>
-      <div>
-        <DateSVG className={styles.dateSVG} />
+      <h2 className={styles.heading}>Across how many days?</h2>
+      <div className={styles.container}>
+        <DateSVG className={styles.svg} />
         <FormField
-          className={styles.denomination2}
+          className={styles.field}
           value={period}
           setValue={(event: ChangeEvent<HTMLInputElement>) => setPeriod(event.target.value)}
         />
       </div>
 
-      <h2 className={styles.pledgeHeading}>To which ethereum address?</h2>
-      <div>
-        <PersonSVG className={styles.addressSVG} />
+      <h2 className={styles.heading}>To which ethereum address?</h2>
+      <div className={styles.container}>
+        <PersonSVG className={styles.svg} />
         <FormField
           address
-          className={styles.denomination3}
+          className={styles.field}
           value={address}
           setValue={(event: ChangeEvent<HTMLInputElement>) => setAddress(event.target.value)}
         />

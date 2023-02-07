@@ -19,7 +19,7 @@ export const FormField = ({
   placeholder = "0",
   address = false,
   disabled = false,
-  autoFocus = true,
+  autoFocus = false,
 }: FormFieldProps
 ) => {
   return (
@@ -30,7 +30,7 @@ export const FormField = ({
       disabled={disabled}
       autoFocus={autoFocus}
       type={disabled || address ? "text" : "number"}
-      placeholder={placeholder}
+      placeholder={address ? "0x000000000000" : placeholder}
       onChange={setValue}
       value={disabled ? "ALL" : value}
       spellCheck={false}
