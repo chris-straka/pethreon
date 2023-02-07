@@ -40,8 +40,10 @@ export const Login = () => {
       // create an ethers provider
       const provider = new ethers.providers.Web3Provider(wallet.provider, 'goerli')
 
-      // save it as the "authenticated user"
+      // save the "authenticated user"
       dispatch({ type: "setWeb3", payload: provider })
+
+      localStorage.setItem("wallet", JSON.stringify(wallet.label))
 
       localStorage.getItem('last_page_visited') === "create" ?
         navigate("/create") :
@@ -62,7 +64,7 @@ export const Login = () => {
       style={{ zIndex: 4, position: 'relative' }}
     >
       <div className={styles.loginContent}>
-        <Pethreon className={styles.pethreon}/>
+        <Pethreon className={styles.pethreon} />
         <Features className={styles.features} />
         <Typewriter
           className={styles.typewriter}

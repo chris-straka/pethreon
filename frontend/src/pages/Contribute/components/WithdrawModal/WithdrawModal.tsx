@@ -1,9 +1,10 @@
-import { useState, ChangeEvent, FormEvent } from "react"
+import { useState, FormEvent, MouseEvent } from "react"
 import { BigNumber, utils } from "ethers"
 import { MetamaskError, Denomination, Pethreon } from "../../../../types"
 import { WithdrawSVG } from "../../../../svgs"
-import { useWeb3 } from "../../../../hooks"
-import { EtherDenominationSelect, CurrencyField, Submit } from ".."
+import { usePethreon } from "../../../../hooks"
+import { EtherAmount, Submit } from ".."
+
 import styles from "./WithdrawModal.module.scss"
 
 interface WithdrawProps {
@@ -13,16 +14,17 @@ interface WithdrawProps {
 }
 
 export const WithdrawModal = ({ closeModal, setLoading, setNewBalance }: WithdrawProps) => {
-  const [amount, setAmount] = useState("")
-  const [currency, setCurrency] = useState<Denomination>("Ether")
-  const { contract } = useWeb3()
+  const [withdrawAmount, setWithdrawAmount] = useState("")
+  const [denomination, setDenomination] = useState<Denomination>("Ether")
+  const contract = usePethreon()
 
   async function submitWithdraw(event: FormEvent<HTMLButtonElement>) {
     event.preventDefault()
 
-    if (!amount && currency !== "All") return window.alert("Please insert an amount")
+    if (!contract) return window.alert("Contract not yet ready")
+    if (!withdrawAmount && denomination !== "All") return window.alert("Please insert an amount")
 
-    const amountInWei = await getAmountInWei(currency, amount, contract)
+    const amountInWei = await getAmountInWei(denomination, withdrawAmount, contract)
 
     closeModal()
     setLoading(true)
@@ -33,7 +35,6 @@ export const WithdrawModal = ({ closeModal, setLoading, setNewBalance }: Withdra
       const newBalanceEther = await utils.formatEther(newBalance)
       const newBalanceEtherString = await newBalanceEther.toString()
       setNewBalance(newBalanceEtherString)
-
     } catch (error) {
       setLoading(false)
       window.alert(`Error: ${(error as MetamaskError).message}`)
@@ -41,19 +42,22 @@ export const WithdrawModal = ({ closeModal, setLoading, setNewBalance }: Withdra
   }
 
   return (
-    <form className={styles.form}>
-      <h3 className={styles.heading}>How much to withdraw?</h3>
-      <CurrencyField
-        className={styles.currencyField}
-        disabled={currency === "All" ? true : false}
-        value={amount}
-        setValue={(event: ChangeEvent<HTMLInputElement>) => setAmount(event.target.value)}
-      />
-      <EtherDenominationSelect
-        setEtherDenomination={setCurrency}
+    <form onClick={(e: MouseEvent) => e.stopPropagation()}>
+      <h2 className={styles.heading}>How much to withdraw?</h2>
+      <EtherAmount
+        etherAmount={withdrawAmount}
+        setEtherAmount={setWithdrawAmount}
+        setEtherDenomination={setDenomination}
         options={["All", "Ether", "Gwei", "Wei"]}
+        defaultValue="Wei"
+        disabled={denomination === "All" ? true : false}
       />
-      <Submit className={styles.submit} onClick={submitWithdraw}>Withdraw <WithdrawSVG className={styles.withdrawSVG} /></Submit>
+      <Submit
+        className={styles.submit}
+        onClick={submitWithdraw}
+        svg={<WithdrawSVG className={styles.withdrawSVG} />}
+        children="Withdraw"
+      />
     </form>
   )
 }

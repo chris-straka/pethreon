@@ -1,5 +1,5 @@
 import { utils } from "ethers"
-import { useWeb3 } from "../../hooks"
+import { usePethreon } from "../../hooks"
 import { TrashSVG } from "../../svgs"
 import { PledgeType } from "../../types"
 
@@ -14,7 +14,7 @@ interface ContributorPledgeProps {
 export const ContributorPledge = (
   { pledge, setLoading, setNewBalanceAndPledges }: ContributorPledgeProps
 ) => {
-  const { contract } = useWeb3()
+  const contract = usePethreon()
   const { creatorAddress, duration, dateCreated, weiPerPeriod } = pledge
 
   const pledgeDuration = duration.toNumber()
@@ -24,6 +24,7 @@ export const ContributorPledge = (
 
   async function cancelPledge() {
     setLoading(true)
+    if (!contract) return window.alert("Contract is not yet ready")
     try {
       await contract.cancelPledge(creatorAddress)
       const newBalance = await contract.getContributorBalanceInWei()

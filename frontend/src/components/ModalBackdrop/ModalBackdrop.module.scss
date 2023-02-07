@@ -1,0 +1,26 @@
+.modalBackdrop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-height: 100%;
+  width: 100%;
+  background-color: var(--modal-backdrop-color);
+  z-index: 5;
+}
+
+.modalBackground {
+  background-color: var(--modal-background-color);
+  padding: 1.2em;
+  border-radius: 1em;
+  width: 300px;
+}
+
+@media (min-width: 1024px) {
+  .modalBackground {
+    width: 450px;
+  }
+}

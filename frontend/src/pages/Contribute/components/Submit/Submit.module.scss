@@ -2,19 +2,15 @@
   cursor: pointer;
   color: var(--text-color);
   background-color: var(--secondary-color);
-  border-radius: 30px;
-  outline-color: transparent;
+  border-radius: 10px;
   margin-inline: auto;
+  padding: 1em;
   transition: box-shadow 0.2s, background-color 0.2s, transform 0.2s;
+  outline-offset: 5px;
 
-  // Only apply this style if it's enabled
+  // only apply this hover style if it's enabled
   &:hover:enabled {
     background-color: var(--secondary-dark-color);
-  }
-
-  &:focus:enabled {
-    transform: translateY(-0.06em);
-    box-shadow: 0 0.2em 0 0 var(--primary-color);
   }
 
   &:active:enabled {

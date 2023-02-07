@@ -1,19 +1,17 @@
 import { useCloseModalOnEscape } from "./useCloseModalOnEscape";
-import { useLocalWallet } from "./useLocalWallet";
 import { useMetamask } from "./useMetamask";
-import { usePreferredTheme } from "./usePreferredTheme";
+import { usePethreon } from "./usePethreon";
 import { usePreferredMotion } from "./usePreferredMotion";
-import { useWeb3 } from "./useWeb3";
+import { usePreferredTheme } from "./usePreferredTheme";
 import { useWeb3Dispatch } from "./useWeb3Dispatch";
 import { useWindowSize } from "./useWindowSize";
 
 export {
   useCloseModalOnEscape,
-  useLocalWallet,
   useMetamask,
-  usePreferredTheme,
+  usePethreon,
   usePreferredMotion,
-  useWeb3,
+  usePreferredTheme,
   useWeb3Dispatch,
   useWindowSize
 }

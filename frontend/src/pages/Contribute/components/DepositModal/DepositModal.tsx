@@ -1,9 +1,11 @@
-import { ChangeEvent, FormEvent, MouseEvent, useState } from "react"
+import { FormEvent, MouseEvent, useState } from "react"
 import { BigNumber, BigNumberish, utils } from "ethers"
-import { CurrencyField, Disclaimer, EtherDenominationSelect, Submit, Consent } from ".."
-import { useWeb3 } from "../../../../hooks"
+import { EtherAmount, Submit } from ".."
+import { DISCLAIMER } from '../../../../messages'
+import { usePethreon } from "../../../../hooks"
 import { DepositSVG } from "../../../../svgs"
 import { Denomination } from "../../../../types"
+
 import styles from "./DepositModal.module.scss"
 
 interface DepositProps {
@@ -14,16 +16,17 @@ interface DepositProps {
 
 export const DepositModal = ({ closeModal, setLoading, setNewBalance }: DepositProps) => {
   const [depositAmount, setDepositAmount] = useState("")
-  const [currency, setCurrency] = useState<Denomination>("Ether")
-  const [disabled, setDisabled] = useState(true)
-  const { contract } = useWeb3()
+  const [denomination, setDenomination] = useState<Denomination>("Ether")
+  const [consent, setConsent] = useState(false)
+  const contract = usePethreon()
 
   async function submitDeposit(event: FormEvent<HTMLButtonElement>) {
     event.preventDefault()
 
+    if (!contract) return window.alert("Contract not yet ready")
     if (+depositAmount <= 0) return window.alert("Please insert an amount")
 
-    const amountInWei = formatAmountToWei(depositAmount, currency)
+    const amountInWei = formatAmountToWei(depositAmount, denomination)
 
     closeModal()
     setLoading(true)
@@ -46,27 +49,47 @@ export const DepositModal = ({ closeModal, setLoading, setNewBalance }: DepositP
     }
   }
 
+  const disclaimer = (event: FormEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    setTimeout(() => {
+      window.alert(DISCLAIMER)
+    }, 100);
+  }
+
   return (
-    <form className={styles.form} onClick={(e: MouseEvent) => e.stopPropagation()}>
-      <h3 className={styles.heading}>How much to deposit?</h3>
-      <CurrencyField
-        className={styles.depositField}
-        value={depositAmount}
-        setValue={(event: ChangeEvent<HTMLInputElement>) => setDepositAmount(event.target.value)}
-      />
-      <EtherDenominationSelect
-        setEtherDenomination={setCurrency}
+    <form onClick={(e: MouseEvent) => e.stopPropagation()}>
+      <h2 className={styles.heading}>How much to deposit?</h2>
+
+      <EtherAmount
+        etherAmount={depositAmount}
+        setEtherAmount={setDepositAmount}
+        setEtherDenomination={setDenomination}
         options={["Ether", "Gwei", "Wei"]}
+        defaultValue="Ether"
       />
-      <Disclaimer className={styles.disclaimer} />
-      <Consent className={styles.consent} setConsent={setDisabled} />
+
+      <div className={styles.disclaimer}>
+        <input
+          required
+          className={styles.disclaimer__checkbox}
+          type="checkbox"
+          id="consent"
+          onChange={() => setConsent(!consent)}
+        />
+        <label className={styles.disclaimer__label} htmlFor="consent">
+          I've read the &nbsp;
+          <button className={styles.disclaimer__button} onClick={disclaimer}>disclaimer</button>
+          &nbsp; and I accept the risks.
+        </label>
+      </div>
+
       <Submit
         className={styles.submit}
-        disabled={disabled}
         onClick={submitDeposit}
-      >
-        Deposit <DepositSVG className={styles.depositSVG} />
-      </Submit>
+        svg={<DepositSVG className={styles.svg} />}
+        disabled={!consent}
+        children="Deposit"
+      />
     </form>
   );
 }

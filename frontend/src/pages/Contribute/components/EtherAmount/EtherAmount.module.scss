@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 1.2em;
+  height: 100%;
+
+  &__Ξ {
+    font-size: var(--font-size-lg);
+  }
+
+  &__inputs {
+    margin-left: 0.9em;
+  }
+}
+
+.formInput,
+.denomination {
+  display: block;
+  font-size: var(--font-size-base);
+  padding: 0.3em;
+  margin-bottom: 0.5em;
+  outline-offset: 5px;
+  &:disabled {
+    cursor: not-allowed;
+  }
+}

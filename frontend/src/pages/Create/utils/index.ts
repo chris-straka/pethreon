@@ -2,6 +2,8 @@ import { utils } from "ethers"
 import { Pethreon, PledgeType } from "../../../types";
 
 export async function extractPledgesToCsv(contract: Pethreon, active?: PledgeType[]) {
+  if (!contract) return window.alert("Couldn't find the Pethreon smart contract")
+
   let csv: string = "data:text/csv;charset=utf-8,";
   let creatorAddress: string = ""
   let activePledges: string[][] = []

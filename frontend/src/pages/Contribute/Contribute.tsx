@@ -8,19 +8,20 @@ import { DepositModal, PledgeModal, WithdrawModal } from "./components"
 import { DepositSVG, WithdrawSVG, PledgeSVG } from "../../svgs"
 import { UIReducer, initialState } from "../../reducers/UIReducer"
 import { PledgeType } from "../../types"
-import { useWeb3 } from "../../hooks"
+import { usePethreon } from "../../hooks"
 
 import styles from "./Contribute.module.scss"
 
 export const Contribute = () => {
   const [{ loading, balance, pledges, modal }, dispatch] = useReducer(UIReducer, initialState)
-  const { contract } = useWeb3()
+  const contract = usePethreon()
   const navigate = useNavigate()
 
   useEffect(() => {
     localStorage.setItem("last_page_visited", "contribute")
 
     async function init() {
+      if (!contract) return
       try {
         const [balanceInWei, pledges] = await Promise.all([
           contract.getContributorBalanceInWei(),

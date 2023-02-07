@@ -1,31 +1,32 @@
 import { createContext, Dispatch, ReactNode, useReducer } from "react";
-import { Pethreon__factory, Pethreon } from "../../typechain-types";
 import { ethers } from "ethers"
 
 type Web3Provider = ethers.providers.Web3Provider
 
 type Web3ContextType = {
   provider: Web3Provider | null
-  contract: Pethreon | null
 }
 
 const initialState = {
   provider: null,
-  contract: null,
 }
 
 export const Web3Context = createContext<Web3ContextType>(initialState);
-export const Web3DispatchContext = createContext<Dispatch<ACTIONTYPE> | null>(null);
 
-type ACTIONTYPE = { type: "setWeb3", payload: Web3Provider };
+type ACTIONTYPE =
+  | { type: "setWeb3", payload: Web3Provider }
+  | { type: "resetWeb3" };
+
+export const Web3DispatchContext = createContext<Dispatch<ACTIONTYPE> | null>(null);
 
 function web3Reducer(_: Web3ContextType, action: ACTIONTYPE): Web3ContextType {
   switch (action.type) {
     case "setWeb3": {
       const provider = action.payload
-      const signer = provider.getSigner()
-      const contract = Pethreon__factory.connect(import.meta.env.VITE_PETHREON_CONTRACT_ADDRESS, signer)
-      return { provider, contract }
+      return { provider }
+    }
+    case "resetWeb3": {
+      return { provider: null }
     }
     default: {
       throw new Error("Action not found")

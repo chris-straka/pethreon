@@ -3,7 +3,7 @@ import { motion } from "framer-motion"
 import { ethers } from "ethers"
 import { ActionButton, Loading, Nav, PledgeList, UserBalance } from "../../components"
 import { WithdrawSVG, CsvSVG } from "../../svgs"
-import { useWeb3 } from "../../hooks"
+import { usePethreon } from "../../hooks"
 import { extractPledgesToCsv } from "./utils"
 import { PledgeType } from "../../types"
 import { UIReducer, initialState } from "../../reducers/UIReducer"
@@ -18,13 +18,15 @@ import styles from "./Create.module.scss"
 
 export const Create = () => {
   const [{ balance, loading, pledges }, dispatch] = useReducer(UIReducer, initialState)
-  const { contract } = useWeb3()
+  const contract = usePethreon()
 
   useEffect(() => {
     localStorage.setItem("last_page_visited", "create")
 
     async function init() {
       try {
+        if (!contract) return
+
         const [balanceInWei, pledges] = await Promise.all([
           contract.getContributorBalanceInWei(),
           contract.getContributorPledges(),
@@ -67,7 +69,7 @@ export const Create = () => {
         />
         <ActionButton
           className={styles.actionButton}
-          onClick={async () => await extractPledgesToCsv(contract, pledges)}
+          onClick={async () => await extractPledgesToCsv(contract!, pledges)}
           svg={<CsvSVG />}
           children="Extract to CSV"
         />

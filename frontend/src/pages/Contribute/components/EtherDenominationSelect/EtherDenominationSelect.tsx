@@ -1,37 +1,32 @@
-import { useState, ChangeEvent, Dispatch, SetStateAction } from "react"
 import { Denomination } from "../../../../types"
 
 import styles from "./EtherDenominationSelect.module.scss"
 
 interface EtherDenominationSelectProps {
-  setEtherDenomination: Dispatch<SetStateAction<Denomination>>,
   options: Denomination[]
+  defaultValue: Denomination
+  className: string
+  setEtherDenomination: ((denomination: Denomination) => void)
 }
 
-export const EtherDenominationSelect = ({ setEtherDenomination, options }: EtherDenominationSelectProps) => {
-  const [selectedValue, setSelectedValue] = useState("")
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const chosenDenomination = event.target.value as Denomination
-    setSelectedValue(chosenDenomination)
-    setEtherDenomination(chosenDenomination)
-  }
-
+export const EtherDenominationSelect = ({
+  defaultValue,
+  setEtherDenomination,
+  options,
+  className }: EtherDenominationSelectProps
+) => {
   return (
-    <div className={styles.container}>
+    <select
+      onChange={(event) => setEtherDenomination(event.target.value as Denomination)}
+      className={`${styles.select} ${className}`}
+      name="etherDenominations"
+      defaultValue={defaultValue}
+    >
       {options.map((option) => (
-        <label key={option} className={styles.label}>
-          <input
-            className={styles.input}
-            type="radio"
-            value={option}
-            checked={selectedValue === option}
-            onChange={handleChange}
-            required
-          />
-          <span className={styles.span}>{option}</span>
-        </label>
+        <option key={option} value={option}>
+          {option}
+        </option>
       ))}
-    </div>
+    </select>
   )
 }

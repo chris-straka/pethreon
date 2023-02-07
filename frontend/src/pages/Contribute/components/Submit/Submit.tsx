@@ -5,10 +5,11 @@ interface SubmitProps {
   children: ReactNode,
   className: string,
   disabled?: boolean,
-  onClick: ((event: FormEvent<HTMLButtonElement>) => void)
+  svg?: ReactNode,
+  onClick: ((event: FormEvent<HTMLButtonElement>) => void),
 }
 
-export const Submit = ({ children, className, onClick, disabled = false }: SubmitProps) => {
+export const Submit = ({ children, className, onClick, svg, disabled = false }: SubmitProps) => {
   return (
     <button
       className={`${styles.button} ${className}`}
@@ -16,7 +17,7 @@ export const Submit = ({ children, className, onClick, disabled = false }: Submi
       disabled={disabled}
       type="submit"
     >
-      {children}
+      {children} {svg}
     </button>
   )
 }

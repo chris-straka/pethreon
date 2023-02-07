@@ -1,9 +1,9 @@
+import { ChangeEvent, FormEvent, MouseEvent, useState } from "react"
 import { BigNumber, utils } from "ethers"
-import { ChangeEvent, FormEvent, useState } from "react"
-import { EtherDenominationSelect, CurrencyField, Submit } from "../"
+import { EtherAmount, FormField, Submit } from "../"
 import { DateSVG, PersonSVG, PledgeSVG } from "../../../../svgs"
 import { Denomination, PledgeType, Pethreon } from "../../../../types"
-import { useWeb3 } from "../../../../hooks"
+import { usePethreon } from "../../../../hooks"
 
 import styles from "./PledgeModal.module.scss"
 
@@ -16,22 +16,23 @@ interface PledgeProps {
 export const PledgeModal = (
   { closeModal, setLoading, setNewBalanceAndPledges }: PledgeProps
 ) => {
-  const [currency, setCurrency] = useState<Denomination>("Ether")
+  const [denomination, setDenomination] = useState<Denomination>("Ether")
   const [amountPerPeriod, setAmountPerPeriod] = useState("")
   const [address, setAddress] = useState("")
   const [period, setPeriod] = useState("")
-  const { contract } = useWeb3()
+  const contract = usePethreon()
 
   const submitPledge = async (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
+    if (!contract) return window.alert("Contract not yet ready")
 
     address.trim()
-    validateInputs(currency, amountPerPeriod, address, period)
+    validateInputs(denomination, amountPerPeriod, address, period)
 
-    const amountPerPeriodInWei = await formatAmountToWei(currency, amountPerPeriod, contract, period)
+    const amountPerPeriodInWei = await formatAmountToWei(denomination, amountPerPeriod, contract, period)
 
-    const finalAmount = currency !== "All" ? amountPerPeriod : amountPerPeriodInWei
-    const finalCurrency = currency !== "All" ? currency : "Wei"
+    const finalAmount = denomination !== "All" ? amountPerPeriod : amountPerPeriodInWei
+    const finalCurrency = denomination !== "All" ? denomination : "Wei"
     const GRAND_TOTAL = `The total comes to ${finalAmount} ${finalCurrency} per day, over ${period} day(s). Do you accept?`
 
     if (!window.confirm(GRAND_TOTAL)) return
@@ -57,40 +58,44 @@ export const PledgeModal = (
   }
 
   return (
-    <form className={styles.modal}>
-      <h3 className={styles.currencyHeading}>How much to pledge per day?</h3>
-      <CurrencyField
-        className={styles.currencyField}
-        disabled={currency === "All" ? true : false}
-        value={amountPerPeriod}
-        setValue={(event: ChangeEvent<HTMLInputElement>) => setAmountPerPeriod(event.target.value)}
-      />
-      <EtherDenominationSelect
-        setEtherDenomination={setCurrency}
+    <form onClick={(e: MouseEvent) => e.stopPropagation()}>
+      <h2 className={styles.etherHeading}>How much to pledge per day?</h2>
+      <EtherAmount
+        etherAmount={amountPerPeriod}
+        setEtherAmount={setAmountPerPeriod}
         options={["All", "Ether", "Gwei", "Wei"]}
+        defaultValue="Wei"
+        setEtherDenomination={setDenomination}
+        disabled={denomination === "All" ? true : false}
       />
 
-      <h3 className={styles.dateHeading}>Across how many days?</h3>
-      <CurrencyField
-        autoFocus={false}
-        className={styles.currencyField}
-        value={period}
-        setValue={(event: ChangeEvent<HTMLInputElement>) => setPeriod(event.target.value)}
-        svgComponent={<DateSVG className={styles.dateSVG} />}
-      />
+      <h2 className={styles.dateHeading}>Across how many days?</h2>
+      <div>
+        <DateSVG className={styles.dateSVG} />
+        <FormField
+          className={styles.denomination2}
+          value={period}
+          setValue={(event: ChangeEvent<HTMLInputElement>) => setPeriod(event.target.value)}
+        />
+      </div>
 
-      <h3 className={styles.pledgeHeading}>To which ethereum address?</h3>
-      <CurrencyField
-        autoFocus={false}
-        className={styles.currencyField}
-        value={address}
-        placeholder="0x"
-        textInput
-        setValue={(event: ChangeEvent<HTMLInputElement>) => setAddress(event.target.value)}
-        svgComponent={<PersonSVG className={styles.addressSVG} />}
-      />
+      <h2 className={styles.pledgeHeading}>To which ethereum address?</h2>
+      <div>
+        <PersonSVG className={styles.addressSVG} />
+        <FormField
+          address
+          className={styles.denomination3}
+          value={address}
+          setValue={(event: ChangeEvent<HTMLInputElement>) => setAddress(event.target.value)}
+        />
+      </div>
 
-      <Submit className={styles.submit} onClick={submitPledge}>Pledge <PledgeSVG className={styles.submitSVG} /></Submit>
+      <Submit
+        className={styles.submit}
+        onClick={submitPledge}
+        svg={<PledgeSVG className={styles.submitSVG} />}
+        children="Pledge"
+      />
     </form>
   )
 }
