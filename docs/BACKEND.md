@@ -2,7 +2,7 @@
 
 commit SHA of old version of this app before rewrite 5ad2bc974173f816b3da0303068785ffbe2ae440
 
-## Recurring payments
+## Implementing Recurring Payments on Ethereum
 
 Implementing [recurring payments](https://ethereum.stackexchange.com/questions/49596) on Ethereum is not as easy as I thought it'd be. It's hard to create recurring payments because in Ethereum, only EOAs "Externally Owned Accounts" (humans) can create transactions. A CA "Contract Account" like Pethreon, can't create a transaction. In ethereum, a "transaction" is any action from an EOA that changes the state of the ethereum network. Sending ethereum from one person to another is the simplest form of transaction. The more complicated form of transaction is when an EOA sends a transaction to a CA. 
 
@@ -85,24 +85,6 @@ In solidity, you can't build a dynamic array in memory. Iteration can also get e
 
 After reading (and contributing to) [this answer on stack exchange](https://ethereum.stackexchange.com/questions/42207), it turns out there's a possibility that a user might not be able to call a function because it takes too much gas to run. I think in my case, this would only ever happen if the creator takes a really long time to withdraw their funds (i.e. the withdraw function had to iterate over so many periods that they couldn't withdraw). Or if a new contributor couldn't make a new pledge to a creator because they had to iterate over too many pledges that are already being made to that creator. You might be wondering why the contributor has to do this, and it's ultimately because of how I've chosen to architect the smart contract and keep track of all the creators pledges.
 
-## The original Pethreon contract from Sergei et al doesn't work?
-
-The original pethreon contract lets the developer choose what "period" payments should be processed in (daily, weekly or monthly). You do this by passing in the amount of seconds each period should last for in the smart contract's constructor function (hourly 3600, daily 86400, weekly 604800). The tricky part from the original contract is this part.
-
-```cpp
-  // update creator's mapping of future payments
-  for (uint period = currentPeriod(); period < _periods; period++) {
-    expectedPayments[_creator][period] += _weiPerPeriod;
-  }
-```
-
-currentPeriod() grabs the current number of periods (hours/days/weeks) it's been since the contract was created and "_periods" refers to the number of periods a contributor wants to donate for. However, if the contract is 50 days old and the contributor wants to donate for 5 days, then how does this run? I think it should be `period < _periods + currentPeriod();` so it might be worth a pull request, either that or I've misunderstood. Also, It only hit me until late in the project, but I'm wondering if contributors even need to lock in their money at all? 
-
-## Why I chose to work on top of Sergei et al's contract
-
-I thought it would be a good idea to read and understand other people's code and thought that was an important skill. I also thought that would save me from having to learn too much about ethereum since the contract is already finished. I ended up learning a lot about solidity anyways.
-
-## My additions to the original smart contract
+## My additions to the original smart contract by Sergei et al
 
 I'm going to make it easier for contributors & creators to see the pledges they've made by showing their current pledges in the UI as well as extracting data in excel spreadsheets. 
-

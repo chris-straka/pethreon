@@ -10,11 +10,7 @@ If you want to make changes to the smart contract, please keep in mind that smar
 
 ## Test Networks
 
-I have deployed my smart contract to [Goerli](https://goerli.net/) and [Sepolia](https://sepolia.dev/). The contract address is the same on both networks. To test things out, you need to get ether from a [Goerli Faucet](https://goerlifaucet.com/) or a [sepolia faucet](https://sepolia-faucet.pk910.de/). I recommend using Goerli because metamask bugs out a bit on sepolia, in my experience. 
-
-## 
-
-Sepolia is one of the two test networks supported by ethereum. You can get fake sepolia ether from a . [I already deployed a smart contract to sepolia](https://sepolia.etherscan.io/address/0xfe63e035a1bba894a614409371a0eb5726eec09e), and I have included the address for it in the env files. You can deploy your own version and replace the address.
+I have deployed my smart contract to [Goerli](https://goerli.net/) and [Sepolia](https://sepolia.dev/). The contract address is the same for both networks. To test things out, you need to get ether from a [Goerli Faucet](https://goerlifaucet.com/) or a [sepolia faucet](https://sepolia-faucet.pk910.de/). I recommend using Goerli because metamask bugs out a bit on sepolia, in my experience. 
 
 ## Troubleshooting 
 
@@ -36,7 +32,7 @@ I'm not sure how to _automatically_ refresh transaction data in metamask, but yo
 
 2. You could insert the nonce it's expecting manually for each transaction, a feature you can enable in the metamask advanced settings.
 
-### "Couldn't get FooBarContractFunction()"
+### "Couldn't get FooContractFunction()"
 
 The contract may not have deployed correctly
 
