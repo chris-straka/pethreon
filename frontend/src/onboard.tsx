@@ -11,16 +11,17 @@ const chains = isProduction ?
   }] :
   [
     {
-      id: 31337,
+      id: 1337,
       token: 'ETH',
       label: 'Hardhat Test Network',
+      rpcUrl: 'http://localhost:5173/',
     },
-    {
-      id: 11155111,
-      token: 'ETH',
-      label: 'Sepolia Test Network',
-      rpcUrl: `https://sepolia.infura.io/v3/${import.meta.env.VITE_INFURA_ID}`,
-    }
+    // {
+    //   id: 11155111,
+    //   token: 'ETH',
+    //   label: 'Sepolia Test Network',
+    //   rpcUrl: `https://sepolia.infura.io/v3/${import.meta.env.VITE_INFURA_ID}`,
+    // }
   ]
 
 // https://onboard.blocknative.com/docs/getting-started/customization

@@ -1,14 +1,14 @@
-import type { ReactNode } from "react"
-import type { PledgeType } from "../../../types"
+import type { ReactNode } from "react";
+import type { PledgeType } from "../../../types";
 
 export const initialState = {
-  loading: false,
+  isLoading: false,
   balance: "0.0",
   pledges: [] as PledgeType[],
   modal: null as ReactNode | null
 }
 
-type AddressBalanceAndPledges = Omit<typeof initialState, 'modal' | 'loading'>;
+type AddressBalanceAndPledges = Omit<typeof initialState, 'modal' | 'isLoading'>;
 type BalanceAndPledges = Pick<typeof initialState, 'balance' | 'pledges'>
 
 export type ACTIONTYPE =
@@ -16,27 +16,27 @@ export type ACTIONTYPE =
   | { type: 'setNewPledgesAndBalance', payload: BalanceAndPledges }
   | { type: 'setBalance', payload: string }
   | { type: 'setModal', payload: ReactNode }
-  | { type: 'setLoading', payload?: boolean }
+  | { type: 'setIsLoading', payload?: boolean }
   | { type: 'closeModal' }
 
 export function UIReducer(state: typeof initialState, action: ACTIONTYPE) {
   switch (action.type) {
     case "setUI": {
       const { balance, pledges } = action.payload
-      return { ...state, balance, pledges, loading: false }
+      return { ...state, balance, pledges, isLoading: false }
     }
     case "setNewPledgesAndBalance": {
       const { balance, pledges } = action.payload
-      return { ...state, balance, pledges, loading: false }
+      return { ...state, balance, pledges, isLoading: false }
     }
-    case "setLoading":
-      return { ...state, loading: action.payload ? action.payload : true }
+    case "setIsLoading":
+      return { ...state, isLoading: action.payload ? action.payload : true }
     case "setBalance":
-      return { ...state, balance: action.payload, loading: false }
+      return { ...state, balance: action.payload, isLoading: false }
     case "setModal":
-      return { ...state, modal: action.payload, loading: false }
+      return { ...state, modal: action.payload, isLoading: false }
     case "closeModal":
-      return { ...state, modal: null, loading: false }
+      return { ...state, modal: null, isLoading: false }
     default: {
       throw new Error("Action does not exist in the contribute reducer")
     }

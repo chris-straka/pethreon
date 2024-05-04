@@ -1,7 +1,7 @@
 import { ethers } from "ethers"
 import { AnimatePresence, motion } from "framer-motion"
 import { useEffect, useReducer } from "react"
-import { ActionButton, Loading, ModalBackdrop, Nav, PledgeList, UserBalance } from "../../components"
+import { ActionButton, ModalBackdrop, Nav, PledgeList, UserBalance } from "../../components"
 import { CIRCLE_ANIMATION_DURATION, PAGE_FADE_IN_DURATION, PAGE_FADE_OUT_DURATION } from "../../constants"
 import { DepositSVG, PledgeSVG, WithdrawSVG } from "../../svgs"
 import type { PledgeType } from "../../types"
@@ -12,7 +12,7 @@ import { usePethreon } from "../../hooks/usePethreon"
 import styles from "./Contribute.module.scss"
 
 export const Contribute = () => {
-  const [{ balance, loading, pledges, modal }, dispatch] = useReducer(UIReducer, initialState)
+  const [{ balance, isLoading, pledges, modal }, dispatch] = useReducer(UIReducer, initialState)
   const contract = usePethreon()
 
   useEffect(() => {
@@ -29,13 +29,13 @@ export const Contribute = () => {
         const balance = await ethers.formatEther(balanceInWei).toString();
         dispatch({ type: "setUI", payload: { balance, pledges } })
       } catch (error) {
-        console.error(`Contribute page init error: ${error}`)
+        console.error(error)
       }
     })()
   }, [contract])
 
   const setLoading = (loading: boolean) => {
-    dispatch({ type: 'setLoading', payload: loading })
+    dispatch({ type: 'setIsLoading', payload: loading })
   }
 
   const setNewBalance = (newBalance: string) => {
@@ -73,7 +73,7 @@ export const Contribute = () => {
         exit={{ opacity: 0, transition: { duration: PAGE_FADE_OUT_DURATION } }}
       >
         <Nav className={styles.nav} to="/create">Create</Nav>
-        {loading ? <Loading /> : <UserBalance className={styles.balance} balance={balance} />}
+        <UserBalance className={styles.balance} balance={balance} loading={isLoading} />
         <div className={styles.actions}>
           <ActionButton
             className={styles.actionButton}

@@ -36,8 +36,21 @@ export const DepositModal = ({ closeModal, setLoading, setNewBalance }: DepositP
       const receipt = await deposit.wait()
       if (!receipt) throw new Error("Receipt not found")
 
-      const logs = receipt.logs;
-      if (!logs || logs.length === 0) throw new Error("Transaction Events not found");
+      if (!receipt.logs || receipt.logs.length === 0) {
+        setLoading(false)
+        console.error("Deposit logs not found")
+        console.log("receipt", receipt)
+        console.log("receipt.logs", receipt.logs)
+        console.log("receipt.logs.length", receipt.logs.length)
+
+        const transaction = receipt.getTransaction()
+        console.log("transaction", transaction)
+
+        const result = receipt.getResult()
+        console.log("result", result)
+
+        throw new Error("Transaction Events not found");
+      }
 
       // Retrieve newBalance from topics
       // topics[0] is the keccak256 hash of the event signature for identifying the event type
@@ -46,10 +59,12 @@ export const DepositModal = ({ closeModal, setLoading, setNewBalance }: DepositP
 
       const newBalanceInEther = await ethers.formatEther(newBalance)
       const newBalanceInEtherString = await newBalanceInEther.toString()
-      setNewBalance(newBalanceInEtherString)
 
+      setLoading(false)
+      setNewBalance(newBalanceInEtherString)
     } catch (error) {
       setLoading(false)
+      console.error(error)
       window.alert(error)
     }
   }

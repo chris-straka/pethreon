@@ -26,9 +26,6 @@ export const Login = () => {
       const wallet = wallets[0]
       if (!wallet) throw new Error("Wallet provider not found")
 
-      // Switch to the sepolia test network
-      // await setChain({ chainId: '0x11155111' })
-
       // Save and navigate
       localStorage.setItem("wallet", JSON.stringify(wallet.label))
       localStorage.getItem('last_page_visited') === "create" ?

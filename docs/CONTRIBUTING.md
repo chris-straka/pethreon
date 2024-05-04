@@ -58,7 +58,15 @@ Network Name: localhost   New RPC URL: http://127.0.0.1:8545
 Chain Id: 31337           Currency Symbol: ETH
 ```
 
-#### ERROR: "The Nonce you're using is too high" Error
+#### ERROR: Bad Data
+
+Try deleting ignition/deployments and redeploy again
+
+#### ERROR: Transaction block was 1 and expected 0
+
+Switch between networks in metamask
+
+#### ERROR: The Nonce you're using is too high
 
 Chances are you restarted the development network, but your Metamask account is still using the old transaction data. 
 I'm not sure how to _automatically_ refresh transaction data in metamask, but you can do one of two things.
@@ -67,10 +75,10 @@ I'm not sure how to _automatically_ refresh transaction data in metamask, but yo
 
 2. You could insert the nonce it's expecting manually for each transaction, a feature you can enable in the metamask advanced settings.
 
-#### ERROR: "Couldn't get FooContractFunction()"
+#### ERROR: Couldn't get FooContractFunction()
 
 The contract may not have deployed correctly
 
-#### ERROR: "Could not fetch chain ID. Is your RPC URL correct?"
+#### ERROR: Could not fetch chain ID. Is your RPC URL correct?
 
 The dev network is probably not running

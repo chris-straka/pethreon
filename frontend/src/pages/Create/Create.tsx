@@ -1,7 +1,7 @@
 import { ethers } from "ethers"
 import { motion } from "framer-motion"
 import { useEffect, useReducer } from "react"
-import { ActionButton, Loading, Nav, PledgeList, UserBalance } from "../../components"
+import { ActionButton, Nav, PledgeList, UserBalance } from "../../components"
 import { usePethreon } from "../../hooks/usePethreon"
 import { CsvSVG, WithdrawSVG } from "../../svgs"
 import { UIReducer, initialState } from "../Create/reducers/UIReducer"
@@ -16,7 +16,7 @@ import {
 import styles from "./Create.module.scss"
 
 export const Create = () => {
-  const [{ balance, loading, pledges }, dispatch] = useReducer(UIReducer, initialState)
+  const [{ balance, isLoading, pledges }, dispatch] = useReducer(UIReducer, initialState)
   const contract = usePethreon()
 
   useEffect(() => {
@@ -50,7 +50,7 @@ export const Create = () => {
       exit={{ opacity: 0, transition: { duration: PAGE_FADE_OUT_DURATION } }}
     >
       <Nav className={styles.nav} to='/contribute'>Donate</Nav>
-      {loading ? <Loading /> : <UserBalance className={styles.balance} balance={balance} />}
+      <UserBalance className={styles.balance} balance={balance} loading={isLoading} />
       <div className={styles.actions}>
         <ActionButton
           className={styles.actionButton}
@@ -70,7 +70,7 @@ export const Create = () => {
         className={styles.pledges}
         noPledgesText={<span className={styles.noPledgesText}>Nobody has pledged to you yet...</span>}
         pledges={pledges}
-        setLoading={() => dispatch({ type: 'setLoading', payload: loading })}
+        setLoading={() => dispatch({ type: 'setIsLoading', payload: isLoading })}
         setNewBalanceAndPledges={() => dispatch({ type: 'setNewPledgesAndBalance', payload: { balance, pledges } })}
       />
     </motion.main>
