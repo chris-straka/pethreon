@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { useNavigate } from "react-router-dom"
-import { useConnectWallet, useSetChain } from '@web3-onboard/react'
+import { useConnectWallet } from '@web3-onboard/react'
 import { Features, Footer, LoginButton, Pethreon, Typewriter, Video } from './components'
 import { MetamaskSVG } from '../../svgs'
 import { GREETINGS, LOGGING_IN, LOGIN_ERROR } from '../../messages'
@@ -16,7 +16,6 @@ import styles from "./Login.module.scss"
 export const Login = () => {
   const { message, setMessage, talking, setTalking } = useTalkingLogo(false, GREETINGS)
   const [{ connecting }, connect] = useConnectWallet()
-  const [, setChain] = useSetChain()
   const navigate = useNavigate()
 
   async function signIn() {

@@ -1,19 +1,19 @@
-import { useEffect, useReducer } from "react"
-import { motion, AnimatePresence } from "framer-motion"
 import { ethers } from "ethers"
-import type { PledgeType } from "../../types"
+import { AnimatePresence, motion } from "framer-motion"
+import { useEffect, useReducer } from "react"
+import { ActionButton, Loading, ModalBackdrop, Nav, PledgeList, UserBalance } from "../../components"
 import { CIRCLE_ANIMATION_DURATION, PAGE_FADE_IN_DURATION, PAGE_FADE_OUT_DURATION } from "../../constants"
-import { ActionButton, ModalBackdrop, Loading, Nav, PledgeList, UserBalance } from "../../components"
+import { DepositSVG, PledgeSVG, WithdrawSVG } from "../../svgs"
+import type { PledgeType } from "../../types"
 import { DepositModal, PledgeModal, WithdrawModal } from "./components"
-import { DepositSVG, WithdrawSVG, PledgeSVG } from "../../svgs"
 import { UIReducer, initialState } from "./reducers/UIReducer"
 
+import { usePethreon } from "../../hooks/usePethreon"
 import styles from "./Contribute.module.scss"
-import { useP } from "../../hooks/useP"
 
 export const Contribute = () => {
   const [{ balance, loading, pledges, modal }, dispatch] = useReducer(UIReducer, initialState)
-  const contract = useP()
+  const contract = usePethreon()
 
   useEffect(() => {
     localStorage.setItem("last_page_visited", "contribute");

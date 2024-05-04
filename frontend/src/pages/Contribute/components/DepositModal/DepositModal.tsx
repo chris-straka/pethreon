@@ -1,10 +1,10 @@
-import { FormEvent, MouseEvent, useState } from "react"
 import { ethers } from "ethers"
+import { FormEvent, MouseEvent, useState } from "react"
 import { EtherAmount, Submit } from ".."
+import { usePethreon } from "../../../../hooks/usePethreon"
 import { DISCLAIMER } from '../../../../messages'
 import { DepositSVG } from "../../../../svgs"
 import { Denomination } from "../../../../types"
-import { useP } from "../../../../hooks/useP"
 
 import styles from "./DepositModal.module.scss"
 
@@ -18,7 +18,7 @@ export const DepositModal = ({ closeModal, setLoading, setNewBalance }: DepositP
   const [depositAmount, setDepositAmount] = useState("")
   const [denomination, setDenomination] = useState<Denomination>("Ether")
   const [consent, setConsent] = useState(false)
-  const contract = useP()
+  const contract = usePethreon()
 
   async function submitDeposit(event: FormEvent<HTMLButtonElement>) {
     event.preventDefault()

@@ -1,9 +1,9 @@
-import { ChangeEvent, FormEvent, MouseEvent, useState } from "react"
 import { ethers } from "ethers"
+import { ChangeEvent, FormEvent, MouseEvent, useState } from "react"
 import { EtherAmount, FormField, Submit } from "../"
+import { usePethreon } from "../../../../hooks/usePethreon"
 import { DateSVG, PersonSVG, PledgeSVG } from "../../../../svgs"
-import { Denomination, PledgeType, Pethreon } from "../../../../types"
-import { useP } from "../../../../hooks/useP"
+import { Denomination, Pethreon, PledgeType } from "../../../../types"
 
 import styles from "./PledgeModal.module.scss"
 
@@ -20,7 +20,7 @@ export const PledgeModal = (
   const [amountPerPeriod, setAmountPerPeriod] = useState("")
   const [address, setAddress] = useState("")
   const [period, setPeriod] = useState("")
-  const contract = useP()
+  const contract = usePethreon()
 
   const submitPledge = async (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault()

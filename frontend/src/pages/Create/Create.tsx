@@ -2,7 +2,7 @@ import { ethers } from "ethers"
 import { motion } from "framer-motion"
 import { useEffect, useReducer } from "react"
 import { ActionButton, Loading, Nav, PledgeList, UserBalance } from "../../components"
-import { useP } from "../../hooks/useP"
+import { usePethreon } from "../../hooks/usePethreon"
 import { CsvSVG, WithdrawSVG } from "../../svgs"
 import { UIReducer, initialState } from "../Create/reducers/UIReducer"
 import { extractPledgesToCsv } from "./utils"
@@ -17,7 +17,7 @@ import styles from "./Create.module.scss"
 
 export const Create = () => {
   const [{ balance, loading, pledges }, dispatch] = useReducer(UIReducer, initialState)
-  const contract = useP()
+  const contract = usePethreon()
 
   useEffect(() => {
     localStorage.setItem("last_page_visited", "create");
