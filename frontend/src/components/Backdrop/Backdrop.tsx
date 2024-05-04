@@ -1,54 +1,44 @@
 import { useEffect } from "react"
-import { useLocation } from "react-router-dom"
+import { Location } from "react-router-dom"
 import { motion, useAnimationControls } from "framer-motion"
 import { CIRCLE_ANIMATION_DURATION, PAGE_FADE_IN_DURATION, PAGE_FADE_OUT_DURATION } from "../../constants"
 
+interface PethreonProps {
+  location: Location
+}
+
 /** 
- * This backdrop is meant to hide the @web3-onboard account center modal
+ * This backdrop is meant to animate the @web3-onboard account modal
  * https://onboard.blocknative.com/docs/getting-started/customization
  */
-export function Backdrop() {
-  const { pathname: path } = useLocation()
+export function Backdrop({ location }: PethreonProps) {
   const controls = useAnimationControls()
+  const path = location.pathname
 
   useEffect(() => {
     if (path === "/") {
-      async function animate() {
+      (async () => {
         controls.start({
           opacity: 1,
           display: 'block',
+          zIndex: 2,
           transition: {}
         })
-      }
-      animate()
+      })()
     }
 
-    if (path === "/contribute") {
-      async function animate() {
+    if (!(path === "/")) {
+      (async () => {
         controls.start({
           opacity: 0,
           display: 'none',
+          zIndex: -20,
           transition: {
             delay: PAGE_FADE_OUT_DURATION + CIRCLE_ANIMATION_DURATION,
             duration: PAGE_FADE_IN_DURATION
           }
         })
-      }
-      animate()
-    }
-
-    if (path === "/create") {
-      async function animate() {
-        controls.start({
-          opacity: 0,
-          display: 'none',
-          transition: {
-            delay: PAGE_FADE_OUT_DURATION + CIRCLE_ANIMATION_DURATION,
-            duration: PAGE_FADE_IN_DURATION
-          }
-        })
-      }
-      animate()
+      })()
     }
   }, [controls, path])
 

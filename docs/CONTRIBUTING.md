@@ -1,20 +1,55 @@
-# How to develop locally
+# How To Develop
 
-It's **strongly** recommended that use WSL or Linux/Unix for this project. It will make things easier for hardhat. It'll also match the developoment environment with the production/CI environment. 
+> Disclaimer: Sepolia and Hardhat are test networks, avoid using real ether!
 
-`npm install` is not going to work until you setup some environment variables (you'll also need to install [pnpm](https://pnpm.io/)). Please refer to the .env.example file in the root directory for information on what you need to do.
+It's **strongly** recommended that use WSL2 or Unix for this project. 
+It makes things easier for hardhat and the production/CI env.
 
-## P.S 
+`npm i` will fail unless you setup the environment variables (see .env.example).
+Hardhat uses npm but the frontend uses [pnpm](https://pnpm.io/), so install it.
+If you don't have metamask [metamask](https://metamask.io/download/), install it.
 
-If you want to make changes to the smart contract, please keep in mind that smart contracts (by design) are immutable. This means you have to redeploy the contract everytime you want to make changes. When working with smart contracts, I strongly recommend using tests with hardhat.
+You'll then want to login to metamask via passphrase by clicking on "forget my password"
+I used the passphrase "test test test test test test test test test test test junk"
+DO NOT ADD REAL CRYPTOCURRENCY TO THIS ACCOUNT.
 
-## Test Networks
+```sh
+# In one terminal, boot up a local hh (hardhat) network on localhost:8545
+npm run dev 
+```
 
-I have deployed my smart contract to [Goerli](https://goerli.net/) and [Sepolia](https://sepolia.dev/). The contract address is the same for both networks. To test things out, you need to get ether from a [Goerli Faucet](https://goerlifaucet.com/) or a [sepolia faucet](https://sepolia-faucet.pk910.de/). I recommend using Goerli because metamask bugs out a bit on sepolia, in my experience. 
+```sh
+# in a separate terminal, deploy the smart contract to the same network
+npm run deployll
 
-## Troubleshooting 
+# boot up the frontend
+npm run fdev
+```
 
-### Metamask's default localhost:8545 doesn't work.
+You'll then want to [add the localhost 8545 network with chain id 1337 to metamask](https://docs.metamask.io/wallet/how-to/run-devnet/).
+You'll now be able to use the dapp frontend to communicate with the pethreon smart contract running locally on port 8545.
+
+If you don't want to use the dapp/metamask and just want to test the smart contract locally, you can do this instead.
+
+```sh
+# boots up the hh network for you automatically
+npm run test
+```
+
+### [Sepolia](https://sepolia.ethpandaops.io/)
+
+If you don't want to develop locally using the local hardhat network, you can also use [the contract I have deployed on the Sepolia testnet](https://blockexplorer.one/ethereum/sepolia/address/0xFe63E035A1bbA894A614409371A0eb5726eEc09e) or deploy your own (`npm run deploysp`).
+You'll need fake ether from a [Sepolia faucet](https://sepolia-faucet.pk910.de/).
+Just make sure the web3-onboard modal on the dapp frontend is connected to the right network (Sepolia).
+
+### P.S
+
+If you want to make changes to the smart contract, please keep in mind that smart contracts (by design) are immutable. 
+This means you have to redeploy a new contract everytime you want to make changes (which requires ether).
+
+### Troubleshooting 
+
+#### ERROR: Metamask's default localhost:8545 doesn't work
 
 Metamask comes with a pre-configured localhost:8545 network by default, but if it doesn't work for you, you can create a custom network config using the info down below. Your dev network needs to be running on localhost:8545 before you can add its configuration to metamask.
 
@@ -23,7 +58,7 @@ Network Name: localhost   New RPC URL: http://127.0.0.1:8545
 Chain Id: 31337           Currency Symbol: ETH
 ```
 
-### "The Nonce you're using is too high"
+#### ERROR: "The Nonce you're using is too high" Error
 
 Chances are you restarted the development network, but your Metamask account is still using the old transaction data. 
 I'm not sure how to _automatically_ refresh transaction data in metamask, but you can do one of two things.
@@ -32,10 +67,10 @@ I'm not sure how to _automatically_ refresh transaction data in metamask, but yo
 
 2. You could insert the nonce it's expecting manually for each transaction, a feature you can enable in the metamask advanced settings.
 
-### "Couldn't get FooContractFunction()"
+#### ERROR: "Couldn't get FooContractFunction()"
 
 The contract may not have deployed correctly
 
-### "Could not fetch chain ID. Is your RPC URL correct?"
+#### ERROR: "Could not fetch chain ID. Is your RPC URL correct?"
 
 The dev network is probably not running

@@ -3,28 +3,27 @@ dotenv.config()
 
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
+import "@nomicfoundation/hardhat-ignition-ethers"
 
 /** 
  * I have a .env file in this directory
  */
 const config: HardhatUserConfig = {
   solidity: {
-    version: "0.8.17",
+    version: "0.8.24",
   },
   typechain: {
     outDir: "frontend/typechain-types"
   },
   networks: {
-    // mainnet: {
-    //   url: `https://mainnet.infura.io/v3/${process.env.INFURA_ID}`,
-    //   accounts: [`0x${process.env.WALLET_PRIVATE_KEY}`],
-    // },
+    hardhat: {
+      accounts: {
+        mnemonic: process.env.DEVELOPMENT_SEED_PHRASE
+      },
+      chainId: 1337
+    },
     sepolia: {
       url: `https://sepolia.infura.io/v3/${process.env.INFURA_ID}`,
-      accounts: [`0x${process.env.WALLET_PRIVATE_KEY}`],
-    },
-    goerli: {
-      url: `https://goerli.infura.io/v3/${process.env.INFURA_ID}`,
       accounts: [`0x${process.env.WALLET_PRIVATE_KEY}`],
     }
   }

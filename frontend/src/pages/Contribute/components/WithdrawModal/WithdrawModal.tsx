@@ -1,5 +1,5 @@
 import { useState, FormEvent, MouseEvent } from "react"
-import { BigNumber, utils } from "ethers"
+import { ethers } from "ethers"
 import { MetamaskError, Denomination, Pethreon } from "../../../../types"
 import { WithdrawSVG } from "../../../../svgs"
 import { usePethreon } from "../../../../hooks"
@@ -32,7 +32,7 @@ export const WithdrawModal = ({ closeModal, setLoading, setNewBalance }: Withdra
     try {
       await contract.contributorWithdraw(amountInWei)
       const newBalance = await contract.getContributorBalanceInWei()
-      const newBalanceEther = await utils.formatEther(newBalance)
+      const newBalanceEther = await ethers.formatEther(newBalance)
       const newBalanceEtherString = await newBalanceEther.toString()
       setNewBalance(newBalanceEtherString)
     } catch (error) {
@@ -63,17 +63,17 @@ export const WithdrawModal = ({ closeModal, setLoading, setNewBalance }: Withdra
 }
 
 async function getAmountInWei(currency: Denomination, amount: string, contract: Pethreon) {
-  let amountInWei: BigNumber;
+  let amountInWei: bigint;
 
   switch (currency) {
     case "Ether":
-      amountInWei = utils.parseUnits(amount, "ether")
+      amountInWei = ethers.parseUnits(amount, "ether")
       break
     case "Gwei":
-      amountInWei = utils.parseUnits(amount, "gwei")
+      amountInWei = ethers.parseUnits(amount, "gwei")
       break
     case "Wei":
-      amountInWei = BigNumber.from(amount)
+      amountInWei = BigInt(amount)
       break
     case "All":
       amountInWei = await contract.getContributorBalanceInWei()

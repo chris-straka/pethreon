@@ -1,5 +1,3 @@
-import { BigNumber } from "ethers"
-
 export enum EtherDenomination {
   ETHER = "Ether",
   GWEI = "Gwei",
@@ -16,11 +14,11 @@ export enum PledgeStatus {
 export type PledgeType = {
   contributorAddress: string,
   creatorAddress: string,
-  dateCreated: BigNumber,
-  duration: BigNumber,
-  periodExpires: BigNumber,
+  dateCreated: bigint,
+  duration: bigint,
+  periodExpires: bigint,
   status: PledgeStatus,
-  weiPerPeriod: BigNumber,
+  weiPerPeriod: bigint,
 }
 
 // const PETHREON_DEVELOPMENT_PRIVATE_KEY = "test test test test test test test test test test test junk"

@@ -1,6 +1,9 @@
 # Alternative Contract
 
-This is an alternative smart contract that I came up with, but it doesn't work (maybe I'm missing something obvious). I needed to build a dynamic array in memory because that was the easiest way to return all the pledges to a user. But apparently [building a dynamic array in memory is not allowed in Solidity (SO post)](https://stackoverflow.com/questions/68010434). I could return a static array of pledges instead, and the user could keep calling that function with different pointers each time like a sliding window, but this would result in a lot more API calls to my node at infura. 
+This is an alternative smart contract that I came up with, but it doesn't work (maybe I'm missing something obvious). 
+I needed to build a dynamic array in memory because that was the easiest way to return all the pledges to a user. 
+But apparently [building a dynamic array in memory is not allowed in Solidity (SO post)](https://stackoverflow.com/questions/68010434). 
+I could return a static array of pledges instead, and the user could keep calling that function with different pointers each time like a sliding window, but this would result in a lot more API calls to my node at infura. 
 
 ```solidity
 // SPDX-License-Identifier: MIT

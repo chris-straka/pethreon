@@ -20,7 +20,7 @@ I picked a color palette that I thought looked good, but it ended up not being e
 
 ### Components
 
-Components made my code much more readable, even if I never reused them (the declarative style is nice). I'm still figuring out how to make components reusable, and at the same time tailor them to my specific needs. I've experimented with things like spacer components, styles as props, and stuff like that.
+Components made my code much more readable even if I NEVER reused them (the declarative style is nice). I'm still figuring out how to make some components reusable, and at the same time tailor them to my specific needs. I've experimented with things like spacer components, styles as props, and stuff like that.
 
 ### I fought the scrollbar and the scrollbar won
 

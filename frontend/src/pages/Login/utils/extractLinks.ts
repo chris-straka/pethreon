@@ -1,14 +1,16 @@
 type LinkMap = Map<[number, number], string>
 
 /** 
- * Grabs a string that has anchor tags in it and returns two things...
+ * Grabs a string with anchor tags...  
  * 
- * The same string without the anchor tag markup and a map where the keys
- * point to a pair of indices that represent where an anchor tag should be
- * and the values point to the href that the anchor tag should point to.
+ * "foo <a href="bar">baz</a> qux"
  * 
- * input  = "a <a href="eg">foo</a> b"
- * output = "a foo b", Map [[2, 4] => "eg"]
+ * and returns...
+ * 
+ * "foo baz qux", Map [[4, 6] => bar] 
+ * 
+ * The map says baz should be a link that starts at index 4 and ends at index 6
+ * and the href should be bar (like bar.com)
  */
 export function extractLinks(str: string): [string, LinkMap] {
   const linkMap = new Map() as LinkMap

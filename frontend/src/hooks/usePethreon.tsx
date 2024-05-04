@@ -2,24 +2,39 @@ import { useEffect, useContext } from "react"
 import { ethers } from "ethers"
 import { useNavigate } from "react-router-dom"
 import { useConnectWallet } from "@web3-onboard/react"
-import { useWeb3Dispatch } from "./useWeb3Dispatch"
-import { Web3Context } from "../context/Web3Context"
+import { usePethreonDispatch } from "./usePethreonDispatch"
+import { PethreonContext } from "../context/PethreonContext"
 import { Pethreon__factory } from "../../typechain-types"
 
 export function usePethreon() {
-  const { provider } = useContext(Web3Context)
+  const { provider, contract } = useContext(PethreonContext)
   const [{ wallet }, connect] = useConnectWallet()
-  const dispatch = useWeb3Dispatch()
+  const dispatch = usePethreonDispatch()
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!wallet) navigate("/")
-    if (!wallet?.provider) {
-      dispatch({ type: "resetWeb3" })
-    } else {
-      const provider = new ethers.providers.Web3Provider(wallet.provider, 'goerli')
-      dispatch({ type: "setWeb3", payload: provider })
+    async function setup() {
+      if (!wallet || !wallet.provider) {
+        navigate("/")
+        dispatch({ type: "clearPethreon" })
+        return
+      } else {
+        const provider = new ethers.BrowserProvider(wallet.provider, 'sepolia')
+        const signer = await provider.getSigner()
+        const contractAddress = import.meta.env.VITE_PETHREON_CONTRACT_ADDRESS
+
+        // The factory has the ABI embedded within it
+        const contract = Pethreon__factory.connect(contractAddress, signer)
+        dispatch({
+          type: "setPethreon", payload: {
+            provider,
+            signer,
+            contract
+          }
+        })
+      }
     }
+    setup()
   }, [wallet, dispatch, navigate])
 
   useEffect(() => {
@@ -28,7 +43,6 @@ export function usePethreon() {
     if (wallet) return
 
     const previousWallet = JSON.parse(localWallet)
-
     if (previousWallet?.length) {
       async function setWalletFromLocalStorage() {
         await connect({ autoSelect: previousWallet })
@@ -38,7 +52,5 @@ export function usePethreon() {
   }, [connect, wallet])
 
   if (!provider) return
-
-  const signer = provider.getSigner()
-  return Pethreon__factory.connect(import.meta.env.VITE_PETHREON_CONTRACT_ADDRESS, signer)
+  return contract
 }

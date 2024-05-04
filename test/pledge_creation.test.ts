@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import { Pethreon } from "../frontend/typechain-types";
-import { PledgeStatus, PledgeType } from "./types"
+import { PledgeStatus } from "./types"
 import { ethers, network } from 'hardhat';
 import { ContractFactory, Signer } from 'ethers';
 import "@nomiclabs/hardhat-ethers" // stops the hardhat error
@@ -29,13 +29,13 @@ describe("Pethreon", () => {
     })
 
     it("The pledge should look correct", async () => {
-      const contributorPledges = await Pethreon.getContributorPledges() as PledgeType[]
+      const contributorPledges = await Pethreon.getContributorPledges()
       const pledge = contributorPledges[0]
 
-      const duration = await pledge.duration.toNumber()
-      const weiPerPeriod = await pledge.weiPerPeriod.toNumber()
-      const expirationDate = await pledge.periodExpires.toNumber()
-      const currentPeriod = await (await Pethreon.currentPeriod()).toNumber()
+      const duration = await pledge.duration
+      const weiPerPeriod = await pledge.weiPerPeriod
+      const expirationDate = await pledge.periodExpires
+      const currentPeriod = await Pethreon.currentPeriod()
 
       expect(weiPerPeriod).to.equal(1)
       expect(expirationDate - currentPeriod).to.equal(duration)

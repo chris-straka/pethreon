@@ -3,17 +3,16 @@
   "scripts": {
     "preinstall": "npx only-allow npm",
     "postinstall": "npm run build && npm run finstall",
-    "dev": "npx hardhat node & npm deploy",
-    "build": "npm run clean && npm run compile",
+    "dev": "npx hardhat node",
+    "devd": "npx hardhat node & npm run deploylh",
+    "build": "npx hardhat clean && npx hardhat compile",
     "clean": "npx hardhat clean",
     "compile": "npx hardhat compile",
-    "test": "npx hardhat test",
-    "deploy": "npx hardhat run scripts/deploy.ts",
-    "deploy-sepolia": "npx hardhat run --network sepolia scripts/deploy.ts",
-    "deploy-goerli": "npx hardhat run --network goerli scripts/deploy.ts",
-    "deploy-netlify": "npm run fbuild",
-    "node": "npx hardhat node",
     "coverage": "npm run build && npx hardhat coverage --temp artifacts --network coverage",
+    "deploylh": "npx hardhat ignition deploy ignition/modules/Pethreon.ts --network localhost",
+    "deploysp": "npx hardhat ignition deploy ignition/modules/Pethreon.ts --network sepolia",
+    "test": "npx hardhat test",
+    "node": "npx hardhat node",
     "finstall": "cd ./frontend && pnpm install && cd -",
     "fdev": "cd ./frontend && pnpm dev && cd -",
     "flint": "cd ./frontend && pnpm lint && cd -",
@@ -21,8 +20,9 @@
     "fpreview": "cd ./frontend && pnpm preview && cd -"
   },
   "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^2.0.0",
-    "dotenv": "^16.0.3",
-    "hardhat": "^2.12.4"
+    "@nomicfoundation/hardhat-ignition-ethers": "^0.15.2",
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "dotenv": "^16.4.5",
+    "hardhat": "^2.22.3"
   }
 }

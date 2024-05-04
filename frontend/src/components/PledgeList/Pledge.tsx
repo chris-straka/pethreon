@@ -1,4 +1,4 @@
-import { utils } from "ethers"
+import { ethers } from "ethers"
 import { usePethreon } from "../../hooks"
 import { TrashSVG } from "../../svgs"
 import { PledgeType } from "../../types"
@@ -17,10 +17,10 @@ export const ContributorPledge = (
   const contract = usePethreon()
   const { creatorAddress, duration, dateCreated, weiPerPeriod } = pledge
 
-  const pledgeDuration = duration.toNumber()
-  const etherPerPeriod = utils.formatEther(weiPerPeriod)
-  const pledgeStartDate = new Date(+dateCreated * 1000).toDateString()
-  const pledgeEndDate = new Date((+dateCreated + (pledgeDuration * 86400)) * 1000).toDateString()
+  const pledgeDuration = Number(duration)
+  const etherPerPeriod = ethers.formatEther(weiPerPeriod)
+  const pledgeStartDate = new Date(Number(dateCreated) * 1000).toDateString()
+  const pledgeEndDate = new Date((Number(dateCreated) + (pledgeDuration * 86400)) * 1000).toDateString()
 
   async function cancelPledge() {
     setLoading(true)
@@ -28,7 +28,7 @@ export const ContributorPledge = (
     try {
       await contract.cancelPledge(creatorAddress)
       const newBalance = await contract.getContributorBalanceInWei()
-      const newBalanceEther = await utils.formatEther(newBalance)
+      const newBalanceEther = await ethers.formatEther(newBalance)
       const newBalanceEtherString = await newBalanceEther.toString()
 
       const newPledges = await contract.getContributorPledges()
@@ -72,10 +72,10 @@ export const CreatorPledge = ({
 ) => {
   const { contributorAddress, duration, dateCreated, weiPerPeriod } = pledge
 
-  const pledgeDuration = duration.toNumber()
-  const etherPerPeriod = utils.formatEther(weiPerPeriod)
-  const pledgeStartDate = new Date(+dateCreated * 1000).toDateString()
-  const pledgeEndDate = new Date((+dateCreated + (pledgeDuration * 86400)) * 1000).toDateString()
+  const pledgeDuration = Number(duration)
+  const etherPerPeriod = ethers.formatEther(weiPerPeriod)
+  const pledgeStartDate = new Date(Number(dateCreated) * 1000).toDateString()
+  const pledgeEndDate = new Date((Number(dateCreated) + (pledgeDuration * 86400)) * 1000).toDateString()
 
   return (
     <li className={styles.pledge}>

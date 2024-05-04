@@ -2,7 +2,6 @@ import { ContractFactory, Signer } from 'ethers';
 import { Pethreon } from "../frontend/typechain-types";
 import { ethers, network } from 'hardhat';
 import { expect } from 'chai';
-import { PledgeType } from "./types"
 import "@nomiclabs/hardhat-ethers" // stops the error until I figure it out
 
 describe("Pethreon", () => {
@@ -29,28 +28,28 @@ describe("Pethreon", () => {
     })
 
     it("The contributor should be reimbursed correctly", async function () {
-      const balanceBeforeCancellation = await (await Pethreon.getContributorBalanceInWei()).toNumber()
+      const balanceBeforeCancellation = await Pethreon.getContributorBalanceInWei()
       await Pethreon.cancelPledge(fooAddress)
-      const balanceAfterCancellation = await (await Pethreon.getContributorBalanceInWei()).toNumber()
+      const balanceAfterCancellation = await Pethreon.getContributorBalanceInWei()
 
-      expect(balanceAfterCancellation).to.equal(balanceBeforeCancellation + 3)
+      expect(balanceAfterCancellation).to.equal(Number(balanceBeforeCancellation) + 3)
     })
 
     it('The pledge should should be deleted on the contributor\'s side', async function () {
-      const pledgesBefore = await Pethreon.getContributorPledges() as PledgeType[]
+      const pledgesBefore = await Pethreon.getContributorPledges() 
       await Pethreon.cancelPledge(fooAddress)
-      const pledgesAfter = await Pethreon.getContributorPledges() as PledgeType[]
+      const pledgesAfter = await Pethreon.getContributorPledges() 
 
       expect(pledgesBefore.length).to.equal(1)
       expect(pledgesAfter.length).to.equal(0)
     })
 
     it('The pledge should be cancelled on the creator\'s side', async function () {
-      const beforeCancellation = await Pethreon.connect(foo).getCreatorPledges() as PledgeType[]
+      const beforeCancellation = await Pethreon.connect(foo).getCreatorPledges()
       expect(beforeCancellation.length).to.equal(1)
       await Pethreon.cancelPledge(fooAddress)
 
-      const afterCancellation = await Pethreon.connect(foo).getCreatorPledges() as PledgeType[]
+      const afterCancellation = await Pethreon.connect(foo).getCreatorPledges() 
       expect(afterCancellation.length).to.equal(0)
       expect(await (await Pethreon.connect(foo).getExpiredPledges()).length).to.equal(1)
     })

@@ -1,9 +1,9 @@
 import { ChangeEvent, FormEvent, MouseEvent, useState } from "react"
-import { BigNumber, utils } from "ethers"
+import { ethers } from "ethers"
 import { EtherAmount, FormField, Submit } from "../"
 import { DateSVG, PersonSVG, PledgeSVG } from "../../../../svgs"
 import { Denomination, PledgeType, Pethreon } from "../../../../types"
-import { usePethreon } from "../../../../hooks"
+import { useP } from "../../../../hooks/useP"
 
 import styles from "./PledgeModal.module.scss"
 
@@ -20,7 +20,7 @@ export const PledgeModal = (
   const [amountPerPeriod, setAmountPerPeriod] = useState("")
   const [address, setAddress] = useState("")
   const [period, setPeriod] = useState("")
-  const contract = usePethreon()
+  const contract = useP()
 
   const submitPledge = async (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
@@ -44,7 +44,7 @@ export const PledgeModal = (
       await contract.createPledge(address, amountPerPeriodInWei, period)
 
       const newBalance = await contract.getContributorBalanceInWei()
-      const newBalanceEther = await utils.formatEther(newBalance)
+      const newBalanceEther = await ethers.formatEther(newBalance)
       const newBalanceEtherString = await newBalanceEther.toString()
 
       const newPledges = await contract.getContributorPledges()
@@ -116,22 +116,22 @@ function validateInputs(
 }
 
 async function formatAmountToWei(currency: Denomination, amountPerPeriod: string, contract: Pethreon, period: string) {
-  let amountPerPeriodInWei: BigNumber
+  let amountPerPeriodInWei: bigint
 
   switch (currency) {
     case "Ether":
-      amountPerPeriodInWei = utils.parseUnits(amountPerPeriod, "ether")
+      amountPerPeriodInWei = ethers.parseUnits(amountPerPeriod, "ether")
       break
     case "Gwei":
-      amountPerPeriodInWei = utils.parseUnits(amountPerPeriod, "gwei")
+      amountPerPeriodInWei = ethers.parseUnits(amountPerPeriod, "gwei")
       break
     case "Wei":
-      amountPerPeriodInWei = BigNumber.from(amountPerPeriod)
+      amountPerPeriodInWei = BigInt(amountPerPeriod)
       break
     case "All":
       const fullBalance = await contract.getContributorBalanceInWei()
-      let fullBalancePerPeriod = (+fullBalance / +period)
-      amountPerPeriodInWei = BigNumber.from(fullBalancePerPeriod)
+      let fullBalancePerPeriod = (Number(fullBalance) / +period)
+      amountPerPeriodInWei = BigInt(fullBalancePerPeriod)
   }
 
   return amountPerPeriodInWei

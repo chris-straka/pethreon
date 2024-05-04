@@ -1,5 +1,5 @@
-import { ReactNode } from "react"
-import { PledgeType } from "../types"
+import type { ReactNode } from "react"
+import type { PledgeType } from "../../../types"
 
 export const initialState = {
   loading: false,

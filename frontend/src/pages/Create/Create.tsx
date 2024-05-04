@@ -1,12 +1,11 @@
-import { useEffect, useReducer } from "react"
-import { motion } from "framer-motion"
 import { ethers } from "ethers"
+import { motion } from "framer-motion"
+import { useEffect, useReducer } from "react"
 import { ActionButton, Loading, Nav, PledgeList, UserBalance } from "../../components"
-import { WithdrawSVG, CsvSVG } from "../../svgs"
-import { usePethreon } from "../../hooks"
+import { useP } from "../../hooks/useP"
+import { CsvSVG, WithdrawSVG } from "../../svgs"
+import { UIReducer, initialState } from "../Create/reducers/UIReducer"
 import { extractPledgesToCsv } from "./utils"
-import { PledgeType } from "../../types"
-import { UIReducer, initialState } from "../../reducers/UIReducer"
 
 import {
   CIRCLE_ANIMATION_DURATION,
@@ -18,44 +17,36 @@ import styles from "./Create.module.scss"
 
 export const Create = () => {
   const [{ balance, loading, pledges }, dispatch] = useReducer(UIReducer, initialState)
-  const contract = usePethreon()
+  const contract = useP()
 
   useEffect(() => {
-    localStorage.setItem("last_page_visited", "create")
+    localStorage.setItem("last_page_visited", "create");
+    (async () => {
+      if (!contract) return
 
-    async function init() {
       try {
-        if (!contract) return
-
         const [balanceInWei, pledges] = await Promise.all([
-          contract.getContributorBalanceInWei(),
-          contract.getContributorPledges(),
+          contract.getCreatorBalanceInWei(),
+          contract.getCreatorPledges(),
         ])
 
-        const balance = await ethers.utils.formatEther(balanceInWei).toString();
+        const balance = await ethers.formatEther(balanceInWei).toString();
         dispatch({ type: "setUI", payload: { balance, pledges } })
-
       } catch (error) {
-        window.alert(error)
+        console.error(`Create page init error: ${error}`)
+        throw new Error(error as any)
       }
-    }
-
-    init()
+    })()
   }, [contract])
-
-  const setLoading = (loading: boolean) => {
-    dispatch({ type: 'setLoading', payload: loading })
-  }
-
-  const setNewBalanceAndPledges = (balance: string, pledges: PledgeType[]) => {
-    dispatch({ type: 'setNewPledgesAndBalance', payload: { balance, pledges } })
-  }
 
   return (
     <motion.main
       className={styles.layout}
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { delay: CIRCLE_ANIMATION_DURATION, duration: PAGE_FADE_IN_DURATION } }}
+      animate={{
+        opacity: 1,
+        transition: { delay: CIRCLE_ANIMATION_DURATION, duration: PAGE_FADE_IN_DURATION }
+      }}
       exit={{ opacity: 0, transition: { duration: PAGE_FADE_OUT_DURATION } }}
     >
       <Nav className={styles.nav} to='/contribute'>Donate</Nav>
@@ -69,7 +60,7 @@ export const Create = () => {
         />
         <ActionButton
           className={styles.actionButton}
-          onClick={async () => await extractPledgesToCsv(contract!, pledges)}
+          onClick={async () => await extractPledgesToCsv(contract, pledges)}
           svg={<CsvSVG />}
           children="Extract to CSV"
         />
@@ -79,8 +70,8 @@ export const Create = () => {
         className={styles.pledges}
         noPledgesText={<span className={styles.noPledgesText}>Nobody has pledged to you yet...</span>}
         pledges={pledges}
-        setLoading={setLoading}
-        setNewBalanceAndPledges={setNewBalanceAndPledges}
+        setLoading={() => dispatch({ type: 'setLoading', payload: loading })}
+        setNewBalanceAndPledges={() => dispatch({ type: 'setNewPledgesAndBalance', payload: { balance, pledges } })}
       />
     </motion.main>
   )

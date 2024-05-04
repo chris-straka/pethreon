@@ -1,47 +1,43 @@
 import { useEffect, useReducer } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { useNavigate } from "react-router-dom"
 import { ethers } from "ethers"
+import type { PledgeType } from "../../types"
 import { CIRCLE_ANIMATION_DURATION, PAGE_FADE_IN_DURATION, PAGE_FADE_OUT_DURATION } from "../../constants"
 import { ActionButton, ModalBackdrop, Loading, Nav, PledgeList, UserBalance } from "../../components"
 import { DepositModal, PledgeModal, WithdrawModal } from "./components"
 import { DepositSVG, WithdrawSVG, PledgeSVG } from "../../svgs"
-import { UIReducer, initialState } from "../../reducers/UIReducer"
-import { PledgeType } from "../../types"
-import { usePethreon } from "../../hooks"
+import { UIReducer, initialState } from "./reducers/UIReducer"
 
 import styles from "./Contribute.module.scss"
+import { useP } from "../../hooks/useP"
 
 export const Contribute = () => {
-  const [{ loading, balance, pledges, modal }, dispatch] = useReducer(UIReducer, initialState)
-  const contract = usePethreon()
-  const navigate = useNavigate()
+  const [{ balance, loading, pledges, modal }, dispatch] = useReducer(UIReducer, initialState)
+  const contract = useP()
 
   useEffect(() => {
-    localStorage.setItem("last_page_visited", "contribute")
-
-    async function init() {
+    localStorage.setItem("last_page_visited", "contribute");
+    (async () => {
       if (!contract) return
+
       try {
         const [balanceInWei, pledges] = await Promise.all([
           contract.getContributorBalanceInWei(),
           contract.getContributorPledges(),
         ])
 
-        const balance = await ethers.utils.formatEther(balanceInWei).toString();
+        const balance = await ethers.formatEther(balanceInWei).toString();
         dispatch({ type: "setUI", payload: { balance, pledges } })
-
       } catch (error) {
-        throw new Error(error as any)
+        console.error(`Contribute page init error: ${error}`)
       }
-    }
-
-    init()
-  }, [contract, navigate])
+    })()
+  }, [contract])
 
   const setLoading = (loading: boolean) => {
     dispatch({ type: 'setLoading', payload: loading })
   }
+
   const setNewBalance = (newBalance: string) => {
     dispatch({ type: 'setBalance', payload: newBalance });
   }

@@ -1,10 +1,10 @@
 import { FormEvent, MouseEvent, useState } from "react"
-import { BigNumber, BigNumberish, utils } from "ethers"
+import { ethers } from "ethers"
 import { EtherAmount, Submit } from ".."
 import { DISCLAIMER } from '../../../../messages'
-import { usePethreon } from "../../../../hooks"
 import { DepositSVG } from "../../../../svgs"
 import { Denomination } from "../../../../types"
+import { useP } from "../../../../hooks/useP"
 
 import styles from "./DepositModal.module.scss"
 
@@ -18,7 +18,7 @@ export const DepositModal = ({ closeModal, setLoading, setNewBalance }: DepositP
   const [depositAmount, setDepositAmount] = useState("")
   const [denomination, setDenomination] = useState<Denomination>("Ether")
   const [consent, setConsent] = useState(false)
-  const contract = usePethreon()
+  const contract = useP()
 
   async function submitDeposit(event: FormEvent<HTMLButtonElement>) {
     event.preventDefault()
@@ -32,14 +32,19 @@ export const DepositModal = ({ closeModal, setLoading, setNewBalance }: DepositP
     setLoading(true)
 
     try {
-      const transaction = await contract.deposit({ value: amountInWei })
-      const receipt = await transaction.wait()
+      const deposit = await contract.deposit({ value: amountInWei })
+      const receipt = await deposit.wait()
+      if (!receipt) throw new Error("Receipt not found")
 
-      if (!receipt.events) throw new Error("Transaction Events not found")
-      if (!receipt.events[0].args) throw new Error("Transaction Event args not found")
+      const logs = receipt.logs;
+      if (!logs || logs.length === 0) throw new Error("Transaction Events not found");
 
-      const newBalanceInWei = receipt.events[0].args.newBalance
-      const newBalanceInEther = await utils.formatEther(newBalanceInWei)
+      // Retrieve newBalance from topics
+      // topics[0] is the keccak256 hash of the event signature for identifying the event type
+      const newBalance = receipt.logs[0].topics[1]
+      if (!newBalance) throw new Error("Transaction Event newBalance not found")
+
+      const newBalanceInEther = await ethers.formatEther(newBalance)
       const newBalanceInEtherString = await newBalanceInEther.toString()
       setNewBalance(newBalanceInEtherString)
 
@@ -95,12 +100,12 @@ export const DepositModal = ({ closeModal, setLoading, setNewBalance }: DepositP
   );
 }
 
-function formatAmountToWei(amount: string, currency: Denomination): BigNumberish {
-  let amountInWei: BigNumberish;
+function formatAmountToWei(amount: string, currency: Denomination) {
+  let amountInWei: bigint;
 
-  if (currency === "Ether") amountInWei = utils.parseUnits(amount, "ether")
-  else if (currency === "Gwei") amountInWei = utils.parseUnits(amount, "gwei")
-  else amountInWei = BigNumber.from(Math.floor(+amount))
+  if (currency === "Ether") amountInWei = ethers.parseUnits(amount, "ether")
+  else if (currency === "Gwei") amountInWei = ethers.parseUnits(amount, "gwei")
+  else amountInWei = BigInt(Math.floor(+amount))
 
   return amountInWei
 }
