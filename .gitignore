@@ -14,4 +14,13 @@ artifacts
 typechain
 typechain-types
 
+# Hardhat Ignition writes a deployment journal and a full solc build-info blob
+# per chain. Local dev chains (1337/31337) are recreated by `npx hardhat node`
+# every time, so their records are throwaway -- one was 6.3MB of committed
+# noise. Real testnet/mainnet deployments ARE worth committing, so those are
+# re-included below.
+ignition/deployments/chain-*
+!ignition/deployments/chain-11155111/
+!ignition/deployments/chain-1/
+
 **/.DS_Store
