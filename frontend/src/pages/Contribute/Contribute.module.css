@@ -1,0 +1,132 @@
+.nav {
+  font-size: var(--font-size-lg);
+  color: var(--background-color);
+  background-color: var(--secondary-color);
+  font-weight: 800;
+
+  &:hover {
+    background-color: var(--secondary-dark-color);
+  }
+}
+
+.layout {
+  display: grid;
+  grid-template-rows: 1fr 1fr 5fr;
+  row-gap: 20px;
+  height: 55vh;
+  margin-top: 18vh; /* 15 for the nav + 3 for margin */
+  margin-inline: clamp(23px, 9vw, 80px);
+}
+
+.balance {
+  font-size: var(--font-size-xl);
+  height: fit-content;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-around;
+}
+
+.actionButton {
+  font-size: calc(var(--font-size-sm) + 1px);
+  font-weight: 800;
+
+  color: var(--background-color);
+  background-color: var(--secondary-dark-color);
+
+  &:hover {
+    background-color: var(--secondary-very-dark-color);
+  }
+}
+
+.noPledgesText {
+  font-family: Cutesy;
+  font-size: var(--font-size-xl);
+  width: 15ch;
+}
+
+/* TABLET DESIGN */
+@media (min-width: 700px) and (max-width: 1024px) {
+  .balance {
+    font-size: var(--font-size-xxl);
+  }
+  .nav {
+    font-size: var(--font-size-xl);
+  }
+
+  .actionButton {
+    font-size: var(--font-size-md);
+  }
+
+  .noPledgesText {
+    font-size: var(--font-size-xxl);
+  }
+}
+
+/* DESKTOP DESIGN */
+@media (min-width: 1024px) and (orientation: landscape) {
+  .nav {
+    left: 80vw;
+    width: 20vw;
+  }
+
+  .layout {
+    display: grid;
+    grid-template:
+      "balance balance"
+      ". actions"
+      ". pledges"
+      ".  ."
+      / 1fr 1.5fr;
+
+    grid-template-rows: max-content max-content 1fr 0.1fr;
+    row-gap: 2em;
+
+    /* nav is 18vh */
+    min-height: 82vh;
+    margin-inline: 0;
+  }
+
+  .balance {
+    grid-area: balance;
+    margin-left: 3vw;
+
+    height: 100%;
+  }
+
+  .actions {
+    grid-area: actions;
+    place-self: end center;
+  }
+
+  .actionButton {
+    width: unset;
+    margin-right: 2vw;
+  }
+
+  .pledges {
+    grid-area: pledges;
+    place-self: start center;
+    width: 80%;
+    height: 100%;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .nav {
+    color: var(--text-color-white);
+    background-color: var(--secondary-color);
+    &:hover {
+      background-color: var(--secondary-dark-color);
+    }
+  }
+
+  .actionButton {
+    color: var(--text-color-white);
+    background-color: var(--secondary-color);
+    &:hover {
+      background-color: var(--secondary-dark-color);
+    }
+  }
+}

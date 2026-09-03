@@ -1,0 +1,58 @@
+.circleB {
+  position: fixed;
+  border-radius: 50%;
+
+  --background-color-login: var(--primary-very-light-color);
+  --background-color-contribute: var(--primary-light-color);
+  --background-color-create: var(--secondary-dark-color);
+
+  --x-login: 25vw;
+  --y-login: 80vh;
+  --width-login: 45vh;
+  --height-login: 45vh;
+
+  --x-contribute: 59vw;
+  --y-contribute: 65vh;
+  --width-contribute: 25vw;
+  --height-contribute: 25vw;
+
+  --x-create: 16vw;
+  --y-create: 70vh;
+  --width-create: 15vw;
+  --height-create: 15vw;
+}
+
+@media (min-width: 500px) and (max-width: 1025px) {
+  .circleB {
+    --y-contribute: 60vh;
+    --y-create: 76vh;
+  }
+}
+
+/* Desktop Styles */
+@media (min-width: 1025px) and (orientation: landscape) {
+  .circleB {
+    --x-login: 50vw;
+    --y-login: 85vh;
+    --width-login: 300px;
+    --height-login: 300px;
+
+    --x-contribute: 22vw;
+    --y-contribute: 26vh;
+    --width-contribute: 25vh;
+    --height-contribute: 25vh;
+
+    --x-create: 9vw;
+    --y-create: 51vh;
+    --width-create: 12vh;
+    --height-create: 12vh;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .circleB {
+    --background-color-login: var(--primary-dark-color);
+    --background-color-contribute: var(--primary-light-color);
+    --background-color-create: var(--secondary-dark-color);
+  }
+}

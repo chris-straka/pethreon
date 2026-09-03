@@ -1,0 +1,109 @@
+.loginLayout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-inline: max(1.5em, 6vw);
+}
+
+.pethreon {
+  font: 300 var(--font-size-xxxl) Arial, Helvetica, sans-serif;
+  margin-block: max(16px, 2vh);
+}
+
+.features {
+  font-size: var(--font-size-base);
+}
+
+.typewriter {
+  font-size: var(--font-size-xl);
+  font-family: Cutesy;
+  text-align: center;
+
+  /* I have to use height for stuff to scroll properly */
+  height: clamp(120px, 13vh, 180px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.loginContainer {
+  display: grid;
+  grid-template-columns: 35% 65%;
+  place-items: center;
+}
+
+.loginButton {
+  font-size: var(--font-size-md);
+  font-weight: 800;
+  margin-left: 1em;
+}
+
+footer {
+  font-size: var(--font-size-base);
+  margin: auto 0 20px auto;
+  padding-top: 35px;
+}
+
+video {
+  display: none;
+}
+
+/* TABLET DESIGN */
+@media (min-width: 700px) and (max-width: 1024px) {
+  .features {
+    font-size: var(--font-size-lg);
+  }
+
+  .typewriter {
+    font-size: var(--font-size-xxl);
+  }
+
+  .loginContainer {
+    width: 70%;
+    margin-inline: auto;
+  }
+
+  footer {
+    font-size: var(--font-size-md);
+  }
+}
+
+/* DESKTOP DESIGN */
+@media (min-width: 1025px) and (orientation: landscape) {
+  .loginLayout {
+    display: grid;
+    grid:
+      [Pethreon-row-start] "LoginContent Video" [Pethreon-row-end]
+      [Features-row-start] "LoginContent Video" [Features-row-end]
+      [Message-row-start] "LoginContent Video" [Message-row-end]
+      [Login-row-start] "LoginContent Video" [Login-row-end]
+      [Footer-row-start] "LoginContent Footer" [Footer-row-end];
+    padding-inline: 0;
+  }
+
+  .loginContent {
+    grid-area: LoginContent;
+    margin-left: max(32px, 3vw);
+    width: 40vw;
+    justify-content: space-between;
+  }
+
+  .typewriter {
+    height: clamp(180px, 19vh, 280px);
+  }
+
+  footer {
+    grid-area: Footer;
+    place-self: end;
+    padding: unset;
+    margin-right: 5%;
+  }
+
+  video {
+    grid-area: Video;
+    place-self: center;
+    display: block;
+    border-radius: 0.6em;
+    aspect-ratio: 256 / 135;
+    width: 90%;
+  }
+}

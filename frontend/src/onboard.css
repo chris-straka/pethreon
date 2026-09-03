@@ -1,8 +1,8 @@
 :root {
-  // minus 16px because that's how much margin they included on the web3 account center
+  /* minus 16px because that's how much margin they included on the web3 account center */
   --account-center-position-left: clamp(30px - 16px, 4vw - 16px, 64px - 16px);
 
-  // make it further down from the top
+  /* make it further down from the top */
   --account-center-position-top: 6px;
 }
 

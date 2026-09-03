@@ -5,13 +5,15 @@
   margin: 0 auto 16px auto;
   font-size: 16px;
   border-radius: 4px;
+}
 
-  &__details {
-    flex: 2;
-    overflow: auto;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
+/* Native CSS nesting can't concatenate selector names the way Sass's &__ did,
+   so the BEM children are written out in full. */
+.pledge__details {
+  flex: 2;
+  overflow: auto;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .cancelButton {
