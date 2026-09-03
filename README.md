@@ -10,7 +10,11 @@ For information on how to run this locally, please see [docs/CONTRIBUTING.md](ht
 
 Backend uses [Solidity](https://docs.soliditylang.org/), [Hardhat](https://hardhat.org/), [Typechain](https://github.com/dethcrypto/TypeChain), [Infura](https://infura.io/).
 
-Frontend uses [React](https://reactjs.org/), [Ethers](https://docs.ethers.io/v5/), [Framer-motion](https://www.framer.com/motion/), [Typescript](https://www.typescriptlang.org/), [OnboardJS](https://onboard.blocknative.com/), [Vite](https://vitejs.dev/), [Vitest](https://vitest.dev/), [ESlint](https://eslint.org/)
+Frontend uses [React](https://react.dev/), [Ethers](https://docs.ethers.org/v6/), [Motion](https://motion.dev/) (formerly Framer Motion), [Typescript](https://www.typescriptlang.org/), [OnboardJS](https://onboard.blocknative.com/), [Vite](https://vite.dev/), [Vitest](https://vitest.dev/), [ESlint](https://eslint.org/).
+
+Styling is plain CSS — CSS Modules with native nesting and custom properties, no preprocessor.
+
+The repo pins Node 24 LTS via [mise](https://mise.jdx.dev/) (`.mise.toml`).
 
 The frontend was made with [these design mockups](https://www.figma.com/file/dwPfF2lhw84J4PZdZTIQvL/Pethreon?node-id=0%3A1).
 
