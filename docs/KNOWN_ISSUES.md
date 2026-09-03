@@ -5,7 +5,7 @@ recorded so they aren't rediscovered, not because the deployed Sepolia instance 
 
 ---
 
-## 1. `cancelPledge` corrupts unrelated pledges — CONFIRMED, HIGH
+## 1. `cancelPledge` corrupts unrelated pledges — FIXED
 
 `cancelPledge(address)` never checks that the caller actually has a pledge to that
 creator. Both delete helpers call `pledges.pop()` **outside** the loop that searches for
@@ -38,12 +38,16 @@ an empty array (panic `0x31`) when the creator has no pledges at all, and an ari
 underflow on `pledge.periodExpires - currentPeriod()` once `currentPeriod() > 0`. Neither
 is a real guard — the corruption above happens within the first period after deployment.
 
-**Fix:** have the helpers return a "found" flag and `require` it, and only `pop()` on a
-match:
+**Fixed.** Both helpers now return a `found` flag, `pop()` only on a match, and
+`cancelPledge` requires it:
 
 ```solidity
 require(found, "No active pledge to that creator");
 ```
+
+An already-expired pledge now reverts with an explicit
+`"That pledge has already expired"` rather than by arithmetic underflow.
+Covered by `test/pledge_cancellation_guards.test.ts`.
 
 ---
 
@@ -60,10 +64,9 @@ enough eventually can't: the loop exceeds the block gas limit and their funds ar
 
 ---
 
-## 3. `console.sol` ships in the deployed contract — LOW
+## 3. `console.sol` ships in the deployed contract — FIXED
 
-`import "hardhat/console.sol";` is still at the top of `Pethreon.sol`. It inflates the
-deployed bytecode and gas cost. Remove it before any real deployment.
+**Fixed.** The import is gone; deployed bytecode dropped from 6,279 to 5,940 bytes.
 
 ---
 

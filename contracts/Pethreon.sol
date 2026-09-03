@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity ^0.8.30;
 
-import "hardhat/console.sol";
-
 contract Pethreon {
     event ContributorDeposited(
         uint256 indexed newBalance
@@ -209,64 +207,90 @@ contract Pethreon {
     // This can get expensive but I doubt it will happen very often
     // I should come up with a better way to do this
     function cancelPledge(address _creatorAddress) public {
-        Pledge memory pledge = deletePledgeForContributor(_creatorAddress); // (re-entrancy)
+        (Pledge memory pledge, bool found) = deletePledgeForContributor(
+            _creatorAddress
+        ); // (re-entrancy)
+
+        // Without this the helper popped the array even when nothing matched,
+        // destroying an unrelated pledge and stranding its escrowed funds.
+        require(found, "No active pledge to that creator");
+
+        uint256 _currentPeriod = currentPeriod();
+
+        // Previously this reverted by arithmetic underflow further down.
+        require(
+            pledge.periodExpires > _currentPeriod,
+            "That pledge has already expired"
+        );
 
         for (
-            uint256 _period = currentPeriod(); // grab the current period
+            uint256 _period = _currentPeriod; // grab the current period
             _period < pledge.periodExpires; // grab the period when it's supposed to expire
             _period++ // keep going until we reached the period when it's supposed to expire
         ) {
             expectedPayments[_creatorAddress][_period] -= pledge.weiPerPeriod;
         }
 
-        Pledge memory cancelledPledge = deletePledgeForCreator(_creatorAddress);
-        cancelledPledge.periodExpires = currentPeriod();
+        (Pledge memory cancelledPledge, bool creatorFound) = deletePledgeForCreator(
+            _creatorAddress
+        );
+        require(creatorFound, "Pledge missing from the creator's list");
+
+        cancelledPledge.periodExpires = _currentPeriod;
         cancelledPledge.status = Status.CANCELLED;
 
         creatorExpiredPledges[_creatorAddress].push(cancelledPledge);
 
         contributorBalances[msg.sender] +=
             pledge.weiPerPeriod *
-            (pledge.periodExpires - currentPeriod());
+            (pledge.periodExpires - _currentPeriod);
 
-        emit PledgeCancelled(currentPeriod(), _creatorAddress, msg.sender);
+        emit PledgeCancelled(_currentPeriod, _creatorAddress, msg.sender);
     }
 
+    /// @return pledge the removed pledge, zeroed when `found` is false
+    /// @return found whether a pledge to `_creatorAddress` actually existed
     function deletePledgeForContributor(address _creatorAddress)
         internal
-        returns (Pledge memory)
+        returns (Pledge memory pledge, bool found)
     {
         Pledge[] storage pledges = contributorPledges[msg.sender];
-        Pledge memory pledge;
 
         for (uint256 i = 0; i < pledges.length; i++) {
             if (pledges[i].creatorAddress == _creatorAddress) {
                 pledge = pledges[i];
                 pledges[i] = pledges[pledges.length - 1];
                 pledges[pledges.length - 1] = pledge;
+                found = true;
+                break; // at most one active pledge per creator
             }
         }
 
-        pledges.pop(); // remove the pledge we want to cancel from the contributor's mapping (early removal prevents re-entrancy)
-        return pledge;
+        // Only pop on a match. Popping unconditionally removed whichever
+        // pledge happened to be last.
+        if (found) pledges.pop(); // early removal prevents re-entrancy
+        return (pledge, found);
     }
 
+    /// @return deletedPledge the removed pledge, zeroed when `found` is false
+    /// @return found whether this contributor had a pledge to `_creatorAddress`
     function deletePledgeForCreator(address _creatorAddress)
         internal
-        returns (Pledge memory deletedPledge)
+        returns (Pledge memory deletedPledge, bool found)
     {
         Pledge[] storage pledges = creatorActivePledges[_creatorAddress];
-        Pledge memory pledge;
 
         for (uint256 i = 0; i < pledges.length; i++) {
             if (pledges[i].contributorAddress == msg.sender) {
-                pledge = pledges[i];
+                deletedPledge = pledges[i];
                 pledges[i] = pledges[pledges.length - 1];
-                pledges[pledges.length - 1] = pledge;
+                pledges[pledges.length - 1] = deletedPledge;
+                found = true;
+                break;
             }
         }
 
-        pledges.pop();
-        return pledge;
+        if (found) pledges.pop();
+        return (deletedPledge, found);
     }
 }
