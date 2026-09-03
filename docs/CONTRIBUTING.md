@@ -10,9 +10,11 @@ You only need one (see .env.example) to deploy to Sepolia.
 Hardhat uses npm but the frontend uses [pnpm](https://pnpm.io/), so install it
 (`corepack enable pnpm` is the easiest route).
 
-The repo pins **Node 24 LTS** in `.mise.toml`. With [mise](https://mise.jdx.dev/)
-installed, run `mise trust && mise install` once. Node 25 is odd-numbered and
-non-LTS: Hardhat warns on it and Vitest 5 refuses to run.
+The repo pins **Node 24 LTS** in `.mise.toml` (and `.node-version`, which is
+what CI and nvm/fnm read -- keep the two in sync). With
+[mise](https://mise.jdx.dev/) installed, run `mise trust && mise install` once.
+Node 25 is odd-numbered and non-LTS: Hardhat warns on it and Vitest 5 refuses
+to run.
 
 `npm run verify` runs everything — contract build and tests, frontend lint,
 typecheck, tests, and build.

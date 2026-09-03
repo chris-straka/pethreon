@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# A newer push to the same branch supersedes an in-flight run.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  contracts:
+    name: Contracts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      # --ignore-scripts skips the postinstall, which would compile and then
+      # recurse into the frontend install; this job only needs Hardhat.
+      - run: npm ci --ignore-scripts
+
+      # No .env in CI, which is the point: compiling and testing must not
+      # require the deploy credentials.
+      - run: npx hardhat compile
+      - run: npx hardhat test
+
+  frontend:
+    name: Frontend
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+          cache-dependency-path: frontend/pnpm-lock.yaml
+
+      # The frontend typechecks against generated contract bindings, so the
+      # contracts have to be compiled first.
+      - name: Install root deps and generate typechain bindings
+        working-directory: .
+        run: |
+          npm ci --ignore-scripts
+          npx hardhat compile
+
+      - run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm build

@@ -1,5 +1,7 @@
-# Node 25 is an odd-numbered, non-LTS release: Hardhat warns on it and Vitest 5
-# excludes it (it supports ^22.12 || ^24 || >=26). Pin this project to Node 24 LTS.
-# This is project-scoped and does not affect the global mise config.
+# Node 25 is odd-numbered and non-LTS: Hardhat warns on it and Vitest 5 excludes
+# it (it supports ^22.12 || ^24 || >=26). Pin this project to Node 24 LTS.
+#
+# Keep this in sync with .node-version, which is what CI reads -- mise only
+# honours idiomatic version files when explicitly enabled, so both exist.
 [tools]
 node = "24"
