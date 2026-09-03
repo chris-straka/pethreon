@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { Location } from "react-router-dom"
-import { motion, useAnimationControls } from "framer-motion"
+import { motion, useAnimationControls } from "motion/react"
 import { CIRCLE_ANIMATION_DURATION, PAGE_FADE_IN_DURATION, PAGE_FADE_OUT_DURATION } from "../../constants"
 
 interface PethreonProps {

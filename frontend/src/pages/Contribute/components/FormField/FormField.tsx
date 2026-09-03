@@ -1,6 +1,6 @@
 import { ChangeEvent } from 'react';
 
-import styles from "./FormField.module.scss"
+import styles from "./FormField.module.css"
 
 interface FormFieldProps {
   className: string,

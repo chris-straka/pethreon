@@ -6,7 +6,7 @@ import { DISCLAIMER } from '../../../../messages'
 import { DepositSVG } from "../../../../svgs"
 import { Denomination } from "../../../../types"
 
-import styles from "./DepositModal.module.scss"
+import styles from "./DepositModal.module.css"
 
 interface DepositProps {
   closeModal: (() => void),
@@ -37,19 +37,7 @@ export const DepositModal = ({ closeModal, setLoading, setNewBalance }: DepositP
       if (!receipt) throw new Error("Receipt not found")
 
       if (!receipt.logs || receipt.logs.length === 0) {
-        setLoading(false)
-        console.error("Deposit logs not found")
-        console.log("receipt", receipt)
-        console.log("receipt.logs", receipt.logs)
-        console.log("receipt.logs.length", receipt.logs.length)
-
-        const transaction = receipt.getTransaction()
-        console.log("transaction", transaction)
-
-        const result = receipt.getResult()
-        console.log("result", result)
-
-        throw new Error("Transaction Events not found");
+        throw new Error("Transaction Events not found")
       }
 
       // Retrieve newBalance from topics
@@ -57,11 +45,8 @@ export const DepositModal = ({ closeModal, setLoading, setNewBalance }: DepositP
       const newBalance = receipt.logs[0].topics[1]
       if (!newBalance) throw new Error("Transaction Event newBalance not found")
 
-      const newBalanceInEther = await ethers.formatEther(newBalance)
-      const newBalanceInEtherString = await newBalanceInEther.toString()
-
       setLoading(false)
-      setNewBalance(newBalanceInEtherString)
+      setNewBalance(ethers.formatEther(newBalance))
     } catch (error) {
       setLoading(false)
       console.error(error)
@@ -108,8 +93,7 @@ export const DepositModal = ({ closeModal, setLoading, setNewBalance }: DepositP
         onClick={submitDeposit}
         svg={<DepositSVG className={styles.svg} />}
         disabled={!consent}
-        children="Deposit"
-      />
+      >Deposit</Submit>
 
     </form>
   );

@@ -1,8 +1,8 @@
 import { ReactNode } from "react"
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import { useCloseModalOnEscape } from "../../hooks"
 
-import styles from "./ModalBackdrop.module.scss"
+import styles from "./ModalBackdrop.module.css"
 
 interface ModalProps {
   closeModal: (() => void),

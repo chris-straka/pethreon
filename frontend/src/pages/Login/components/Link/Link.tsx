@@ -1,5 +1,5 @@
 import { ReactNode, MouseEventHandler, CSSProperties } from "react"
-import styles from "./Link.module.scss"
+import styles from "./Link.module.css"
 
 interface LinkProps {
   href: string,

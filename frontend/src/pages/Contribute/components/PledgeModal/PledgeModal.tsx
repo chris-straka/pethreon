@@ -5,7 +5,7 @@ import { usePethreon } from "../../../../hooks/usePethreon"
 import { DateSVG, PersonSVG, PledgeSVG } from "../../../../svgs"
 import { Denomination, Pethreon, PledgeType } from "../../../../types"
 
-import styles from "./PledgeModal.module.scss"
+import styles from "./PledgeModal.module.css"
 
 interface PledgeProps {
   closeModal: (() => void),
@@ -26,8 +26,11 @@ export const PledgeModal = (
     event.preventDefault()
     if (!contract) return window.alert("Contract not yet ready")
 
-    address.trim()
-    validateInputs(denomination, amountPerPeriod, address, period)
+    // `address.trim()` used to be called and thrown away (strings are immutable),
+    // and validateInputs' result was ignored, so bad input still hit the chain.
+    const trimmedAddress = address.trim()
+    const validationError = validateInputs(denomination, amountPerPeriod, trimmedAddress, period)
+    if (validationError) return window.alert(validationError)
 
     const amountPerPeriodInWei = await formatAmountToWei(denomination, amountPerPeriod, contract, period)
 
@@ -41,15 +44,14 @@ export const PledgeModal = (
     setLoading(true)
 
     try {
-      await contract.createPledge(address, amountPerPeriodInWei, period)
+      await contract.createPledge(trimmedAddress, amountPerPeriodInWei, period)
 
-      const newBalance = await contract.getContributorBalanceInWei()
-      const newBalanceEther = await ethers.formatEther(newBalance)
-      const newBalanceEtherString = await newBalanceEther.toString()
+      const [newBalance, newPledges] = await Promise.all([
+        contract.getContributorBalanceInWei(),
+        contract.getContributorPledges(),
+      ])
 
-      const newPledges = await contract.getContributorPledges()
-
-      setNewBalanceAndPledges(newBalanceEtherString, newPledges)
+      setNewBalanceAndPledges(ethers.formatEther(newBalance), newPledges)
 
     } catch (error) {
       setLoading(false)
@@ -100,19 +102,23 @@ export const PledgeModal = (
   )
 }
 
+/** Returns an error message, or null when the inputs are usable. */
 function validateInputs(
   currency: Denomination,
   amountPerPeriod: string,
   address: string,
   period: string
-) {
-  if (!amountPerPeriod && currency !== "All") return window.alert("Please enter a pledge amount")
-  if (!address) return window.alert("Please enter a destination address")
-  if (!period) return window.alert("Please set a pledge duration")
-  if (+period >= 36525) return window.alert("This pledge would last over 100 years, please pick something smaller")
+): string | null {
+  if (!amountPerPeriod && currency !== "All") return "Please enter a pledge amount"
+  if (currency !== "All" && +amountPerPeriod <= 0) return "Please enter a pledge amount greater than zero"
+  if (!address) return "Please enter a destination address"
+  if (!period) return "Please set a pledge duration"
+  if (!Number.isInteger(+period) || +period <= 0) return "The duration must be a whole number of days"
+  if (+period >= 36525) return "This pledge would last over 100 years, please pick something smaller"
 
-  if (address.indexOf(" ") >= 0) return window.alert("There is a space in the ethereum address")
-  if (address.length !== 42) return window.alert(`Your ethereum address is ${address.length} characters long. It should be 42 characters long`)
+  // ethers validates the checksum too, which the old length check missed
+  if (!ethers.isAddress(address)) return `"${address}" is not a valid ethereum address`
+  return null
 }
 
 async function formatAmountToWei(currency: Denomination, amountPerPeriod: string, contract: Pethreon, period: string) {
@@ -128,10 +134,13 @@ async function formatAmountToWei(currency: Denomination, amountPerPeriod: string
     case "Wei":
       amountPerPeriodInWei = BigInt(amountPerPeriod)
       break
-    case "All":
+    case "All": {
+      // Integer division on bigint keeps full precision; the old
+      // Number(fullBalance) conversion lost it on large balances.
       const fullBalance = await contract.getContributorBalanceInWei()
-      let fullBalancePerPeriod = (Number(fullBalance) / +period)
-      amountPerPeriodInWei = BigInt(fullBalancePerPeriod)
+      amountPerPeriodInWei = fullBalance / BigInt(period)
+      break
+    }
   }
 
   return amountPerPeriodInWei

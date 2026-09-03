@@ -1,6 +1,6 @@
 import { Denomination } from "../../../../types"
 
-import styles from "./EtherDenominationSelect.module.scss"
+import styles from "./EtherDenominationSelect.module.css"
 
 interface EtherDenominationSelectProps {
   options: Denomination[]

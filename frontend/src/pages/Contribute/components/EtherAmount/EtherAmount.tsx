@@ -2,7 +2,7 @@ import { ChangeEvent } from "react"
 import { Denomination } from "../../../../types"
 import { FormField, EtherDenominationSelect } from ".."
 
-import styles from "./EtherAmount.module.scss"
+import styles from "./EtherAmount.module.css"
 
 interface EtherAmountProps {
   etherAmount: string

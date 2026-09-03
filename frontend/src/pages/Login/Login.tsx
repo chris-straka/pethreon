@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { useNavigate } from "react-router-dom"
 import { useConnectWallet } from '@web3-onboard/react'
 import { Features, Footer, LoginButton, Pethreon, Typewriter, Video } from './components'
@@ -11,7 +11,7 @@ import {
   PAGE_FADE_OUT_DURATION
 } from '../../constants'
 
-import styles from "./Login.module.scss"
+import styles from "./Login.module.css"
 
 export const Login = () => {
   const { message, setMessage, talking, setTalking } = useTalkingLogo(false, GREETINGS)
@@ -28,12 +28,11 @@ export const Login = () => {
 
       // Save and navigate
       localStorage.setItem("wallet", JSON.stringify(wallet.label))
-      localStorage.getItem('last_page_visited') === "create" ?
-        navigate("/create") :
-        navigate("/contribute");
+      if (localStorage.getItem('last_page_visited') === "create") navigate("/create")
+      else navigate("/contribute")
     } catch (error) {
       setMessage(LOGIN_ERROR)
-      throw new Error(`Login error: ${error}`)
+      throw new Error("Login error", { cause: error })
     }
   }
 

@@ -1,4 +1,4 @@
-import { Variants } from "framer-motion";
+import { Variants } from "motion/react";
 import { CIRCLE_ANIMATION_DURATION, PAGE_FADE_IN_DURATION, PAGE_FADE_OUT_DURATION } from "../../constants"
 
 // On the login page, circleA will move to these coordinates

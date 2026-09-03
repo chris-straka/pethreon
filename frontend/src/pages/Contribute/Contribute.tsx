@@ -1,15 +1,15 @@
 import { ethers } from "ethers"
-import { AnimatePresence, motion } from "framer-motion"
+import { AnimatePresence, motion } from "motion/react"
 import { useEffect, useReducer } from "react"
 import { ActionButton, ModalBackdrop, Nav, PledgeList, UserBalance } from "../../components"
 import { CIRCLE_ANIMATION_DURATION, PAGE_FADE_IN_DURATION, PAGE_FADE_OUT_DURATION } from "../../constants"
 import { DepositSVG, PledgeSVG, WithdrawSVG } from "../../svgs"
 import type { PledgeType } from "../../types"
 import { DepositModal, PledgeModal, WithdrawModal } from "./components"
-import { UIReducer, initialState } from "./reducers/UIReducer"
+import { UIReducer, initialState } from "../../reducers/UIReducer"
 
 import { usePethreon } from "../../hooks/usePethreon"
-import styles from "./Contribute.module.scss"
+import styles from "./Contribute.module.css"
 
 export const Contribute = () => {
   const [{ balance, isLoading, pledges, modal }, dispatch] = useReducer(UIReducer, initialState)
@@ -26,7 +26,7 @@ export const Contribute = () => {
           contract.getContributorPledges(),
         ])
 
-        const balance = await ethers.formatEther(balanceInWei).toString();
+        const balance = ethers.formatEther(balanceInWei)
         dispatch({ type: "setUI", payload: { balance, pledges } })
       } catch (error) {
         console.error(error)
@@ -79,20 +79,17 @@ export const Contribute = () => {
             className={styles.actionButton}
             onClick={() => dispatch({ type: 'setModal', payload: depositModal })}
             svg={<DepositSVG />}
-            children="Deposit"
-          />
+          >Deposit</ActionButton>
           <ActionButton
             className={styles.actionButton}
             onClick={() => dispatch({ type: 'setModal', payload: withdrawModal })}
             svg={<WithdrawSVG />}
-            children="Withdraw"
-          />
+          >Withdraw</ActionButton>
           <ActionButton
             className={styles.actionButton}
             onClick={() => dispatch({ type: 'setModal', payload: pledgeModal })}
             svg={<PledgeSVG />}
-            children="Pledge"
-          />
+          >Pledge</ActionButton>
         </div>
         <PledgeList
           className={styles.pledges}
@@ -103,7 +100,7 @@ export const Contribute = () => {
         />
       </motion.main>
       <AnimatePresence initial={false} mode="wait">
-        {modal !== null && <ModalBackdrop closeModal={() => dispatch({ type: "closeModal" })} children={modal} />}
+        {modal !== null && <ModalBackdrop closeModal={() => dispatch({ type: "closeModal" })}>{modal}</ModalBackdrop>}
       </AnimatePresence>
     </>
   )

@@ -1,14 +1,14 @@
 import { useEffect } from "react"
 import { useLocation } from "react-router-dom"
-import { motion, MotionStyle, useAnimationControls } from "framer-motion"
+import { motion, MotionStyle, useAnimationControls } from "motion/react"
 import { useWindowSize, usePreferredTheme, usePreferredMotion } from "../../hooks"
 import { variants } from "./Circle.variants"
 
-import circleAStyles from "./scss/CircleA.module.scss"
-import circleBStyles from "./scss/CircleB.module.scss"
-import circleCStyles from "./scss/CircleC.module.scss"
+import circleAStyles from "./css/CircleA.module.css"
+import circleBStyles from "./css/CircleB.module.css"
+import circleCStyles from "./css/CircleC.module.css"
 
-export const defaultStyles: MotionStyle = {
+const defaultStyles: MotionStyle = {
   x: "var(--x-login)",
   y: "var(--y-login)",
   width: "var(--width-login)",
@@ -32,33 +32,35 @@ export const Circles = () => {
   useEffect(() => {
     if (preferredMotion === "reduced") return
 
-    if (path === "/") {
-      async function animate() {
+    // The settle-to-idle calls below run after an await, by which point a quick
+    // navigation may already have unmounted these elements. Starting an
+    // animation on an unmounted control throws, so bail out if that happened.
+    let cancelled = false
+
+    const settle = (...controls: typeof a[]) => {
+      if (cancelled) return
+      for (const control of controls) control.start("idle")
+    }
+
+    const transitions: Record<string, () => Promise<void>> = {
+      "/": async () => {
         await Promise.all([a.start("login"), b.start("login"), c.start("reappear")])
-        a.start("idle")
-        b.start("idle")
-        c.start("idle")
-      }
-      animate()
-    }
-
-    if (path === "/contribute") {
-      async function animate() {
+        settle(a, b, c)
+      },
+      "/contribute": async () => {
         await Promise.all([a.start("contribute"), b.start("contribute"), c.start("disappear")])
-        a.start("idle")
-        b.start("idle")
-      }
-      animate()
+        settle(a, b)
+      },
+      "/create": async () => {
+        await Promise.all([a.start("create"), b.start("create"), c.start("disappear")])
+        settle(a, b)
+      },
     }
 
-    if (path === "/create") {
-      async function animate() {
-        await Promise.all([a.start("create"), b.start("create"), c.start("disappear")])
-        a.start("idle")
-        b.start("idle")
-      }
-      animate()
-    }
+    // An interrupted animation rejects; that's expected, not an error.
+    transitions[path]?.().catch(() => { })
+
+    return () => { cancelled = true }
   }, [a, b, c, path, height, width, preferredTheme, preferredMotion])
 
   return (

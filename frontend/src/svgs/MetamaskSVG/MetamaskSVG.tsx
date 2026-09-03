@@ -1,4 +1,4 @@
-import "./MetamaskSVG.scss"
+import "./MetamaskSVG.css"
 
 interface MetamaskSVGProps {
   talking: boolean,

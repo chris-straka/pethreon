@@ -1,25 +1,5 @@
-import { useState, useEffect } from "react"
+import { useMediaQuery } from "./useMediaQuery"
 
-export const usePreferredMotion = () => {
-  const [motion, setMotion] = useState<'reduced' | 'default'>('default')
-
-  useEffect(() => {
-    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const preferredMotion = reducedMotionQuery.matches ? 'reduced' : 'default'
-    setMotion(preferredMotion)
-
-    const handleMediaChange = (event: MediaQueryListEvent) => {
-      const updatedMotion = event.matches ? 'reduced' : 'default'
-      setMotion(updatedMotion)
-    }
-
-    reducedMotionQuery.addEventListener('change', handleMediaChange)
-
-    return () => {
-      reducedMotionQuery.removeEventListener('change', handleMediaChange)
-    }
-
-  }, [])
-
-  return motion
-}
+/** Decorative animation is skipped entirely when this returns "reduced". */
+export const usePreferredMotion = (): 'reduced' | 'default' =>
+  useMediaQuery('(prefers-reduced-motion: reduce)') ? 'reduced' : 'default'

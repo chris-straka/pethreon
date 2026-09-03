@@ -1,7 +1,7 @@
 import { Pethreon as Contract, Pethreon__factory as ContractFactory } from "../typechain-types";
 
 export interface MetamaskError extends Error {
-  data: any,
+  data: unknown,
   code: number,
   message: string
 }

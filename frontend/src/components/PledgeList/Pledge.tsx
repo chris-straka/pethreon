@@ -3,7 +3,7 @@ import { usePethreon } from "../../hooks"
 import { TrashSVG } from "../../svgs"
 import { PledgeType } from "../../types"
 
-import styles from "./Pledge.module.scss"
+import styles from "./Pledge.module.css"
 
 interface ContributorPledgeProps {
   pledge: PledgeType,
@@ -23,16 +23,20 @@ export const ContributorPledge = (
   const pledgeEndDate = new Date((Number(dateCreated) + (pledgeDuration * 86400)) * 1000).toDateString()
 
   async function cancelPledge() {
-    setLoading(true)
+    // The guard now runs before setLoading(true); the old order left the
+    // spinner running forever when the contract wasn't ready.
     if (!contract) return window.alert("Contract is not yet ready")
-    try {
-      await contract.cancelPledge(creatorAddress)
-      const newBalance = await contract.getContributorBalanceInWei()
-      const newBalanceEther = await ethers.formatEther(newBalance)
-      const newBalanceEtherString = await newBalanceEther.toString()
 
-      const newPledges = await contract.getContributorPledges()
-      setNewBalanceAndPledges(newBalanceEtherString, newPledges)
+    setLoading(true)
+    try {
+      const transaction = await contract.cancelPledge(creatorAddress)
+      await transaction.wait()
+
+      const [newBalance, newPledges] = await Promise.all([
+        contract.getContributorBalanceInWei(),
+        contract.getContributorPledges(),
+      ])
+      setNewBalanceAndPledges(ethers.formatEther(newBalance), newPledges)
     }
     catch (error) {
       setLoading(false)
@@ -63,7 +67,6 @@ export const ContributorPledge = (
 
 interface CreatorPledgeProps {
   pledge: PledgeType
-  setLoading: ((loading: boolean) => void),
 }
 
 export const CreatorPledge = ({

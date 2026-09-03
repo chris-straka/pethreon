@@ -1,5 +1,5 @@
 import { ReactNode, FormEventHandler, } from "react"
-import styles from "./ActionButton.module.scss"
+import styles from "./ActionButton.module.css"
 
 interface ActionButtonInterface {
   className?: string,

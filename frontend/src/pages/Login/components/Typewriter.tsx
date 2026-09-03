@@ -1,4 +1,4 @@
-import { SetStateAction, useEffect, useState, Dispatch } from "react"
+import { SetStateAction, useEffect, useState, Dispatch, type ReactElement } from "react"
 import { extractLinks } from "../utils/extractLinks"
 
 const CADENCE = 60
@@ -18,11 +18,13 @@ export const Typewriter = ({
   const [init, setInit] = useState(false)
 
   useEffect(() => {
-    let status = { interrupt: false }
+    const status = { interrupt: false }
 
-    message.includes("<a") ?
-      typeMessageWithLinks(status, init, message, setTalking, setDisplayMsg, setInit) :
+    if (message.includes("<a")) {
+      typeMessageWithLinks(status, init, message, setTalking, setDisplayMsg, setInit)
+    } else {
       typeMessage(status, init, message, setTalking, setDisplayMsg, setInit)
+    }
 
     return () => {
       status.interrupt = true
@@ -44,7 +46,7 @@ function typeMessage(
   init: boolean,
   message: string,
   setTalking: Dispatch<SetStateAction<boolean>>,
-  setDisplayMsg: Dispatch<SetStateAction<JSX.Element>>,
+  setDisplayMsg: Dispatch<SetStateAction<ReactElement>>,
   setInit: Dispatch<SetStateAction<boolean>>,
 ) {
   setTimeout(() => {
@@ -83,7 +85,7 @@ function typeMessageWithLinks(
   init: boolean,
   message: string,
   setTalking: Dispatch<SetStateAction<boolean>>,
-  setDisplayMsg: Dispatch<SetStateAction<JSX.Element>>,
+  setDisplayMsg: Dispatch<SetStateAction<ReactElement>>,
   setInit: Dispatch<SetStateAction<boolean>>,
 ) {
   const [messageNoMarkup, links] = extractLinks(message);

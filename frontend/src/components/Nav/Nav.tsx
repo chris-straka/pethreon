@@ -1,8 +1,8 @@
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import { ReactNode } from "react"
 import { Link, To } from "react-router-dom"
 
-import styles from "./Nav.module.scss"
+import styles from "./Nav.module.css"
 
 interface NavProps {
   className: string

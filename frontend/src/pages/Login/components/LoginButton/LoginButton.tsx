@@ -1,4 +1,4 @@
-import styles from "./LoginButton.module.scss"
+import styles from "./LoginButton.module.css"
 
 interface LoginButtonProps {
   onClick: (() => void)

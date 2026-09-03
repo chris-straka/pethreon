@@ -1,10 +1,11 @@
 import { ethers } from "ethers"
-import { motion } from "framer-motion"
-import { useEffect, useReducer } from "react"
+import { motion } from "motion/react"
+import { useCallback, useEffect, useReducer } from "react"
 import { ActionButton, Nav, PledgeList, UserBalance } from "../../components"
 import { usePethreon } from "../../hooks/usePethreon"
 import { CsvSVG, WithdrawSVG } from "../../svgs"
-import { UIReducer, initialState } from "../Create/reducers/UIReducer"
+import { UIReducer, initialState } from "../../reducers/UIReducer"
+import type { MetamaskError, PledgeType } from "../../types"
 import { extractPledgesToCsv } from "./utils"
 
 import {
@@ -13,31 +14,54 @@ import {
   PAGE_FADE_OUT_DURATION
 } from "../../constants"
 
-import styles from "./Create.module.scss"
+import styles from "./Create.module.css"
 
 export const Create = () => {
   const [{ balance, isLoading, pledges }, dispatch] = useReducer(UIReducer, initialState)
   const contract = usePethreon()
 
+  const refresh = useCallback(async () => {
+    if (!contract) return
+
+    const [balanceInWei, pledges] = await Promise.all([
+      contract.getCreatorBalanceInWei(),
+      contract.getCreatorPledges(),
+    ])
+
+    dispatch({
+      type: "setUI",
+      payload: { balance: ethers.formatEther(balanceInWei), pledges }
+    })
+  }, [contract])
+
   useEffect(() => {
     localStorage.setItem("last_page_visited", "create");
-    (async () => {
-      if (!contract) return
+    // Errors are reported, not rethrown: a throw inside this async IIFE only
+    // produced an unhandled rejection that no boundary could catch.
+    refresh().catch(error => console.error("Create page init error:", error))
+  }, [refresh])
 
-      try {
-        const [balanceInWei, pledges] = await Promise.all([
-          contract.getCreatorBalanceInWei(),
-          contract.getCreatorPledges(),
-        ])
+  // Previously `onClick={() => console.log("hey")}` -- the button did nothing.
+  const withdraw = async () => {
+    if (!contract) return window.alert("Contract is not yet ready")
+    if (Number(balance) <= 0) return window.alert("There is nothing to withdraw")
 
-        const balance = await ethers.formatEther(balanceInWei).toString();
-        dispatch({ type: "setUI", payload: { balance, pledges } })
-      } catch (error) {
-        console.error(`Create page init error: ${error}`)
-        throw new Error(error as any)
-      }
-    })()
-  }, [contract])
+    dispatch({ type: "setIsLoading", payload: true })
+    try {
+      const transaction = await contract.creatorWithdraw()
+      await transaction.wait()
+      await refresh()
+    } catch (error) {
+      dispatch({ type: "setIsLoading", payload: false })
+      window.alert(`Error: ${(error as MetamaskError).message ?? error}`)
+    }
+  }
+
+  const setLoading = (loading: boolean) =>
+    dispatch({ type: "setIsLoading", payload: loading })
+
+  const setNewBalanceAndPledges = (balance: string, pledges: PledgeType[]) =>
+    dispatch({ type: "setNewPledgesAndBalance", payload: { balance, pledges } })
 
   return (
     <motion.main
@@ -54,24 +78,24 @@ export const Create = () => {
       <div className={styles.actions}>
         <ActionButton
           className={styles.actionButton}
-          onClick={() => console.log("hey")}
+          onClick={withdraw}
           svg={<WithdrawSVG />}
-          children="Withdraw"
-        />
+        >Withdraw</ActionButton>
         <ActionButton
           className={styles.actionButton}
-          onClick={async () => await extractPledgesToCsv(contract, pledges)}
+          onClick={() => extractPledgesToCsv(contract, pledges).catch(
+            error => window.alert(`Could not build the CSV: ${error}`)
+          )}
           svg={<CsvSVG />}
-          children="Extract to CSV"
-        />
+        >Extract to CSV</ActionButton>
       </div>
       <PledgeList
         creator
         className={styles.pledges}
         noPledgesText={<span className={styles.noPledgesText}>Nobody has pledged to you yet...</span>}
         pledges={pledges}
-        setLoading={() => dispatch({ type: 'setIsLoading', payload: isLoading })}
-        setNewBalanceAndPledges={() => dispatch({ type: 'setNewPledgesAndBalance', payload: { balance, pledges } })}
+        setLoading={setLoading}
+        setNewBalanceAndPledges={setNewBalanceAndPledges}
       />
     </motion.main>
   )

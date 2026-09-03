@@ -5,7 +5,7 @@ import { WithdrawSVG } from "../../../../svgs"
 import { usePethreon } from "../../../../hooks"
 import { EtherAmount, Submit } from ".."
 
-import styles from "./WithdrawModal.module.scss"
+import styles from "./WithdrawModal.module.css"
 
 interface WithdrawProps {
   closeModal: (() => void),
@@ -30,11 +30,10 @@ export const WithdrawModal = ({ closeModal, setLoading, setNewBalance }: Withdra
     setLoading(true)
 
     try {
-      await contract.contributorWithdraw(amountInWei)
+      const transaction = await contract.contributorWithdraw(amountInWei)
+      await transaction.wait()
       const newBalance = await contract.getContributorBalanceInWei()
-      const newBalanceEther = await ethers.formatEther(newBalance)
-      const newBalanceEtherString = await newBalanceEther.toString()
-      setNewBalance(newBalanceEtherString)
+      setNewBalance(ethers.formatEther(newBalance))
     } catch (error) {
       setLoading(false)
       window.alert(`Error: ${(error as MetamaskError).message}`)

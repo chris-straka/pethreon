@@ -2,7 +2,7 @@ import { ReactNode } from "react"
 import { ContributorPledge, CreatorPledge } from "./Pledge"
 import { PledgeType } from "../../types"
 
-import styles from "./PledgeList.module.scss"
+import styles from "./PledgeList.module.css"
 
 interface PledgeListProps {
   className?: string,
@@ -36,7 +36,6 @@ export const PledgeList = ({
           <CreatorPledge
             key={pledge.contributorAddress}
             pledge={pledge}
-            setLoading={setLoading}
           />
         )}
     </ul>
