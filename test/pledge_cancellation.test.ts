@@ -2,7 +2,6 @@ import { ContractFactory, Signer } from 'ethers';
 import { Pethreon } from "../frontend/typechain-types";
 import { ethers, network } from 'hardhat';
 import { expect } from 'chai';
-import "@nomiclabs/hardhat-ethers" // stops the error until I figure it out
 
 describe("Pethreon", () => {
   let PethreonFactory: ContractFactory

@@ -17,12 +17,15 @@
     "fdev": "cd ./frontend && pnpm dev && cd -",
     "flint": "cd ./frontend && pnpm lint && cd -",
     "fbuild": "cd ./frontend && pnpm build && cd -",
-    "fpreview": "cd ./frontend && pnpm preview && cd -"
+    "fpreview": "cd ./frontend && pnpm preview && cd -",
+    "ftest": "cd ./frontend && pnpm test && cd -",
+    "ftypecheck": "cd ./frontend && pnpm typecheck && cd -",
+    "verify": "npm run build && npm test && npm run flint && npm run ftypecheck && npm run ftest && npm run fbuild"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-ignition-ethers": "^0.15.2",
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
-    "dotenv": "^16.4.5",
-    "hardhat": "^2.22.3"
+    "dotenv": "^17.4.2",
+    "hardhat": "^2.29.1"
   }
 }

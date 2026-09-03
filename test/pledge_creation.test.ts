@@ -3,7 +3,6 @@ import { Pethreon } from "../frontend/typechain-types";
 import { PledgeStatus } from "./types"
 import { ethers, network } from 'hardhat';
 import { ContractFactory, Signer } from 'ethers';
-import "@nomiclabs/hardhat-ethers" // stops the hardhat error
 
 describe("Pethreon", () => {
   let PethreonFactory: ContractFactory
