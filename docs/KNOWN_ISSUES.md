@@ -79,15 +79,38 @@ partial-withdrawal and late-cancel exactness cases.
 
 ---
 
-## 4. Missing input validation — LOW
+## 4. Missing input validation — FIXED
 
-`createPledge` doesn't reject `_creatorAddress == address(0)`, `_creatorAddress ==
-msg.sender`, `_weiPerPeriod == 0`, or `_periods == 0`. All validation currently lives in
-the React frontend, which is not a trust boundary.
+`createPledge` didn't reject `_creatorAddress == address(0)`, `_creatorAddress ==
+msg.sender`, `_weiPerPeriod == 0`, or `_periods == 0`. All validation lived in the React
+frontend, which is not a trust boundary.
+
+**Fixed.** `createPledge` now `require`s all four, and the constructor rejects a zero
+period length (which would make `currentPeriod()` divide by zero). Covered by
+`test/pledge_input_validation.test.ts`.
 
 ---
 
-## 5. `period` and `startOfEpoch` should be `immutable` — LOW
+## 5. `period` and `startOfEpoch` should be `immutable` — FIXED
 
-Both are set once in the constructor and never change. Marking them `immutable` removes
-a storage read from every call to `currentPeriod()`.
+**Fixed.** Both are `immutable`, so `currentPeriod()` reads them from bytecode instead
+of storage. Measured with `scripts/gas.ts`: about 3,500 gas less per `creatorWithdraw`
+and 4,700 less per `createPledge`.
+
+---
+
+## 6. Settlement still scales with the number of active pledges — MEDIUM
+
+Item 2 removed the dependence on elapsed time. `_settleCreator` still walks the
+creator's *active* pledges: each one costs about 5,400 gas per withdrawal
+(`scripts/gas.ts`: 68,052 gas with 1 pledge, 331,725 with 50). At a 30M block gas
+limit, a creator with roughly 5,500 simultaneous active pledges could no longer
+withdraw. The pledges don't have to come from real fans: an attacker could open
+1-wei pledges from throwaway addresses. That costs the attacker about 366k gas per
+pledge, so about 2 billion gas to lock one creator out. The attack is expensive
+but possible.
+
+**Fix options:** let a creator settle in bounded batches (a `settle(maxPledges)`
+that keeps a cursor), or bucket rate changes by expiry period and sweep the
+buckets lazily. Either way, set a minimum pledge size so spam costs real money.
+

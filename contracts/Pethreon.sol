@@ -29,10 +29,13 @@ contract Pethreon {
     );
 
     /***** CONSTANTS *****/
-    uint256 period;
-    uint256 public startOfEpoch;
+    // Set once at deployment; immutable keeps them out of storage, so
+    // currentPeriod() costs no SLOAD.
+    uint256 immutable period;
+    uint256 public immutable startOfEpoch;
 
     constructor(uint256 _period) {
+        require(_period > 0, "Period must be positive");
         startOfEpoch = block.timestamp; // 1621619224... contract creation date in Unix Time
         period = _period; // hourly (3600), daily (86400), or weekly (604800)? (seconds)
     }
@@ -200,6 +203,11 @@ contract Pethreon {
         uint256 _weiPerPeriod,
         uint256 _periods
     ) public {
+        // The frontend validates too, but it is not a trust boundary.
+        require(_creatorAddress != address(0), "Creator is the zero address");
+        require(_creatorAddress != msg.sender, "You can't pledge to yourself");
+        require(_weiPerPeriod > 0, "Pledge must be at least 1 wei per period");
+        require(_periods > 0, "Pledge must last at least one period");
         require(
             contributorBalances[msg.sender] >= _weiPerPeriod * _periods,
             "Insufficient funds"
