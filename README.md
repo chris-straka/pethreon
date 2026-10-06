@@ -1,6 +1,63 @@
 # Pethreon
 
-For information on how to run this locally, please see [docs/CONTRIBUTING.md](https://github.com/chris56974/pethreon/blob/main/docs/CONTRIBUTING.md)
+A Patreon-style recurring-payments dapp on Ethereum. Contributors escrow ether
+in a Solidity contract that releases it to a creator one period at a time, and
+any unvested remainder is refunded if they cancel. Creators pull their earnings
+whenever they like. Accounting uses a checkpoint/accumulator, so withdrawal gas
+doesn't grow with elapsed time. There is a React 19 + ethers v6 frontend.
+**Unaudited, testnet only.**
+
+```mermaid
+flowchart LR
+  W[Browser wallet] --> UI["React 19 frontend<br/>ethers v6, TypeChain bindings"]
+  UI -->|JSON-RPC| N["Ethereum node<br/>(Hardhat local / Sepolia)"]
+  N --> C
+  subgraph C["Pethreon.sol"]
+    D["deposit / contributorWithdraw<br/>contributorBalances"] --> P["createPledge / cancelPledge<br/>escrow, refund unvested"]
+    P --> S["_settleCreator<br/>checkpoint + accruedPayments"]
+    S --> X["creatorWithdraw<br/>pull payment"]
+  end
+```
+
+## Build, test, run
+
+```sh
+npm install        # also compiles the contract and installs frontend/ (pnpm)
+npm test           # 24 Hardhat contract tests
+npm run gas        # gas benchmark (scripts/gas.ts)
+npm run verify     # contracts + frontend lint, typecheck, 62 Vitest tests, build
+npm run dev        # local chain; then `npm run deploylh` and `npm run fdev`
+```
+
+See [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) for wallet setup, and
+[docs/LEARN.md](docs/LEARN.md) for a guided tour of the code.
+
+## Results
+
+Measured on `z` (Apple M4 Mini, 10 cores, 16 GB) with `npm run gas` on the
+in-process Hardhat network (Solidity 0.8.30, optimizer 200 runs, cancun),
+2026-10-06. "Before" is commit `bc1c0d9`, which still used per-period payment
+slots.
+
+| Operation | Before | After |
+| --- | ---: | ---: |
+| `createPledge`, 30 periods | 1,019,911 | 365,737 |
+| `createPledge`, 365 periods | 8,549,383 | 365,749 |
+| `creatorWithdraw`, 100 periods idle | 330,723 | 256,559 |
+| `creatorWithdraw`, 5,000 periods idle | 13,732,223 | 256,559 |
+
+- Before: about 22,500 gas per pledged period and 2,735 gas per idle period.
+  At a 30M block gas limit, no pledge could last more than about 1,300
+  periods, and a creator who hadn't withdrawn for about 11,000 periods (30
+  years daily, 15 months hourly) could never withdraw again.
+- After: both costs are flat. The cost now scales with the creator's
+  *active* pledges instead, about 5,400 gas each (68,052 gas with 1, 331,725
+  with 50). See [known issue 6](docs/KNOWN_ISSUES.md).
+  The 256k withdrawal figure includes retiring the matured pledge into the
+  expired list. That is a one-time storage write per pledge.
+- Tests: 24/24 contract tests, 62/62 frontend tests (`npm run verify`).
+
+Known defects and their fixes: [docs/KNOWN_ISSUES.md](docs/KNOWN_ISSUES.md).
 
 ## Overview
 

@@ -12,6 +12,7 @@
     "deploylh": "npx hardhat ignition deploy ignition/modules/Pethreon.ts --network localhost",
     "deploysp": "npx hardhat ignition deploy ignition/modules/Pethreon.ts --network sepolia",
     "test": "npx hardhat test",
+    "gas": "npx hardhat run scripts/gas.ts",
     "node": "npx hardhat node",
     "finstall": "cd ./frontend && pnpm install && cd -",
     "fdev": "cd ./frontend && pnpm dev && cd -",

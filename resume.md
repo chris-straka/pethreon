@@ -2,8 +2,10 @@
 
 Paste the block below into the `projects:` list in the master bullet library.
 
-Facts behind the numbers: 272-line Solidity contract, 27 React components,
-10 contract tests, 62 frontend tests, 429 commits from Mar 2021 to May 2024.
+Facts behind the numbers: 358-line Solidity contract, 27 React components,
+24 contract tests, 62 frontend tests, 429 commits from Mar 2021 to May 2024.
+Gas numbers are from `npm run gas` on z (Apple M4 Mini), 2026-10-06; "before" is
+commit bc1c0d9.
 
 ```yaml
   - id: pethreon
@@ -20,7 +22,7 @@ Facts behind the numbers: 272-line Solidity contract, 27 React components,
         text: "Designed a period-based escrow contract in Solidity that prepays a pledge and releases it across N daily periods, refunding the remainder on cancellation."
       - id: pull-payments
         track: both
-        text: "Inverted subscriptions into a pull model to work around the absence of scheduled execution on-chain, recording per-period entitlements at pledge time."
+        text: "Inverted subscriptions into a pull model to work around the absence of scheduled execution on-chain: pledges escrow up front and creators settle vested periods on withdrawal."
       - id: contract-tests
         track: swe
         text: "Wrote Hardhat and Chai tests for pledge creation, cancellation refunds, and payout accounting, advancing the EVM clock to assert behavior across period boundaries."
@@ -77,13 +79,27 @@ Facts behind the numbers: 272-line Solidity contract, 27 React components,
       # sharper variants
       - id: build-alt
         track: both
-        text: "Built a Patreon-style payment protocol on Ethereum across 429 commits: a 272-line Solidity contract, 10 contract tests, and a 27-component React frontend."
+        text: "Built a Patreon-style payment protocol on Ethereum across 429 commits: a 358-line Solidity contract, 24 contract tests, and a 27-component React frontend."
       - id: escrow-alt
         track: swe
-        text: "Implemented pledge escrow as a per-period entitlement ledger, so cancellation reverses only unelapsed periods without iterating payment history."
+        text: "Implemented pledge escrow with checkpoint/accumulator settlement, so cancellation splits vested and unvested funds exactly without iterating payment history."
       - id: frontend-tests-alt
         track: swe
         text: "Wrote a Vitest and jsdom regression suite as the precondition for a five-major dependency upgrade, catching an unmount crash in the animation code."
+
+      # 2026 contract fixes (measured)
+      - id: cancel-fix
+        track: swe
+        text: "Fixed a cancelPledge state-corruption defect that let any caller destroy other users' pledge records, requiring a matched pledge before removing it and proving the fix with regression tests."
+      - id: constant-time-withdrawal
+        track: swe
+        text: "Replaced per-period payment slots with checkpoint/accumulator settlement, cutting a 365-period pledge from 8.5M to 366k gas and making withdrawal gas flat (13.7M to 257k after 5,000 idle periods)."
+      - id: gas-benchmarks
+        track: swe
+        text: "Benchmarked gas per operation before and after the redesign, showing the old contract capped pledges at ~1,300 periods and stranded funds after ~11,000 idle periods at a 30M block gas limit."
+      - id: ci
+        track: both
+        text: "Added GitHub Actions CI running contract compile and tests plus frontend lint, typecheck, tests, and build."
 
       # TODO — NOT TRUE YET. Never select these.
       - id: mainnet
@@ -92,24 +108,15 @@ Facts behind the numbers: 272-line Solidity contract, 27 React components,
       - id: audit-external
         track: csa
         text: "TODO: Completed a third-party security audit of the smart contract (unaudited)."
-      - id: cancel-fix
+      - id: bounded-settlement
         track: swe
-        text: "TODO: Fixed the cancelPledge state-corruption defect by requiring a matched pledge before popping the array (found and documented, not patched)."
-      - id: constant-time-withdrawal
-        track: swe
-        text: "TODO: Replaced the unbounded withdrawal loop with an O(1) checkpoint accumulator, removing the gas ceiling that can strand a creator's funds."
-      - id: ci
-        track: both
-        text: "TODO: Added GitHub Actions CI running contract tests, lint, typecheck, and build (no CI configured)."
-      - id: gas-benchmarks
-        track: swe
-        text: "TODO: Benchmarked gas per operation and the pledge duration at which withdrawal exceeds the block gas limit (fill in measured numbers)."
+        text: "TODO: Bounded settlement gas in the number of active pledges too (known issue 6; still ~5,400 gas per active pledge)."
 ```
 
 ## Selection notes
 
 Four or five of these is plenty for one résumé. Default set: `build`, `escrow`,
-`pull-payments`, `contract-tests`, `animation`.
+`constant-time-withdrawal`, `pull-payments`, `contract-tests`.
 
 **Non-crypto roles** — drop the chain-specific lines and lead with `animation`,
 `design-system`, `async-state`, `frontend-tests`, `dep-modernization`. Call it a
@@ -125,3 +132,5 @@ finding a real defect in your own code, proving it, and specifying the fix.
 - The contract is **adapted** from [Sergei Tikhomirov's Pethreon](https://github.com/s-tikhomirov/pethreon). Say "adapted and extended," never "authored."
 - It is **unaudited and testnet-only**. Never call it production or say it handles real funds.
 - Live defects are in `docs/KNOWN_ISSUES.md` — read before an interview.
+- The contract was never deployed with the accumulator fix; the gas numbers are
+  from the local Hardhat network, not a live chain.
