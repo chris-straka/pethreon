@@ -59,9 +59,16 @@ contract Pethreon {
 
     mapping(address => Pledge[]) creatorActivePledges;
     mapping(address => Pledge[]) creatorExpiredPledges;
-    mapping(address => uint256) lastWithdrawalPeriod;
 
-    mapping(address => mapping(uint256 => uint256)) expectedPayments; // creatorAddress => (periodNumber => payment)
+    // Checkpoint/accumulator accounting. `lastWithdrawalPeriod` is the last
+    // settled period, `ratePerPeriod` the wei vesting per period across the
+    // creator's active pledges, and `accruedPayments` the settled-but-
+    // unwithdrawn balance. Settling scales with the active-pledge count,
+    // never with elapsed periods, so withdrawal gas stays bounded no matter
+    // how long a creator goes without withdrawing.
+    mapping(address => uint256) lastWithdrawalPeriod;
+    mapping(address => uint256) ratePerPeriod;
+    mapping(address => uint256) accruedPayments;
 
     function currentPeriod() public view returns (uint256 periodNumber) {
         // it rounds down i.e. 9 / 10 -> 0
@@ -69,21 +76,66 @@ contract Pethreon {
     }
 
     function getCreatorBalanceInWei() public view returns (uint256) {
-        uint256 amount = 0;
-        for (
-            uint256 _period = lastWithdrawalPeriod[msg.sender]; // when was the last time they withdrew?
-            _period < currentPeriod(); // keep going until you reach the currentPeriod
-            _period++
-        ) {
-            amount += expectedPayments[msg.sender][_period]; // add up all the payments from every period since their lastWithdrawal
+        uint256 _currentPeriod = currentPeriod();
+        uint256 _checkpoint = lastWithdrawalPeriod[msg.sender];
+        uint256 amount = accruedPayments[msg.sender];
+        if (_currentPeriod <= _checkpoint) {
+            return amount;
+        }
+        // O(active pledges): each pledge vests only up to its expiry.
+        Pledge[] storage pledges = creatorActivePledges[msg.sender];
+        for (uint256 i = 0; i < pledges.length; i++) {
+            uint256 _end = pledges[i].periodExpires < _currentPeriod
+                ? pledges[i].periodExpires
+                : _currentPeriod;
+            if (_end > _checkpoint) {
+                amount += pledges[i].weiPerPeriod * (_end - _checkpoint);
+            }
         }
         return amount;
     }
 
+    /// @dev Credits everything vested up to `currentPeriod()` into
+    /// `accruedPayments`, retires matured pledges from the active list (each
+    /// pledge is moved at most once), and advances the checkpoint. Cost
+    /// scales with the creator's active-pledge count, never with elapsed time.
+    function _settleCreator(address _creatorAddress) internal {
+        uint256 _currentPeriod = currentPeriod();
+        uint256 _checkpoint = lastWithdrawalPeriod[_creatorAddress];
+        if (_currentPeriod <= _checkpoint) {
+            return;
+        }
+        Pledge[] storage pledges = creatorActivePledges[_creatorAddress];
+        uint256 _accrued = accruedPayments[_creatorAddress];
+        uint256 _rate = ratePerPeriod[_creatorAddress];
+        uint256 i = 0;
+        while (i < pledges.length) {
+            uint256 _end = pledges[i].periodExpires < _currentPeriod
+                ? pledges[i].periodExpires
+                : _currentPeriod;
+            if (_end > _checkpoint) {
+                _accrued += pledges[i].weiPerPeriod * (_end - _checkpoint);
+            }
+            if (pledges[i].periodExpires <= _currentPeriod) {
+                _rate -= pledges[i].weiPerPeriod;
+                pledges[i].status = Status.EXPIRED;
+                creatorExpiredPledges[_creatorAddress].push(pledges[i]);
+                pledges[i] = pledges[pledges.length - 1];
+                pledges.pop();
+            } else {
+                i++;
+            }
+        }
+        accruedPayments[_creatorAddress] = _accrued;
+        ratePerPeriod[_creatorAddress] = _rate;
+        lastWithdrawalPeriod[_creatorAddress] = _currentPeriod;
+    }
+
     function creatorWithdraw() public returns (uint256 newBalance) {
-        uint256 amount = getCreatorBalanceInWei(); // add up all their pledges SINCE their last withdrawal period
-        lastWithdrawalPeriod[msg.sender] = currentPeriod(); // set a new withdrawal period (re-entrancy?)
+        _settleCreator(msg.sender); // credit everything vested so far; state is updated before the call below
+        uint256 amount = accruedPayments[msg.sender];
         require(amount > 0, "Nothing to withdraw");
+        accruedPayments[msg.sender] = 0;
         (bool success, ) = payable(msg.sender).call{value: amount}(""); // send them money
         require(success, "withdrawal failed");
         emit CreatorWithdrew(currentPeriod(), msg.sender, amount);
@@ -140,7 +192,9 @@ contract Pethreon {
         return creatorExpiredPledges[msg.sender];
     }
 
-    // This isn't going to scale well if the creator has a lot of people pledging to them
+    // Creator accounting is O(1) in elapsed time via the checkpoint/accumulator
+    // (_settleCreator + ratePerPeriod); only the per-contributor duplicate
+    // check below scales with that contributor's own pledge count.
     function createPledge(
         address _creatorAddress,
         uint256 _weiPerPeriod,
@@ -153,6 +207,11 @@ contract Pethreon {
 
         contributorBalances[msg.sender] -= _weiPerPeriod * _periods; // subtract first to prevent re-entrancy
 
+        // Settle first: credit this creator's vested balance (including any
+        // matured pledge being replaced below) and advance the checkpoint so
+        // the new pledge starts exactly at it.
+        _settleCreator(_creatorAddress);
+
         Pledge[] memory _contributorPledges = contributorPledges[msg.sender];
 
         for (uint256 i = 0; i < _contributorPledges.length; i++) {
@@ -163,24 +222,20 @@ contract Pethreon {
                 );
                 Pledge memory expiredPledge = _contributorPledges[i];
                 expiredPledge.status = Status.EXPIRED;
-                creatorExpiredPledges[_creatorAddress].push(expiredPledge);
                 deletePledgeForContributor(_creatorAddress);
-                deletePledgeForCreator(_creatorAddress);
+                (, bool creatorFound) = deletePledgeForCreator(_creatorAddress);
+                // _settleCreator above already moved matured pledges to the
+                // expired list; only push when the entry is still present.
+                if (creatorFound) {
+                    creatorExpiredPledges[_creatorAddress].push(expiredPledge);
+                }
             }
         }
 
-        // Pledge[] memory _creatorPledges = creatorActivePledges[_creatorAddress];
-
         uint256 _currentPeriod = currentPeriod();
 
-        // Update the CREATOR'S list of future payments
-        for (
-            uint256 _period = _currentPeriod;
-            _period < (_currentPeriod + _periods);
-            _period++
-        ) {
-            expectedPayments[_creatorAddress][_period] += _weiPerPeriod;
-        }
+        // O(1): credit the running rate instead of writing one slot per period.
+        ratePerPeriod[_creatorAddress] += _weiPerPeriod;
 
         Pledge memory pledge = Pledge({
             creatorAddress: _creatorAddress,
@@ -204,8 +259,8 @@ contract Pethreon {
         );
     }
 
-    // This can get expensive but I doubt it will happen very often
-    // I should come up with a better way to do this
+    // Cancellation settles via the checkpoint/accumulator: O(active pledges),
+    // never O(remaining periods).
     function cancelPledge(address _creatorAddress) public {
         (Pledge memory pledge, bool found) = deletePledgeForContributor(
             _creatorAddress
@@ -223,13 +278,12 @@ contract Pethreon {
             "That pledge has already expired"
         );
 
-        for (
-            uint256 _period = _currentPeriod; // grab the current period
-            _period < pledge.periodExpires; // grab the period when it's supposed to expire
-            _period++ // keep going until we reached the period when it's supposed to expire
-        ) {
-            expectedPayments[_creatorAddress][_period] -= pledge.weiPerPeriod;
-        }
+        // Settle vested amounts up to now (including this pledge's share),
+        // then drop this pledge's rate. O(1) in elapsed time: no per-period
+        // writes. The creator copy is still in the active list, so the
+        // settle above credits exactly what it earned.
+        _settleCreator(_creatorAddress);
+        ratePerPeriod[_creatorAddress] -= pledge.weiPerPeriod;
 
         (Pledge memory cancelledPledge, bool creatorFound) = deletePledgeForCreator(
             _creatorAddress

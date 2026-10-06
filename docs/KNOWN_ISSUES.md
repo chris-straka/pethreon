@@ -51,16 +51,25 @@ Covered by `test/pledge_cancellation_guards.test.ts`.
 
 ---
 
-## 2. Unbounded loops make funds unwithdrawable — MEDIUM
+## 2. Unbounded loops make funds unwithdrawable — FIXED
 
-`getCreatorBalanceInWei()` loops from the creator's last withdrawal period to the current
-one, so gas grows linearly with elapsed time. A creator who doesn't withdraw for long
-enough eventually can't: the loop exceeds the block gas limit and their funds are stuck.
-`createPledge` has the same shape over `_periods` (capped only by a client-side check of
-36,525 that anyone bypassing the UI can ignore).
+`getCreatorBalanceInWei()` looped from the creator's last withdrawal period to the current
+one, so gas grew linearly with elapsed time. A creator who didn't withdraw for long
+enough eventually couldn't: the loop exceeded the block gas limit and their funds were stuck.
+`createPledge`/`cancelPledge` had the same shape over per-period `expectedPayments` slots
+(`_periods` capped only by a client-side check of 36,525 that anyone bypassing the UI
+could ignore).
 
-**Fix:** replace the summation with a checkpoint/accumulator — store a running
-`ratePerPeriod` and a `lastCheckpoint`, making withdrawal O(1).
+**Fixed.** Replaced the per-period slots with a checkpoint/accumulator: a running
+`ratePerPeriod` plus `accruedPayments`, settled into by `_settleCreator()` against the
+`lastWithdrawalPeriod` checkpoint. `createPledge`/`cancelPledge`/`creatorWithdraw` all
+settle first and then adjust the rate in O(1); settling itself scans only the creator's
+*active* pledges (each pledge is retired at most once, and every entry required a paid
+transaction to create), so gas is bounded by pledge count and never by elapsed time.
+`getCreatorBalanceInWei()` is the same computation as a view. The `expectedPayments`
+mapping is gone. Covered by `test/pledge_withdrawal_bounds.test.ts`, which withdraws
+after 5,000 elapsed periods for less than 3x the gas of a 3-period withdrawal, plus
+partial-withdrawal and late-cancel exactness cases.
 
 ---
 
